@@ -1,0 +1,25 @@
+From 30aec8035b43d5fd912995ca2e8a756d2c4ec847 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 17 Feb 2018 19:39:38 +0100
+Subject: [PATCH 1/5] Allow deletion of symlink
+
+Change-Id: I9731895f88729072297f753088583aabbe6990f4
+---
+ Ext4Crypt.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Ext4Crypt.cpp b/Ext4Crypt.cpp
+index 67b7e90..99a63b4 100644
+--- a/Ext4Crypt.cpp
++++ b/Ext4Crypt.cpp
+@@ -221,6 +221,7 @@ static bool prepare_dir(const std::string& dir, mode_t mode, uid_t uid, gid_t gi
+ static bool destroy_dir(const std::string& dir) {
+     LOG(DEBUG) << "Destroying: " << dir;
+     if (rmdir(dir.c_str()) != 0 && errno != ENOENT) {
++        if(unlink(dir.c_str()) == 0) return true;
+         PLOG(ERROR) << "Failed to destroy " << dir;
+         return false;
+     }
+-- 
+2.17.1
+

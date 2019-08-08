@@ -1,0 +1,216 @@
+From 4e5380813835b8c896d5514f46f0f26d6481f8af Mon Sep 17 00:00:00 2001
+From: AndyCGYan <GeForce8800Ultra@gmail.com>
+Date: Wed, 5 Jun 2019 07:17:27 +0000
+Subject: [PATCH] [PATCH 12/26] access to /proc/slabinfo
+
+Change-Id: I856fe8038f577543467fe4e9a49c389480887c6f
+---
+ prebuilts/api/28.0/private/app_neverallows.te   |  1 +
+ prebuilts/api/28.0/private/compat/26.0/26.0.cil |  1 +
+ prebuilts/api/28.0/private/compat/27.0/27.0.cil |  2 +-
+ prebuilts/api/28.0/private/genfs_contexts       |  1 +
+ prebuilts/api/28.0/public/dumpstate.te          |  1 +
+ prebuilts/api/28.0/public/file.te               |  1 +
+ prebuilts/api/28.0/public/init.te               | 11 +++++++++++
+ prebuilts/api/28.0/public/shell.te              |  1 +
+ private/app_neverallows.te                      |  1 +
+ private/compat/26.0/26.0.cil                    |  1 +
+ private/compat/27.0/27.0.cil                    |  2 +-
+ public/dumpstate.te                             |  1 +
+ public/init.te                                  | 11 +++++++++++
+ public/shell.te                                 |  1 +
+ 14 files changed, 34 insertions(+), 2 deletions(-)
+
+diff --git a/prebuilts/api/28.0/private/app_neverallows.te b/prebuilts/api/28.0/private/app_neverallows.te
+index 8d9ccd67..804bcada 100644
+--- a/prebuilts/api/28.0/private/app_neverallows.te
++++ b/prebuilts/api/28.0/private/app_neverallows.te
+@@ -125,6 +125,7 @@ neverallow all_untrusted_apps {
+   proc_loadavg
+   proc_mounts
+   proc_pagetypeinfo
++  proc_slabinfo
+   proc_stat
+   proc_swaps
+   proc_uptime
+diff --git a/prebuilts/api/28.0/private/compat/26.0/26.0.cil b/prebuilts/api/28.0/private/compat/26.0/26.0.cil
+index 0478a56b..f05ec59e 100644
+--- a/prebuilts/api/28.0/private/compat/26.0/26.0.cil
++++ b/prebuilts/api/28.0/private/compat/26.0/26.0.cil
+@@ -478,6 +478,7 @@
+     proc_pipe_conf
+     proc_random
+     proc_sched
++    proc_slabinfo
+     proc_swaps
+     proc_uid_time_in_state
+     proc_uid_concurrent_active_time
+diff --git a/prebuilts/api/28.0/private/compat/27.0/27.0.cil b/prebuilts/api/28.0/private/compat/27.0/27.0.cil
+index dbe3e885..9358cb3d 100644
+--- a/prebuilts/api/28.0/private/compat/27.0/27.0.cil
++++ b/prebuilts/api/28.0/private/compat/27.0/27.0.cil
+@@ -452,7 +452,7 @@
+ (expandtypeattribute (preopt2cachename_exec_27_0) true)
+ (expandtypeattribute (print_service_27_0) true)
+ (expandtypeattribute (priv_app_27_0) true)
+-(expandtypeattribute (proc_27_0) true)
++(typeattributeset proc_27_0 (proc proc_slabinfo))
+ (expandtypeattribute (proc_bluetooth_writable_27_0) true)
+ (expandtypeattribute (proc_cpuinfo_27_0) true)
+ (expandtypeattribute (proc_drop_caches_27_0) true)
+diff --git a/prebuilts/api/28.0/private/genfs_contexts b/prebuilts/api/28.0/private/genfs_contexts
+index 526d80d9..9d7a68db 100644
+--- a/prebuilts/api/28.0/private/genfs_contexts
++++ b/prebuilts/api/28.0/private/genfs_contexts
+@@ -21,6 +21,7 @@ genfscon proc /net/xt_qtaguid/ctrl u:object_r:qtaguid_proc:s0
+ genfscon proc /net/xt_qtaguid/ u:object_r:proc_qtaguid_stat:s0
+ genfscon proc /cpuinfo u:object_r:proc_cpuinfo:s0
+ genfscon proc /pagetypeinfo u:object_r:proc_pagetypeinfo:s0
++genfscon proc /slabinfo u:object_r:proc_slabinfo:s0
+ genfscon proc /softirqs u:object_r:proc_timer:s0
+ genfscon proc /stat u:object_r:proc_stat:s0
+ genfscon proc /swaps u:object_r:proc_swaps:s0
+diff --git a/prebuilts/api/28.0/public/dumpstate.te b/prebuilts/api/28.0/public/dumpstate.te
+index 23af7dac..846c8d17 100644
+--- a/prebuilts/api/28.0/public/dumpstate.te
++++ b/prebuilts/api/28.0/public/dumpstate.te
+@@ -167,6 +167,7 @@ allow dumpstate {
+   proc_pipe_conf
+   proc_pagetypeinfo
+   proc_qtaguid_stat
++  proc_slabinfo
+   proc_version
+   proc_vmallocinfo
+   proc_vmstat
+diff --git a/prebuilts/api/28.0/public/file.te b/prebuilts/api/28.0/public/file.te
+index a4051b2d..357898e9 100644
+--- a/prebuilts/api/28.0/public/file.te
++++ b/prebuilts/api/28.0/public/file.te
+@@ -44,6 +44,7 @@ type proc_pid_max, fs_type, proc_type;
+ type proc_pipe_conf, fs_type, proc_type;
+ type proc_random, fs_type, proc_type;
+ type proc_sched, fs_type, proc_type;
++type proc_slabinfo, fs_type, proc_type;
+ type proc_stat, fs_type, proc_type;
+ type proc_swaps, fs_type, proc_type;
+ type proc_sysrq, fs_type, proc_type;
+diff --git a/prebuilts/api/28.0/public/init.te b/prebuilts/api/28.0/public/init.te
+index edb41d80..9eff0b0b 100644
+--- a/prebuilts/api/28.0/public/init.te
++++ b/prebuilts/api/28.0/public/init.te
+@@ -311,6 +311,17 @@ allow init {
+   proc_security
+ }:file rw_file_perms;
+ 
++# init chmod/chown access to /proc files.
++allow init {
++  proc_cmdline
++  proc_kmsg
++  proc_net
++  proc_qtaguid_stat
++  proc_slabinfo
++  proc_sysrq
++  proc_vmallocinfo
++}:file setattr;
++
+ # init access to /sys files.
+ allow init {
+   sysfs_android_usb
+diff --git a/prebuilts/api/28.0/public/shell.te b/prebuilts/api/28.0/public/shell.te
+index 307e1034..43ec6191 100644
+--- a/prebuilts/api/28.0/public/shell.te
++++ b/prebuilts/api/28.0/public/shell.te
+@@ -127,6 +127,7 @@ allow shell {
+   proc_meminfo
+   proc_modules
+   proc_pid_max
++  proc_slabinfo
+   proc_stat
+   proc_timer
+   proc_uptime
+diff --git a/private/app_neverallows.te b/private/app_neverallows.te
+index 8d9ccd67..804bcada 100644
+--- a/private/app_neverallows.te
++++ b/private/app_neverallows.te
+@@ -125,6 +125,7 @@ neverallow all_untrusted_apps {
+   proc_loadavg
+   proc_mounts
+   proc_pagetypeinfo
++  proc_slabinfo
+   proc_stat
+   proc_swaps
+   proc_uptime
+diff --git a/private/compat/26.0/26.0.cil b/private/compat/26.0/26.0.cil
+index 0478a56b..f05ec59e 100644
+--- a/private/compat/26.0/26.0.cil
++++ b/private/compat/26.0/26.0.cil
+@@ -478,6 +478,7 @@
+     proc_pipe_conf
+     proc_random
+     proc_sched
++    proc_slabinfo
+     proc_swaps
+     proc_uid_time_in_state
+     proc_uid_concurrent_active_time
+diff --git a/private/compat/27.0/27.0.cil b/private/compat/27.0/27.0.cil
+index dbe3e885..9358cb3d 100644
+--- a/private/compat/27.0/27.0.cil
++++ b/private/compat/27.0/27.0.cil
+@@ -452,7 +452,7 @@
+ (expandtypeattribute (preopt2cachename_exec_27_0) true)
+ (expandtypeattribute (print_service_27_0) true)
+ (expandtypeattribute (priv_app_27_0) true)
+-(expandtypeattribute (proc_27_0) true)
++(typeattributeset proc_27_0 (proc proc_slabinfo))
+ (expandtypeattribute (proc_bluetooth_writable_27_0) true)
+ (expandtypeattribute (proc_cpuinfo_27_0) true)
+ (expandtypeattribute (proc_drop_caches_27_0) true)
+diff --git a/public/dumpstate.te b/public/dumpstate.te
+index 23af7dac..846c8d17 100644
+--- a/public/dumpstate.te
++++ b/public/dumpstate.te
+@@ -167,6 +167,7 @@ allow dumpstate {
+   proc_pipe_conf
+   proc_pagetypeinfo
+   proc_qtaguid_stat
++  proc_slabinfo
+   proc_version
+   proc_vmallocinfo
+   proc_vmstat
+diff --git a/public/init.te b/public/init.te
+index 85bfab94..05a61aec 100644
+--- a/public/init.te
++++ b/public/init.te
+@@ -314,6 +314,17 @@ allow init {
+   proc_security
+ }:file rw_file_perms;
+ 
++# init chmod/chown access to /proc files.
++allow init {
++  proc_cmdline
++  proc_kmsg
++  proc_net
++  proc_qtaguid_stat
++  proc_slabinfo
++  proc_sysrq
++  proc_vmallocinfo
++}:file setattr;
++
+ # init access to /sys files.
+ allow init {
+   sysfs_android_usb
+diff --git a/public/shell.te b/public/shell.te
+index 307e1034..43ec6191 100644
+--- a/public/shell.te
++++ b/public/shell.te
+@@ -127,6 +127,7 @@ allow shell {
+   proc_meminfo
+   proc_modules
+   proc_pid_max
++  proc_slabinfo
+   proc_stat
+   proc_timer
+   proc_uptime
+-- 
+2.17.1
+

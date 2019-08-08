@@ -1,0 +1,27 @@
+From 3ca49ab9bfc1845a7870ef40b71643f5f3739bd8 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 14 Aug 2018 19:33:03 +0200
+Subject: [PATCH 2/7] Some kernel crashes when using too recent sdcardfs
+ options. Force everyone to old options
+
+Change-Id: Ia5cf1aa8dc07a0f4a78b4d8f760ca0944dabaa89
+---
+ sdcard/sdcard.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/sdcard/sdcard.cpp b/sdcard/sdcard.cpp
+index dc36596b1..e7121a8c9 100644
+--- a/sdcard/sdcard.cpp
++++ b/sdcard/sdcard.cpp
+@@ -102,7 +102,7 @@ static bool sdcardfs_setup(const std::string& source_path, const std::string& de
+                            mode_t mask, bool derive_gid, bool default_normal, bool use_esdfs) {
+     // Try several attempts, each time with one less option, to gracefully
+     // handle older kernels that aren't updated yet.
+-    for (int i = 0; i < 4; i++) {
++    for (int i = 2; i < 4; i++) {
+         std::string new_opts;
+         if (multi_user && i < 3) new_opts += "multiuser,";
+         if (derive_gid && i < 2) new_opts += "derive_gid,";
+-- 
+2.17.1
+

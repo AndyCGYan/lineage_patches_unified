@@ -1,0 +1,44 @@
+From f4ad3736194aeff8f6479761c6134246c95ed81f Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 6 Jun 2018 12:32:45 -0700
+Subject: [PATCH 18/26] domain.te: Add map permissions to vendor_config_files
+
+For 4.14+ kernels, we need map permissions for vendor_config_files,
+for things like kernel loaded firmware blobs, etc.
+
+Change-Id: I8144c50b0239aedf4124569003187cc50c963080
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ prebuilts/api/28.0/public/domain.te | 2 +-
+ public/domain.te                    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/prebuilts/api/28.0/public/domain.te b/prebuilts/api/28.0/public/domain.te
+index 9d3645eb..a0a19166 100644
+--- a/prebuilts/api/28.0/public/domain.te
++++ b/prebuilts/api/28.0/public/domain.te
+@@ -181,7 +181,7 @@ allow domain vndk_sp_file:file { execute read open getattr map };
+ 
+ # All domains get access to /vendor/etc
+ allow domain vendor_configs_file:dir r_dir_perms;
+-allow domain vendor_configs_file:file { read open getattr };
++allow domain vendor_configs_file:file { read open getattr map };
+ 
+ full_treble_only(`
+     # Allow all domains to be able to follow /system/vendor and/or
+diff --git a/public/domain.te b/public/domain.te
+index 9d3645eb..a0a19166 100644
+--- a/public/domain.te
++++ b/public/domain.te
+@@ -181,7 +181,7 @@ allow domain vndk_sp_file:file { execute read open getattr map };
+ 
+ # All domains get access to /vendor/etc
+ allow domain vendor_configs_file:dir r_dir_perms;
+-allow domain vendor_configs_file:file { read open getattr };
++allow domain vendor_configs_file:file { read open getattr map };
+ 
+ full_treble_only(`
+     # Allow all domains to be able to follow /system/vendor and/or
+-- 
+2.17.1
+

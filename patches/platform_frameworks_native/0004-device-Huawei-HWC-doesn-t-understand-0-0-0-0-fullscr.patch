@@ -1,0 +1,74 @@
+From 399d13fc183a7fbd3118425c7cfecbb9a72ba9ce Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Fri, 5 Jan 2018 00:26:38 +0100
+Subject: [PATCH 4/4] [device] ::Huawei:: HWC doesn't understand 0,0,0,0 ==
+ fullscreen damage. Set it to the whole visible surface
+
+::Huawei:: Fix damage for Huawei compositor
+
+For Huawei compositor, the damage area is a region on the screen.
+But for SurfaceFlinger, this is a region on the source surface.
+On Huawei devices, do the plane conversion.
+
+This fixes several UI glitches, most notably GBoard.
+---
+ services/surfaceflinger/BufferLayer.cpp    | 8 +++++++-
+ services/surfaceflinger/SurfaceFlinger.cpp | 8 ++++++++
+ services/surfaceflinger/SurfaceFlinger.h   | 3 +++
+ 3 files changed, 18 insertions(+), 1 deletion(-)
+
+diff --git a/services/surfaceflinger/BufferLayer.cpp b/services/surfaceflinger/BufferLayer.cpp
+index 7ac143219..2646af0c9 100644
+--- a/services/surfaceflinger/BufferLayer.cpp
++++ b/services/surfaceflinger/BufferLayer.cpp
+@@ -631,7 +631,13 @@ void BufferLayer::setPerFrameData(const sp<const DisplayDevice>& displayDevice)
+         visible.dump(LOG_TAG);
+     }
+ 
+-    error = hwcLayer->setSurfaceDamage(surfaceDamageRegion);
++    if(mFlinger->mDamageUsesScreenReference) {
++        const auto& frame = hwcInfo.displayFrame;
++        auto fullSource = Region(Rect(frame.left, frame.top, frame.right, frame.bottom));
++        error = hwcLayer->setSurfaceDamage(fullSource);
++    } else {
++        error = hwcLayer->setSurfaceDamage(surfaceDamageRegion);
++    }
+     if (error != HWC2::Error::None) {
+         ALOGE("[%s] Failed to set surface damage: %s (%d)", mName.string(),
+               to_string(error).c_str(), static_cast<int32_t>(error));
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index 860625525..2c6dc7f21 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -384,6 +384,14 @@ SurfaceFlinger::SurfaceFlinger() : SurfaceFlinger(SkipInitialization) {
+         // for production purposes later on.
+         setenv("TREBLE_TESTING_OVERRIDE", "true", true);
+     }
++
++    property_get("ro.hardware", value, "");
++    if(strstr(value, "hi3660")||
++            strstr(value, "hi6250") ||
++            strstr(value, "hi3670") ||
++            strstr(value, "kirin970")) {
++        mDamageUsesScreenReference = true;
++    }
+ }
+ 
+ void SurfaceFlinger::onFirstRef()
+diff --git a/services/surfaceflinger/SurfaceFlinger.h b/services/surfaceflinger/SurfaceFlinger.h
+index 0148ab675..367ea555a 100644
+--- a/services/surfaceflinger/SurfaceFlinger.h
++++ b/services/surfaceflinger/SurfaceFlinger.h
+@@ -852,6 +852,9 @@ private:
+     // Restrict layers to use two buffers in their bufferqueues.
+     bool mLayerTripleBufferingDisabled = false;
+ 
++    bool mDamageUsesScreenReference;
++
++
+     // these are thread safe
+     mutable std::unique_ptr<MessageQueue> mEventQueue{std::make_unique<impl::MessageQueue>()};
+     FrameTracker mAnimFrameTracker;
+-- 
+2.17.1
+

@@ -1,0 +1,77 @@
+From 27f3fb4f2af120658cdb1234d9d6bdf8f9f5cd13 Mon Sep 17 00:00:00 2001
+From: Nick Kralevich <nnk@google.com>
+Date: Mon, 15 Oct 2018 21:24:57 -0700
+Subject: [PATCH 13/26] add map permission to rw_socket_perms
+
+Kernel commit 3ba4bf5f1e2c ("selinux: add a map permission check for
+mmap") added a map permission check on mmap so that we can
+distinguish memory mapped access (since it has different implications
+for revocation).  The purpose of a separate map permission check on
+mmap(2) is to permit policy to prohibit memory mapping of specific
+files for which we need to ensure that every access is revalidated,
+particularly useful for scenarios where we expect the file to be
+relabeled at runtime in order to reflect state changes (e.g.
+cross-domain solution, assured pipeline without data copying).
+
+system/sepolicy commit 4397f08288890ef397697b4d6dbff596bdca14c8 added
+the map permission to common file macros, to ensure that file access
+would continue working even in the presence of a newer kernel. However,
+that change did not affect socket access.
+
+Certain socket classes, such as AF_NETLINK and AF_PACKET, also support
+mmap operations. This change adds the map permission to rw_socket_perms,
+to ensure continued support for newer kernels.
+
+This technically allows mmap even in cases where the socket family
+doesn't support it (such as TCP and UDP sockets), but granting it
+is harmless in those cases.
+
+In particular, this fixes a bug in clatd, where the following error
+would occur:
+
+  10-01 13:59:03.182 7129 7129 I clatd : Starting clat version 1.4 on rmnet0 netid=100 mark=0xf0064
+  10-01 13:59:03.195 7129 7129 I auditd : type=1400 audit(0.0:18): avc: denied { map } for comm="clatd" path="socket:[52802]" dev="sockfs" ino=52802 scontext=u:r:clatd:s0 tcontext=u:r:clatd:s0 tclass=packet_socket permissive=0
+  10-01 13:59:03.195 7129 7129 W clatd : type=1400 audit(0.0:18): avc: denied { map } for path="socket:[52802]" dev="sockfs" ino=52802 scontext=u:r:clatd:s0 tcontext=u:r:clatd:s0 tclass=packet_socket permissive=0
+  10-01 13:59:03.199 7129 7129 F clatd : mmap 1048576 failed: Permission denied
+
+Test: policy compiles
+Bug: 117791876
+Change-Id: I39f286d577b4a2160037ef271517ae8a3839b49b
+---
+ prebuilts/api/28.0/public/global_macros | 4 ++--
+ public/global_macros                    | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/prebuilts/api/28.0/public/global_macros b/prebuilts/api/28.0/public/global_macros
+index 5dab5ab0..b2fe6ae8 100644
+--- a/prebuilts/api/28.0/public/global_macros
++++ b/prebuilts/api/28.0/public/global_macros
+@@ -42,8 +42,8 @@ define(`create_ipc_perms', `{ create setattr destroy rw_ipc_perms }')
+ 
+ #####################################
+ # Common socket permission sets.
+-define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown }')
+-define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown }')
++define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown map }')
++define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown map }')
+ define(`create_socket_perms', `{ create rw_socket_perms }')
+ define(`create_socket_perms_no_ioctl', `{ create rw_socket_perms_no_ioctl }')
+ define(`rw_stream_socket_perms', `{ rw_socket_perms listen accept }')
+diff --git a/public/global_macros b/public/global_macros
+index 5dab5ab0..b2fe6ae8 100644
+--- a/public/global_macros
++++ b/public/global_macros
+@@ -42,8 +42,8 @@ define(`create_ipc_perms', `{ create setattr destroy rw_ipc_perms }')
+ 
+ #####################################
+ # Common socket permission sets.
+-define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown }')
+-define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown }')
++define(`rw_socket_perms', `{ ioctl read getattr write setattr lock append bind connect getopt setopt shutdown map }')
++define(`rw_socket_perms_no_ioctl', `{ read getattr write setattr lock append bind connect getopt setopt shutdown map }')
+ define(`create_socket_perms', `{ create rw_socket_perms }')
+ define(`create_socket_perms_no_ioctl', `{ create rw_socket_perms_no_ioctl }')
+ define(`rw_stream_socket_perms', `{ rw_socket_perms listen accept }')
+-- 
+2.17.1
+

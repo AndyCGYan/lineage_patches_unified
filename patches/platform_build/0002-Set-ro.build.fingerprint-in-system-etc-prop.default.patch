@@ -1,0 +1,25 @@
+From 98915840a5635fcd2f319012861cf5da1df8f54a Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 5 Mar 2018 22:27:50 +0100
+Subject: [PATCH 2/2] Set ro.build.fingerprint in system/etc/prop.default
+
+Change-Id: Idceb2a160f70b36aa6806ae60cbfb325367f3b75
+---
+ core/Makefile | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/core/Makefile b/core/Makefile
+index 0a2f6e39d..059aa98c2 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -176,6 +176,7 @@ $(INSTALLED_DEFAULT_PROP_TARGET): $(intermediate_system_build_prop)
+ 	$(hide) echo ro.bootimage.build.date=`$(DATE_FROM_FILE)`>>$@
+ 	$(hide) echo ro.bootimage.build.date.utc=`$(DATE_FROM_FILE) +%s`>>$@
+ 	$(hide) echo ro.bootimage.build.fingerprint="$(BUILD_FINGERPRINT_FROM_FILE)">>$@
++	$(hide) echo ro.build.fingerprint="$(BUILD_FINGERPRINT_FROM_FILE)">>$@
+ 	$(hide) build/make/tools/post_process_props.py $@
+ ifdef property_overrides_split_enabled
+ 	$(hide) mkdir -p $(TARGET_ROOT_OUT)
+-- 
+2.17.1
+

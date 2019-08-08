@@ -1,0 +1,31 @@
+From 34a2e6145c9264a25f6c8b8f9bd966fe662d3e10 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 9 Apr 2019 08:50:45 +0200
+Subject: [PATCH 4/4] If we do a free() on it, it means it is heap-allocated
+
+---
+ libselinux/src/label_backends_android.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libselinux/src/label_backends_android.c b/libselinux/src/label_backends_android.c
+index cf842188..ab92985b 100644
+--- a/libselinux/src/label_backends_android.c
++++ b/libselinux/src/label_backends_android.c
+@@ -64,12 +64,12 @@ static int nodups_specs(struct saved_data *data)
+ 						    curr_spec->lr.ctx_raw)) {
+ 					if(strcmp(spec_arr[jj].lr.ctx_raw, "u:object_r:hal_ipacm_hwservice:s0") == 0) {
+ 						free(spec_arr[jj].lr.ctx_raw);
+-						spec_arr[jj].lr.ctx_raw = "u:object_r:hal_tetheroffload_hwservice:s0";
++						spec_arr[jj].lr.ctx_raw = strdup("u:object_r:hal_tetheroffload_hwservice:s0");
+ 						continue;
+ 					}
+ 					if(strcmp(curr_spec->lr.ctx_raw, "u:object_r:hal_ipacm_hwservice:s0") == 0) {
+ 						free(curr_spec->lr.ctx_raw);
+-						curr_spec->lr.ctx_raw = "u:object_r:hal_tetheroffload_hwservice:s0";
++						curr_spec->lr.ctx_raw = strdup("u:object_r:hal_tetheroffload_hwservice:s0");
+ 						continue;
+ 					}
+ 					rc = -1;
+-- 
+2.17.1
+

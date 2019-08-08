@@ -1,0 +1,37 @@
+From e3f08c02ab7d0bc5d0efcc9eb3ad98d9a3a98e32 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 24 Mar 2018 08:01:48 +0100
+Subject: [PATCH 01/31] Fix backlight control on Galaxy S9(+)
+
+---
+ .../core/java/com/android/server/lights/LightsService.java | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
+index a94ed608b9c..762b0ae4037 100644
+--- a/services/core/java/com/android/server/lights/LightsService.java
++++ b/services/core/java/com/android/server/lights/LightsService.java
+@@ -21,6 +21,7 @@ import android.app.ActivityManager;
+ import android.content.Context;
+ import android.os.Handler;
+ import android.os.Message;
++import android.os.SystemProperties;
+ import android.os.Trace;
+ import android.provider.Settings;
+ import android.util.Slog;
+@@ -52,6 +53,12 @@ public class LightsService extends SystemService {
+                     return;
+                 }
+ 
++		String fp = SystemProperties.get("ro.vendor.build.fingerprint", "hello");
++		if(fp.contains("starlte") || fp.contains("star2lte")) {
++			setLightLocked(brightness*100, LIGHT_FLASH_HARDWARE, 0, 0, brightnessMode);
++			return;
++		}
++
+                 int color = brightness & 0x000000ff;
+                 color = 0xff000000 | (color << 16) | (color << 8) | color;
+                 setLightLocked(color, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
+-- 
+2.17.1
+

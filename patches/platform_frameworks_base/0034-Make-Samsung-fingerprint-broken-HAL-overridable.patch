@@ -1,0 +1,27 @@
+From 91ea029c2c9686490d6c011708c4a298d236fa2b Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 2 Jul 2019 21:19:29 +0200
+Subject: [PATCH 34/34] Make Samsung fingerprint broken HAL overridable
+
+---
+ .../com/android/server/fingerprint/FingerprintService.java     | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/services/core/java/com/android/server/fingerprint/FingerprintService.java b/services/core/java/com/android/server/fingerprint/FingerprintService.java
+index 8c2990b1999..461fac50975 100644
+--- a/services/core/java/com/android/server/fingerprint/FingerprintService.java
++++ b/services/core/java/com/android/server/fingerprint/FingerprintService.java
+@@ -1047,8 +1047,9 @@ public class FingerprintService extends SystemService implements IHwBinder.Death
+                 @Override
+                 public void run() {
+                     int remaining2 = remaining;
++		    int overrideSamsung = android.os.SystemProperties.getInt("persist.sys.phh.samsung_fingerprint", -1);
+                     String fp = android.os.SystemProperties.get("ro.vendor.build.fingerprint");
+-                    if(fp != null && (fp.startsWith("samsung/")))
++                    if(overrideSamsung == 1 || (overrideSamsung != 0 && fp != null && fp.startsWith("samsung/")))
+                         remaining2 = 100 - remaining2;
+                     handleEnrollResult(deviceId, fingerId, groupId, remaining2);
+                 }
+-- 
+2.17.1
+

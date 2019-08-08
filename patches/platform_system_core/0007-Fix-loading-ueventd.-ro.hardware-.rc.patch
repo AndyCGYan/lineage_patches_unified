@@ -1,0 +1,33 @@
+From be236247e47973dcbc439f07db86f02b5cba110b Mon Sep 17 00:00:00 2001
+From: Sen Jiang <senj@google.com>
+Date: Wed, 18 Jul 2018 17:27:24 -0700
+Subject: [PATCH 7/7] Fix loading ueventd.${ro.hardware}.rc.
+
+Regression introduced in aosp/717324.
+
+Bug: 111543389
+Test: device boots further
+Change-Id: I4cf57381104aa1a801cf82a42b1c5ae1a2273e89
+Merged-In: I4cf57381104aa1a801cf82a42b1c5ae1a2273e89
+(cherry picked from commit d76f174a785d2f1c17999a2d23b1fea2a33e4b1e)
+---
+ init/ueventd.cpp | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/init/ueventd.cpp b/init/ueventd.cpp
+index 680944546..b42a4c62a 100644
+--- a/init/ueventd.cpp
++++ b/init/ueventd.cpp
+@@ -240,7 +240,8 @@ int ueventd_main(int argc, char** argv) {
+         auto hardware = android::base::GetProperty("ro.hardware", "");
+ 
+         auto ueventd_configuration =
+-                ParseConfig({"/ueventd.rc", "/vendor/ueventd.rc", "/odm/ueventd.rc", hardware});
++                ParseConfig({"/ueventd.rc", "/vendor/ueventd.rc", "/odm/ueventd.rc",
++                             "/ueventd." + hardware + ".rc"});
+ 
+         device_handler = DeviceHandler{std::move(ueventd_configuration.dev_permissions),
+                                        std::move(ueventd_configuration.sysfs_permissions),
+-- 
+2.17.1
+

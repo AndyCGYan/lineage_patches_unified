@@ -1,0 +1,67 @@
+From c1cec4b4be592192cd8731048eeb0bc4dc4f8337 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 15 Aug 2018 00:04:45 +0200
+Subject: [PATCH 2/3] Start supplicant later
+
+Change-Id: I6a67baad486162415840006711fb6d8dbf96a66a
+---
+ .../java/com/android/server/wifi/WifiNative.java | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/service/java/com/android/server/wifi/WifiNative.java b/service/java/com/android/server/wifi/WifiNative.java
+index bc599c141..eb5e11aca 100644
+--- a/service/java/com/android/server/wifi/WifiNative.java
++++ b/service/java/com/android/server/wifi/WifiNative.java
+@@ -332,13 +332,15 @@ public class WifiNative {
+     }
+ 
+     /** Helper method invoked to start supplicant if there were no STA ifaces */
++    private boolean supplicantOn = false;
+     private boolean startSupplicant() {
+         synchronized (mLock) {
+-            if (!mIfaceMgr.hasAnyStaIface()) {
++            if (!mIfaceMgr.hasAnyStaIface() || !supplicantOn) {
+                 if (!mWificondControl.enableSupplicant()) {
+                     Log.e(TAG, "Failed to enable supplicant");
+                     return false;
+                 }
++                supplicantOn = true;
+                 if (!waitForSupplicantConnection()) {
+                     Log.e(TAG, "Failed to connect to supplicant");
+                     return false;
+@@ -363,6 +365,7 @@ public class WifiNative {
+                 if (!mWificondControl.disableSupplicant()) {
+                     Log.e(TAG, "Failed to disable supplicant");
+                 }
++                supplicantOn = false;
+             }
+         }
+     }
+@@ -852,11 +855,6 @@ public class WifiNative {
+                 mWifiMetrics.incrementNumSetupClientInterfaceFailureDueToHal();
+                 return null;
+             }
+-            if (!startSupplicant()) {
+-                Log.e(TAG, "Failed to start supplicant");
+-                mWifiMetrics.incrementNumSetupClientInterfaceFailureDueToSupplicant();
+-                return null;
+-            }
+             Iface iface = mIfaceMgr.allocateIface(Iface.IFACE_TYPE_STA);
+             if (iface == null) {
+                 Log.e(TAG, "Failed to allocate new STA iface");
+@@ -870,6 +868,12 @@ public class WifiNative {
+                 mWifiMetrics.incrementNumSetupClientInterfaceFailureDueToHal();
+                 return null;
+             }
++	    Log.e(TAG, "Starting supplicant");
++            if (!startSupplicant()) {
++                Log.e(TAG, "Failed to start supplicant");
++                mWifiMetrics.incrementNumSetupClientInterfaceFailureDueToSupplicant();
++                return null;
++            }
+             if (mWificondControl.setupInterfaceForClientMode(iface.name) == null) {
+                 Log.e(TAG, "Failed to setup iface in wificond on " + iface);
+                 teardownInterface(iface.name);
+-- 
+2.17.1
+

@@ -1,0 +1,25 @@
+From 3add0283fffb44feaee5251f76f985895f67adfe Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Thu, 17 May 2018 20:28:35 +0200
+Subject: [PATCH] Don't crash if there is IR HAL is not declared
+
+---
+ services/core/java/com/android/server/ConsumerIrService.java | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/services/core/java/com/android/server/ConsumerIrService.java b/services/core/java/com/android/server/ConsumerIrService.java
+index 53b9e913959..fcfb45659e5 100644
+--- a/services/core/java/com/android/server/ConsumerIrService.java
++++ b/services/core/java/com/android/server/ConsumerIrService.java
+@@ -52,8 +52,6 @@ public class ConsumerIrService extends IConsumerIrService.Stub {
+             if (!mHasNativeHal) {
+                 throw new RuntimeException("FEATURE_CONSUMER_IR present, but no IR HAL loaded!");
+             }
+-        } else if (mHasNativeHal) {
+-            throw new RuntimeException("IR HAL present, but FEATURE_CONSUMER_IR is not set!");
+         }
+         mParameter = AudioSystem.getParameters("audio_capability#irda_support");
+     }
+-- 
+2.17.1
+

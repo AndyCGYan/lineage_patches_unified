@@ -1,0 +1,41 @@
+From cbe173447e3d1e5e059bc75779f588cfda66329d Mon Sep 17 00:00:00 2001
+From: Yifan Hong <elsk@google.com>
+Date: Wed, 6 Mar 2019 10:54:21 -0800
+Subject: [PATCH 21/26] health: allow wake_alarm capability.
+
+CAP_WAKE_ALARM was required for timerfd_create since 4.10 kernel upstream.
+Add capability to platform policy for healthd and health HAL.
+
+Fixes: 124210362
+Test: boots (sanity)
+Change-Id: I8ebb383608eedd59beddec3f476b071e81b80871
+---
+ prebuilts/api/28.0/public/hal_health.te | 3 +++
+ public/hal_health.te                    | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/prebuilts/api/28.0/public/hal_health.te b/prebuilts/api/28.0/public/hal_health.te
+index c0a0f804..1db5fcc6 100644
+--- a/prebuilts/api/28.0/public/hal_health.te
++++ b/prebuilts/api/28.0/public/hal_health.te
+@@ -28,3 +28,6 @@ wakelock_use(hal_health_server)
+ 
+ # Write to /dev/kmsg
+ allow hal_health_server kmsg_device:chr_file w_file_perms;
++
++# Allow to use timerfd to wake itself up periodically to send health info.
++allow hal_health_server self:capability2 wake_alarm;
+diff --git a/public/hal_health.te b/public/hal_health.te
+index c0a0f804..1db5fcc6 100644
+--- a/public/hal_health.te
++++ b/public/hal_health.te
+@@ -28,3 +28,6 @@ wakelock_use(hal_health_server)
+ 
+ # Write to /dev/kmsg
+ allow hal_health_server kmsg_device:chr_file w_file_perms;
++
++# Allow to use timerfd to wake itself up periodically to send health info.
++allow hal_health_server self:capability2 wake_alarm;
+-- 
+2.17.1
+

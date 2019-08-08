@@ -1,0 +1,209 @@
+From d2b592c8780f122bf9d9939d93ae887bf770bc98 Mon Sep 17 00:00:00 2001
+From: melvin xu <melvin.xu@spreadtrum.com>
+Date: Tue, 18 Dec 2018 13:15:08 +0800
+Subject: [PATCH 8/8] DO NOT MERGE: add color converter for NV12 to RGB
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+CTS-on-gsi test, CtsMediaTestCases -- android.media.cts.MediaMetadataRetrieverTest#testGetFrameAtIndex failed
+CtsMediaTestCases -- android.media.cts.MediaMetadataRetrieverTest#testGetFramesAtIndex failed
+CtsMediaTestCases -- android.media.cts.HeifWriterTest#testInputBitmap_Grid_Handler fail
+CtsMediaTestCases -- android.media.cts.HeifWriterTest#testInputBitmap_Grid_NoHandler fail
+CtsMediaTestCases -- android.media.cts.HeifWriterTest#testInputBitmap_NoGrid_Handler fail
+CtsMediaTestCases -- android.media.cts.HeifWriterTest#testInputBitmap_NoGrid_NoHandler fail
+
+[Android Version]:
+VTS Version 9.0_r2
+
+[CTS pachage version]
+Suite / Plan	VTS / cts-on-gsi
+Suite / Build	9.0_R2
+
+[device](Any device config may relate this failure)
+unisoc's device
+size:1080*1920
+
+[bugzilla bugid] 117044023
+
+[CTS Test Pre–Condition]
+1.Language set to EN;
+2.Keyguard set to none;
+3.Enable GPS, Wifi network, USB debugging, Stay awake, Allow mock locations.
+4.CTS version is VTS / cts-on-gsi 9.0_r2
+
+[CTS Test Step]:
+1 ./vts-tradefed
+2 run cts-on-gsi
+
+[Expected Result  ]:
+This case will pass.
+
+[Testing Result]:
+case failed:
+CtsMediaTestCases
+android.media.cts.MediaMetadataRetrieverTest#testGetFrameAtIndex failed
+android.media.cts.MediaMetadataRetrieverTest#testGetFramesAtIndex failed
+android.media.cts.HeifWriterTest#testInputBitmap_Grid_Handler fail
+android.media.cts.HeifWriterTest#testInputBitmap_Grid_NoHandler fail
+android.media.cts.HeifWriterTest#testInputBitmap_NoGrid_Handler fail
+android.media.cts.HeifWriterTest#testInputBitmap_NoGrid_NoHandler fail
+
+
+[Analysize]:
+log:
+07-30 12:21:07.795   364   489 E FrameDecoder: Unable to convert from format 0x00000015 to 0x7f00a000
+07-30 12:21:07.795   364   489 E FrameDecoder: failed to get video frame (err -1010)
+From the log, we find the testcase is related with colorformat.
+
+Bug #117044023
+
+[root cause]:
+1. we can get below information from source code:
+OMX_COLOR_FormatYUV420SemiPlanar = 0x00000015 ;
+OMX_COLOR_Format32BitRGBA8888 = 0x7f00a000;
+“ MediaMetadataRetrieverTest#testGetFrameAtIndex” cts  case requires the color format of the frame data to be OMX_COLOR_Format32BitRGBA8888 color format.
+Frameworks\av\media\libstagefright\colorconversion\ColorConverter.cpp ：
+bool ColorConverter::isValid() const {
+……
+ case OMX_COLOR_FormatYUV420Planar:
+            return mDstFormat == OMX_COLOR_Format16bitRGB565
+                    || mDstFormat == OMX_COLOR_Format32BitRGBA8888
+                    || mDstFormat == OMX_COLOR_Format32bitBGRA8888;
+case OMX_COLOR_FormatYUV420SemiPlanar:
+        case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+            return mDstFormat == OMX_COLOR_Format16bitRGB565;
+……}
+ColorConverter does not support color format conversion from OMX_COLOR_FormatYUV420SemiPlanar to OMX_COLOR_Format32BitRGBA8888.
+
+ 2. The input data of this case should be OMX_COLOR_Format32BitRGBA8888 color format, and the ColorConverter in frameworks only support color format conversion from OMX_COLOR_FormatYUV420Planar to OMX_COLOR_Format32BitRGBA8888, does not support  from OMX_COLOR_FormatYUV420SemiPlanar to OMX_COLOR_Format32BitRGBA8888.
+    But the video hardware decoder of Unisoc device can output YUV data with OMX_COLOR_FormatYUV420SemiPlanar color format, it can not output OMX_COLOR_FormatYUV420Planar color format. So this case failed.
+
+
+[changes]:
+Add a color conversion code to ColorConverter(Frameworks\av\media\libstagefright\colorconversion\ColorConverter.cpp, the patch is listed below). Enable ColorConverter to support color conversion from OMX_COLOR_FormatYUV420SemiPlanar to OMX_COLOR_Format32BitRGBA8888.
+Because the hardware decoder of Spreadtrum phone does not support OMX_COLOR_FormatYUV420Planar. we need the ColorConverter in frameworks support color format conversion from OMX_COLOR_FormatYUV420SemiPlanar to OMX_COLOR_Format32BitRGBA8888.
+    We will request to waive for this. Could you help us or give us a waiver? Thanks a lot.
+
+[side effects]:No
+[self test]: pass
+[download normally]:Yes
+[power on/off normally]:Yes
+[do common repository/branch inspection]:Yes
+[is there dependence]:No
+[confirm dependent commit]:No
+[board]: unisoc device
+[change_type ] fix
+[tag_product ] common
+[test Case]:as testing steps
+[reviewers]: wenan.hu
+
+[Patch Link]:
+https://android-review.googlesource.com/c/platform/frameworks/av/+/773126
+
+Change-Id: I882f3729a9620b4c5c456a3099b5e8809b4b5545
+Signed-off-by: melvin xu <melvin.xu@spreadtrum.com>
+(cherry picked from commit 565a545d08a88c1bb0ed87255f3a682001079efd)
+---
+ .../colorconversion/ColorConverter.cpp        | 45 ++++++++++++++++++-
+ .../media/stagefright/ColorConverter.h        |  3 ++
+ 2 files changed, 47 insertions(+), 1 deletion(-)
+
+diff --git a/media/libstagefright/colorconversion/ColorConverter.cpp b/media/libstagefright/colorconversion/ColorConverter.cpp
+index 05f4104b6..a1873bc5c 100644
+--- a/media/libstagefright/colorconversion/ColorConverter.cpp
++++ b/media/libstagefright/colorconversion/ColorConverter.cpp
+@@ -24,6 +24,8 @@
+ #include <media/stagefright/MediaErrors.h>
+ 
+ #include "libyuv/convert_from.h"
++#include "libyuv/convert_argb.h"
++#include "libyuv/planar_functions.h"
+ #include "libyuv/video_common.h"
+ #include <functional>
+ #include <sys/time.h>
+@@ -70,10 +72,17 @@ bool ColorConverter::isValid() const {
+ 
+         case OMX_COLOR_FormatCbYCrY:
+         case OMX_QCOM_COLOR_FormatYVU420SemiPlanar:
+-        case OMX_COLOR_FormatYUV420SemiPlanar:
+         case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+             return mDstFormat == OMX_COLOR_Format16bitRGB565;
+ 
++        case OMX_COLOR_FormatYUV420SemiPlanar:
++#ifdef USE_LIBYUV
++            return mDstFormat == OMX_COLOR_Format16bitRGB565
++                    || mDstFormat == OMX_COLOR_Format32BitRGBA8888;
++#else
++            return mDstFormat == OMX_COLOR_Format16bitRGB565;
++#endif
++
+         default:
+             return false;
+     }
+@@ -200,7 +209,11 @@ status_t ColorConverter::convert(
+             break;
+ 
+         case OMX_COLOR_FormatYUV420SemiPlanar:
++#ifdef USE_LIBYUV
++            err = convertYUV420SemiPlanarUseLibYUV(src, dst);
++#else
+             err = convertYUV420SemiPlanar(src, dst);
++#endif
+             break;
+ 
+         case OMX_TI_COLOR_FormatYUV420PackedSemiPlanar:
+@@ -313,6 +326,36 @@ status_t ColorConverter::convertYUV420PlanarUseLibYUV(
+     return OK;
+ }
+ 
++status_t ColorConverter::convertYUV420SemiPlanarUseLibYUV(
++        const BitmapParams &src, const BitmapParams &dst) {
++    uint8_t *dst_ptr = (uint8_t *)dst.mBits
++        + dst.mCropTop * dst.mStride + dst.mCropLeft * dst.mBpp;
++
++    const uint8_t *src_y =
++        (const uint8_t *)src.mBits + src.mCropTop * src.mStride + src.mCropLeft;
++
++    const uint8_t *src_u =
++        (const uint8_t *)src.mBits + src.mStride * src.mHeight
++        + src.mCropTop * src.mStride + src.mCropLeft;
++
++    switch (mDstFormat) {
++    case OMX_COLOR_Format16bitRGB565:
++        libyuv::NV12ToRGB565(src_y, src.mStride, src_u, src.mStride, (uint8 *)dst_ptr,
++                dst.mStride, src.cropWidth(), src.cropHeight());
++        break;
++
++    case OMX_COLOR_Format32BitRGBA8888:
++        libyuv::NV12ToARGB(src_y, src.mStride, src_u, src.mStride, (uint8 *)dst_ptr,
++                dst.mStride, src.cropWidth(), src.cropHeight());
++        break;
++
++    default:
++        return ERROR_UNSUPPORTED;
++   }
++
++   return OK;
++}
++
+ std::function<void (void *, void *, void *, size_t,
+                     signed *, signed *, signed *, signed *)>
+ getReadFromSrc(OMX_COLOR_FORMATTYPE srcFormat) {
+diff --git a/media/libstagefright/include/media/stagefright/ColorConverter.h b/media/libstagefright/include/media/stagefright/ColorConverter.h
+index 5b3543de6..2d061113f 100644
+--- a/media/libstagefright/include/media/stagefright/ColorConverter.h
++++ b/media/libstagefright/include/media/stagefright/ColorConverter.h
+@@ -78,6 +78,9 @@ private:
+     status_t convertYUV420PlanarUseLibYUV(
+             const BitmapParams &src, const BitmapParams &dst);
+ 
++    status_t convertYUV420SemiPlanarUseLibYUV(
++            const BitmapParams &src, const BitmapParams &dst);
++
+     status_t convertYUV420Planar16(
+             const BitmapParams &src, const BitmapParams &dst);
+ 
+-- 
+2.17.1
+

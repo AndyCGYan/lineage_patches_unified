@@ -1,0 +1,46 @@
+From 491b9ace3db2e132949d7579ef5819f0f789a971 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 29 Aug 2018 11:05:54 +0200
+Subject: [PATCH 23/31] Add a property to override pre-o max aspect ratio
+
+---
+ .../core/java/com/android/server/am/ActivityRecord.java  | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/services/core/java/com/android/server/am/ActivityRecord.java b/services/core/java/com/android/server/am/ActivityRecord.java
+index 97ae3772ca3..5718c5ee8d0 100644
+--- a/services/core/java/com/android/server/am/ActivityRecord.java
++++ b/services/core/java/com/android/server/am/ActivityRecord.java
+@@ -161,6 +161,7 @@ import android.os.PersistableBundle;
+ import android.os.Process;
+ import android.os.RemoteException;
+ import android.os.SystemClock;
++import android.os.SystemProperties;
+ import android.os.UserHandle;
+ import android.os.storage.StorageManager;
+ import android.service.voice.IVoiceInteractionSession;
+@@ -2354,7 +2355,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
+     // TODO(b/36505427): Consider moving this method and similar ones to ConfigurationContainer.
+     private void computeBounds(Rect outBounds) {
+         outBounds.setEmpty();
+-        final float maxAspectRatio = info.maxAspectRatio;
++        float maxAspectRatio = info.maxAspectRatio;
+         final ActivityStack stack = getStack();
+         if (task == null || stack == null || task.inMultiWindowMode() || maxAspectRatio == 0
+                 || isInVrUiMode(getConfiguration())) {
+@@ -2365,6 +2366,12 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
+             return;
+         }
+ 
++        if(info.applicationInfo.targetSdkVersion < O) {
++            try {
++                maxAspectRatio = Float.parseFloat(SystemProperties.get("persist.sys.max_aspect_ratio.pre_o", ""));
++            } catch (Throwable t) {}
++            Log.d("PHH", "Overrode aspect ratio because pre-o to " + maxAspectRatio);
++        }
+         // We must base this on the parent configuration, because we set our override
+         // configuration's appBounds based on the result of this method. If we used our own
+         // configuration, it would be influenced by past invocations.
+-- 
+2.17.1
+

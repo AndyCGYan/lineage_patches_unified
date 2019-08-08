@@ -1,0 +1,78 @@
+From 59177bd162dbb442c5561ac128c83b111ea1112d Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 24 Apr 2018 00:14:28 +0200
+Subject: [PATCH 1/8] FIH devices: Fix "Earpiece" audio output
+
+On some FIH devices (confirmed on Razer, and probably on Aquos SS2),
+Earpiece is not listed in attachedDevices, and devicePort's profile
+mentions it is AUDIO_CHANNEL_IN_MONO, instead of AUDIO_CHANNEL_OUT_MONO.
+
+Detect such cases (output device, but got only AUDIO_CHANNEL_IN_MONO),
+and fix both channelMasks and attachedDevices
+
+Change-Id: I4a88ba6d34d0fcd346eeea2ca903772f0271040a
+---
+ .../managerdefinitions/src/Serializer.cpp     | 25 ++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
+
+diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+index a2531131d..380e2f82b 100644
+--- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
++++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+@@ -191,16 +191,25 @@ const char AudioProfileTraits::Attributes::name[] = "name";
+ const char AudioProfileTraits::Attributes::samplingRates[] = "samplingRates";
+ const char AudioProfileTraits::Attributes::format[] = "format";
+ const char AudioProfileTraits::Attributes::channelMasks[] = "channelMasks";
++static bool fixedEarpieceChannels = false;
+ 
+ status_t AudioProfileTraits::deserialize(_xmlDoc */*doc*/, const _xmlNode *root, PtrElement &profile,
+-                                         PtrSerializingCtx /*serializingContext*/)
++                                         PtrSerializingCtx serializingContext)
+ {
++    bool isOutput = serializingContext != nullptr;
+     string samplingRates = getXmlAttribute(root, Attributes::samplingRates);
+     string format = getXmlAttribute(root, Attributes::format);
+     string channels = getXmlAttribute(root, Attributes::channelMasks);
++    ChannelTraits::Collection channelsMask = channelMasksFromString(channels, ",");
++
++    //Some Foxconn devices have wrong earpiece channel mask, leading to no channel mask
++    if(channelsMask.size() == 1 && channelsMask[0] == AUDIO_CHANNEL_IN_MONO && isOutput) {
++        fixedEarpieceChannels = true;
++        channelsMask = channelMasksFromString("AUDIO_CHANNEL_OUT_MONO", ",");
++    }
+ 
+     profile = new Element(formatFromString(format, gDynamicFormat),
+-                          channelMasksFromString(channels, ","),
++                          channelsMask,
+                           samplingRatesFromString(samplingRates, ","));
+ 
+     profile->setDynamicFormat(profile->getFormat() == gDynamicFormat);
+@@ -326,7 +335,10 @@ status_t DevicePortTraits::deserialize(_xmlDoc *doc, const _xmlNode *root, PtrEl
+     }
+ 
+     AudioProfileTraits::Collection profiles;
+-    deserializeCollection<AudioProfileTraits>(doc, root, profiles, NULL);
++    if(audio_is_output_devices(type))
++        deserializeCollection<AudioProfileTraits>(doc, root, profiles, (PtrSerializingCtx)1);
++    else
++        deserializeCollection<AudioProfileTraits>(doc, root, profiles, NULL);
+     if (profiles.isEmpty()) {
+         sp <AudioProfile> dynamicProfile = new AudioProfile(gDynamicFormat,
+                                                             ChannelsVector(), SampleRateVector());
+@@ -491,6 +503,13 @@ status_t ModuleTraits::deserialize(xmlDocPtr doc, const xmlNode *root, PtrElemen
+         }
+         children = children->next;
+     }
++    if(fixedEarpieceChannels) {
++        sp<DeviceDescriptor> device =
++            module->getDeclaredDevices().getDeviceFromTagName(String8("Earpiece"));
++	if(device != 0)
++		ctx->addAvailableDevice(device);
++	fixedEarpieceChannels = false;
++    }
+     return NO_ERROR;
+ }
+ 
+-- 
+2.17.1
+

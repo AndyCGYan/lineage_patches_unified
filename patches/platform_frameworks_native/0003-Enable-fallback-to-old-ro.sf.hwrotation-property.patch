@@ -1,0 +1,42 @@
+From bdded5a601c39eb445128bd6c5085970ffd6d4e5 Mon Sep 17 00:00:00 2001
+From: phh <phh@phh.me>
+Date: Wed, 22 Aug 2018 08:57:52 +0000
+Subject: [PATCH] Enable fallback to old ro.sf.hwrotation property
+
+---
+ services/surfaceflinger/SurfaceFlinger.cpp | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/services/surfaceflinger/SurfaceFlinger.cpp b/services/surfaceflinger/SurfaceFlinger.cpp
+index dfeabc059..22d161b65 100644
+--- a/services/surfaceflinger/SurfaceFlinger.cpp
++++ b/services/surfaceflinger/SurfaceFlinger.cpp
+@@ -316,6 +316,25 @@ SurfaceFlinger::SurfaceFlinger() : SurfaceFlinger(SkipInitialization) {
+     }
+     ALOGV("Primary Display Orientation is set to %2d.", SurfaceFlinger::primaryDisplayOrientation);
+ 
++    if(primaryDisplayOrientation == V1_1::DisplayOrientation::ORIENTATION_0) {
++        int sfRotation = property_get_int32("ro.sf.hwrotation", -1);
++        switch(sfRotation) {
++            case 0:
++                SurfaceFlinger::primaryDisplayOrientation = DisplayState::eOrientationDefault;
++                break;
++            case 90:
++                SurfaceFlinger::primaryDisplayOrientation = DisplayState::eOrientation90;
++                break;
++            case 180:
++                SurfaceFlinger::primaryDisplayOrientation = DisplayState::eOrientation180;
++                break;
++            case 270:
++                SurfaceFlinger::primaryDisplayOrientation = DisplayState::eOrientation270;
++                break;
++        }
++    }
++    ALOGV("Primary Display Orientation is set to %2d.", SurfaceFlinger::primaryDisplayOrientation);
++
+     mPrimaryDispSync.init(SurfaceFlinger::hasSyncFramework, SurfaceFlinger::dispSyncPresentTimeOffset);
+ 
+     // debugging stuff...
+-- 
+2.17.1
+

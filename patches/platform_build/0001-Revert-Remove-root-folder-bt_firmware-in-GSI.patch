@@ -1,0 +1,53 @@
+From d7fa115dcb7aaf33a6a16b676742513e5539fd85 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 27 Mar 2018 23:26:49 +0200
+Subject: [PATCH] Revert "Remove root folder bt_firmware in GSI"
+
+This reverts commit 292b8433cb48ef4ceb2330e57e11b8f644d9d1ee.
+
+Essential 8.1 firmware requires this
+---
+ target/board/generic_arm64_ab/BoardConfig.mk         | 2 +-
+ target/board/generic_arm64_ab/sepolicy/file.te       | 1 +
+ target/board/generic_arm64_ab/sepolicy/file_contexts | 1 +
+ 3 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/target/board/generic_arm64_ab/BoardConfig.mk b/target/board/generic_arm64_ab/BoardConfig.mk
+index 88b90a8fb..b67c3b31d 100644
+--- a/target/board/generic_arm64_ab/BoardConfig.mk
++++ b/target/board/generic_arm64_ab/BoardConfig.mk
+@@ -33,7 +33,7 @@ TARGET_NO_RECOVERY := true
+ BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+ 
+ # TODO(jiyong) These might be SoC specific.
+-BOARD_ROOT_EXTRA_FOLDERS += firmware firmware/radio persist
++BOARD_ROOT_EXTRA_FOLDERS += bt_firmware firmware firmware/radio persist
+ BOARD_ROOT_EXTRA_SYMLINKS += /vendor/lib/dsp:/dsp
+ BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt/image:/firmware/image
+ BOARD_ROOT_EXTRA_SYMLINKS += /vendor/firmware_mnt/verinfo:/firmware/verinfo
+diff --git a/target/board/generic_arm64_ab/sepolicy/file.te b/target/board/generic_arm64_ab/sepolicy/file.te
+index 7adfdfa4e..46455339a 100644
+--- a/target/board/generic_arm64_ab/sepolicy/file.te
++++ b/target/board/generic_arm64_ab/sepolicy/file.te
+@@ -1,5 +1,6 @@
+ # TODO(b/36764215): remove this file when the generic system image
+ # no longer has these directories
++type bt_firmware_file, file_type;
+ type persist_file, file_type;
+ 
+ # Default type for anything under /firmware.
+diff --git a/target/board/generic_arm64_ab/sepolicy/file_contexts b/target/board/generic_arm64_ab/sepolicy/file_contexts
+index 0a80559e1..92a4ff872 100644
+--- a/target/board/generic_arm64_ab/sepolicy/file_contexts
++++ b/target/board/generic_arm64_ab/sepolicy/file_contexts
+@@ -2,6 +2,7 @@
+ # no longer has these directories. They are specific to QCOM.
+ 
+ # /
++/bt_firmware(/.*)?      u:object_r:bt_firmware_file:s0
+ /tombstones             u:object_r:rootfs:s0
+ /dsp                    u:object_r:rootfs:s0
+ 
+-- 
+2.17.1
+

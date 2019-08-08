@@ -1,0 +1,33 @@
+From 07a474ec22ecfde83a4cfb6b74f962a905c18e65 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 26 Feb 2019 23:13:21 +0100
+Subject: [PATCH 6/7] Add a property to force all APNs to be modemCognitive.
+ Needed on some MTK modems
+
+Change-Id: I111f1375f3f11e81251eaf782c84a0bef345366c
+---
+ .../android/internal/telephony/dataconnection/DcTracker.java  | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/java/com/android/internal/telephony/dataconnection/DcTracker.java b/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
+index ea6fa81d0..53388df26 100644
+--- a/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
++++ b/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
+@@ -3308,11 +3308,13 @@ public class DcTracker extends Handler {
+     }
+ 
+     private void setDataProfilesAsNeeded() {
++        boolean forceCognitive = SystemProperties.getBoolean("persist.sys.phh.radio.force_cognitive", false);
++
+         if (DBG) log("setDataProfilesAsNeeded");
+         if (mAllApnSettings != null && !mAllApnSettings.isEmpty()) {
+             ArrayList<DataProfile> dps = new ArrayList<DataProfile>();
+             for (ApnSetting apn : mAllApnSettings) {
+-                if (apn.modemCognitive) {
++                if (apn.modemCognitive || forceCognitive) {
+                     DataProfile dp = createDataProfile(apn);
+                     if (!dps.contains(dp)) {
+                         dps.add(dp);
+-- 
+2.17.1
+

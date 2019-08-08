@@ -1,0 +1,36 @@
+From 7fed750fff5a65329a32b851c46d3aaa856b2bed Mon Sep 17 00:00:00 2001
+From: Jerry Zhang <zhangjerry@google.com>
+Date: Wed, 6 Jun 2018 11:04:46 -0700
+Subject: [PATCH 32/32] Check for null path in getInternalPathForUser
+
+In some situations, path could be null resulting
+in a crash.
+
+Test: no crash
+Bug: 109730998
+Change-Id: I2ce0410162d1327905d690331f461f9187e20906
+Merged-In: I2ce0410162d1327905d690331f461f9187e20906
+(cherry picked from commit 6f6154bf0493cf66628c8f2418827fe54679b1eb)
+(cherry picked from commit 30f63cf1f958cf5e8ee77875ac38c579a4a783d1)
+---
+ core/java/android/os/storage/VolumeInfo.java | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/core/java/android/os/storage/VolumeInfo.java b/core/java/android/os/storage/VolumeInfo.java
+index 8d4c3c3d3e6..8c7750242ef 100644
+--- a/core/java/android/os/storage/VolumeInfo.java
++++ b/core/java/android/os/storage/VolumeInfo.java
+@@ -312,7 +312,9 @@ public class VolumeInfo implements Parcelable {
+      * {@link android.Manifest.permission#WRITE_MEDIA_STORAGE}.
+      */
+     public File getInternalPathForUser(int userId) {
+-        if (type == TYPE_PUBLIC) {
++        if (path == null) {
++            return null;
++        } else if (type == TYPE_PUBLIC) {
+             // TODO: plumb through cleaner path from vold
+             return new File(path.replace("/storage/", "/mnt/media_rw/"));
+         } else {
+-- 
+2.17.1
+

@@ -1,0 +1,23 @@
+From 1dd37cd4657bf21e8e1db83edb44916efbfeaf49 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Tue, 14 Aug 2018 20:53:12 +0200
+Subject: [PATCH] Don't set reserved_disk group, it panics old inits
+
+---
+ vold.rc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/vold.rc b/vold.rc
+index 93d8786..bba44e4 100644
+--- a/vold.rc
++++ b/vold.rc
+@@ -5,4 +5,4 @@ service vold /system/bin/vold \
+     ioprio be 2
+     writepid /dev/cpuset/foreground/tasks
+     shutdown critical
+-    group root reserved_disk
++    group root
+\ No newline at end of file
+-- 
+2.17.1
+
