@@ -1,0 +1,25 @@
+From ded09326e6e4aa9ca3c6f7a7dfbdd36b22bc4af6 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 5 Aug 2019 17:27:47 +0200
+Subject: [PATCH 10/11] Fix use-after-free (object on stack)
+
+---
+ .../audiopolicy/common/managerdefinitions/src/Serializer.cpp    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+index 59385fb76..1c5967141 100644
+--- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
++++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+@@ -326,7 +326,7 @@ status_t DevicePortTraits::deserialize(_xmlDoc *doc, const _xmlNode *root, PtrEl
+         ALOGW("%s: bad type %08x", __FUNCTION__, type);
+         return BAD_VALUE;
+     }
+-    deviceDesc = new Element(type, String8(name.c_str()));
++    deviceDesc = new Element(type, String8(strdup(name.c_str())));
+ 
+     string address = getXmlAttribute(root, Attributes::address);
+     if (!address.empty()) {
+-- 
+2.17.1
+

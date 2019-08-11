@@ -1,0 +1,44 @@
+From 5cc2638b5cf4e386e74301934982756bd485dada Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 5 Aug 2019 21:19:45 +0200
+Subject: [PATCH 8/8] Instead of panic-ing to bootloader (useless for us mere
+ mortals), panic to recovery
+
+Change-Id: If3ff381de845e579814941f89e0a6699c9f8c0e0
+---
+ init/init.cpp | 2 +-
+ init/log.cpp  | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/init/init.cpp b/init/init.cpp
+index fc58eeabb..168e68042 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -478,7 +478,7 @@ static void InstallRebootSignalHandlers() {
+         // RebootSystem uses syscall() which isn't actually async-signal-safe, but our only option
+         // and probably good enough given this is already an error case and only enabled for
+         // development builds.
+-        RebootSystem(ANDROID_RB_RESTART2, "bootloader");
++        RebootSystem(ANDROID_RB_RESTART2, "recovery");
+     };
+     action.sa_flags = SA_RESTART;
+     sigaction(SIGABRT, &action, nullptr);
+diff --git a/init/log.cpp b/init/log.cpp
+index 6198fc25f..759b54117 100644
+--- a/init/log.cpp
++++ b/init/log.cpp
+@@ -46,9 +46,9 @@ static void InitAborter(const char* abort_message) {
+         has_aborted = true;
+         // Do not queue "shutdown" trigger since we want to shutdown immediately and it's not likely
+         // that we can even run the ActionQueue at this point.
+-        DoReboot(ANDROID_RB_RESTART2, "reboot", "bootloader", false);
++        DoReboot(ANDROID_RB_RESTART2, "reboot", "recovery", false);
+     } else {
+-        RebootSystem(ANDROID_RB_RESTART2, "bootloader");
++        RebootSystem(ANDROID_RB_RESTART2, "recovery");
+     }
+ }
+ 
+-- 
+2.17.1
+

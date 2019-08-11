@@ -1,0 +1,25 @@
+From 7e4a00ff86ca1be573a06e2f358d4783bc15d5bc Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 5 Aug 2019 17:27:18 +0200
+Subject: [PATCH 09/11] Enable debug
+
+---
+ .../audiopolicy/common/managerdefinitions/src/Serializer.cpp    | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+index 380e2f82b..59385fb76 100644
+--- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
++++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+@@ -15,7 +15,7 @@
+  */
+ 
+ #define LOG_TAG "APM::Serializer"
+-//#define LOG_NDEBUG 0
++#define LOG_NDEBUG 0
+ 
+ #include "Serializer.h"
+ #include <media/convert.h>
+-- 
+2.17.1
+
