@@ -1,25 +1,25 @@
-From e3f08c02ab7d0bc5d0efcc9eb3ad98d9a3a98e32 Mon Sep 17 00:00:00 2001
+From 7369d2c37720cc88bbb28c6487b0209732ac52fa Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
-Subject: [PATCH 01/31] Fix backlight control on Galaxy S9(+)
+Subject: [PATCH] Fix backlight control on Galaxy S9(+)
 
 ---
  .../core/java/com/android/server/lights/LightsService.java | 7 +++++++
  1 file changed, 7 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index a94ed608b9c..762b0ae4037 100644
+index 9dee0171683..378e7c367b1 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -21,6 +21,7 @@ import android.app.ActivityManager;
- import android.content.Context;
+@@ -23,6 +23,7 @@ import android.content.Context;
+ import android.content.pm.PackageManager;
  import android.os.Handler;
  import android.os.Message;
 +import android.os.SystemProperties;
  import android.os.Trace;
  import android.provider.Settings;
  import android.util.Slog;
-@@ -52,6 +53,12 @@ public class LightsService extends SystemService {
+@@ -54,6 +55,12 @@ public class LightsService extends SystemService {
                      return;
                  }
  

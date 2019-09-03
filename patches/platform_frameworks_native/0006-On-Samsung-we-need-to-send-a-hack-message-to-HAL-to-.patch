@@ -1,0 +1,35 @@
+From 663f83cdb9628315a8501a24d85eee6df707e1ae Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 14 Aug 2019 23:37:10 +0200
+Subject: [PATCH 6/6] On Samsung, we need to send a hack-message to HAL to get
+ all Sensors
+
+---
+ services/sensorservice/SensorDevice.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/services/sensorservice/SensorDevice.cpp b/services/sensorservice/SensorDevice.cpp
+index 115a983bc..7fe05190e 100644
+--- a/services/sensorservice/SensorDevice.cpp
++++ b/services/sensorservice/SensorDevice.cpp
+@@ -26,6 +26,8 @@
+ #include <cinttypes>
+ #include <thread>
+ 
++#include <android-base/properties.h>
++
+ using namespace android::hardware::sensors::V1_0;
+ using namespace android::hardware::sensors::V1_0::implementation;
+ using android::hardware::hidl_vec;
+@@ -59,6 +61,8 @@ SensorDevice::SensorDevice()
+ 
+     float minPowerMa = 0.001; // 1 microAmp
+ 
++    if(::android::base::GetBoolProperty("persist.sys.phh.samsung_sensors", false))
++        setMode(5555);
+     checkReturn(mSensors->getSensorsList(
+             [&](const auto &list) {
+                 const size_t count = list.size();
+-- 
+2.17.1
+

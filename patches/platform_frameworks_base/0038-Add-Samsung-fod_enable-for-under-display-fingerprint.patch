@@ -1,0 +1,107 @@
+From 400520d763e99653b8ebf81ed38e178bea2443b5 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 12 Aug 2019 23:10:21 +0200
+Subject: [PATCH 38/40] Add Samsung `fod_enable` for under-display fingerprint.
+ For the moment only ultra-sonic works
+
+---
+ .../server/fingerprint/FacolaView.java        | 54 +++++++++++++++++++
+ 1 file changed, 54 insertions(+)
+
+diff --git a/services/core/java/com/android/server/fingerprint/FacolaView.java b/services/core/java/com/android/server/fingerprint/FacolaView.java
+index 86f03360ad0..254c1f99b44 100644
+--- a/services/core/java/com/android/server/fingerprint/FacolaView.java
++++ b/services/core/java/com/android/server/fingerprint/FacolaView.java
+@@ -32,6 +32,9 @@ import android.view.Gravity;
+ import android.os.Handler;
+ import android.os.Looper;
+ 
++import java.io.BufferedReader;
++import java.io.File;
++import java.io.FileReader;
+ import java.io.PrintWriter;
+ 
+ import vendor.xiaomi.hardware.fingerprintextension.V1_0.IXiaomiFingerprint;
+@@ -53,9 +56,12 @@ public class FacolaView extends ImageView implements OnTouchListener {
+     private boolean visible = false;
+ 
+     private final WindowManager mWM;
++    private final boolean samsungFod = samsungHasCmd("fod_enable");
+     FacolaView(Context context) {
+         super(context);
+ 
++	android.util.Log.d("PHH", "Samsung FOD " + samsungFod);
++
+         mMainHandler = new Handler(Looper.getMainLooper());
+ 
+         String[] location = android.os.SystemProperties.get("persist.vendor.sys.fp.fod.location.X_Y", "").split(",");
+@@ -157,6 +163,9 @@ public class FacolaView extends ImageView implements OnTouchListener {
+     }
+ 
+     public void show() {
++	    if(samsungFod) {
++		    samsungCmd("fod_enable,1,1");
++	    }
+         if(mX == -1 || mY == -1 || mW == -1 || mH == -1) return;
+ 
+         try {
+@@ -191,6 +200,9 @@ public class FacolaView extends ImageView implements OnTouchListener {
+     }
+ 
+     public void hide() {
++	    if(samsungFod) {
++		    samsungCmd("fod_enable,0");
++	    }
+         if(mX == -1 || mY == -1 || mW == -1 || mH == -1) return;
+ 
+         try {
+@@ -211,4 +223,46 @@ public class FacolaView extends ImageView implements OnTouchListener {
+         mWM.removeView(this);
+         visible = false;
+     }
++
++    private static boolean samsungHasCmd(String cmd) {
++	    try {
++		    File f = new File("/sys/devices/virtual/sec/tsp/cmd_list");
++		    if(!f.exists()) return false;
++
++		    BufferedReader b = new BufferedReader(new FileReader(f));
++		    String line = null;
++		    while( (line = b.readLine()) != null) {
++			    if(line.equals(cmd)) return true;
++		    }
++		    return false;
++	    } catch(Exception e) {
++		    return false;
++	    }
++    }
++
++    private static String readFile(String path) {
++	    try {
++		    File f = new File(path);
++
++		    BufferedReader b = new BufferedReader(new FileReader(f));
++		    return b.readLine();
++	    } catch(Exception e) {
++		    return null;
++	    }
++    }
++
++    private static void samsungCmd(String cmd) {
++	    try {
++		    PrintWriter writer = new PrintWriter("/sys/devices/virtual/sec/tsp/cmd", "UTF-8");
++		    writer.println(cmd);
++		    writer.close();
++
++		    String status = readFile("/sys/devices/virtual/sec/tsp/cmd_status");
++		    String ret = readFile("/sys/devices/virtual/sec/tsp/cmd_result");
++
++		    android.util.Log.d("PHH", "Sending command " + cmd + " returned " + ret + ":" + status);
++	    } catch(Exception e) {
++		    android.util.Log.d("PHH", "Failed sending command " + cmd, e);
++	    }
++    }
+ }
+-- 
+2.17.1
+

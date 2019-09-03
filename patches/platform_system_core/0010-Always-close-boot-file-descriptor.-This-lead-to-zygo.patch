@@ -1,0 +1,70 @@
+From e6db829c4c05539b585c125ecf9f10265ce650c4 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Thu, 22 Aug 2019 20:27:54 +0200
+Subject: [PATCH 10/10] Always close boot file descriptor. This lead to zygote
+ not starting. Should probably add cloexec later
+
+Change-Id: Ia58f953c0edc7c85705dc75c3b4e3478f1eb00a7
+---
+ init/init.cpp | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/init/init.cpp b/init/init.cpp
+index 93836fdbd..5843974a9 100644
+--- a/init/init.cpp
++++ b/init/init.cpp
+@@ -551,36 +551,42 @@ static void DisableSamsungSafeplace() {
+ 		0xE2, 0xFF, 0x8F, 0x12
+ 	};
+ 
++	char *buf;
++	off_t end;
++	ssize_t r, w;
++	void *pos;
++	static const char seandroidenforce[] = "SEANDROIDENFORCE";
++
+ 	int fd = open("/dev/block/by-name/boot", O_RDWR);
+         LOG(INFO) << "opened boot! " << fd;
+-	if(fd < 0) return;
++	if(fd < 0) goto end;
+ 
+-	off_t end = lseek(fd, 0, SEEK_END);
++	end = lseek(fd, 0, SEEK_END);
+         LOG(INFO) << "Found size! " << end;
+ 	lseek(fd, 0, SEEK_SET);
+ 
+-	char *buf = new char[end];
+-	ssize_t r = read(fd, buf, end);
++	buf = new char[end];
++	r = read(fd, buf, end);
+         LOG(INFO) << "Read ! " << r;
+ 
+-	static const char seandroidenforce[] = "SEANDROIDENFORCE";
+-	void* pos = memmem(buf, end, before, sizeof(before));
++	pos = memmem(buf, end, before, sizeof(before));
+ 	if(!memmem(buf, end, seandroidenforce, strlen(seandroidenforce))) {
+ 		LOG(INFO) << "Not a samsung kernel + " << pos;
+-		return;
++		goto end;
+ 	}
+ 	if(pos) {
+ 		LOG(INFO) << "bfore ! " << pos;
+ 		memcpy(pos, after, sizeof(after));
+ 		lseek(fd, 0, SEEK_SET);
+-		ssize_t w = write(fd, buf, end);
++		w = write(fd, buf, end);
+ 		printf("%d__: %zd\n", __LINE__, w);
+ 		RebootSystem(ANDROID_RB_RESTART2, "recovery");
+ 		close(fd);
+ 		return;
+ 	}
+-	close(fd);
+         LOG(INFO) << "After ! " << memmem(buf, end, after, sizeof(after));
++end:
++	close(fd);
+ 
+ 	return;
+ }
+-- 
+2.17.1
+
