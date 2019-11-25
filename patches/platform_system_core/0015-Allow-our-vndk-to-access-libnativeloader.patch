@@ -1,0 +1,37 @@
+From 23af49628e60990b02ed9e45fabede1804b6e44b Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 11 Nov 2019 00:21:36 +0100
+Subject: [PATCH] Allow our vndk to access libnativeloader
+
+Also link the "runtime" namespace so this fix actually applies
+Reference: https://github.com/phhusson/platform_system_core/commit/3bdd3cfab66b7b2553d00309797786b65489b852#diff-a7ab9e7752aa70dc82b8788445b8cab1R484
+
+Change-Id: Ibe5c8e9d58287d7796dfd3343c05a1a7a0819ad6
+---
+ rootdir/etc/ld.config.txt | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/rootdir/etc/ld.config.txt b/rootdir/etc/ld.config.txt
+index 84b308d0e..c33d35962 100644
+--- a/rootdir/etc/ld.config.txt
++++ b/rootdir/etc/ld.config.txt
+@@ -477,13 +477,15 @@ namespace.vndk.asan.search.paths +=           /system/${LIB}/vndk%VNDK_VER%
+ # Android releases.  The links here should be identical to that of the
+ # 'vndk_in_system' namespace, except for the link between 'vndk' and
+ # 'vndk_in_system'.
+-namespace.vndk.links = system,default%VNDK_IN_SYSTEM_NS%
++namespace.vndk.links = system,default%VNDK_IN_SYSTEM_NS%,runtime
+ 
+ namespace.vndk.link.system.shared_libs  = %LLNDK_LIBRARIES%
+ namespace.vndk.link.system.shared_libs += %SANITIZER_RUNTIME_LIBRARIES%
+ 
+ namespace.vndk.link.default.allow_all_shared_libs = true
+ 
++namespace.vndk.link.runtime.shared_libs = libnativeloader.so
++
+ namespace.vndk.link.vndk_in_system.shared_libs = %VNDK_USING_CORE_VARIANT_LIBRARIES%
+ 
+ ###############################################################################
+-- 
+2.17.1
+
