@@ -1,8 +1,8 @@
-From 92aac43c368e3123ac419ad2c293de3abf0f0b3b Mon Sep 17 00:00:00 2001
+From 7ad31b03ab941886ac1e930a1f1dd1232461cd18 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 Oct 2019 13:35:49 +0200
-Subject: [PATCH 11/11] Add (partial, cam id is hardcoded) support for Asus ZF6
- motor camera
+Subject: [PATCH] Add (partial, cam id is hardcoded) support for Asus ZF6 motor
+ camera
 
 Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
 ---
@@ -11,7 +11,7 @@ Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
  2 files changed, 29 insertions(+)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index d208a36a9..37752becd 100644
+index 62cbc7ddb..ddddfda97 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
 @@ -25,6 +25,7 @@
@@ -22,7 +22,7 @@ index d208a36a9..37752becd 100644
  #include <inttypes.h>
  #include <pthread.h>
  
-@@ -128,6 +129,7 @@ Mutex CameraService::sProxyMutex;
+@@ -131,6 +132,7 @@ Mutex CameraService::sProxyMutex;
  sp<hardware::ICameraServiceProxy> CameraService::sCameraServiceProxy;
  
  CameraService::CameraService() :
@@ -30,15 +30,15 @@ index d208a36a9..37752becd 100644
          mEventLog(DEFAULT_EVENT_LOG_LENGTH),
          mNumberOfCameras(0),
          mSoundRef(0), mInitialized(false) {
-@@ -1538,6 +1540,7 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
+@@ -1549,6 +1551,7 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
              mServiceLock.lock();
          } else {
              // Otherwise, add client to active clients list
 +            physicalFrontCam(cameraId == "1");
              finishConnectLocked(client, partial);
-         }
-     } // lock is destroyed, allow further connect calls
-@@ -1548,6 +1551,27 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
+ 
+             sp<ICameraMotor> cameraMotor = ICameraMotor::getService();
+@@ -1564,6 +1567,27 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
      return ret;
  }
  
@@ -66,9 +66,9 @@ index d208a36a9..37752becd 100644
  Status CameraService::setTorchMode(const String16& cameraId, bool enabled,
          const sp<IBinder>& clientBinder) {
      Mutex::Autolock lock(mServiceLock);
-@@ -2405,6 +2429,8 @@ binder::Status CameraService::BasicClient::disconnect() {
+@@ -2427,6 +2451,8 @@ binder::Status CameraService::BasicClient::disconnect() {
+         cameraMotor->onDisconnect(mCameraIdStr.string());
      }
-     mDisconnected = true;
  
 +    sCameraService->physicalFrontCam(false);
 +

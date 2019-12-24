@@ -1,4 +1,4 @@
-From 5529a224373874a11d77fd31e25428cc10fbc1a4 Mon Sep 17 00:00:00 2001
+From 47af450ead33251ed80186d3b203e74d4930a775 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 6 Sep 2019 15:10:28 +0200
 Subject: [PATCH] Whitelist radio HALs (needed because they need to e in
@@ -10,13 +10,13 @@ Change-Id: If1ccbedde92955bb86f4c6db6d68502784de1d8d
  1 file changed, 3 insertions(+)
 
 diff --git a/core/tasks/check_boot_jars/package_whitelist.txt b/core/tasks/check_boot_jars/package_whitelist.txt
-index 7e2e56c4c..daa23ddbd 100644
+index d7dc368ee..7b6d5d8e7 100644
 --- a/core/tasks/check_boot_jars/package_whitelist.txt
 +++ b/core/tasks/check_boot_jars/package_whitelist.txt
-@@ -247,3 +247,6 @@ org\.chromium\.arc\..*
- # LineageOS
- lineageos\.platform
- org\.lineageos\.platform\.internal
+@@ -254,3 +254,6 @@ org\.lineageos\.platform\.internal
+ org\.codeaurora\.ims.*
+ # telephony-ext:
+ org\.codeaurora\.internal.*
 +
 +vendor\.samsung\.hardware\.radio\.V1_2
 +vendor\.mediatek\.hardware\.radio\.V2_0

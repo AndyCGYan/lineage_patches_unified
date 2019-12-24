@@ -1,7 +1,7 @@
-From 014a893a2872fb067c83a866d39ef1c4da70aaff Mon Sep 17 00:00:00 2001
+From 1dd0b7fde40e2e451126dcdea035ee8f0f662c8f Mon Sep 17 00:00:00 2001
 From: Artem Borisov <dedsa2002@gmail.com>
 Date: Wed, 19 Sep 2018 17:02:06 +0300
-Subject: [PATCH 1/3] Telephony: Support muting by RIL command
+Subject: [PATCH] Telephony: Support muting by RIL command
 
 While almost everyone already moved to AudioManager years ago,
 some OEMs (cough Huawei) still use RIL for muting and don't
@@ -10,11 +10,11 @@ Let's handle these odd cases too when it's necessary.
 
 Change-Id: Id916dec2574d6e57b6f809fbaf2b0959c0cc7256
 ---
- src/com/android/services/telephony/TelephonyConnection.java | 5 +++++
- 1 file changed, 5 insertions(+)
+ src/com/android/services/telephony/TelephonyConnection.java | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/src/com/android/services/telephony/TelephonyConnection.java b/src/com/android/services/telephony/TelephonyConnection.java
-index 7bb6b7d55..18e078fe3 100644
+index 06dce1626..be4b2c31c 100644
 --- a/src/com/android/services/telephony/TelephonyConnection.java
 +++ b/src/com/android/services/telephony/TelephonyConnection.java
 @@ -25,6 +25,7 @@ import android.os.Handler;
@@ -25,12 +25,11 @@ index 7bb6b7d55..18e078fe3 100644
  import android.telecom.CallAudioState;
  import android.telecom.ConferenceParticipant;
  import android.telecom.Connection;
-@@ -736,6 +737,10 @@ abstract class TelephonyConnection extends Connection implements Holdable {
-         // TODO: update TTY mode.
-         if (getPhone() != null) {
-             getPhone().setEchoSuppressionEnabled();
-+
-+        if (SystemProperties.getBoolean("persist.sys.radio.huawei", false)) {
+@@ -747,6 +748,9 @@ abstract class TelephonyConnection extends Connection implements Holdable {
+             if (!mSendMicMuteToAudioManager) {
+                 getPhone().setMute(audioState.isMuted());
+             }
++            if (SystemProperties.getBoolean("persist.sys.radio.huawei", false)) {
 +                getPhone().setMute(audioState.isMuted());
 +            }
          }
