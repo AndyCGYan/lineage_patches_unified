@@ -1,29 +1,28 @@
-From e109f7d80980e4a24a57c0ffcacfece96b8b9b9e Mon Sep 17 00:00:00 2001
+From b99650956dc7943e965a0413bfb3b5f01d182e40 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 14 Sep 2019 22:49:31 +0200
-Subject: [PATCH 11/12] Use a vndk-lite friendly ld config
+Subject: [PATCH] Use a vndk-lite friendly ld config
 
 Change-Id: I5b1e49fc534e6625ebdb6e183466e73b5c49e175
 ---
- rootdir/etc/ld.config.txt | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ rootdir/etc/ld.config.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/rootdir/etc/ld.config.txt b/rootdir/etc/ld.config.txt
-index 84b308d0e..f59a01520 100644
+index c95f60fb0..50c153f4a 100644
 --- a/rootdir/etc/ld.config.txt
 +++ b/rootdir/etc/ld.config.txt
-@@ -423,11 +423,11 @@ namespace.default.asan.permitted.paths +=           /odm
- namespace.default.asan.permitted.paths += /data/asan/vendor
- namespace.default.asan.permitted.paths +=           /vendor
+@@ -428,11 +428,11 @@ namespace.default.asan.permitted.paths +=           /vendor
  
--namespace.default.links = system,vndk%VNDK_IN_SYSTEM_NS%
-+namespace.default.links = system,vndk%VNDK_IN_SYSTEM_NS%,runtime
- namespace.default.link.system.shared_libs = %LLNDK_LIBRARIES%
+ namespace.default.links = system,vndk%VNDK_IN_SYSTEM_NS%,runtime
+ namespace.default.link.runtime.shared_libs = %SANITIZER_RUNTIME_LIBRARIES%
++namespace.default.link.runtime.shared_libs += libnativeloader.so
+ namespace.default.link.system.shared_libs  = %LLNDK_LIBRARIES%
+ namespace.default.link.system.shared_libs += %SANITIZER_RUNTIME_LIBRARIES%
  namespace.default.link.vndk_in_system.shared_libs = %VNDK_USING_CORE_VARIANT_LIBRARIES%
 -namespace.default.link.vndk.shared_libs  = %VNDK_SAMEPROCESS_LIBRARIES%
 -namespace.default.link.vndk.shared_libs += %VNDK_CORE_LIBRARIES%
 +namespace.default.link.vndk.allow_all_shared_libs = true
-+namespace.default.link.runtime.shared_libs = libnativeloader.so
  
  ###############################################################################
  # "runtime" APEX namespace

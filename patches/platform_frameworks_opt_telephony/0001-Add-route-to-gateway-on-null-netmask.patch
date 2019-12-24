@@ -1,7 +1,7 @@
-From 60d9333099db6587acd48b896d37e9e949fa95dc Mon Sep 17 00:00:00 2001
+From 23e23d28af5ef1029c223fb617f19cc6b3a3ce08 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 16 Aug 2018 22:12:46 +0200
-Subject: [PATCH 1/6] Add route to gateway on null netmask
+Subject: [PATCH] Add route to gateway on null netmask
 
 Galaxy S9 returns empty prefix
 
@@ -11,18 +11,18 @@ Change-Id: I8133da8e8f5203666684100009ba658528a02e94
  1 file changed, 17 insertions(+)
 
 diff --git a/src/java/com/android/internal/telephony/dataconnection/DataConnection.java b/src/java/com/android/internal/telephony/dataconnection/DataConnection.java
-index 20ccee8c9..f39d01809 100644
+index 1202ce875..dcb72d4d7 100644
 --- a/src/java/com/android/internal/telephony/dataconnection/DataConnection.java
 +++ b/src/java/com/android/internal/telephony/dataconnection/DataConnection.java
-@@ -24,6 +24,7 @@ import android.annotation.Nullable;
- import android.app.PendingIntent;
+@@ -25,6 +25,7 @@ import android.app.PendingIntent;
+ import android.content.Context;
  import android.net.ConnectivityManager;
  import android.net.KeepalivePacketData;
 +import android.net.IpPrefix;
  import android.net.LinkAddress;
  import android.net.LinkProperties;
  import android.net.NetworkCapabilities;
-@@ -1393,6 +1394,22 @@ public class DataConnection extends StateMachine {
+@@ -1403,6 +1404,22 @@ public class DataConnection extends StateMachine {
                  }
  
                  for (InetAddress gateway : response.getGatewayAddresses()) {
