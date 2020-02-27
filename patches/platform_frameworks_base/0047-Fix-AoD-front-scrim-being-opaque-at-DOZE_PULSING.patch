@@ -1,0 +1,63 @@
+From 1f986fdcdbf2788cc1df26c032a08bce89b1427d Mon Sep 17 00:00:00 2001
+From: "Chris.CC Lee" <chriscclee@google.com>
+Date: Mon, 3 Feb 2020 17:33:19 +0800
+Subject: [PATCH 47/49] Fix AoD front scrim being opaque at DOZE_PULSING.
+
+When doze state changed from DOZE to DOZE_PULSING on devices not
+supporting doze_brightness_sensor_type sensor, there would be no
+sensor events to update the AoD front scrim. And due to the scrim was
+set to opaque at DOZE state, most views on the statusbar will be
+invisible. This patch change the scrim to transparent again at leaving
+DOZE state.
+
+Bug: 148129743
+Test: atest DozeScreenBrightnessTest
+Change-Id: I2c079d081b04f00a929ae5c4475639685f9f7e69
+---
+ .../systemui/doze/DozeScreenBrightness.java        |  4 ++++
+ .../systemui/doze/DozeScreenBrightnessTest.java    | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/doze/DozeScreenBrightness.java b/packages/SystemUI/src/com/android/systemui/doze/DozeScreenBrightness.java
+index bd6882c01bb..c27e633f2a9 100644
+--- a/packages/SystemUI/src/com/android/systemui/doze/DozeScreenBrightness.java
++++ b/packages/SystemUI/src/com/android/systemui/doze/DozeScreenBrightness.java
+@@ -161,6 +161,10 @@ public class DozeScreenBrightness extends BroadcastReceiver implements DozeMachi
+                 // again, it will only show after the brightness sensor has stabilized,
+                 // avoiding a potential flicker.
+                 scrimOpacity = 255;
++            } else if (!mScreenOff && mLightSensor == null) {
++                // No light sensor but previous state turned the screen black. Make the scrim
++                // transparent and below views visible.
++                scrimOpacity = 0;
+             } else if (brightnessReady) {
+                 // Only unblank scrim once brightness is ready.
+                 scrimOpacity = computeScrimOpacity(sensorValue);
+diff --git a/packages/SystemUI/tests/src/com/android/systemui/doze/DozeScreenBrightnessTest.java b/packages/SystemUI/tests/src/com/android/systemui/doze/DozeScreenBrightnessTest.java
+index 392c677b982..1347175c7d3 100644
+--- a/packages/SystemUI/tests/src/com/android/systemui/doze/DozeScreenBrightnessTest.java
++++ b/packages/SystemUI/tests/src/com/android/systemui/doze/DozeScreenBrightnessTest.java
+@@ -170,6 +170,20 @@ public class DozeScreenBrightnessTest extends SysuiTestCase {
+         assertEquals(DEFAULT_BRIGHTNESS, mServiceFake.screenBrightness);
+     }
+ 
++    @Test
++    public void testPulsing_withoutLightSensor_setsAoDDimmingScrimTransparent() throws Exception {
++        mScreen = new DozeScreenBrightness(mContext, mServiceFake, mSensorManager,
++                null /* sensor */, mHostFake, null /* handler */,
++                DEFAULT_BRIGHTNESS, SENSOR_TO_BRIGHTNESS, SENSOR_TO_OPACITY,
++                true /* debuggable */);
++        mScreen.transitionTo(UNINITIALIZED, INITIALIZED);
++        mScreen.transitionTo(INITIALIZED, DOZE);
++
++        mScreen.transitionTo(DOZE, DOZE_REQUEST_PULSE);
++
++        assertEquals(0f, mHostFake.aodDimmingScrimOpacity, 0.001f /* delta */);
++    }
++
+     @Test
+     public void testNullSensor() throws Exception {
+         mScreen = new DozeScreenBrightness(mContext, mServiceFake, mSensorManager,
+-- 
+2.17.1
+
