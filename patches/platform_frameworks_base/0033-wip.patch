@@ -1,4 +1,4 @@
-From b15c825ccb48260a85695db41aff138787d1817f Mon Sep 17 00:00:00 2001
+From ad26b4fe426344371cd018050025d7ca4d47bec2 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 Mar 2019 22:48:39 +0100
 Subject: [PATCH] wip
@@ -11,15 +11,15 @@ Change-Id: I50fa9a7a670cef5b93fc4a3a027f1587b1214831
  .../fingerprint/FingerprintService.java       |  26 ++-
  .../testharness/TestHarnessModeService.java   |   7 +-
  .../com/android/server/wm/ActivityRecord.java |   6 -
- ...om_android_server_lights_LightsService.cpp |  15 +-
- 7 files changed, 255 insertions(+), 12 deletions(-)
+ ...om_android_server_lights_LightsService.cpp |  13 +-
+ 7 files changed, 254 insertions(+), 11 deletions(-)
  create mode 100644 services/core/java/com/android/server/biometrics/fingerprint/FacolaView.java
 
 diff --git a/Android.bp b/Android.bp
-index 16abdbf79de..d01dc639c8f 100644
+index bdd88034655..5e79350ac5c 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -777,6 +777,8 @@ java_defaults {
+@@ -779,6 +779,8 @@ java_defaults {
          "android.hardware.vibrator-V1.2-java",
          "android.hardware.vibrator-V1.3-java",
          "android.hardware.wifi-V1.0-java-constants",
@@ -257,7 +257,7 @@ index 00000000000..8829bcb7e48
 +    }
 +}
 diff --git a/services/core/java/com/android/server/biometrics/fingerprint/FingerprintService.java b/services/core/java/com/android/server/biometrics/fingerprint/FingerprintService.java
-index 19593e7e047..c7de87126e8 100644
+index f6e0742aa67..92c0cc5dc85 100644
 --- a/services/core/java/com/android/server/biometrics/fingerprint/FingerprintService.java
 +++ b/services/core/java/com/android/server/biometrics/fingerprint/FingerprintService.java
 @@ -120,8 +120,10 @@ public class FingerprintService extends BiometricServiceBase {
@@ -298,7 +298,7 @@ index 19593e7e047..c7de87126e8 100644
      }
  
      /**
-@@ -180,7 +202,6 @@ public class FingerprintService extends BiometricServiceBase {
+@@ -181,7 +203,6 @@ public class FingerprintService extends BiometricServiceBase {
          /**
           * The following methods contain common code which is shared in biometrics/common.
           */
@@ -306,7 +306,7 @@ index 19593e7e047..c7de87126e8 100644
          @Override // Binder call
          public long preEnroll(IBinder token) {
              checkPermission(MANAGE_FINGERPRINT);
-@@ -725,6 +746,7 @@ public class FingerprintService extends BiometricServiceBase {
+@@ -727,6 +748,7 @@ public class FingerprintService extends BiometricServiceBase {
          mAlarmManager = context.getSystemService(AlarmManager.class);
          context.registerReceiver(mLockoutReceiver, new IntentFilter(getLockoutResetIntent()),
                  getLockoutBroadcastPermission(), null /* handler */);
@@ -314,7 +314,7 @@ index 19593e7e047..c7de87126e8 100644
      }
  
      @Override
-@@ -952,6 +974,7 @@ public class FingerprintService extends BiometricServiceBase {
+@@ -954,6 +976,7 @@ public class FingerprintService extends BiometricServiceBase {
              Slog.w(TAG, "startPreEnroll: no fingerprint HAL!");
              return 0;
          }
@@ -322,7 +322,7 @@ index 19593e7e047..c7de87126e8 100644
          try {
              return daemon.preEnroll();
          } catch (RemoteException e) {
-@@ -966,6 +989,7 @@ public class FingerprintService extends BiometricServiceBase {
+@@ -968,6 +991,7 @@ public class FingerprintService extends BiometricServiceBase {
              Slog.w(TAG, "startPostEnroll: no fingerprint HAL!");
              return 0;
          }
@@ -349,10 +349,10 @@ index fcf87ee2a4b..0aa948417c1 100644
              // There's no data to apply, so leave it as-is.
              return null;
 diff --git a/services/core/java/com/android/server/wm/ActivityRecord.java b/services/core/java/com/android/server/wm/ActivityRecord.java
-index 479babc4c7d..1f972dd4918 100644
+index d9c85c0ca50..0740f70bbf4 100644
 --- a/services/core/java/com/android/server/wm/ActivityRecord.java
 +++ b/services/core/java/com/android/server/wm/ActivityRecord.java
-@@ -2833,12 +2833,6 @@ final class ActivityRecord extends ConfigurationContainer {
+@@ -2835,12 +2835,6 @@ final class ActivityRecord extends ConfigurationContainer {
      // TODO(b/36505427): Consider moving this method and similar ones to ConfigurationContainer.
      private void updateOverrideConfiguration() {
          final Configuration overrideConfig = mTmpConfig;
@@ -366,7 +366,7 @@ index 479babc4c7d..1f972dd4918 100644
              if (mCompatDisplayInsets != null) {
                  // The override configuration is set only once in size compatibility mode.
 diff --git a/services/core/jni/com_android_server_lights_LightsService.cpp b/services/core/jni/com_android_server_lights_LightsService.cpp
-index 20de7985d1d..2b50d04233e 100644
+index 2f77726d5bd..2b50d04233e 100644
 --- a/services/core/jni/com_android_server_lights_LightsService.cpp
 +++ b/services/core/jni/com_android_server_lights_LightsService.cpp
 @@ -46,6 +46,9 @@ using ISecLight  = ::vendor::samsung::hardware::light::V2_0::ISecLight;
@@ -379,19 +379,17 @@ index 20de7985d1d..2b50d04233e 100644
  static bool validate(jint light, jint flash, jint brightness) {
      bool valid = true;
  
-@@ -155,20 +158,24 @@ static void setLight_native(
-         colorAlpha = (colorAlpha * brightnessLevel) / 0xFF;
+@@ -156,19 +159,23 @@ static void setLight_native(
          colorARGB = (colorAlpha << 24) + (colorARGB & 0x00FFFFFF);
      }
--    
--    sp<ISecLight> secHal = ISecLight::getService();
  
--    if(secHal != nullptr) {
+-    sp<ISecLight> secHal = ISecLight::getService();
 +    if(!sSecTried) {
 +        sSecHal = ISecLight::getService();
 +        sSecTried = true;
 +    }
-+
+ 
+-    if(secHal != nullptr) {
 +    if(sSecHal != nullptr) {
          SecType type = static_cast<SecType>(light);
          LightState state = constructState(

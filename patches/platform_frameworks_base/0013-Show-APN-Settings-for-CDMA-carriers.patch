@@ -8,7 +8,7 @@ Subject: [PATCH 13/36] Show APN Settings for CDMA carriers
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/telephony/java/android/telephony/CarrierConfigManager.java b/telephony/java/android/telephony/CarrierConfigManager.java
-index 19f8203f750..4e0fcbb7358 100755
+index 19f8203f750..4e0fcbb7358 100644
 --- a/telephony/java/android/telephony/CarrierConfigManager.java
 +++ b/telephony/java/android/telephony/CarrierConfigManager.java
 @@ -3073,7 +3073,7 @@ public class CarrierConfigManager {
