@@ -1,7 +1,7 @@
-From 84efb8f43e2be2b7ab3c5a04956199b7f8683556 Mon Sep 17 00:00:00 2001
+From 67b3bc463852112c9a5bfd25e2cabf72449ec7bc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 14 Aug 2018 19:33:03 +0200
-Subject: [PATCH 02/12] Some kernel crashes when using too recent sdcardfs
+Subject: [PATCH 02/14] Some kernel crashes when using too recent sdcardfs
  options. Force everyone to old options
 
 Change-Id: Ia5cf1aa8dc07a0f4a78b4d8f760ca0944dabaa89
@@ -24,5 +24,5 @@ index 2b358197a..4420ebbd2 100644
          for (int j = 0; j < new_opts_list.size() - i; ++j) {
              new_opts += new_opts_list[j];
 -- 
-2.17.1
+2.25.1
 

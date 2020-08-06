@@ -1,4 +1,4 @@
-From 5e4a56c542339de718992bdfeeb0a72ec5cd4d98 Mon Sep 17 00:00:00 2001
+From 70f91e88839fa8ce754f341620d9abc6070fbc56 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <pierre-hugues.husson@softathome.com>
 Date: Tue, 18 Sep 2018 17:05:07 +0200
 Subject: [PATCH 2/4] Support hostap on O/O-MR1 vendors
@@ -16,10 +16,10 @@ support it. force stop/start for every reconfiguration
  2 files changed, 34 insertions(+), 3 deletions(-)
 
 diff --git a/service/java/com/android/server/wifi/HalDeviceManager.java b/service/java/com/android/server/wifi/HalDeviceManager.java
-index bb53a6e88..612bd48b8 100644
+index e10234f68..bef3c0e9b 100644
 --- a/service/java/com/android/server/wifi/HalDeviceManager.java
 +++ b/service/java/com/android/server/wifi/HalDeviceManager.java
-@@ -63,8 +63,8 @@ import java.util.Set;
+@@ -64,8 +64,8 @@ import java.util.Set;
   */
  public class HalDeviceManager {
      private static final String TAG = "HalDevMgr";
@@ -30,7 +30,7 @@ index bb53a6e88..612bd48b8 100644
  
      private static final int START_HAL_RETRY_INTERVAL_MS = 20;
      // Number of attempts a start() is re-tried. A value of 0 means no retries after a single
-@@ -226,6 +226,16 @@ public class HalDeviceManager {
+@@ -233,6 +233,16 @@ public class HalDeviceManager {
       */
      public IWifiStaIface createStaIface(boolean lowPrioritySta,
              @Nullable InterfaceDestroyedListener destroyedListener, @Nullable Handler handler) {
@@ -47,7 +47,7 @@ index bb53a6e88..612bd48b8 100644
          return (IWifiStaIface) createIface(IfaceType.STA, lowPrioritySta, destroyedListener,
                  handler);
      }
-@@ -235,6 +245,14 @@ public class HalDeviceManager {
+@@ -242,6 +252,14 @@ public class HalDeviceManager {
       */
      public IWifiApIface createApIface(@Nullable InterfaceDestroyedListener destroyedListener,
              @Nullable Handler handler) {
@@ -90,5 +90,5 @@ index 3e5dc3c79..63907e67c 100644
                  Log.i(TAG, "Vendor Hal not supported, ignoring createApIface.");
                  return handleIfaceCreationWhenVendorHalNotSupported(iface);
 -- 
-2.17.1
+2.25.1
 

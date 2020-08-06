@@ -1,7 +1,7 @@
-From d3828e0c23e79717b3b47ae29980be0b4726dc89 Mon Sep 17 00:00:00 2001
+From 922e144d1ceba361f0a92372e3fda5161249fc74 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 3 Dec 2019 14:04:17 +0100
-Subject: [PATCH 12/12] Fix for some Huawei camera (that's not ideal because it
+Subject: [PATCH 12/17] Fix for some Huawei camera (that's not ideal because it
  is a revert, it needs to be further investigated and cleaned)
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 12/12] Fix for some Huawei camera (that's not ideal because it
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index ca0231c9e..9bb5db067 100644
+index 100db9e3c..6a68a40b9 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
 @@ -16,7 +16,7 @@
@@ -21,7 +21,7 @@ index ca0231c9e..9bb5db067 100644
  
  #include <algorithm>
  #include <climits>
-@@ -223,9 +223,9 @@ status_t CameraService::enumerateProviders() {
+@@ -228,9 +228,9 @@ status_t CameraService::enumerateProviders() {
              }
          }
  
@@ -34,5 +34,5 @@ index ca0231c9e..9bb5db067 100644
  
      return OK;
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 21952419962b9a642a5312e8258039bbbb5f893b Mon Sep 17 00:00:00 2001
+From a038af3e1d22635a8b8832e4bd759a4d1aff9971 Mon Sep 17 00:00:00 2001
 From: Dil3mm4 <dil3mm4.dev@gmail.com>
 Date: Sat, 17 Nov 2018 18:18:42 +0000
-Subject: [PATCH 4/6] Choose a more generic prop.
+Subject: [PATCH 4/9] Choose a more generic prop.
 
 Since USSD it's a problem over MTK too and not only on Kirin, let's be more generic.
 
@@ -11,10 +11,10 @@ Change-Id: Icf1700f55be40915f9c64059019287f300d81405
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/java/com/android/internal/telephony/GsmCdmaPhone.java b/src/java/com/android/internal/telephony/GsmCdmaPhone.java
-index 14a322747..8359a3858 100644
+index c5bb20631..bd408e1c7 100644
 --- a/src/java/com/android/internal/telephony/GsmCdmaPhone.java
 +++ b/src/java/com/android/internal/telephony/GsmCdmaPhone.java
-@@ -2313,7 +2313,7 @@ public class GsmCdmaPhone extends Phone {
+@@ -2312,7 +2312,7 @@ public class GsmCdmaPhone extends Phone {
              // Complete pending USSD
  
              if (isUssdRelease) {
@@ -24,5 +24,5 @@ index 14a322747..8359a3858 100644
                  } else {
                      found.onUssdRelease();
 -- 
-2.17.1
+2.25.1
 

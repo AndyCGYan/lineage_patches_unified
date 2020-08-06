@@ -1,7 +1,7 @@
-From b48715b53228daedd29507239ceb1704453f4163 Mon Sep 17 00:00:00 2001
+From bc2a20304940acdba8100857599f7c24216547fd Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 16 Sep 2019 13:49:05 +0200
-Subject: [PATCH] Check needsCheckpoint only if checkpoint is supported
+Subject: [PATCH 6/9] Check needsCheckpoint only if checkpoint is supported
 
 This is needed because some devices (Xiaomi MiPad 4, uncertified)
 declares a bootctrl HAL in manifest, but doesn't have it.
@@ -28,5 +28,5 @@ index ed9a53e..d2971ff 100644
          while ((mount_rc = fs_mgr_do_mount(&fstab_default, DATA_MNT_POINT, blkdev.data(), 0,
                                             needs_cp)) != 0) {
 -- 
-2.17.1
+2.25.1
 

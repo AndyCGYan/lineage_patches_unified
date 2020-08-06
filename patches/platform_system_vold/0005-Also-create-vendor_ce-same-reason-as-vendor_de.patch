@@ -1,17 +1,17 @@
-From 1cdb0168b3bc3981f71aba62f51064be57ccf8f5 Mon Sep 17 00:00:00 2001
+From b11e5be450eaae1e0c099030d6de3c42ab77d9ae Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 Aug 2018 22:38:08 +0200
-Subject: [PATCH 5/6] Also create vendor_ce (same reason as vendor_de)
+Subject: [PATCH 5/9] Also create vendor_ce (same reason as vendor_de)
 
 ---
  FsCrypt.cpp | 2 ++
  1 file changed, 2 insertions(+)
 
 diff --git a/FsCrypt.cpp b/FsCrypt.cpp
-index bb90ee0..ec7ec7d 100644
+index c5816b1..92f31ea 100644
 --- a/FsCrypt.cpp
 +++ b/FsCrypt.cpp
-@@ -709,6 +709,8 @@ bool fscrypt_prepare_user_storage(const std::string& volume_uuid, userid_t user_
+@@ -876,6 +876,8 @@ bool fscrypt_prepare_user_storage(const std::string& volume_uuid, userid_t user_
          auto media_ce_path = android::vold::BuildDataMediaCePath(volume_uuid, user_id);
          auto user_ce_path = android::vold::BuildDataUserCePath(volume_uuid, user_id);
  
@@ -21,5 +21,5 @@ index bb90ee0..ec7ec7d 100644
              if (!prepare_dir(system_ce_path, 0770, AID_SYSTEM, AID_SYSTEM)) return false;
              if (!prepare_dir(misc_ce_path, 01771, AID_SYSTEM, AID_MISC)) return false;
 -- 
-2.17.1
+2.25.1
 

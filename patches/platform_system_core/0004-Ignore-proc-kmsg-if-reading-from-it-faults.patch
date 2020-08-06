@@ -1,7 +1,7 @@
-From 9d1ea37580d14cc71170595ec0c73fc04a99243a Mon Sep 17 00:00:00 2001
+From 473e2f208b9da9481ee31d5cc642c6d67b2bca4a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 2 Jan 2019 17:17:20 +0100
-Subject: [PATCH 04/12] Ignore /proc/kmsg if reading from it faults
+Subject: [PATCH 04/14] Ignore /proc/kmsg if reading from it faults
 
 On some devices, (The only known one is Y6 2018), reading from
 /proc/kmsg fails, with a status EFAULT
@@ -29,5 +29,5 @@ index edd326aec..8ff719f6e 100644
          }
          len += retval;
 -- 
-2.17.1
+2.25.1
 

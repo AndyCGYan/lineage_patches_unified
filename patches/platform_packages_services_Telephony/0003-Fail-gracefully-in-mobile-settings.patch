@@ -1,7 +1,7 @@
-From 0c7e103fd7c8d50322057a1f0fe852de9df0a029 Mon Sep 17 00:00:00 2001
+From 2d584eb3bffd0868b6f0e0ec1a7b9eb26b035a0d Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 May 2019 23:45:56 +0200
-Subject: [PATCH 3/3] Fail gracefully in mobile settings
+Subject: [PATCH 3/4] Fail gracefully in mobile settings
 
 ---
  src/com/android/phone/DataUsagePreference.java | 8 ++++++--
@@ -27,5 +27,5 @@ index b6b26e2b8..ebd446dfa 100644
      }
  
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 78dcdf304f0baa325fe8d39e2e7cb64b46b9a089 Mon Sep 17 00:00:00 2001
+From cc8745759acea40bb31f384b4fb70d33c4dd6a00 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 May 2018 17:47:36 +0200
-Subject: [PATCH 03/36] Also scan /system/overlay
+Subject: [PATCH 03/58] Also scan /system/overlay
 
 Change-Id: Ib0223560606b80cdaaa986b159b34b4db0154589
 ---
@@ -34,10 +34,10 @@ index 2b471fec9c8..4518c7e66a5 100644
        if (argc > 5) {
          execv(AssetManager::IDMAP_BIN, (char* const*)argv);
 diff --git a/core/jni/fd_utils.cpp b/core/jni/fd_utils.cpp
-index fa5f931470b..488c2f8e9e8 100644
+index 8ba2559ec2e..45b3c6a909d 100644
 --- a/core/jni/fd_utils.cpp
 +++ b/core/jni/fd_utils.cpp
-@@ -118,7 +118,8 @@ bool FileDescriptorWhitelist::IsAllowed(const std::string& path) const {
+@@ -119,7 +119,8 @@ bool FileDescriptorWhitelist::IsAllowed(const std::string& path) const {
         || android::base::StartsWith(path, kSystemOdmOverlayDir)
         || android::base::StartsWith(path, kOdmOverlayDir)
         || android::base::StartsWith(path, kSystemOemOverlayDir)
@@ -48,5 +48,5 @@ index fa5f931470b..488c2f8e9e8 100644
        && path.find("/../") == std::string::npos) {
      return true;
 -- 
-2.17.1
+2.25.1
 

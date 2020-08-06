@@ -1,4 +1,4 @@
-From c43fc9cdeb2a41da244279ec86473e9504f4311b Mon Sep 17 00:00:00 2001
+From 83293b39e918000818a87829ee6dc1803e953f18 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 25 May 2020 21:25:12 +0200
 Subject: [PATCH 3/3] Add persist.sys.phh.disable_a2dp_offload property to
@@ -10,7 +10,7 @@ Subject: [PATCH 3/3] Add persist.sys.phh.disable_a2dp_offload property to
  2 files changed, 12 insertions(+), 2 deletions(-)
 
 diff --git a/btif/src/btif_av.cc b/btif/src/btif_av.cc
-index 24e32ec10..fa537ba4e 100644
+index 14fabdbef..530c996d5 100644
 --- a/btif/src/btif_av.cc
 +++ b/btif/src/btif_av.cc
 @@ -959,9 +959,14 @@ bt_status_t BtifAvSource::Init(
@@ -30,10 +30,10 @@ index 24e32ec10..fa537ba4e 100644
    callbacks_ = callbacks;
    bta_av_co_init(codec_priorities);
 diff --git a/stack/a2dp/a2dp_codec_config.cc b/stack/a2dp/a2dp_codec_config.cc
-index edf7e0c46..143eed7a3 100644
+index 2480cdc66..6ddfb27fa 100644
 --- a/stack/a2dp/a2dp_codec_config.cc
 +++ b/stack/a2dp/a2dp_codec_config.cc
-@@ -560,13 +560,18 @@ bool A2dpCodecs::init() {
+@@ -564,13 +564,18 @@ bool A2dpCodecs::init() {
    char* tok = NULL;
    char* tmp_token = NULL;
    bool offload_codec_support[BTAV_A2DP_CODEC_INDEX_MAX] = {false};
@@ -54,5 +54,5 @@ index edf7e0c46..143eed7a3 100644
    if (a2dp_offload_status) {
      char value_cap[PROPERTY_VALUE_MAX];
 -- 
-2.17.1
+2.25.1
 

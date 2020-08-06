@@ -1,8 +1,8 @@
-From 7ad31b03ab941886ac1e930a1f1dd1232461cd18 Mon Sep 17 00:00:00 2001
+From 53e025a518a6a662f533e2e08b50ebaed223957c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 Oct 2019 13:35:49 +0200
-Subject: [PATCH] Add (partial, cam id is hardcoded) support for Asus ZF6 motor
- camera
+Subject: [PATCH 11/17] Add (partial, cam id is hardcoded) support for Asus ZF6
+ motor camera
 
 Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
 ---
@@ -11,7 +11,7 @@ Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
  2 files changed, 29 insertions(+)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index 62cbc7ddb..ddddfda97 100644
+index 7046384b3..100db9e3c 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
 @@ -25,6 +25,7 @@
@@ -22,7 +22,7 @@ index 62cbc7ddb..ddddfda97 100644
  #include <inttypes.h>
  #include <pthread.h>
  
-@@ -131,6 +132,7 @@ Mutex CameraService::sProxyMutex;
+@@ -133,6 +134,7 @@ Mutex CameraService::sProxyMutex;
  sp<hardware::ICameraServiceProxy> CameraService::sCameraServiceProxy;
  
  CameraService::CameraService() :
@@ -30,7 +30,7 @@ index 62cbc7ddb..ddddfda97 100644
          mEventLog(DEFAULT_EVENT_LOG_LENGTH),
          mNumberOfCameras(0),
          mSoundRef(0), mInitialized(false) {
-@@ -1549,6 +1551,7 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
+@@ -1579,6 +1581,7 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
              mServiceLock.lock();
          } else {
              // Otherwise, add client to active clients list
@@ -38,7 +38,7 @@ index 62cbc7ddb..ddddfda97 100644
              finishConnectLocked(client, partial);
  
              sp<ICameraMotor> cameraMotor = ICameraMotor::getService();
-@@ -1564,6 +1567,27 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
+@@ -1594,6 +1597,27 @@ Status CameraService::connectHelper(const sp<CALLBACK>& cameraCb, const String8&
      return ret;
  }
  
@@ -66,7 +66,7 @@ index 62cbc7ddb..ddddfda97 100644
  Status CameraService::setTorchMode(const String16& cameraId, bool enabled,
          const sp<IBinder>& clientBinder) {
      Mutex::Autolock lock(mServiceLock);
-@@ -2427,6 +2451,8 @@ binder::Status CameraService::BasicClient::disconnect() {
+@@ -2466,6 +2490,8 @@ binder::Status CameraService::BasicClient::disconnect() {
          cameraMotor->onDisconnect(mCameraIdStr.string());
      }
  
@@ -76,7 +76,7 @@ index 62cbc7ddb..ddddfda97 100644
      sCameraService->logDisconnected(mCameraIdStr, mClientPid, String8(mClientPackageName));
      sCameraService->mCameraProviderManager->removeRef(CameraProviderManager::DeviceMode::CAMERA,
 diff --git a/services/camera/libcameraservice/CameraService.h b/services/camera/libcameraservice/CameraService.h
-index 065157dad..6d22da619 100644
+index bcaca9ffc..2607bc257 100644
 --- a/services/camera/libcameraservice/CameraService.h
 +++ b/services/camera/libcameraservice/CameraService.h
 @@ -182,6 +182,9 @@ public:
@@ -90,5 +90,5 @@ index 065157dad..6d22da619 100644
      // Client functionality
  
 -- 
-2.17.1
+2.25.1
 

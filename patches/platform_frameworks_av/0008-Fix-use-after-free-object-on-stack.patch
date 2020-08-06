@@ -1,7 +1,7 @@
-From 582695245e6ce2bafaf3b11b9d3b69dcf88d0037 Mon Sep 17 00:00:00 2001
+From 6f4e7e032ca73db15cb01737c24de543780718da Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 5 Aug 2019 17:27:47 +0200
-Subject: [PATCH 08/11] Fix use-after-free (object on stack)
+Subject: [PATCH 08/17] Fix use-after-free (object on stack)
 
 Change-Id: I9ae666b10873eac4e7a55032071e7b15b0de058a
 ---
@@ -22,5 +22,5 @@ index c8cb54b5f..9f2bdc4b3 100644
      std::string address = getXmlAttribute(cur, Attributes::address);
      if (!address.empty()) {
 -- 
-2.17.1
+2.25.1
 

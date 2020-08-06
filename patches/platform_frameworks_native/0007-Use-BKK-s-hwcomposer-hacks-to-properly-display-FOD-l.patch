@@ -1,7 +1,7 @@
-From c982ade7da4d434e0a779b003e6bfcc6141232b6 Mon Sep 17 00:00:00 2001
+From 46a9476a66d10d574724ee37aa87c80cf90d1cdc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 10 Mar 2020 23:26:55 +0100
-Subject: [PATCH 7/7] Use BKK's hwcomposer hacks to properly display FOD layers
+Subject: [PATCH 7/8] Use BKK's hwcomposer hacks to properly display FOD layers
 
 Insecure hack: Set FOD layers to magical Z values to trigger
 OPPO/Realme/Oneplus' whole blitter behaviours:
@@ -36,5 +36,5 @@ index 5ce72b087..23b29d6fd 100644
                    to_string(error).c_str(), static_cast<int32_t>(error));
          }
 -- 
-2.17.1
+2.25.1
 

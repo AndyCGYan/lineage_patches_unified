@@ -1,4 +1,4 @@
-From e9e35f0091a58a51c21aaa46e52764578c85a5b4 Mon Sep 17 00:00:00 2001
+From 7b33cbe0f334d93768b59fdc920a0ced4b9db11c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 16 Sep 2019 17:42:37 +0200
 Subject: [PATCH 3/4] Restore O/O-MR1 behaviour of initing ifaces before supp.
@@ -11,10 +11,10 @@ Change-Id: I7a94b3c4a3fca140a50962e6787af3a7aa2c7d61
  2 files changed, 16 insertions(+), 4 deletions(-)
 
 diff --git a/service/java/com/android/server/wifi/SupplicantStaIfaceHal.java b/service/java/com/android/server/wifi/SupplicantStaIfaceHal.java
-index bed66d926..fda64e977 100644
+index 8db7c90ee..fa82cca20 100644
 --- a/service/java/com/android/server/wifi/SupplicantStaIfaceHal.java
 +++ b/service/java/com/android/server/wifi/SupplicantStaIfaceHal.java
-@@ -717,7 +717,7 @@ public class SupplicantStaIfaceHal {
+@@ -741,7 +741,7 @@ public class SupplicantStaIfaceHal {
       * the device.
       * @return true if supported, false otherwise.
       */
@@ -23,7 +23,7 @@ index bed66d926..fda64e977 100644
          return checkHalVersionByInterfaceName(
                  android.hardware.wifi.supplicant.V1_1.ISupplicant.kInterfaceName);
      }
-@@ -727,7 +727,7 @@ public class SupplicantStaIfaceHal {
+@@ -751,7 +751,7 @@ public class SupplicantStaIfaceHal {
       * the device.
       * @return true if supported, false otherwise.
       */
@@ -90,5 +90,5 @@ index 63907e67c..917494a10 100644
                  Log.e(TAG, "Failed to setup iface in supplicant on " + iface);
                  teardownInterface(iface.name);
 -- 
-2.17.1
+2.25.1
 

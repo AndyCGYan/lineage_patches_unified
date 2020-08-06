@@ -1,7 +1,7 @@
-From bb6f508a514d09fdab79583886f7953dd42bfa0c Mon Sep 17 00:00:00 2001
+From 293b2fb176c081a4e3db518009864c1a4c4053fd Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 4 Sep 2019 22:28:56 +0200
-Subject: [PATCH 07/11] fixup! FIH devices: Fix "Earpiece" audio output
+Subject: [PATCH 07/17] fixup! FIH devices: Fix "Earpiece" audio output
 
 ---
  .../audiopolicy/common/managerdefinitions/src/Serializer.cpp   | 3 ++-
@@ -29,5 +29,5 @@ index 0b561320b..c8cb54b5f 100644
          status = deserializeCollection<AudioProfileTraits>(cur, &profiles, NULL);
      if (status != NO_ERROR) {
 -- 
-2.17.1
+2.25.1
 

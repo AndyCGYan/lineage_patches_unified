@@ -1,4 +1,4 @@
-From 8502ea88bf1ac84ceaa6495c6831a55c733212ad Mon Sep 17 00:00:00 2001
+From 3da16d65f8c84a4d4d29ad2ea351d9cb48fe3110 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 20 May 2020 21:16:56 +0200
 Subject: [PATCH 8/8] Samsung + Xiaomi new FOD HBM controls
@@ -121,5 +121,5 @@ index 23b29d6fd..0d7c9897a 100644
  
          if (auto error = hwcLayer->setZOrder(z); error != HWC2::Error::None) {
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From c741063fdd7cbb01dda51737db457e4043af0d04 Mon Sep 17 00:00:00 2001
+From 2613e4dd6fe7b351581799e11980104b25e443f1 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 12 Sep 2019 20:34:28 +0200
-Subject: [PATCH 5/6] Most horrific: Remove ramdisk's zygote init scripts
+Subject: [PATCH 5/8] Most horrific: Remove ramdisk's zygote init scripts
 
 This is needed because:
 - only secilc is run soon enough in /system to
@@ -40,5 +40,5 @@ index 631b4b0a..3dd6e7ce 100644
  		opt_char = getopt_long(argc, argv, "o:f:U:hvt:M:PDmNc:GX:", long_opts, &opt_index);
  		if (opt_char == -1) {
 -- 
-2.17.1
+2.25.1
 

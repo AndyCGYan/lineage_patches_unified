@@ -1,7 +1,7 @@
-From 723d8f84e0376b97840fa5e287a994823f6f5be4 Mon Sep 17 00:00:00 2001
+From a92fa788759b5b4550bf4d2778077af78dbc3af7 Mon Sep 17 00:00:00 2001
 From: Pierre Couillaud <pierre.couillaud@broadcom.com>
 Date: Tue, 27 Aug 2019 13:43:22 -0700
-Subject: [PATCH 6/6] SurfaceFlinger: retain the sideband layer information for
+Subject: [PATCH 6/8] SurfaceFlinger: retain the sideband layer information for
  composition
 
 when present, the sideband layer stream information is not saved into
@@ -72,7 +72,7 @@ Signed-off-by: Pierre Couillaud <pierre.couillaud@broadcom.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/services/surfaceflinger/BufferQueueLayer.cpp b/services/surfaceflinger/BufferQueueLayer.cpp
-index f35a4fd49..cbb9d658e 100644
+index eb1bf66cd..af5fe6246 100644
 --- a/services/surfaceflinger/BufferQueueLayer.cpp
 +++ b/services/surfaceflinger/BufferQueueLayer.cpp
 @@ -243,8 +243,9 @@ bool BufferQueueLayer::latchSidebandStream(bool& recomputeVisibleRegions) {
@@ -87,5 +87,5 @@ index f35a4fd49..cbb9d658e 100644
              setTransactionFlags(eTransactionNeeded);
              mFlinger->setTransactionFlags(eTraversalNeeded);
 -- 
-2.17.1
+2.25.1
 

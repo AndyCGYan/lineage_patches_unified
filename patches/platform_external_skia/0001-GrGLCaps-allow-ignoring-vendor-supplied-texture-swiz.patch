@@ -1,4 +1,4 @@
-From ba695ca22d256bb8a27f699c0759162a48999cf7 Mon Sep 17 00:00:00 2001
+From fd42c051ba56676ce593d5313ae2d72d85133a6a Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Tue, 22 Oct 2019 20:54:25 +0800
 Subject: [PATCH] GrGLCaps: allow ignoring vendor-supplied texture swizzle flag
@@ -55,5 +55,5 @@ index 4a97e84cf8..aee7a5509e 100644
      bool mipMapLevelAndLodControlSupport() const { return fMipMapLevelAndLodControlSupport; }
  
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 1c3ecb1fd46c76111d44f600532068f307ccacbc Mon Sep 17 00:00:00 2001
+From 8387b818fb3d921f718d7088a78db0842f8e5d41 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 14 Sep 2019 21:25:07 +0200
-Subject: [PATCH 2/2] Add BOARD_SYSTEMIMAGE_AS_SYSTEM parameter to build SaS
+Subject: [PATCH 2/3] Add BOARD_SYSTEMIMAGE_AS_SYSTEM parameter to build SaS
  GSI
 
 Change-Id: I764f0ef4e3be9a338fbe93944445cedc29d2bb81
@@ -11,10 +11,10 @@ Change-Id: I764f0ef4e3be9a338fbe93944445cedc29d2bb81
  2 files changed, 5 insertions(+)
 
 diff --git a/core/Makefile b/core/Makefile
-index 4611fb388..9ab207c6d 100644
+index a5eef489f..1d0c63e23 100644
 --- a/core/Makefile
 +++ b/core/Makefile
-@@ -1345,6 +1345,7 @@ endif # PRODUCT_USE_DYNAMIC_PARTITIONS
+@@ -1378,6 +1378,7 @@ endif # PRODUCT_USE_DYNAMIC_PARTITIONS
  # $(3): additional "key=value" pairs to append to the dictionary file.
  define generate-image-prop-dictionary
  $(if $(filter $(2),system),\
@@ -23,7 +23,7 @@ index 4611fb388..9ab207c6d 100644
      $(if $(INTERNAL_SYSTEM_OTHER_PARTITION_SIZE),$(hide) echo "system_other_size=$(INTERNAL_SYSTEM_OTHER_PARTITION_SIZE)" >> $(1))
      $(if $(BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE),$(hide) echo "system_fs_type=$(BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE)" >> $(1))
 diff --git a/tools/releasetools/build_image.py b/tools/releasetools/build_image.py
-index 4136ed432..96f7ddcb0 100755
+index 641a6e19f..7d4f1c328 100755
 --- a/tools/releasetools/build_image.py
 +++ b/tools/releasetools/build_image.py
 @@ -157,6 +157,8 @@ def SetUpInDirAndFsConfig(origin_in, prop_dict):
@@ -45,5 +45,5 @@ index 4136ed432..96f7ddcb0 100755
      # We inherit the selinux policies of /system since we contain some of its
      # files.
 -- 
-2.17.1
+2.25.1
 

@@ -1,8 +1,8 @@
-From acb8e3866e2c08c13fa3a111be911eee65c1cdbf Mon Sep 17 00:00:00 2001
+From 7c40af0f45eb36d4dfc46c2d3b5acfa40bd61f2b Mon Sep 17 00:00:00 2001
 From: Bevis Tseng <bevis@cloudmosa.com>
 Date: Thu, 18 Apr 2019 16:30:45 +0800
-Subject: [PATCH] Reverse-engineer MTK IRadio interfaces to approve incoming
- call for MTK devices from Telephony F/W.
+Subject: [PATCH 5/9] Reverse-engineer MTK IRadio interfaces to approve
+ incoming call for MTK devices from Telephony F/W.
 
 This is an alternative solution of 's/AT+EAIC=2/AT+EAIC=3/g' in device/phh/treble/rw-system.sh
 which is not workable on some MTK devices such as Nokia 1.
@@ -1526,10 +1526,10 @@ index 000000000..2548e967e
 +    //-- MTK Radio V2_0
 +}
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index 4e74cceee..c0c6db742 100644
+index 83398b62c..96f1efdd7 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -237,6 +237,9 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -245,6 +245,9 @@ public class RIL extends BaseCommands implements CommandsInterface {
      final AtomicLong mRadioProxyCookie = new AtomicLong(0);
      final RadioProxyDeathRecipient mRadioProxyDeathRecipient;
      final RilHandler mRilHandler;
@@ -1539,7 +1539,7 @@ index 4e74cceee..c0c6db742 100644
  
      //***** Events
      static final int EVENT_WAKE_LOCK_TIMEOUT    = 2;
-@@ -494,6 +497,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -502,6 +505,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
              }
          }
  
@@ -1562,7 +1562,7 @@ index 4e74cceee..c0c6db742 100644
          return mRadioProxy;
      }
  
-@@ -6060,4 +6079,23 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6157,4 +6176,23 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public boolean needsOldRilFeature(String feature) {
          return mOldRilFeatures.contains(feature);
      }
@@ -1587,7 +1587,7 @@ index 4e74cceee..c0c6db742 100644
 +    }
  }
 diff --git a/src/java/com/android/internal/telephony/RadioResponse.java b/src/java/com/android/internal/telephony/RadioResponse.java
-index a36b7a6fc..a52702f36 100644
+index 97fe3dc13..509cb8336 100644
 --- a/src/java/com/android/internal/telephony/RadioResponse.java
 +++ b/src/java/com/android/internal/telephony/RadioResponse.java
 @@ -1809,7 +1809,7 @@ public class RadioResponse extends IRadioResponse.Stub {
@@ -1600,5 +1600,5 @@ index a36b7a6fc..a52702f36 100644
  
          if (rr != null) {
 -- 
-2.17.1
+2.25.1
 

@@ -1,4 +1,4 @@
-From 348be3bd9a6e528232141b704af5b07eef5c2829 Mon Sep 17 00:00:00 2001
+From b842186739efd6a857049a281b2981ebbfd7fbfb Mon Sep 17 00:00:00 2001
 From: Michael Cheah <michael@cheah.xyz>
 Date: Sat, 11 Jan 2020 19:23:57 +0800
 Subject: [PATCH 4/4] Fix operatorNumeric parsing in CellInfoUtil & support old
@@ -100,5 +100,5 @@ index df3f44a8d..9fc571500 100644
      }
  
 -- 
-2.17.1
+2.25.1
 

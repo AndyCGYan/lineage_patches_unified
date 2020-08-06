@@ -1,4 +1,4 @@
-From 68aa9652663f132ec9e36e8963a1fe5de0bb9485 Mon Sep 17 00:00:00 2001
+From 9434797f88d439d3dff8c7af733dcea2cdfed7ab Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 22 Mar 2020 18:09:04 +0100
 Subject: [PATCH 3/3] Skip mounting /oem, because if it exists, it includes
@@ -17,5 +17,5 @@ index 549767edf..327676384 100644
  /product_services
 +/oem
 -- 
-2.17.1
+2.25.1
 

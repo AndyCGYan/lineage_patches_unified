@@ -1,7 +1,7 @@
-From 2357a8f50b6ec8e1ed4d863c4b18aaed8af6a3db Mon Sep 17 00:00:00 2001
+From 0fcb4cf13bf9b59218267fa54f4334c397da96f4 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 2 Mar 2018 22:49:55 +0100
-Subject: [PATCH 1/6] Enable multipl_decls by default. This is needed because
+Subject: [PATCH 1/8] Enable multipl_decls by default. This is needed because
  8.0 init doesn't add -m
 
 Change-Id: I43dc661d519f7b8576d72a828d8cbd444592bf5e
@@ -23,5 +23,5 @@ index ad6862ba..8799e99a 100644
  	int preserve_tunables = 0;
  	int handle_unknown = -1;
 -- 
-2.17.1
+2.25.1
 

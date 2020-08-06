@@ -1,7 +1,7 @@
-From 04e7317ef801f4124f4a074519d7a077dac14702 Mon Sep 17 00:00:00 2001
+From 8ad118d1fcfba6e9911aa099f354594787ad264b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 9 Dec 2018 15:56:59 +0100
-Subject: [PATCH 06/11] Revert "Set rlimit rtprio for cameraserver"
+Subject: [PATCH 06/17] Revert "Set rlimit rtprio for cameraserver"
 
 This reverts commit 4ae244cab4fe715fc2729e906b7dda3075fbbac3.
 
@@ -21,5 +21,5 @@ index a9aae0b15..fea5a1d5c 100644
      writepid /dev/cpuset/camera-daemon/tasks /dev/stune/top-app/tasks
 -    rlimit rtprio 10 10
 -- 
-2.17.1
+2.25.1
 

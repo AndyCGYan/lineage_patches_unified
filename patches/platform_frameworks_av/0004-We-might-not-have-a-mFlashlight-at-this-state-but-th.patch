@@ -1,7 +1,8 @@
-From accaf1aedd6520cc92dd33f6fb96c75e44fbd1a8 Mon Sep 17 00:00:00 2001
+From 1fe92753746f4410f5ac97abcef083276940cfee Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 19 Aug 2018 23:05:26 +0200
-Subject: [PATCH] We might not have a mFlashlight at this state, but that's ok
+Subject: [PATCH 04/17] We might not have a mFlashlight at this state, but
+ that's ok
 
 Change-Id: I0ae65c0be4931b4e3cbda2d0cc64acc4f5018a73
 ---
@@ -9,10 +10,10 @@ Change-Id: I0ae65c0be4931b4e3cbda2d0cc64acc4f5018a73
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index a380b49e0..2c7c5208b 100644
+index 077e3b238..bbfd90a28 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
-@@ -297,7 +297,7 @@ void CameraService::addStates(const String8 id) {
+@@ -299,7 +299,7 @@ void CameraService::addStates(const String8 id) {
                                                                  isPublicallyHiddenSecureCamera));
      }
  
@@ -22,5 +23,5 @@ index a380b49e0..2c7c5208b 100644
          mTorchStatusMap.add(id, TorchModeStatus::AVAILABLE_OFF);
  
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From e67dac2c25d6a64230a866566fbc2636b2f73bc6 Mon Sep 17 00:00:00 2001
+From 46bfcfb8cbe739e109060d3dfbbe469471b15f95 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 28 Dec 2018 13:06:32 +0100
-Subject: [PATCH 3/6] Make MAX_CONNECTIONS_GSM settable from property
+Subject: [PATCH 3/9] Make MAX_CONNECTIONS_GSM settable from property
 
 cf https://github.com/phhusson/treble_experimentations/issues/110
 
@@ -24,5 +24,5 @@ index 0a7acee57..aca129308 100755
  
      private static final int MAX_CONNECTIONS_CDMA = 8;
 -- 
-2.17.1
+2.25.1
 

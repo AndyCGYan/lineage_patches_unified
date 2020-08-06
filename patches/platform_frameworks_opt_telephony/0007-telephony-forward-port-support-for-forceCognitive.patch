@@ -1,7 +1,7 @@
-From 5c9753b0fe01bf6b5b025a3c2ad9405e92341fc4 Mon Sep 17 00:00:00 2001
+From d46c6ad5d946efad0ba6c675c027efce6f917632 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 13 Oct 2019 17:21:31 +0800
-Subject: [PATCH 7/7] telephony: forward-port support for forceCognitive
+Subject: [PATCH 7/9] telephony: forward-port support for forceCognitive
 
 * This is needed on some MTK devices. Android 10 refactored some code,
   so now the "non-persistent/cognitive" filter is relocated to RIL and
@@ -12,10 +12,10 @@ Subject: [PATCH 7/7] telephony: forward-port support for forceCognitive
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index 586dd063a..cc8997ccc 100644
+index 4b94ca5d4..39c5a2a33 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -3963,7 +3963,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3991,7 +3991,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      for (DataProfile dp : dps) {
                          // For v1.0 to v1.2, we only send data profiles that has the persistent
                          // (a.k.a modem cognitive) bit set to true.
@@ -26,10 +26,10 @@ index 586dd063a..cc8997ccc 100644
                          }
                      }
 diff --git a/src/java/com/android/internal/telephony/dataconnection/DcTracker.java b/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
-index 7a4bfd8d3..f5c54cc40 100644
+index 43966a918..83e9ab7ce 100644
 --- a/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
 +++ b/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
-@@ -1890,8 +1890,9 @@ public class DcTracker extends Handler {
+@@ -2001,8 +2001,9 @@ public class DcTracker extends Handler {
          }
  
          // profile id is only meaningful when the profile is persistent on the modem.
@@ -41,5 +41,5 @@ index 7a4bfd8d3..f5c54cc40 100644
              if (profileId == DATA_PROFILE_DEFAULT) {
                  profileId = getApnProfileID(apnContext.getApnType());
 -- 
-2.17.1
+2.25.1
 

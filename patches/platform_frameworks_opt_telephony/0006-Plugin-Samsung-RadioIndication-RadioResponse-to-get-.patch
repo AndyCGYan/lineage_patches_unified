@@ -1,7 +1,7 @@
-From d11dbfd4177f8e6e13965faf20de758d88265057 Mon Sep 17 00:00:00 2001
+From 17f79dbb2628b9c58048a5d19b0bf02af7287de7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 12 Aug 2019 23:49:56 +0200
-Subject: [PATCH 6/6] Plugin Samsung RadioIndication/RadioResponse to get
+Subject: [PATCH 6/9] Plugin Samsung RadioIndication/RadioResponse to get
  signal strength
 
 Change-Id: Ic3d5801627bf3dd72d2e7b6bb3741b9d368d1f07
@@ -27,10 +27,10 @@ index ae678cb54..bb9925beb 100644
          "ims-common",
          "services",
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index 47cb9f240..586dd063a 100644
+index 96f1efdd7..4b94ca5d4 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -239,6 +239,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -248,6 +248,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      vendor.mediatek.hardware.radio.V2_0.IRadioResponse mMtkRadioResponse;
      vendor.mediatek.hardware.radio.V2_0.IRadioIndication mMtkRadioIndication;
      volatile vendor.mediatek.hardware.radio.V2_0.IRadio mMtkRadioProxy = null;
@@ -38,7 +38,7 @@ index 47cb9f240..586dd063a 100644
  
      //***** Events
      static final int EVENT_WAKE_LOCK_TIMEOUT    = 2;
-@@ -423,6 +424,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -432,6 +433,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
              return mRadioProxy;
          }
  
@@ -65,7 +65,7 @@ index 47cb9f240..586dd063a 100644
          try {
              if (mDisabledRadioServices.contains(mPhoneId)) {
                  riljLoge("getRadioProxy: mRadioProxy for " + HIDL_SERVICE_NAME[mPhoneId]
-@@ -499,8 +520,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -508,8 +529,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
          if (mRadioProxy != null) {
              try {
                  mMtkRadioProxy =
@@ -75,7 +75,7 @@ index 47cb9f240..586dd063a 100644
                  if (mMtkRadioProxy != null) {
                      if (mMtkRadioResponse == null && mMtkRadioIndication == null) {
                          mMtkRadioResponse = new MtkRadioResponse(this, mRadioResponse);
-@@ -511,6 +531,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -520,6 +540,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
              } catch (RemoteException | RuntimeException e) {
                  riljLog("MTK RadioProxy is not available");
              }
@@ -1083,5 +1083,5 @@ index 000000000..63e680afb
 +    public void oemSelectCsgManualResponse(RadioResponseInfo info) {}
 +}
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 9bc6c5d104edf78b5f795e17560ee4f8bb39a122 Mon Sep 17 00:00:00 2001
+From d8a0d677ab02422b21a8490bea5189254cc76df0 Mon Sep 17 00:00:00 2001
 From: penn5 <penn5@users.noreply.github.com>
 Date: Mon, 4 Mar 2019 22:21:07 +0000
-Subject: [PATCH 2/2] Add props to control supported features and states (#1)
+Subject: [PATCH 2/3] Add props to control supported features and states (#1)
 
 * Add bitmask for supported fields
 Use persist.sys.bt.unsupport.states, defaults to 0, left-aligned.
@@ -23,7 +23,7 @@ HCI_LE_ENCRYPTION..HCI_LE_PERIODIC_ADVERTISING
  1 file changed, 77 insertions(+)
 
 diff --git a/hci/src/hci_packet_parser.cc b/hci/src/hci_packet_parser.cc
-index b1efd444d..88dc4c6cd 100644
+index 3f4e46cb4..9e39c1596 100644
 --- a/hci/src/hci_packet_parser.cc
 +++ b/hci/src/hci_packet_parser.cc
 @@ -27,6 +27,8 @@
@@ -35,7 +35,7 @@ index b1efd444d..88dc4c6cd 100644
  static const command_opcode_t NO_OPCODE_CHECKING = 0;
  
  static const allocator_t* buffer_allocator;
-@@ -108,6 +110,31 @@ static void parse_read_local_supported_commands_response(
+@@ -122,6 +124,31 @@ static void parse_read_local_supported_commands_response(
    buffer_allocator->free(response);
  }
  
@@ -67,7 +67,7 @@ index b1efd444d..88dc4c6cd 100644
  static void parse_read_local_extended_features_response(
      BT_HDR* response, uint8_t* page_number_ptr, uint8_t* max_page_number_ptr,
      bt_device_features_t* feature_pages, size_t feature_pages_count) {
-@@ -123,6 +150,16 @@ static void parse_read_local_extended_features_response(
+@@ -137,6 +164,16 @@ static void parse_read_local_extended_features_response(
    STREAM_TO_ARRAY(feature_pages[*page_number_ptr].as_array, stream,
                    (int)sizeof(bt_device_features_t));
  
@@ -84,7 +84,7 @@ index b1efd444d..88dc4c6cd 100644
    buffer_allocator->free(response);
  }
  
-@@ -148,6 +185,19 @@ static void parse_ble_read_buffer_size_response(BT_HDR* response,
+@@ -162,6 +199,19 @@ static void parse_ble_read_buffer_size_response(BT_HDR* response,
    buffer_allocator->free(response);
  }
  
@@ -104,7 +104,7 @@ index b1efd444d..88dc4c6cd 100644
  static void parse_ble_read_supported_states_response(
      BT_HDR* response, uint8_t* supported_states, size_t supported_states_size) {
    uint8_t* stream =
-@@ -156,9 +206,30 @@ static void parse_ble_read_supported_states_response(
+@@ -170,9 +220,30 @@ static void parse_ble_read_supported_states_response(
    CHECK(stream != NULL);
    STREAM_TO_ARRAY(supported_states, stream, (int)supported_states_size);
  
@@ -135,7 +135,7 @@ index b1efd444d..88dc4c6cd 100644
  static void parse_ble_read_local_supported_features_response(
      BT_HDR* response, bt_device_features_t* supported_features) {
    uint8_t* stream = read_command_complete_header(
-@@ -168,6 +239,12 @@ static void parse_ble_read_local_supported_features_response(
+@@ -182,6 +253,12 @@ static void parse_ble_read_local_supported_features_response(
    STREAM_TO_ARRAY(supported_features->as_array, stream,
                    (int)sizeof(bt_device_features_t));
  
@@ -149,5 +149,5 @@ index b1efd444d..88dc4c6cd 100644
  }
  
 -- 
-2.17.1
+2.25.1
 
