@@ -1,0 +1,41 @@
+From d6f033bfbd7c03b30a23b287e84b1608c35d6038 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 16 Sep 2019 13:49:05 +0200
+Subject: [PATCH] Check needsCheckpoint only if checkpoint is supported
+
+This is needed because some devices (Xiaomi MiPad 4, uncertified)
+declares a bootctrl HAL in manifest, but doesn't have it.
+vold will then hang in needsCheckpoint waiting for bootctrl
+
+Change-Id: I2dafcbca7e994d7a3ac36ef3698590db2ab482fa
+---
+ cryptfs.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/cryptfs.cpp b/cryptfs.cpp
+index 063c5be..df48b15 100644
+--- a/cryptfs.cpp
++++ b/cryptfs.cpp
+@@ -1363,7 +1363,7 @@ static int create_crypto_blk_dev_hw(struct crypt_mnt_ftr* crypt_ftr, const unsig
+       load_count = load_crypto_mapping_table(crypt_ftr, master_key, real_blk_name, name, fd,
+                                            extra_params);
+     }
+-    
++
+     if (load_count < 0) {
+         SLOGE("Cannot load dm-crypt mapping table.\n");
+         goto errout;
+@@ -1963,7 +1963,9 @@ static int cryptfs_restart_internal(int restart_main) {
+             SLOGE("Failed to setexeccon");
+             return -1;
+         }
+-        bool needs_cp = android::vold::cp_needsCheckpoint();
++        bool supportsCheckpoint = false;
++        android::vold::cp_supportsCheckpoint(supportsCheckpoint);
++        bool needs_cp = supportsCheckpoint && android::vold::cp_needsCheckpoint();
+ #ifdef CONFIG_HW_DISK_ENCRYPTION
+         while ((mount_rc = fs_mgr_do_mount(&fstab_default, DATA_MNT_POINT, blkdev.data(), 0,
+                                            needs_cp, false)) != 0) {
+-- 
+2.25.1
+
