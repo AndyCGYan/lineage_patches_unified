@@ -1,7 +1,7 @@
-From c8dc151cee2395313b510f07119696717b73f4ef Mon Sep 17 00:00:00 2001
+From 5edeb168bf831aaca539aa8f063564f740676e16 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 26 Oct 2020 23:16:30 +0100
-Subject: [PATCH 10/10] Apply associated display for joysticks
+Subject: [PATCH 09/10] Apply associated display for joysticks
 
 Change-Id: I5f6c237e6bf53312aff3dc02a46ce1c779063203
 ---
@@ -169,5 +169,5 @@ index c457a1525..c9b704993 100644
 +}
  } // namespace android
 -- 
-2.17.1
+2.25.1
 

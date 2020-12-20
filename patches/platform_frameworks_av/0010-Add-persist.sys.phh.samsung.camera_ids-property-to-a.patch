@@ -1,8 +1,8 @@
-From 9ac09c1e3d8408ce08a6e99e6403fb75cccf20ba Mon Sep 17 00:00:00 2001
+From ab92e063952b11ee1090cbf9c0ba0935325a54af Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 14 May 2020 19:54:55 +0200
-Subject: [PATCH 10/14] Add persist.sys.phh.samsung.camera_ids property to
- access hidden Samsung cameras
+Subject: [PATCH] Add persist.sys.phh.samsung.camera_ids property to access
+ hidden Samsung cameras
 
 Change-Id: I2c7bf535272acc28ed2277e96c78ddd28a0b4593
 ---
@@ -11,10 +11,10 @@ Change-Id: I2c7bf535272acc28ed2277e96c78ddd28a0b4593
  2 files changed, 14 insertions(+), 3 deletions(-)
 
 diff --git a/services/camera/libcameraservice/Android.bp b/services/camera/libcameraservice/Android.bp
-index 501d92226f..be275e9346 100644
+index 53fc1be7eb..99ca362bf3 100644
 --- a/services/camera/libcameraservice/Android.bp
 +++ b/services/camera/libcameraservice/Android.bp
-@@ -127,7 +127,8 @@ cc_library_shared {
+@@ -131,7 +131,8 @@ cc_library_shared {
          "android.hardware.camera.device@3.3",
          "android.hardware.camera.device@3.4",
          "android.hardware.camera.device@3.5",
@@ -25,7 +25,7 @@ index 501d92226f..be275e9346 100644
  
      static_libs: [
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index 32d118d6b0..eb27e055ac 100644
+index 876d70d7cf..0bff3606df 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
 @@ -21,6 +21,7 @@
@@ -44,8 +44,8 @@ index 32d118d6b0..eb27e055ac 100644
      // We need to check again since cast2_6.isOk() succeeds even if the provider
      // version isn't actually 2.6.
      if (interface2_6 == nullptr){
-@@ -1344,6 +1346,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
-         }
+@@ -1358,6 +1360,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+         return mapToStatusT(status);
      }
  
 +    auto samsungCast = vendor::samsung::hardware::camera::provider::V3_0::ISehCameraProvider::castFrom(interface);
@@ -54,8 +54,8 @@ index 32d118d6b0..eb27e055ac 100644
      hardware::Return<bool> linked = interface->linkToDeath(this, /*cookie*/ mId);
      if (!linked.isOk()) {
          ALOGE("%s: Transaction error in linking to camera provider '%s' death: %s",
-@@ -1375,7 +1380,7 @@ status_t CameraProviderManager::ProviderInfo::initialize(
-     Status status;
+@@ -1388,7 +1393,7 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+ 
      // Get initial list of camera devices, if any
      std::vector<std::string> devices;
 -    hardware::Return<void> ret = interface->getCameraIdList([&status, this, &devices](
@@ -63,7 +63,7 @@ index 32d118d6b0..eb27e055ac 100644
              Status idStatus,
              const hardware::hidl_vec<hardware::hidl_string>& cameraDeviceNames) {
          status = idStatus;
-@@ -1392,7 +1397,12 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+@@ -1405,7 +1410,12 @@ status_t CameraProviderManager::ProviderInfo::initialize(
                      mProviderPublicCameraIds.push_back(id);
                  }
              }
@@ -78,5 +78,5 @@ index 32d118d6b0..eb27e055ac 100644
          ALOGE("%s: Transaction error in getting camera ID list from provider '%s': %s",
                  __FUNCTION__, mProviderName.c_str(), linked.description().c_str());
 -- 
-2.17.1
+2.25.1
 
