@@ -1,4 +1,4 @@
-From d4880eec8fa830f6c8fe68fe1ebbb05adc5bbbb1 Mon Sep 17 00:00:00 2001
+From 99e0657c0215e9ce9ba55aba5c41fbfe438c82e6 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 28 Sep 2020 21:02:19 +0200
 Subject: [PATCH 2/2] Add special handling of vndk 26 (remove liblog.so from
@@ -6,12 +6,12 @@ Subject: [PATCH 2/2] Add special handling of vndk 26 (remove liblog.so from
 
 Change-Id: I29b0bb6087ba58f69ee6406e003513bceb6785d8
 ---
- contents/namespace/vendordefault.cc | 16 ++++++++++++++--
+ contents/namespace/vendordefault.cc | 14 +++++++++++++-
  contents/namespace/vndk.cc          |  5 +++++
- 2 files changed, 19 insertions(+), 2 deletions(-)
+ 2 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/contents/namespace/vendordefault.cc b/contents/namespace/vendordefault.cc
-index 6d56904..c93c489 100644
+index b3be200..af53602 100644
 --- a/contents/namespace/vendordefault.cc
 +++ b/contents/namespace/vendordefault.cc
 @@ -17,6 +17,7 @@
@@ -22,16 +22,7 @@ index 6d56904..c93c489 100644
  #include "linkerconfig/namespacebuilder.h"
  
  #include "linkerconfig/common.h"
-@@ -92,7 +93,7 @@ Namespace BuildVendorDefaultNamespace([[maybe_unused]] const Context& ctx) {
-         AsanPath::SAME_PATH);
-   }
- 
--  if (ctx.IsDefaultConfig() && GetVendorVndkVersion() == "27") {
-+  if (ctx.IsDefaultConfig() && (GetVendorVndkVersion() == "27" || GetVendorVndkVersion()== "26")) {
-     ns.AddSearchPath("/vendor/${LIB}/hw", AsanPath::WITH_DATA_ASAN);
-     ns.AddSearchPath("/vendor/${LIB}/egl", AsanPath::WITH_DATA_ASAN);
-   }
-@@ -107,9 +108,20 @@ Namespace BuildVendorDefaultNamespace([[maybe_unused]] const Context& ctx) {
+@@ -105,9 +106,20 @@ Namespace BuildVendorDefaultNamespace([[maybe_unused]] const Context& ctx) {
      ns.AddRequires(kVndkLiteVendorRequires);
      ns.AddProvides(GetSystemStubLibraries());
    } else {
@@ -77,5 +68,5 @@ index a95db80..589f745 100644
  }
  }  // namespace contents
 -- 
-2.17.1
+2.25.1
 

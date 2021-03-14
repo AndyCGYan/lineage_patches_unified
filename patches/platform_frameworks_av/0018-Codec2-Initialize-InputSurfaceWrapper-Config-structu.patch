@@ -1,0 +1,66 @@
+From f3953cb4a425f0e91b52f5f23d54c0a09162815f Mon Sep 17 00:00:00 2001
+From: wangchenyang <daniellingyx@gmail.com>
+Date: Thu, 24 Dec 2020 16:55:50 +0800
+Subject: [PATCH 18/30] Codec2: Initialize InputSurfaceWrapper::Config
+ structure fields
+
+Initialize the fields of Config structure of
+InputSurfaceWrapper class. If not initialised, there
+is a chance of junk values being used during configure
+
+Bug: 171763471
+Bug: 175443996
+Test: TH
+
+Change-Id: Id5ac827df0c2ef6ad761ab5a235162a9358c1704
+(cherry picked from commit a1ab7eb891728b77cc4bf03fedd21574bd8ec586)
+---
+ media/codec2/sfplugin/InputSurfaceWrapper.h | 28 ++++++++++-----------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/media/codec2/sfplugin/InputSurfaceWrapper.h b/media/codec2/sfplugin/InputSurfaceWrapper.h
+index bb35763f41..479acb109b 100644
+--- a/media/codec2/sfplugin/InputSurfaceWrapper.h
++++ b/media/codec2/sfplugin/InputSurfaceWrapper.h
+@@ -61,24 +61,24 @@ public:
+     /// Input Surface configuration
+     struct Config {
+         // IN PARAMS (GBS)
+-        float mMinFps; // minimum fps (repeat frame to achieve this)
+-        float mMaxFps; // max fps (via frame drop)
+-        float mCaptureFps; // capture fps
+-        float mCodedFps;   // coded fps
+-        bool mSuspended; // suspended
+-        int64_t mTimeOffsetUs; // time offset (input => codec)
+-        int64_t mSuspendAtUs; // suspend/resume time
+-        int64_t mStartAtUs; // start time
+-        bool mStopped; // stopped
+-        int64_t mStopAtUs; // stop time
++        float mMinFps = 0.0; // minimum fps (repeat frame to achieve this)
++        float mMaxFps = 0.0; // max fps (via frame drop)
++        float mCaptureFps = 0.0; // capture fps
++        float mCodedFps = 0.0;   // coded fps
++        bool mSuspended = false; // suspended
++        int64_t mTimeOffsetUs = 0; // time offset (input => codec)
++        int64_t mSuspendAtUs = 0; // suspend/resume time
++        int64_t mStartAtUs = 0; // start time
++        bool mStopped = false; // stopped
++        int64_t mStopAtUs = 0; // stop time
+ 
+         // OUT PARAMS (GBS)
+-        int64_t mInputDelayUs; // delay between encoder input and surface input
++        int64_t mInputDelayUs = 0; // delay between encoder input and surface input
+ 
+         // IN PARAMS (CODEC WRAPPER)
+-        float mFixedAdjustedFps; // fixed fps via PTS manipulation
+-        float mMinAdjustedFps; // minimum fps via PTS manipulation
+-        uint64_t mUsage; // consumer usage
++        float mFixedAdjustedFps = 0.0; // fixed fps via PTS manipulation
++        float mMinAdjustedFps = 0.0; // minimum fps via PTS manipulation
++        uint64_t mUsage = 0; // consumer usage
+     };
+ 
+     /**
+-- 
+2.25.1
+
