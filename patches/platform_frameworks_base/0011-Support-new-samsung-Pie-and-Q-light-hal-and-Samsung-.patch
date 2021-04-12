@@ -1,9 +1,10 @@
-From 04ada322124eca94d2e354f10c45d80d1ad522e3 Mon Sep 17 00:00:00 2001
+From bff763fb4b54c97fbb3535ea68a093acf81969bc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 Mar 2019 23:05:14 +0100
 Subject: [PATCH] Support new samsung Pie and Q light hal and Samsung Power
  HALs
 
+Change-Id: I37dc7af3fbc6f9bfa2a4822d4dfba817e803945e
 ---
  services/core/jni/Android.bp                  |  3 ++
  ...om_android_server_lights_LightsService.cpp | 51 +++++++++++++++++++
@@ -11,13 +12,13 @@ Subject: [PATCH] Support new samsung Pie and Q light hal and Samsung Power
  3 files changed, 76 insertions(+)
 
 diff --git a/services/core/jni/Android.bp b/services/core/jni/Android.bp
-index eaa3c66fe0d..74f5b8667c4 100644
+index 0b085d65e4c..36315e951e3 100644
 --- a/services/core/jni/Android.bp
 +++ b/services/core/jni/Android.bp
-@@ -167,6 +167,9 @@ cc_defaults {
-         "service.incremental",
+@@ -169,6 +169,9 @@ cc_defaults {
          "suspend_control_aidl_interface-cpp",
          "vendor.lineage.power@1.0",
+         "vendor.lineage.power-cpp",
 +        "vendor.samsung.hardware.miscpower@2.0",
 +        "vendor.samsung.hardware.light@2.0",
 +        "vendor.samsung.hardware.light@3.0",
@@ -103,7 +104,7 @@ index 35d8219651d..b45b2137d0e 100644
      LightState state = constructState(
          colorARGB, flashMode, onMS, offMS, brightnessMode);
 diff --git a/services/core/jni/com_android_server_power_PowerManagerService.cpp b/services/core/jni/com_android_server_power_PowerManagerService.cpp
-index 33b3bad2b33..47fdcc9a87b 100644
+index 61d53351af5..dcd33366a35 100644
 --- a/services/core/jni/com_android_server_power_PowerManagerService.cpp
 +++ b/services/core/jni/com_android_server_power_PowerManagerService.cpp
 @@ -24,6 +24,7 @@
@@ -113,25 +114,25 @@ index 33b3bad2b33..47fdcc9a87b 100644
 +#include <vendor/samsung/hardware/miscpower/2.0/ISehMiscPower.h>
  #include <nativehelper/JNIHelp.h>
  #include <vendor/lineage/power/1.0/ILineagePower.h>
- #include "jni.h"
-@@ -64,6 +65,7 @@ using IPowerV1_0 = android::hardware::power::V1_0::IPower;
- using IPowerAidl = android::hardware::power::IPower;
- using ILineagePowerV1_0 = vendor::lineage::power::V1_0::ILineagePower;
- using vendor::lineage::power::V1_0::LineageFeature;
+ #include <vendor/lineage/power/IPower.h>
+@@ -69,6 +70,7 @@ using LineageBoostAidl = vendor::lineage::power::Boost;
+ using LineageFeatureV1_0 = vendor::lineage::power::V1_0::LineageFeature;
+ using LineageFeatureAidl = vendor::lineage::power::Feature;
+ using LineagePowerHint1_0 = vendor::lineage::power::V1_0::LineagePowerHint;
 +using ISehMiscPower = vendor::samsung::hardware::miscpower::V2_0::ISehMiscPower;
  
  namespace android {
  
-@@ -80,6 +82,8 @@ static sp<IPowerV1_0> gPowerHalHidlV1_0_ = nullptr;
- static sp<IPowerV1_1> gPowerHalHidlV1_1_ = nullptr;
+@@ -86,6 +88,8 @@ static sp<IPowerV1_1> gPowerHalHidlV1_1_ = nullptr;
  static sp<IPowerAidl> gPowerHalAidl_ = nullptr;
  static sp<ILineagePowerV1_0> gLineagePowerHalV1_0_ = nullptr;
+ static sp<ILineagePowerAidl> gLineagePowerHalAidl_ = nullptr;
 +static sp<ISehMiscPower> gSehMiscPower = nullptr;
 +static bool gPowerHalExists = true;
  static std::mutex gPowerHalMutex;
+ static std::mutex gLineagePowerHalMutex;
  
- enum class HalVersion {
-@@ -125,6 +129,10 @@ static HalVersion connectPowerHalLocked() {
+@@ -132,6 +136,10 @@ static HalVersion connectPowerHalLocked() {
              gPowerHalAidlExists = false;
          }
      }
@@ -142,8 +143,8 @@ index 33b3bad2b33..47fdcc9a87b 100644
      if (gPowerHalHidlExists && gPowerHalHidlV1_0_ == nullptr) {
          gPowerHalHidlV1_0_ = IPowerV1_0::getService();
          if (gPowerHalHidlV1_0_) {
-@@ -163,6 +171,12 @@ void connectLineagePowerHalLocked() {
-     }
+@@ -190,6 +198,12 @@ static HalVersion connectLineagePowerHalLocked() {
+     return HalVersion::NONE;
  }
  
 +sp<ISehMiscPower> getSehMiscPower() {
@@ -155,7 +156,7 @@ index 33b3bad2b33..47fdcc9a87b 100644
  // Retrieve a copy of PowerHAL HIDL V1_0
  sp<IPowerV1_0> getPowerHalHidlV1_0() {
      std::lock_guard<std::mutex> lock(gPowerHalMutex);
-@@ -498,6 +512,14 @@ static void nativeSetInteractive(JNIEnv* /* env */, jclass /* clazz */, jboolean
+@@ -559,6 +573,14 @@ static void nativeSetInteractive(JNIEnv* /* env */, jclass /* clazz */, jboolean
              return;
          }
      }
