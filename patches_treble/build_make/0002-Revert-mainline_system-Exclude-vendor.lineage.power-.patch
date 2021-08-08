@@ -1,0 +1,31 @@
+From d2ccffcaf2ad6f8b467afb04683677a3271deafa Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 8 Aug 2021 01:43:40 +0000
+Subject: [PATCH 2/2] Revert "mainline_system: Exclude vendor.lineage.power@1.0
+ from artifact path requirements"
+
+This reverts commit 78c28df40f72fdcbe3f82a83828060ad19765fa1.
+---
+ target/product/mainline_system.mk | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/target/product/mainline_system.mk b/target/product/mainline_system.mk
+index e9f9dde13..a787707a0 100644
+--- a/target/product/mainline_system.mk
++++ b/target/product/mainline_system.mk
+@@ -135,12 +135,6 @@ _base_mk_allowed_list :=
+ 
+ _my_allowed_list := $(_base_mk_allowed_list)
+ 
+-# vendor.lineage.power@1.0 currently violates the artifact path requirements
+-# Exclude it from the check for now
+-_my_allowed_list += \
+-  $(TARGET_COPY_OUT_SYSTEM_EXT)/lib/vendor.lineage.power@1.0.so \
+-  $(TARGET_COPY_OUT_SYSTEM_EXT)/lib64/vendor.lineage.power@1.0.so \
+-
+ # For mainline, system.img should be mounted at /, so we include ROOT here.
+ _my_paths := \
+   $(TARGET_COPY_OUT_ROOT)/ \
+-- 
+2.25.1
+

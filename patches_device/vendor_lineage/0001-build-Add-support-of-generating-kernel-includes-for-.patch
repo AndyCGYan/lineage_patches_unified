@@ -1,0 +1,69 @@
+From 9b7fb863d5b8ed266574f5bbd73dd896f8534f89 Mon Sep 17 00:00:00 2001
+From: XiNGRZ <chenxingyu92@gmail.com>
+Date: Thu, 13 Feb 2020 20:19:22 +0800
+Subject: [PATCH] build: Add support of generating kernel includes for prebuilt
+ kernels
+
+For prebuilt kernels, point TARGET_KERNEL_HEADER_SOURCE to the dummy
+kernel source used to generate headers for HALs.
+
+Change-Id: I8dbbe3760230ae32f4252e99d1c777a029046d39
+---
+ build/soong/Android.bp      | 4 ++--
+ config/BoardConfigKernel.mk | 4 ++++
+ config/BoardConfigSoong.mk  | 2 +-
+ 3 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/build/soong/Android.bp b/build/soong/Android.bp
+index ee68c11e..03006e44 100644
+--- a/build/soong/Android.bp
++++ b/build/soong/Android.bp
+@@ -21,7 +21,7 @@ lineage_generator {
+     name: "generated_kernel_includes",
+ 
+     // The headers make command
+-    cmd: "$(PATH_OVERRIDE_SOONG) $(KERNEL_MAKE_CMD) $(KERNEL_MAKE_FLAGS) -C $(TARGET_KERNEL_SOURCE) O=$(KERNEL_BUILD_OUT_PREFIX)$(genDir) ARCH=$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) headers_install",
++    cmd: "$(PATH_OVERRIDE_SOONG) $(KERNEL_MAKE_CMD) $(KERNEL_MAKE_FLAGS) -C $(TARGET_KERNEL_HEADER_SOURCE) O=$(KERNEL_BUILD_OUT_PREFIX)$(genDir) ARCH=$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) headers_install",
+ 
+     // Directories that can be imported by a cc_* module generated_headers property
+     export_include_dirs: [
+@@ -32,7 +32,7 @@ lineage_generator {
+     ],
+ 
+     // Sources for dependency tracking
+-    dep_root: "$(TARGET_KERNEL_SOURCE)",
++    dep_root: "$(TARGET_KERNEL_HEADER_SOURCE)",
+     dep_files: [
+         "Makefile",
+         "include/**/*",
+diff --git a/config/BoardConfigKernel.mk b/config/BoardConfigKernel.mk
+index 8479369a..508927fd 100644
+--- a/config/BoardConfigKernel.mk
++++ b/config/BoardConfigKernel.mk
+@@ -52,6 +52,10 @@ else
+ KERNEL_ARCH := $(TARGET_KERNEL_ARCH)
+ endif
+ 
++ifneq ($(TARGET_KERNEL_SOURCE),)
++TARGET_KERNEL_HEADER_SOURCE := $(TARGET_KERNEL_SOURCE)
++endif
++
+ CLANG_PREBUILTS := $(BUILD_TOP)/prebuilts/clang/host/$(HOST_PREBUILT_TAG)/clang-r383902b
+ GCC_PREBUILTS := $(BUILD_TOP)/prebuilts/gcc/$(HOST_PREBUILT_TAG)
+ # arm64 toolchain
+diff --git a/config/BoardConfigSoong.mk b/config/BoardConfigSoong.mk
+index c0b01674..aacc8c56 100644
+--- a/config/BoardConfigSoong.mk
++++ b/config/BoardConfigSoong.mk
+@@ -9,7 +9,7 @@ EXPORT_TO_SOONG := \
+     KERNEL_MAKE_FLAGS \
+     PATH_OVERRIDE_SOONG \
+     TARGET_KERNEL_CONFIG \
+-    TARGET_KERNEL_SOURCE
++    TARGET_KERNEL_HEADER_SOURCE
+ 
+ # Setup SOONG_CONFIG_* vars to export the vars listed above.
+ # Documentation here:
+-- 
+2.25.1
+

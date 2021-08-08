@@ -1,0 +1,81 @@
+From e799f913b42c58821408527a73aac4115d69df11 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 8 Aug 2021 01:43:42 +0000
+Subject: [PATCH 18/18] Revert "[DO NOT MERGE] Reduce padding in QS for small
+ screens"
+
+This reverts commit c3182c54802105c614848b26250c2682eb9900bf.
+---
+ .../res/values-h740dp-port/dimens.xml         | 27 -------------------
+ packages/SystemUI/res/values/dimens.xml       | 11 ++++----
+ 2 files changed, 5 insertions(+), 33 deletions(-)
+ delete mode 100644 packages/SystemUI/res/values-h740dp-port/dimens.xml
+
+diff --git a/packages/SystemUI/res/values-h740dp-port/dimens.xml b/packages/SystemUI/res/values-h740dp-port/dimens.xml
+deleted file mode 100644
+index 966066ffe56..00000000000
+--- a/packages/SystemUI/res/values-h740dp-port/dimens.xml
++++ /dev/null
+@@ -1,27 +0,0 @@
+-<!--
+-  ~ Copyright (C) 2020 The Android Open Source Project
+-  ~
+-  ~ Licensed under the Apache License, Version 2.0 (the "License");
+-  ~ you may not use this file except in compliance with the License.
+-  ~ You may obtain a copy of the License at
+-  ~
+-  ~      http://www.apache.org/licenses/LICENSE-2.0
+-  ~
+-  ~ Unless required by applicable law or agreed to in writing, software
+-  ~ distributed under the License is distributed on an "AS IS" BASIS,
+-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  ~ See the License for the specific language governing permissions and
+-  ~ limitations under the License
+-  -->
+-
+-<resources>
+-    <dimen name="qs_tile_height">106dp</dimen>
+-    <dimen name="qs_tile_margin_vertical">24dp</dimen>
+-
+-    <!-- The height of the qs customize header. Should be
+-         (qs_panel_padding_top (48dp) +  brightness_mirror_height (48dp) + qs_tile_margin_top (18dp)) -
+-         (Toolbar_minWidth (56dp) + qs_tile_margin_top_bottom (12dp))
+-    -->
+-    <dimen name="qs_customize_header_min_height">46dp</dimen>
+-    <dimen name="qs_tile_margin_top">18dp</dimen>
+-</resources>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index 9172bfa823e..cb6f550ec49 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -490,21 +490,20 @@
+     <!-- The size of the gesture span needed to activate the "pull" notification expansion -->
+     <dimen name="pull_span_min">25dp</dimen>
+ 
+-    <dimen name="qs_tile_height">96dp</dimen>
++    <dimen name="qs_tile_height">106dp</dimen>
+     <!--notification_side_paddings + notification_content_margin_start - (qs_quick_tile_size - qs_tile_background_size) / 2 -->
+     <dimen name="qs_tile_layout_margin_side">18dp</dimen>
+     <dimen name="qs_tile_margin_horizontal">18dp</dimen>
+     <dimen name="qs_tile_margin_horizontal_two_line">2dp</dimen>
+-    <dimen name="qs_tile_margin_vertical">2dp</dimen>
++    <dimen name="qs_tile_margin_vertical">24dp</dimen>
+     <dimen name="qs_tile_margin_top_bottom">12dp</dimen>
+     <dimen name="qs_tile_margin_top_bottom_negative">-12dp</dimen>
+     <!-- The height of the qs customize header. Should be
+-         (qs_panel_padding_top (48dp) +  brightness_mirror_height (48dp) + qs_tile_margin_top (0dp)) -
++         (qs_panel_padding_top (48dp) +  brightness_mirror_height (48dp) + qs_tile_margin_top (18dp)) -
+          (Toolbar_minWidth (56dp) + qs_tile_margin_top_bottom (12dp))
+     -->
+-    <dimen name="qs_customize_header_min_height">28dp</dimen>
+-    <dimen name="qs_tile_margin_top">0dp</dimen>
+-    <dimen name="qs_tile_icon_background_stroke_width">-1dp</dimen>
++    <dimen name="qs_customize_header_min_height">46dp</dimen>
++    <dimen name="qs_tile_margin_top">18dp</dimen>
+     <dimen name="qs_tile_background_size">44dp</dimen>
+     <dimen name="qs_quick_tile_size">48dp</dimen>
+     <dimen name="qs_quick_tile_padding">12dp</dimen>
+-- 
+2.25.1
+

@@ -1,0 +1,51 @@
+From 0ec12cb7e70f7a0cbeee9934d9b9aa5680359491 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 8 Aug 2021 01:43:40 +0000
+Subject: [PATCH] Revert "camera: Allow devices to load custom CameraParameter
+ code"
+
+This reverts commit 5a5606dbd92f01de322c797a7128fce69902d067.
+---
+ camera/Android.bp | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/camera/Android.bp b/camera/Android.bp
+index 21ef9eed70..fa36bb31b1 100644
+--- a/camera/Android.bp
++++ b/camera/Android.bp
+@@ -14,7 +14,6 @@
+ 
+ cc_library_shared {
+     name: "libcamera_client",
+-    defaults: ["camera_parameter_library_defaults"],
+ 
+     aidl: {
+         export_aidl_headers: true,
+@@ -33,6 +32,7 @@ cc_library_shared {
+         // Source for camera interface parcelables, and manually-written interfaces
+         "Camera.cpp",
+         "CameraMetadata.cpp",
++        "CameraParameters.cpp",
+         "CaptureResult.cpp",
+         "CameraParameters2.cpp",
+         "ICamera.cpp",
+@@ -77,16 +77,6 @@ cc_library_shared {
+ 
+ }
+ 
+-cc_library_static {
+-    name: "libcamera_parameters",
+-
+-    export_include_dirs: [
+-        "include",
+-    ],
+-    srcs: ["CameraParameters.cpp"],
+-
+-}
+-
+ // AIDL interface between camera clients and the camera service.
+ filegroup {
+     name: "libcamera_client_aidl",
+-- 
+2.25.1
+
