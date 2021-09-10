@@ -1,7 +1,7 @@
-From 44809d8cda54d0fcfaa76c81f858ac26c0c08cbe Mon Sep 17 00:00:00 2001
+From 8d86373cd08189aa68f9a40ce0d7bed34b666c5a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 21 Aug 2018 22:24:02 +0200
-Subject: [PATCH] Don't wait IR HAL to the infinity and beyond
+Subject: [PATCH 09/41] Don't wait IR HAL to the infinity and beyond
 
 Change-Id: I3afded27441bbee8244d5fda544b3e6d1238dc1b
 ---

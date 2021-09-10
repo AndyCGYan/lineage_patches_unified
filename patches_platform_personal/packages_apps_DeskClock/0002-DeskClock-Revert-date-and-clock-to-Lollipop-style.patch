@@ -1,7 +1,7 @@
-From c17ad9817f16ca7ef8d0209713dec79a0d0afbac Mon Sep 17 00:00:00 2001
+From 9dbc9d8105c3df1efe714d509622d338e7b9413f Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Wed, 26 Dec 2018 22:38:54 +0800
-Subject: [PATCH 2/2] DeskClock: Revert date and clock to Lollipop style
+Subject: [PATCH 2/3] DeskClock: Revert date and clock to Lollipop style
 
 Also added dynamic date format based on alarm presence
 

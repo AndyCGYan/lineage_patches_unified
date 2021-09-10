@@ -1,0 +1,25 @@
+From 0115026473a0efdf8c92be97fa64cdbe8c371271 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 13 Dec 2020 01:38:50 +0100
+Subject: [PATCH 28/41] Ignore DUN required and always use main APN
+
+---
+ .../android/networkstack/tethering/TetheringConfiguration.java  | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java b/packages/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java
+index ef2ea3ad6d0..90eb638ec31 100644
+--- a/packages/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java
++++ b/packages/Tethering/src/com/android/networkstack/tethering/TetheringConfiguration.java
+@@ -130,7 +130,7 @@ public class TetheringConfiguration {
+         tetherableBluetoothRegexs = getResourceStringArray(
+                 res, R.array.config_tether_bluetooth_regexs);
+ 
+-        isDunRequired = checkDunRequired(ctx);
++        isDunRequired = false;
+ 
+         chooseUpstreamAutomatically = getResourceBoolean(
+                 res, R.bool.config_tether_upstream_automatic, false /** defaultValue */);
+-- 
+2.25.1
+

@@ -1,17 +1,17 @@
-From 25b2ec68fe9ce8a2e3b35fc91ff47ae65ba95be4 Mon Sep 17 00:00:00 2001
+From 92b7d4527507f738f5baa3406d6cc20efe585907 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 30 May 2018 14:05:30 +0200
-Subject: [PATCH 05/25] Fix(?) #62
+Subject: [PATCH 05/41] Fix(?) #62
 
 ---
  .../src/com/android/keyguard/KeyguardUpdateMonitor.java      | 5 ++++-
  1 file changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/src/com/android/keyguard/KeyguardUpdateMonitor.java b/packages/SystemUI/src/com/android/keyguard/KeyguardUpdateMonitor.java
-index 3acbfb87c3f..358053343f2 100644
+index 8e5f128143d..c0c5c1c0c6d 100644
 --- a/packages/SystemUI/src/com/android/keyguard/KeyguardUpdateMonitor.java
 +++ b/packages/SystemUI/src/com/android/keyguard/KeyguardUpdateMonitor.java
-@@ -1270,7 +1270,10 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
+@@ -1282,7 +1282,10 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
  
          @Override
          public void onAuthenticationError(int errMsgId, CharSequence errString) {
@@ -24,5 +24,5 @@ index 3acbfb87c3f..358053343f2 100644
  
          @Override
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 381142e1299600d7b16c77c57207732dd06536fc Mon Sep 17 00:00:00 2001
+From 7ff66a5a2479b490ae553781be0cf19ac5cf9010 Mon Sep 17 00:00:00 2001
 From: Alexander Koskovich <zvnexus@outlook.com>
 Date: Sat, 3 Oct 2020 14:28:35 -0700
-Subject: [PATCH] Make broken copy headers the default.
+Subject: [PATCH 1/2] Make broken copy headers the default.
 
  * Do not take this for S unless needed, this is a hack
    for this cycle.

@@ -1,7 +1,7 @@
-From 1003d0293dc372b8fc0bbefe160f7d6a770b184b Mon Sep 17 00:00:00 2001
+From 1bd5c0c257ad9df65049928fb859b04353278c5a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 30 Sep 2020 22:41:39 +0200
-Subject: [PATCH 6/8] Add persist.sys.phh.no_present_or_validate property to
+Subject: [PATCH 06/12] Add persist.sys.phh.no_present_or_validate property to
  disable presentOrValidate since on vndk 26/27 presentOrValidate can be broken
 
 Change-Id: I5f0c6c5e129bc21348d6f279d3ba455a5a0f008b
@@ -46,5 +46,5 @@ index 7a2f0f34e..1ea104521 100644
          uint32_t state = UINT32_MAX;
          error = hwcDisplay->presentOrValidate(&numTypes, &numRequests, &outPresentFence , &state);
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From 298c7cd14541920c09b4bbcfb3255ec1ddcaad67 Mon Sep 17 00:00:00 2001
+From c3f762b056afb9a12898b28c717e89bd126ac4fe Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 14 Aug 2019 23:36:45 +0200
-Subject: [PATCH 15/25] Also add com.samsung.sensor.physical_proximity (if
+Subject: [PATCH 15/41] Also add com.samsung.sensor.physical_proximity (if
  available, it is more a true proximity sensor than touch proximity sensor)
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 15/25] Also add com.samsung.sensor.physical_proximity (if
  1 file changed, 7 insertions(+)
 
 diff --git a/services/core/java/com/android/server/display/DisplayPowerController.java b/services/core/java/com/android/server/display/DisplayPowerController.java
-index 774e5a38777..4c12ebbd94f 100644
+index 4b8d65d00c3..7a50ef4346c 100644
 --- a/services/core/java/com/android/server/display/DisplayPowerController.java
 +++ b/services/core/java/com/android/server/display/DisplayPowerController.java
-@@ -527,6 +527,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
+@@ -545,6 +545,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
  
          if (!DEBUG_PRETEND_PROXIMITY_SENSOR_ABSENT) {
              mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -27,5 +27,5 @@ index 774e5a38777..4c12ebbd94f 100644
                  List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
                  for(Sensor sensor: sensors) {
 -- 
-2.17.1
+2.25.1
 

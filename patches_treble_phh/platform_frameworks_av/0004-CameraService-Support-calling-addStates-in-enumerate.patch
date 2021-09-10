@@ -1,7 +1,7 @@
-From 1c0e912c7bdef868de97dc07dd5227d298cd66a9 Mon Sep 17 00:00:00 2001
+From c5db38ed90be9bc617a8d1a1b44dc5897f6a1ddf Mon Sep 17 00:00:00 2001
 From: Artem Borisov <dedsa2002@gmail.com>
 Date: Tue, 25 Sep 2018 12:39:22 +0300
-Subject: [PATCH 04/14] CameraService: Support calling addStates in
+Subject: [PATCH 04/26] CameraService: Support calling addStates in
  enumerateProviders
 
 Some pre-P camera HALs trigger onDeviceStatusChange callback during HAL init.
@@ -22,7 +22,7 @@ Change-Id: Ife25b9753fdb679ab0c77f385e1b8527551a4711
  1 file changed, 16 insertions(+)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index e1d23073f4..83dea10f3a 100644
+index ae8473f397..cbdcc3d002 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
 @@ -221,6 +221,20 @@ status_t CameraService::enumerateProviders() {
@@ -46,7 +46,7 @@ index e1d23073f4..83dea10f3a 100644
          if (getCameraState(id8) == nullptr) {
              onDeviceStatusChanged(id8, CameraDeviceStatus::PRESENT);
          }
-@@ -375,8 +389,10 @@ void CameraService::onDeviceStatusChanged(const String8& id,
+@@ -387,8 +401,10 @@ void CameraService::onDeviceStatusChanged(const String8& id,
              ALOGI("%s: Unknown camera ID %s, a new camera is added",
                      __FUNCTION__, id.string());
  
@@ -58,5 +58,5 @@ index e1d23073f4..83dea10f3a 100644
              updateStatus(newStatus, id);
          } else {
 -- 
-2.17.1
+2.25.1
 

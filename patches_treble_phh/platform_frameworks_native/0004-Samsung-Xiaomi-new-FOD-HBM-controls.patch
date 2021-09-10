@@ -1,7 +1,7 @@
-From 0c7b289c3d724f32f4d64e8972736f3aa8e3261f Mon Sep 17 00:00:00 2001
+From 5d0b6b58d1f928894cd48d784d80e82719fcf4c7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 20 May 2020 21:16:56 +0200
-Subject: [PATCH 4/8] Samsung + Xiaomi new FOD HBM controls
+Subject: [PATCH 04/12] Samsung + Xiaomi new FOD HBM controls
 
 Change-Id: I5ab27fa70882efa85f0c917bf31bb32adaa09bb1
 ---
@@ -10,7 +10,7 @@ Change-Id: I5ab27fa70882efa85f0c917bf31bb32adaa09bb1
  2 files changed, 39 insertions(+), 1 deletion(-)
 
 diff --git a/services/surfaceflinger/BufferQueueLayer.cpp b/services/surfaceflinger/BufferQueueLayer.cpp
-index 07be7916e..472ceda4d 100644
+index 6e4235e40..22b564b8d 100644
 --- a/services/surfaceflinger/BufferQueueLayer.cpp
 +++ b/services/surfaceflinger/BufferQueueLayer.cpp
 @@ -26,6 +26,7 @@
@@ -36,7 +36,7 @@ index 07be7916e..472ceda4d 100644
  namespace android {
  
  BufferQueueLayer::BufferQueueLayer(const LayerCreationArgs& args) : BufferLayer(args) {}
-@@ -486,6 +495,7 @@ void BufferQueueLayer::onFirstRef() {
+@@ -491,6 +500,7 @@ void BufferQueueLayer::onFirstRef() {
      mConsumer =
              mFlinger->getFactory().createBufferLayerConsumer(consumer, mFlinger->getRenderEngine(),
                                                               mTextureName, this);
@@ -44,7 +44,7 @@ index 07be7916e..472ceda4d 100644
      mConsumer->setConsumerUsageBits(getEffectiveUsage(0));
  
      mContentsChangedListener = new ContentsChangedListener(this);
-@@ -509,9 +519,16 @@ status_t BufferQueueLayer::setDefaultBufferProperties(uint32_t w, uint32_t h, Pi
+@@ -514,9 +524,16 @@ status_t BufferQueueLayer::setDefaultBufferProperties(uint32_t w, uint32_t h, Pi
          return BAD_VALUE;
      }
  
@@ -118,5 +118,5 @@ index deb0b0923..5f9620715 100644
  
      if (auto error = hwcLayer->setZOrder(z); error != hal::Error::NONE) {
 -- 
-2.17.1
+2.25.1
 

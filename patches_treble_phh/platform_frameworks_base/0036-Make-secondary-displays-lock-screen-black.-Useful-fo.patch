@@ -1,0 +1,27 @@
+From 5296cec29b201ca7c4ededf348d16a57a18220f4 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 6 Mar 2021 18:39:15 -0500
+Subject: [PATCH 36/41] Make secondary displays' lock screen black. Useful for
+ Moto Razr AOD
+
+---
+ .../SystemUI/res-keyguard/layout/keyguard_presentation.xml     | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res-keyguard/layout/keyguard_presentation.xml b/packages/SystemUI/res-keyguard/layout/keyguard_presentation.xml
+index f4d34f4ca14..58650b26cea 100644
+--- a/packages/SystemUI/res-keyguard/layout/keyguard_presentation.xml
++++ b/packages/SystemUI/res-keyguard/layout/keyguard_presentation.xml
+@@ -22,7 +22,8 @@
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:id="@+id/presentation"
+     android:layout_width="match_parent"
+-    android:layout_height="match_parent">
++	android:layout_height="match_parent"
++	android:background="@android:color/black">
+     <!-- This is mostly keyguard_status_view.xml with minor modifications -->
+     <com.android.keyguard.KeyguardStatusView
+         android:id="@+id/clock"
+-- 
+2.25.1
+

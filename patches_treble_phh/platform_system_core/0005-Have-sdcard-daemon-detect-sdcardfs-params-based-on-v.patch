@@ -1,7 +1,7 @@
-From 12d11df31c36c0d043efb30b8b3010ba816cb9d0 Mon Sep 17 00:00:00 2001
+From 908f6c07ce66aa530510dd73560a31d2dfbad022 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 1 Nov 2019 18:22:13 +0100
-Subject: [PATCH 5/7] Have sdcard daemon detect sdcardfs params based on vndk
+Subject: [PATCH 5/8] Have sdcard daemon detect sdcardfs params based on vndk
  version
 
 Change-Id: Id374e781957927d5604cb96c7a39b3fb28b3a6c5
@@ -43,5 +43,5 @@ index 955ddbb4c..e580190e9 100644
          for (int j = 0; j < new_opts_list.size() - i; ++j) {
              new_opts += new_opts_list[j];
 -- 
-2.17.1
+2.25.1
 

@@ -1,7 +1,7 @@
-From cc94e422c0a8b2680e7f9cfc391b2b03a56da765 Mon Sep 17 00:00:00 2001
+From 25a8d86f4887f16636af67b88adb2c7813cbd512 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 5 Jan 2021 23:44:00 +0100
-Subject: [PATCH 11/11] unshared_oob didn't exist in O/P, so detect its
+Subject: [PATCH 11/12] unshared_oob didn't exist in O/P, so detect its
  supported based on vndk version
 
 ---

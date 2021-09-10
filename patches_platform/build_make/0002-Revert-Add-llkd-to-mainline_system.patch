@@ -1,0 +1,42 @@
+From bd52c99f0fb44194a420df337f23639af8c26db9 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 5 Sep 2021 00:22:49 +0000
+Subject: [PATCH 2/2] Revert "Add llkd to mainline_system"
+
+This reverts commit 8879840c52b2647c000dffee0935bb5af662998a.
+---
+ target/product/mainline_system.mk | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/target/product/mainline_system.mk b/target/product/mainline_system.mk
+index a787707a0..4653207b3 100644
+--- a/target/product/mainline_system.mk
++++ b/target/product/mainline_system.mk
+@@ -39,9 +39,6 @@ PRODUCT_PACKAGES += \
+     Tag \
+     TimeZoneUpdater \
+ 
+-# Binaries
+-PRODUCT_PACKAGES += llkd
+-
+ # OTA support
+ PRODUCT_PACKAGES += \
+     recovery-refresh \
+@@ -49,10 +46,12 @@ PRODUCT_PACKAGES += \
+     update_verifier \
+ 
+ # Wrapped net utils for /vendor access.
+-PRODUCT_PACKAGES += netutils-wrapper-1.0
++PRODUCT_PACKAGES += \
++    netutils-wrapper-1.0 \
+ 
+ # Charger images
+-PRODUCT_PACKAGES += charger_res_images
++PRODUCT_PACKAGES += \
++    charger_res_images \
+ 
+ # system_other support
+ PRODUCT_PACKAGES += \
+-- 
+2.25.1
+

@@ -1,4 +1,4 @@
-From ec91b5cae6341702dc39bf6e579a4fd791af87c0 Mon Sep 17 00:00:00 2001
+From 4d6a4c4839266a249f2a37194cbd1154e58464f8 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 22 Jun 2021 13:38:31 +0000
 Subject: [PATCH 2/3] Add Meizu 18 vibrator support
@@ -27,13 +27,13 @@ Change-Id: Iecf12cd814e8773abfd78a19f98e31125a73761a
  create mode 100644 hal/meizu-vibrator/service.cpp
 
 diff --git a/base.mk b/base.mk
-index 878aaae..1755f9e 100644
+index e8ac0a3..6fc7726 100644
 --- a/base.mk
 +++ b/base.mk
-@@ -203,3 +203,6 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
- # AOSP overlays
+@@ -207,3 +207,6 @@ PRODUCT_PACKAGES += \
+ 
  PRODUCT_PACKAGES += \
-     NavigationBarMode2ButtonOverlay
+ 	oplus-alert-slider
 +
 +PRODUCT_PACKAGES += \
 +	android.hardware.vibrator@1.3-service.meizu
@@ -395,13 +395,13 @@ index 0000000..1405dfb
 +    joinRpcThreadpool();
 +}
 diff --git a/sepolicy/file_contexts b/sepolicy/file_contexts
-index 7ab5e91..2b59077 100644
+index 5e39d5b..41d395d 100644
 --- a/sepolicy/file_contexts
 +++ b/sepolicy/file_contexts
-@@ -12,6 +12,7 @@
- /dev/dsm                u:object_r:dmd_device:s0
+@@ -13,6 +13,7 @@
  
  /system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oppo.compat u:object_r:hal_fingerprint_oppo_compat_exec:s0
+ /system/bin/hw/android.hardware.biometrics.fingerprint@2.1-service.oplus.compat u:object_r:hal_fingerprint_oppo_compat_exec:s0
 +/system/bin/hw/android.hardware.vibrator@1.3-service.meizu u:object_r:hal_vibrator_default_exec:s0
  
  /efs u:object_r:efs_file:s0

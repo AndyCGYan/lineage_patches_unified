@@ -1,0 +1,45 @@
+From 7d5c3b0bc59848c5bac63d8410431c2d70862ca4 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 20 Mar 2021 14:30:17 +0100
+Subject: [PATCH 38/41] Handle another type of Samsung proximity sensor: Hover
+ Proximity Sensor, with yet another behavior (seen on S20 FE)
+
+---
+ .../server/display/DisplayPowerController.java     | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/services/core/java/com/android/server/display/DisplayPowerController.java b/services/core/java/com/android/server/display/DisplayPowerController.java
+index f9f9e581ecc..733d245e1a9 100644
+--- a/services/core/java/com/android/server/display/DisplayPowerController.java
++++ b/services/core/java/com/android/server/display/DisplayPowerController.java
+@@ -552,6 +552,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
+                         mProximitySensor = sensor;
+                 }
+             }
++            if(mProximitySensor == null) {
++                List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
++                for(Sensor sensor: sensors) {
++                    if("com.samsung.sensor.hover_proximity".equals(sensor.getStringType()))
++                        mProximitySensor = sensor;
++                }
++            }
+             if(mProximitySensor == null) {
+                 List<Sensor> sensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+                 for(Sensor sensor: sensors) {
+@@ -2098,6 +2105,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
+                     handleProximitySensorEvent(time, positive);
+                     return;
+                 }
++                if("com.samsung.sensor.hover_proximity".equals(mProximitySensor.getStringType())) {
++                    float v = event.values[0];
++                    boolean positive = (v >= 0.5f && v <= 4.5);
++                    android.util.Log.d("PHH", "Samsung hover sensor changed " + positive + ":" + v);
++                    handleProximitySensorEvent(time, positive);
++                    return;
++                }
+                 final float distance = event.values[0];
+                 boolean positive = distance >= 0.0f && distance < mProximityThreshold;
+                 handleProximitySensorEvent(time, positive);
+-- 
+2.25.1
+

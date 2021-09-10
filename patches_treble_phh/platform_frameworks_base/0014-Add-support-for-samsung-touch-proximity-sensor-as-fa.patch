@@ -1,7 +1,7 @@
-From 33ba0d099de0181f34b3795ad5b2ee25d8c252a4 Mon Sep 17 00:00:00 2001
+From 1034f1287025b834b7fb264ff720cfc06926efcc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 12 Aug 2019 23:08:26 +0200
-Subject: [PATCH 14/25] Add support for samsung touch proximity sensor as
+Subject: [PATCH 14/41] Add support for samsung touch proximity sensor as
  fallback to real proximity sensor
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 14/25] Add support for samsung touch proximity sensor as
  1 file changed, 14 insertions(+)
 
 diff --git a/services/core/java/com/android/server/display/DisplayPowerController.java b/services/core/java/com/android/server/display/DisplayPowerController.java
-index 9411c562945..774e5a38777 100644
+index f77f0e302aa..4b8d65d00c3 100644
 --- a/services/core/java/com/android/server/display/DisplayPowerController.java
 +++ b/services/core/java/com/android/server/display/DisplayPowerController.java
-@@ -527,6 +527,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
+@@ -545,6 +545,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
  
          if (!DEBUG_PRETEND_PROXIMITY_SENSOR_ABSENT) {
              mProximitySensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -26,7 +26,7 @@ index 9411c562945..774e5a38777 100644
              if (mProximitySensor != null) {
                  mProximityThreshold = Math.min(mProximitySensor.getMaximumRange(),
                          TYPICAL_PROXIMITY_THRESHOLD);
-@@ -1970,6 +1977,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
+@@ -2074,6 +2081,13 @@ final class DisplayPowerController implements AutomaticBrightnessController.Call
          public void onSensorChanged(SensorEvent event) {
              if (mProximitySensorEnabled) {
                  final long time = SystemClock.uptimeMillis();
@@ -41,5 +41,5 @@ index 9411c562945..774e5a38777 100644
                  boolean positive = distance >= 0.0f && distance < mProximityThreshold;
                  handleProximitySensorEvent(time, positive);
 -- 
-2.17.1
+2.25.1
 

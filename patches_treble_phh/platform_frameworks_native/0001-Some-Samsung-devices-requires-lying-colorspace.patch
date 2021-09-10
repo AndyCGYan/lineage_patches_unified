@@ -1,7 +1,7 @@
-From d8fbdb4092155a1c8f8e2b2ee77b4fcfb7102367 Mon Sep 17 00:00:00 2001
+From b6a356865be43df45ef33cc6473683f3795b77d8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 12 Aug 2019 23:48:37 +0200
-Subject: [PATCH 1/8] Some Samsung devices requires lying colorspace
+Subject: [PATCH 01/12] Some Samsung devices requires lying colorspace
 
 Change-Id: I4153b8e7abc10c519565e4e4386c6388621477b2
 ---
@@ -28,5 +28,5 @@ index aa24e8ee6..1c6380f6f 100644
      } else if (colorspace == EGL_GL_COLORSPACE_SRGB_KHR) {
          return HAL_DATASPACE_V0_SRGB;
 -- 
-2.17.1
+2.25.1
 

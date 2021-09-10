@@ -1,4 +1,4 @@
-From 52c4c60343cc71aa6c8cfa8efc68f394981c8da9 Mon Sep 17 00:00:00 2001
+From 736cce8f2de28a5924b7eb93e63b76da64a673eb Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Oct 2020 07:57:20 +0000
 Subject: [PATCH] Messaging: Use blue accent
@@ -16,7 +16,8 @@ Change-Id: I88d4de2d423afdb1bc854788aa84524af4048f9d
  res/mipmap-xxxhdpi/ic_background.png | Bin 1703 -> 15814 bytes
  res/mipmap-xxxhdpi/ic_foreground.png | Bin 73275 -> 76057 bytes
  res/values/colors.xml                |  10 +++++-----
- 11 files changed, 5 insertions(+), 5 deletions(-)
+ res/values/lineage_colors.xml        |   2 +-
+ 12 files changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/res/mipmap-hdpi/ic_background.png b/res/mipmap-hdpi/ic_background.png
 index b4a472c2d5bf54a78026c78872fa680865dba4ab..57d070ee334520304146ac85115dbce207211f92 100644
@@ -6485,7 +6486,7 @@ zNk8y${U;j&s$AQ+(;gNk*;GM$r6TdatC&#0&m_WG@&BhZ{m#E9N#yi6+k!mo9!|71
 L^wq0WZ6p2%y}sDs
 
 diff --git a/res/values/colors.xml b/res/values/colors.xml
-index a380383..747bc43 100644
+index a380383..2ae2833 100644
 --- a/res/values/colors.xml
 +++ b/res/values/colors.xml
 @@ -15,13 +15,13 @@
@@ -6510,7 +6511,7 @@ index a380383..747bc43 100644
      <color name="message_audio_button_color_incoming">#ffffffff</color>
 -    <color name="message_bubble_color_selected">#8BC34A</color>
 -    <color name="message_image_selected_tint">#80689F38</color>
-+    <color name="message_bubble_color_selected">@color/lineage_accent</color>
++    <color name="message_bubble_color_selected">#3ea4dc</color>
 +    <color name="message_image_selected_tint">#800288d1</color>
      <color name="generic_video_icon">#ff808080</color>
  
@@ -6524,6 +6525,19 @@ index a380383..747bc43 100644
      <color name="search_view_text_cursor">#b0dddddd</color>
  
      <color name="button_bar_action_button_text_color">#03a9f4</color>
+diff --git a/res/values/lineage_colors.xml b/res/values/lineage_colors.xml
+index 787d5e5..a3b1037 100644
+--- a/res/values/lineage_colors.xml
++++ b/res/values/lineage_colors.xml
+@@ -16,7 +16,7 @@
+     limitations under the License.
+ -->
+ <resources>
+-    <color name="lineage_accent">#FF9800</color>
++    <color name="lineage_accent">#0288D1</color>
+     <color name="button_text">#000000</color>
+ 
+     <color name="navigation_bar_bg">@android:color/white</color>
 -- 
 2.25.1
 

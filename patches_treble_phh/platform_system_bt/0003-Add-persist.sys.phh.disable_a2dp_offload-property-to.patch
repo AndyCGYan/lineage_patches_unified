@@ -1,7 +1,7 @@
-From eba7ce1a14f942bfdc6ac93eac14188b7b2b91ec Mon Sep 17 00:00:00 2001
+From edfc435eb11aeaf581084e55b4295cecb0a3fe47 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 25 May 2020 21:25:12 +0200
-Subject: [PATCH 3/3] Add persist.sys.phh.disable_a2dp_offload property to
+Subject: [PATCH 3/4] Add persist.sys.phh.disable_a2dp_offload property to
  force a2dp offload
 
 ---
@@ -10,10 +10,10 @@ Subject: [PATCH 3/3] Add persist.sys.phh.disable_a2dp_offload property to
  2 files changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/btif/src/btif_av.cc b/btif/src/btif_av.cc
-index 1003b0f82..b7832a478 100644
+index 679ec5ef5..0cab72a4a 100644
 --- a/btif/src/btif_av.cc
 +++ b/btif/src/btif_av.cc
-@@ -968,9 +968,14 @@ bt_status_t BtifAvSource::Init(
+@@ -971,9 +971,14 @@ bt_status_t BtifAvSource::Init(
    osi_property_get("ro.bluetooth.a2dp_offload.supported", value_sup, "false");
    osi_property_get("persist.bluetooth.a2dp_offload.disabled", value_dis,
                     "false");
@@ -30,10 +30,10 @@ index 1003b0f82..b7832a478 100644
    callbacks_ = callbacks;
    if (a2dp_offload_enabled_) {
 diff --git a/stack/a2dp/a2dp_codec_config.cc b/stack/a2dp/a2dp_codec_config.cc
-index edf7e0c46..795cbab9c 100644
+index 5f4371fbc..b9d91f3d8 100644
 --- a/stack/a2dp/a2dp_codec_config.cc
 +++ b/stack/a2dp/a2dp_codec_config.cc
-@@ -560,13 +560,18 @@ bool A2dpCodecs::init() {
+@@ -573,13 +573,18 @@ bool A2dpCodecs::init() {
    char* tok = NULL;
    char* tmp_token = NULL;
    bool offload_codec_support[BTAV_A2DP_CODEC_INDEX_MAX] = {false};
@@ -53,7 +53,7 @@ index edf7e0c46..795cbab9c 100644
  
    if (a2dp_offload_status) {
      char value_cap[PROPERTY_VALUE_MAX];
-@@ -654,7 +659,7 @@ bool A2dpCodecs::init() {
+@@ -667,7 +672,7 @@ bool A2dpCodecs::init() {
      }
    }
  
@@ -63,5 +63,5 @@ index edf7e0c46..795cbab9c 100644
  
  A2dpCodecConfig* A2dpCodecs::findSourceCodecConfig(
 -- 
-2.17.1
+2.25.1
 

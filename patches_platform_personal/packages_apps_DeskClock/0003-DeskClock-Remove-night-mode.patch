@@ -1,0 +1,61 @@
+From 5778373cb0bfbf81bfb264930a61435a1c5eda2a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 5 Sep 2021 00:30:33 +0000
+Subject: [PATCH 3/3] DeskClock: Remove night mode
+
+Change-Id: I885f39027e78fcda397f1be59d17bc24bc66671a
+---
+ res/xml/screensaver_settings.xml                   | 8 +-------
+ src/com/android/deskclock/Screensaver.java         | 5 ++---
+ src/com/android/deskclock/ScreensaverActivity.java | 2 +-
+ 3 files changed, 4 insertions(+), 11 deletions(-)
+
+diff --git a/res/xml/screensaver_settings.xml b/res/xml/screensaver_settings.xml
+index 1680aab83..73375dcfa 100644
+--- a/res/xml/screensaver_settings.xml
++++ b/res/xml/screensaver_settings.xml
+@@ -24,10 +24,4 @@
+         android:key="screensaver_clock_style"
+         android:title="@string/clock_style" />
+ 
+-    <CheckBoxPreference
+-        android:defaultValue="true"
+-        android:key="screensaver_night_mode"
+-        android:summary="@string/night_mode_summary"
+-        android:title="@string/night_mode_title" />
+-
+-</PreferenceScreen>
+\ No newline at end of file
++</PreferenceScreen>
+diff --git a/src/com/android/deskclock/Screensaver.java b/src/com/android/deskclock/Screensaver.java
+index 7f01d880a..b295d7a77 100644
+--- a/src/com/android/deskclock/Screensaver.java
++++ b/src/com/android/deskclock/Screensaver.java
+@@ -166,9 +166,8 @@ public final class Screensaver extends DreamService {
+ 
+     private void setClockStyle() {
+         Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
+-        final boolean dimNightMode = DataModel.getDataModel().getScreensaverNightModeOn();
+-        Utils.dimClockView(dimNightMode, mMainClockView);
+-        setScreenBright(!dimNightMode);
++        Utils.dimClockView(false, mMainClockView);
++        setScreenBright(true);
+     }
+ 
+     /**
+diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
+index 14c9bab00..912d59b2c 100644
+--- a/src/com/android/deskclock/ScreensaverActivity.java
++++ b/src/com/android/deskclock/ScreensaverActivity.java
+@@ -119,7 +119,7 @@ public class ScreensaverActivity extends BaseActivity {
+         Utils.setClockIconTypeface(mMainClockView);
+         Utils.setTimeFormat((TextClock) digitalClock, false);
+         Utils.setClockStyle(digitalClock, analogClock);
+-        Utils.dimClockView(true, mMainClockView);
++        Utils.dimClockView(false, mMainClockView);
+         analogClock.enableSeconds(false);
+ 
+         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+-- 
+2.25.1
+

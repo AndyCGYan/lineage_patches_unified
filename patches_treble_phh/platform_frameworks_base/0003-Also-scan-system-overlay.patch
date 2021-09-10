@@ -1,7 +1,7 @@
-From b236ed36a97c09a15fa18d3387ff20dadd5be965 Mon Sep 17 00:00:00 2001
+From b5dcca82cf5b77f83635afd1561f922f4126d006 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 May 2018 17:47:36 +0200
-Subject: [PATCH 03/25] Also scan /system/overlay
+Subject: [PATCH 03/41] Also scan /system/overlay
 
 Change-Id: Ib0223560606b80cdaaa986b159b34b4db0154589
 ---
@@ -25,10 +25,10 @@ index 12abc256a20..3133f2f3023 100644
      LOG(WARNING) << "no directories for idmap2 to scan";
      return env->NewObjectArray(0, g_stringClass, nullptr);
 diff --git a/core/jni/fd_utils.cpp b/core/jni/fd_utils.cpp
-index c72668f84fb..d4307ae6579 100644
+index 49d75dc35e6..d5f2317d7c0 100644
 --- a/core/jni/fd_utils.cpp
 +++ b/core/jni/fd_utils.cpp
-@@ -135,7 +135,8 @@ bool FileDescriptorWhitelist::IsAllowed(const std::string& path) const {
+@@ -136,7 +136,8 @@ bool FileDescriptorWhitelist::IsAllowed(const std::string& path) const {
         || android::base::StartsWith(path, kSystemOdmOverlayDir)
         || android::base::StartsWith(path, kOdmOverlayDir)
         || android::base::StartsWith(path, kSystemOemOverlayDir)
@@ -39,5 +39,5 @@ index c72668f84fb..d4307ae6579 100644
        && path.find("/../") == std::string::npos) {
      return true;
 -- 
-2.17.1
+2.25.1
 

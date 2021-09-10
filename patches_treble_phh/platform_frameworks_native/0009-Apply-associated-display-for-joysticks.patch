@@ -1,7 +1,7 @@
-From 5edeb168bf831aaca539aa8f063564f740676e16 Mon Sep 17 00:00:00 2001
+From a24b28b8cf08839ea0052c2bb37696b9d24ba8bc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 26 Oct 2020 23:16:30 +0100
-Subject: [PATCH 09/10] Apply associated display for joysticks
+Subject: [PATCH 09/12] Apply associated display for joysticks
 
 Change-Id: I5f6c237e6bf53312aff3dc02a46ce1c779063203
 ---

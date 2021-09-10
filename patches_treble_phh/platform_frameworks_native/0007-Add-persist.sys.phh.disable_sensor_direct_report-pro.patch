@@ -1,8 +1,9 @@
-From dc47d76a49d2a2d8dc2bd6bf68098cd910fcb364 Mon Sep 17 00:00:00 2001
+From f42ba2e579fcac3e8be40dc52de43a6a1a4c64d8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 30 Sep 2020 22:51:37 +0200
-Subject: [PATCH 7/8] Add persist.sys.phh.disable_sensor_direct_report property
- to disable Sensors direct report (it seems to break Qin 2 Pro sensors HAL)
+Subject: [PATCH 07/12] Add persist.sys.phh.disable_sensor_direct_report
+ property to disable Sensors direct report (it seems to break Qin 2 Pro
+ sensors HAL)
 
 Change-Id: I0763324a4bd6a3ba6716c396c4cb3f0772b85d62
 ---
@@ -10,7 +11,7 @@ Change-Id: I0763324a4bd6a3ba6716c396c4cb3f0772b85d62
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/services/sensorservice/SensorDevice.cpp b/services/sensorservice/SensorDevice.cpp
-index 53b686870..87899e2cd 100644
+index 99b10faf5..eb5bfe281 100644
 --- a/services/sensorservice/SensorDevice.cpp
 +++ b/services/sensorservice/SensorDevice.cpp
 @@ -22,6 +22,7 @@
@@ -37,5 +38,5 @@ index 53b686870..87899e2cd 100644
  
  void SensorDevice::initializeSensorList() {
 -- 
-2.17.1
+2.25.1
 

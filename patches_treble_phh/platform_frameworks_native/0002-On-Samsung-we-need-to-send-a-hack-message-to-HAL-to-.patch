@@ -1,8 +1,8 @@
-From 61f5f4b804e8e14f15b928630489f22a5e7df04e Mon Sep 17 00:00:00 2001
+From ecd87a69db2346a697eeb81aa0c4f2173a6298f8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 14 Aug 2019 23:37:10 +0200
-Subject: [PATCH 2/8] On Samsung, we need to send a hack-message to HAL to get
- all Sensors
+Subject: [PATCH 02/12] On Samsung, we need to send a hack-message to HAL to
+ get all Sensors
 
 Change-Id: Id6a1fa48340de61c418493668e9abd22c2599376
 ---
@@ -24,7 +24,7 @@ index 1c6380f6f..6e810e592 100644
      if (colorspace == EGL_GL_COLORSPACE_LINEAR_KHR) {
          if(samsungColorspace)
 diff --git a/services/sensorservice/SensorDevice.cpp b/services/sensorservice/SensorDevice.cpp
-index 8a282e238..53b686870 100644
+index e35559417..99b10faf5 100644
 --- a/services/sensorservice/SensorDevice.cpp
 +++ b/services/sensorservice/SensorDevice.cpp
 @@ -34,7 +34,9 @@
@@ -47,5 +47,5 @@ index 8a282e238..53b686870 100644
              [&](const auto &list) {
                  const size_t count = list.size();
 -- 
-2.17.1
+2.25.1
 
