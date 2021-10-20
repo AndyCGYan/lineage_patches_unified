@@ -1,0 +1,33 @@
+From 26e5a2cc1640b3de6881d9e02f910765341c146a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 26 Oct 2020 14:06:56 +0000
+Subject: [PATCH 14/16] UI: Reconfigure power menu items
+
+Screenshot/airplane are broken as of now
+
+Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
+---
+ core/res/res/values/config.xml | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 18804e472478..c52fa8427069 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -2947,13 +2947,8 @@
+          "logout" =  Logout the current user
+          -->
+     <string-array translatable="false" name="config_globalActionsList">
+-        <item>emergency</item>
+-        <item>lockdown</item>
+         <item>power</item>
+         <item>restart</item>
+-        <item>logout</item>
+-        <item>screenshot</item>
+-        <item>bugreport</item>
+     </string-array>
+ 
+     <!-- Number of milliseconds to hold a wake lock to ensure that drawing is fully
+-- 
+2.25.1
+

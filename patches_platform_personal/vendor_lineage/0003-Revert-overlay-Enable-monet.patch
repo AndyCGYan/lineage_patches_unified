@@ -1,0 +1,23 @@
+From ef538d98c3401b7324682ebf96f32f28649dc036 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 27 Oct 2021 13:23:31 +0000
+Subject: [PATCH 3/4] Revert "overlay: Enable monet"
+
+This reverts commit 97a1727968a2fca85c3bdc419637e9c02fce9ce7.
+---
+ .../frameworks/base/packages/SystemUI/res/values/flags.xml       | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/overlay/common/frameworks/base/packages/SystemUI/res/values/flags.xml b/overlay/common/frameworks/base/packages/SystemUI/res/values/flags.xml
+index d22d0f23..64c6e78b 100644
+--- a/overlay/common/frameworks/base/packages/SystemUI/res/values/flags.xml
++++ b/overlay/common/frameworks/base/packages/SystemUI/res/values/flags.xml
+@@ -17,5 +17,4 @@
+ <resources>
+     <bool name="flag_conversations">true</bool>
+     <bool name="flag_charging_ripple">true</bool>
+-    <bool name="flag_monet">true</bool>
+ </resources>
+-- 
+2.25.1
+

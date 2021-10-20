@@ -1,0 +1,72 @@
+From 1ff9c15ea9fa247beb1320f3cc88d066394d6355 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 7 Oct 2020 14:00:35 +0000
+Subject: [PATCH 12/16] UI: Always render windows into cutouts
+
+Eliminates black/white letterboxing
+Quick and dirty way to do the latter - wait for proper fix from Google
+
+Change-Id: I4661c7979bfa7de453329fcddbaeefc2009e2da3
+---
+ .../com/android/server/wm/DisplayFrames.java  | 31 +++----------------
+ .../com/android/server/wm/DisplayPolicy.java  |  2 +-
+ 2 files changed, 5 insertions(+), 28 deletions(-)
+
+diff --git a/services/core/java/com/android/server/wm/DisplayFrames.java b/services/core/java/com/android/server/wm/DisplayFrames.java
+index 32e43ca4e56c..18c28ae674f9 100644
+--- a/services/core/java/com/android/server/wm/DisplayFrames.java
++++ b/services/core/java/com/android/server/wm/DisplayFrames.java
+@@ -98,33 +98,10 @@ public class DisplayFrames {
+         state.setDisplayCutout(cutout);
+         state.setRoundedCorners(roundedCorners);
+         state.setPrivacyIndicatorBounds(indicatorBounds);
+-        if (!cutout.isEmpty()) {
+-            if (cutout.getSafeInsetLeft() > 0) {
+-                safe.left = unrestricted.left + cutout.getSafeInsetLeft();
+-            }
+-            if (cutout.getSafeInsetTop() > 0) {
+-                safe.top = unrestricted.top + cutout.getSafeInsetTop();
+-            }
+-            if (cutout.getSafeInsetRight() > 0) {
+-                safe.right = unrestricted.right - cutout.getSafeInsetRight();
+-            }
+-            if (cutout.getSafeInsetBottom() > 0) {
+-                safe.bottom = unrestricted.bottom - cutout.getSafeInsetBottom();
+-            }
+-            state.getSource(ITYPE_LEFT_DISPLAY_CUTOUT).setFrame(
+-                    unrestricted.left, unrestricted.top, safe.left, unrestricted.bottom);
+-            state.getSource(ITYPE_TOP_DISPLAY_CUTOUT).setFrame(
+-                    unrestricted.left, unrestricted.top, unrestricted.right, safe.top);
+-            state.getSource(ITYPE_RIGHT_DISPLAY_CUTOUT).setFrame(
+-                    safe.right, unrestricted.top, unrestricted.right, unrestricted.bottom);
+-            state.getSource(ITYPE_BOTTOM_DISPLAY_CUTOUT).setFrame(
+-                    unrestricted.left, safe.bottom, unrestricted.right, unrestricted.bottom);
+-        } else {
+-            state.removeSource(ITYPE_LEFT_DISPLAY_CUTOUT);
+-            state.removeSource(ITYPE_TOP_DISPLAY_CUTOUT);
+-            state.removeSource(ITYPE_RIGHT_DISPLAY_CUTOUT);
+-            state.removeSource(ITYPE_BOTTOM_DISPLAY_CUTOUT);
+-        }
++        state.removeSource(ITYPE_LEFT_DISPLAY_CUTOUT);
++        state.removeSource(ITYPE_TOP_DISPLAY_CUTOUT);
++        state.removeSource(ITYPE_RIGHT_DISPLAY_CUTOUT);
++        state.removeSource(ITYPE_BOTTOM_DISPLAY_CUTOUT);
+         return true;
+     }
+ 
+diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
+index a070942cc76a..32abd1e60714 100644
+--- a/services/core/java/com/android/server/wm/DisplayPolicy.java
++++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
+@@ -1604,7 +1604,7 @@ public class DisplayPolicy {
+             pf.set((fl & FLAG_LAYOUT_IN_SCREEN) == 0 ? attached.getFrame() : df);
+         }
+ 
+-        final int cutoutMode = attrs.layoutInDisplayCutoutMode;
++        final int cutoutMode = LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS;
+         // Ensure that windows with a DEFAULT or NEVER display cutout mode are laid out in
+         // the cutout safe zone.
+         if (cutoutMode != LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS) {
+-- 
+2.25.1
+

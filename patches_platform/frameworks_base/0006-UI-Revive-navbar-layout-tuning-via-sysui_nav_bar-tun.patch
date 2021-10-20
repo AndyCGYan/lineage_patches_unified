@@ -1,0 +1,83 @@
+From 66fb1d5dbfcb671e779108af3af7d2063423e7db Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 6 Oct 2020 01:41:16 +0000
+Subject: [PATCH 06/21] UI: Revive navbar layout tuning via sysui_nav_bar
+ tunable
+
+Google keeps fixing what ain't broken.
+
+Change-Id: Ied7d7859e50fd0fcc346219964e747c5d5f4c352
+---
+ .../NavigationBarInflaterView.java            | 30 ++++++++++++++++++-
+ 1 file changed, 29 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+index 4d9175b8db68..293ebb374241 100644
+--- a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
++++ b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+@@ -43,12 +43,13 @@ import com.android.systemui.navigationbar.buttons.ReverseLinearLayout;
+ import com.android.systemui.navigationbar.buttons.ReverseLinearLayout.ReverseRelativeLayout;
+ import com.android.systemui.recents.OverviewProxyService;
+ import com.android.systemui.shared.system.QuickStepContract;
++import com.android.systemui.tuner.TunerService;
+ 
+ import java.io.PrintWriter;
+ import java.util.Objects;
+ 
+ public class NavigationBarInflaterView extends FrameLayout
+-        implements NavigationModeController.ModeChangedListener {
++        implements NavigationModeController.ModeChangedListener, TunerService.Tunable {
+ 
+     private static final String TAG = "NavBarInflater";
+ 
+@@ -102,6 +103,8 @@ public class NavigationBarInflaterView extends FrameLayout
+     private OverviewProxyService mOverviewProxyService;
+     private int mNavBarMode = NAV_BAR_MODE_3BUTTON;
+ 
++    private boolean mUsingCustomLayout;
++
+     public NavigationBarInflaterView(Context context, AttributeSet attrs) {
+         super(context, attrs);
+         createInflaters();
+@@ -151,13 +154,38 @@ public class NavigationBarInflaterView extends FrameLayout
+         mNavBarMode = mode;
+     }
+ 
++    @Override
++    protected void onAttachedToWindow() {
++        super.onAttachedToWindow();
++        Dependency.get(TunerService.class).addTunable(this, NAV_BAR_VIEWS);
++    }
++
+     @Override
+     protected void onDetachedFromWindow() {
+         Dependency.get(NavigationModeController.class).removeListener(this);
++        Dependency.get(TunerService.class).removeTunable(this);
+         super.onDetachedFromWindow();
+     }
+ 
++    @Override
++    public void onTuningChanged(String key, String newValue) {
++        if (NAV_BAR_VIEWS.equals(key)) {
++            setNavigationBarLayout(newValue);
++        }
++    }
++
++    public void setNavigationBarLayout(String layoutValue) {
++        if (!Objects.equals(mCurrentLayout, layoutValue)) {
++            mUsingCustomLayout = layoutValue != null;
++            clearViews();
++            inflateLayout(layoutValue);
++        }
++    }
++
+     public void onLikelyDefaultLayoutChange() {
++        // Don't override custom layouts
++        if (mUsingCustomLayout) return;
++
+         // Reevaluate new layout
+         final String newValue = getDefaultLayout();
+         if (!Objects.equals(mCurrentLayout, newValue)) {
+-- 
+2.25.1
+

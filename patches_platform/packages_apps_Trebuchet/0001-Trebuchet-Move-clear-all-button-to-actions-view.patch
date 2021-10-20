@@ -1,0 +1,357 @@
+From 0fdc4088295718c69121443e5b0fee5d213babd2 Mon Sep 17 00:00:00 2001
+From: Vachounet <vachounet@live.fr>
+Date: Mon, 26 Oct 2020 17:05:18 +0100
+Subject: [PATCH] Trebuchet: Move clear all button to actions view
+
+Change-Id: I7a0b2729c163169f7606ad4644870d07d5165e8e
+---
+ .../ic_clear_all_recents.xml}                 | 20 +++---
+ .../res/layout/overview_actions_container.xml | 17 ++++-
+ .../RecentsViewStateController.java           |  4 --
+ .../FallbackRecentsStateController.java       |  4 --
+ .../android/quickstep/views/RecentsView.java  | 64 ++-----------------
+ 5 files changed, 31 insertions(+), 78 deletions(-)
+ rename quickstep/res/{layout/overview_clear_all_button.xml => drawable/ic_clear_all_recents.xml} (52%)
+
+diff --git a/quickstep/res/layout/overview_clear_all_button.xml b/quickstep/res/drawable/ic_clear_all_recents.xml
+similarity index 52%
+rename from quickstep/res/layout/overview_clear_all_button.xml
+rename to quickstep/res/drawable/ic_clear_all_recents.xml
+index 1ee726e62e..7cba0220b0 100644
+--- a/quickstep/res/layout/overview_clear_all_button.xml
++++ b/quickstep/res/drawable/ic_clear_all_recents.xml
+@@ -1,6 +1,4 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     Copyright (C) 2018 The Android Open Source Project
++<!-- Copyright (C) 2020 The Android Open Source Project
+ 
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+@@ -14,12 +12,10 @@
+      See the License for the specific language governing permissions and
+      limitations under the License.
+ -->
+-<com.android.quickstep.views.ClearAllButton
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    style="@android:style/Widget.DeviceDefault.Button.Borderless"
+-    android:id="@+id/clear_all"
+-    android:layout_width="wrap_content"
+-    android:layout_height="wrap_content"
+-    android:text="@string/recents_clear_all"
+-    android:textColor="?android:attr/textColorPrimary"
+-    android:textSize="14sp" />
+\ No newline at end of file
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:height="24dp"
++    android:width="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24">
++    <path android:fillColor="#FF000000" android:pathData="M5,13H19V11H5M3,17H17V15H3M7,7V9H21V7" />
++</vector>
+diff --git a/quickstep/res/layout/overview_actions_container.xml b/quickstep/res/layout/overview_actions_container.xml
+index b652252ce1..f12cad6875 100644
+--- a/quickstep/res/layout/overview_actions_container.xml
++++ b/quickstep/res/layout/overview_actions_container.xml
+@@ -46,6 +46,21 @@
+             android:layout_height="1dp"
+             android:layout_weight="1" />
+ 
++        <Button
++            style="@style/OverviewActionButton"
++            android:id="@+id/clear_all"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:text="@string/recents_clear_all"
++            android:theme="@style/ThemeControlHighlightWorkspaceColor"
++            android:drawableStart="@drawable/ic_clear_all_recents"
++            />
++
++        <Space
++            android:layout_width="0dp"
++            android:layout_height="1dp"
++            android:layout_weight="1" />
++
+         <Button
+             android:id="@+id/action_share"
+             style="@style/OverviewActionButton"
+@@ -64,4 +79,4 @@
+             android:visibility="gone" />
+     </LinearLayout>
+ 
+-</com.android.quickstep.views.OverviewActionsView>
+\ No newline at end of file
++</com.android.quickstep.views.OverviewActionsView>
+diff --git a/quickstep/src/com/android/launcher3/uioverrides/RecentsViewStateController.java b/quickstep/src/com/android/launcher3/uioverrides/RecentsViewStateController.java
+index 996d36aadc..459a2c77f1 100644
+--- a/quickstep/src/com/android/launcher3/uioverrides/RecentsViewStateController.java
++++ b/quickstep/src/com/android/launcher3/uioverrides/RecentsViewStateController.java
+@@ -40,7 +40,6 @@ import com.android.launcher3.anim.PendingAnimation;
+ import com.android.launcher3.anim.PropertySetter;
+ import com.android.launcher3.states.StateAnimationConfig;
+ import com.android.launcher3.util.MultiValueAlpha;
+-import com.android.quickstep.views.ClearAllButton;
+ import com.android.quickstep.views.LauncherRecentsView;
+ import com.android.quickstep.views.RecentsView;
+ 
+@@ -103,9 +102,6 @@ public final class RecentsViewStateController extends
+ 
+     private void setAlphas(PropertySetter propertySetter, StateAnimationConfig config,
+             LauncherState state) {
+-        float clearAllButtonAlpha = state.areElementsVisible(mLauncher, CLEAR_ALL_BUTTON) ? 1 : 0;
+-        propertySetter.setFloat(mRecentsView.getClearAllButton(), ClearAllButton.VISIBILITY_ALPHA,
+-                clearAllButtonAlpha, LINEAR);
+         float overviewButtonAlpha = state.areElementsVisible(mLauncher, OVERVIEW_ACTIONS)
+                 && mRecentsView.shouldShowOverviewActionsForState(state) ? 1 : 0;
+         propertySetter.setFloat(mLauncher.getActionsView().getVisibilityAlpha(),
+diff --git a/quickstep/src/com/android/quickstep/fallback/FallbackRecentsStateController.java b/quickstep/src/com/android/quickstep/fallback/FallbackRecentsStateController.java
+index f0364eb410..7c60d9f5af 100644
+--- a/quickstep/src/com/android/quickstep/fallback/FallbackRecentsStateController.java
++++ b/quickstep/src/com/android/quickstep/fallback/FallbackRecentsStateController.java
+@@ -36,7 +36,6 @@ import com.android.launcher3.statemanager.StateManager.StateHandler;
+ import com.android.launcher3.states.StateAnimationConfig;
+ import com.android.launcher3.util.MultiValueAlpha;
+ import com.android.quickstep.RecentsActivity;
+-import com.android.quickstep.views.ClearAllButton;
+ 
+ /**
+  * State controller for fallback recents activity
+@@ -74,9 +73,6 @@ public class FallbackRecentsStateController implements StateHandler<RecentsState
+ 
+     private void setProperties(RecentsState state, StateAnimationConfig config,
+             PropertySetter setter) {
+-        float clearAllButtonAlpha = state.hasClearAllButton() ? 1 : 0;
+-        setter.setFloat(mRecentsView.getClearAllButton(), ClearAllButton.VISIBILITY_ALPHA,
+-                clearAllButtonAlpha, LINEAR);
+         float overviewButtonAlpha =
+                 state.hasOverviewActions() && mRecentsView.shouldShowOverviewActionsForState(state)
+                         ? 1 : 0;
+diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
+index ce79125be1..b447166d6e 100644
+--- a/quickstep/src/com/android/quickstep/views/RecentsView.java
++++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
+@@ -96,6 +96,7 @@ import android.view.ViewTreeObserver.OnScrollChangedListener;
+ import android.view.accessibility.AccessibilityEvent;
+ import android.view.accessibility.AccessibilityNodeInfo;
+ import android.view.animation.Interpolator;
++import android.widget.Button;
+ import android.widget.FrameLayout;
+ import android.widget.ListView;
+ import android.widget.OverScroller;
+@@ -378,8 +379,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+     private final RecentsModel mModel;
+     private final int mRowSpacing;
+     private final int mGridSideMargin;
+-    private final ClearAllButton mClearAllButton;
+-    private final Rect mClearAllButtonDeadZoneRect = new Rect();
++    private Button mClearAllButton;
+     private final Rect mTaskViewDeadZoneRect = new Rect();
+     /**
+      * Reflects if Recents is currently in the middle of a gesture
+@@ -593,9 +593,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         mModel = RecentsModel.INSTANCE.get(context);
+         mIdp = InvariantDeviceProfile.INSTANCE.get(context);
+ 
+-        mClearAllButton = (ClearAllButton) LayoutInflater.from(context)
+-                .inflate(R.layout.overview_clear_all_button, this, false);
+-        mClearAllButton.setOnClickListener(this::dismissAllTasks);
+         mTaskViewPool = new ViewPool<>(context, this, R.layout.task, 20 /* max size */,
+                 10 /* initial size */);
+ 
+@@ -769,6 +766,8 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         mActionsView = actionsView;
+         mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
+         mSplitPlaceholderView = splitPlaceholderView;
++        mClearAllButton = (Button) mActionsView.findViewById(R.id.clear_all);
++        mClearAllButton.setOnClickListener(this::dismissAllTasks);
+     }
+ 
+     public SplitPlaceholderView getSplitPlaceholder() {
+@@ -910,7 +909,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+     }
+ 
+     private void updateTaskStartIndex(View affectingView) {
+-        if (!(affectingView instanceof TaskView) && !(affectingView instanceof ClearAllButton)) {
++        if (!(affectingView instanceof TaskView)) {
+             int childCount = getChildCount();
+ 
+             mTaskViewStartIndex = 0;
+@@ -975,7 +974,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+      * button fully visible, center page is Clear All button.
+      */
+     public boolean isClearAllHidden() {
+-        return mClearAllButton.getAlpha() != 1f;
++        return true;
+     }
+ 
+     @Override
+@@ -1044,11 +1043,8 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+                         mTouchDownToStartHome = true;
+                     } else {
+                         updateDeadZoneRects();
+-                        final boolean clearAllButtonDeadZoneConsumed =
+-                                mClearAllButton.getAlpha() == 1
+-                                        && mClearAllButtonDeadZoneRect.contains(x, y);
+                         final boolean cameFromNavBar = (ev.getEdgeFlags() & EDGE_NAV_BAR) != 0;
+-                        if (!clearAllButtonDeadZoneConsumed && !cameFromNavBar
++                        if (!cameFromNavBar
+                                 && !mTaskViewDeadZoneRect.contains(x + getScrollX(), y)) {
+                             mTouchDownToStartHome = true;
+                         }
+@@ -1123,18 +1119,12 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+ 
+         final int requiredTaskCount = tasks.size();
+         if (getTaskViewCount() != requiredTaskCount) {
+-            if (indexOfChild(mClearAllButton) != -1) {
+-                removeView(mClearAllButton);
+-            }
+             for (int i = getTaskViewCount(); i < requiredTaskCount; i++) {
+                 addView(mTaskViewPool.getView());
+             }
+             while (getTaskViewCount() > requiredTaskCount) {
+                 removeView(getChildAt(getChildCount() - 1));
+             }
+-            if (requiredTaskCount > 0) {
+-                addView(mClearAllButton);
+-            }
+         }
+ 
+         // Rebind and reset all task views
+@@ -1184,16 +1174,10 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         for (int i = getTaskViewCount() - 1; i >= 0; i--) {
+             removeView(getTaskViewAt(i));
+         }
+-        if (indexOfChild(mClearAllButton) != -1) {
+-            removeView(mClearAllButton);
+-        }
+     }
+ 
+     public int getTaskViewCount() {
+         int taskViewCount = getChildCount() - mTaskViewStartIndex;
+-        if (indexOfChild(mClearAllButton) != -1) {
+-            taskViewCount--;
+-        }
+         return taskViewCount;
+     }
+ 
+@@ -1249,7 +1233,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         for (int i = 0; i < taskCount; i++) {
+             getTaskViewAt(i).setFullscreenProgress(mFullscreenProgress);
+         }
+-        mClearAllButton.setFullscreenProgress(fullscreenProgress);
+ 
+         // Fade out the actions view quickly (0.1 range)
+         mActionsView.getFullscreenAlpha().setValue(
+@@ -1298,10 +1281,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         setLayoutDirection(mIsRtl
+                 ? View.LAYOUT_DIRECTION_RTL
+                 : View.LAYOUT_DIRECTION_LTR);
+-        mClearAllButton.setLayoutDirection(mIsRtl
+-                ? View.LAYOUT_DIRECTION_LTR
+-                : View.LAYOUT_DIRECTION_RTL);
+-        mClearAllButton.setRotation(mOrientationHandler.getDegreesRotated());
+ 
+         if (forceRecreateDragLayerControllers
+                 || !mOrientationHandler.equals(oldOrientationHandler)) {
+@@ -1390,8 +1369,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+             accumulatedTranslationX += mIsRtl ? widthDiff : -widthDiff;
+         }
+ 
+-        mClearAllButton.setFullscreenTranslationPrimary(accumulatedTranslationX);
+-
+         updateGridProperties();
+     }
+ 
+@@ -1473,7 +1450,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+             return;
+         }
+         int scroll = mOrientationHandler.getPrimaryScroll(this);
+-        mClearAllButton.onRecentsViewScroll(scroll, mOverviewGridEnabled);
+     }
+ 
+     @Override
+@@ -1819,9 +1795,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+             // Add an empty view for now until the task plan is loaded and applied
+             final TaskView taskView = mTaskViewPool.getView();
+             addView(taskView, mTaskViewStartIndex);
+-            if (wasEmpty) {
+-                addView(mClearAllButton);
+-            }
+             // The temporary running task is only used for the duration between the start of the
+             // gesture and the task list is loaded and applied
+             mTmpRunningTask = Task.from(new TaskKey(runningTaskInfo), runningTaskInfo, false);
+@@ -2152,12 +2125,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+             }
+         }
+ 
+-        mClearAllButton.setGridTranslationPrimary(
+-                clearAllTotalTranslationX - snappedTaskGridTranslationX);
+-        mClearAllButton.setGridScrollOffset(
+-                mIsRtl ? mLastComputedTaskSize.left - mLastComputedGridSize.left
+-                        : mLastComputedTaskSize.right - mLastComputedGridSize.right);
+-
+         setGridProgress(mGridProgress);
+     }
+ 
+@@ -2190,7 +2157,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         for (int i = 0; i < taskCount; i++) {
+             getTaskViewAt(i).setGridProgress(gridProgress);
+         }
+-        mClearAllButton.setGridProgress(gridProgress);
+     }
+ 
+     private void enableLayoutTransitions() {
+@@ -2452,7 +2418,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+                     removeViewInLayout(taskView);
+ 
+                     if (getTaskViewCount() == 0) {
+-                        removeViewInLayout(mClearAllButton);
+                         startHome();
+                     } else {
+                         snapToPageImmediately(pageToSnapTo);
+@@ -2661,7 +2626,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+                 child.setStableAlpha(alpha);
+             }
+         }
+-        mClearAllButton.setContentAlpha(mContentAlpha);
+         int alphaInt = Math.round(alpha * 255);
+         mEmptyMessagePaint.setAlpha(alphaInt);
+         mEmptyIcon.setAlpha(alphaInt);
+@@ -3132,15 +3096,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+     }
+ 
+     private void updateDeadZoneRects() {
+-        // Get the deadzone rect surrounding the clear all button to not dismiss overview to home
+-        mClearAllButtonDeadZoneRect.setEmpty();
+-        if (mClearAllButton.getWidth() > 0) {
+-            int verticalMargin = getResources()
+-                    .getDimensionPixelSize(R.dimen.recents_clear_all_deadzone_vertical_margin);
+-            mClearAllButton.getHitRect(mClearAllButtonDeadZoneRect);
+-            mClearAllButtonDeadZoneRect.inset(-getPaddingRight() / 2, -verticalMargin);
+-        }
+-
+         // Get the deadzone rect between the task views
+         mTaskViewDeadZoneRect.setEmpty();
+         int count = getTaskViewCount();
+@@ -3548,7 +3503,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         if (layoutChildren) {
+             int clearAllWidthDiff = mOrientationHandler.getPrimaryValue(mTaskWidth, mTaskHeight)
+                     - mOrientationHandler.getPrimarySize(mClearAllButton);
+-            mClearAllButton.setScrollOffsetPrimary(mIsRtl ? clearAllWidthDiff : -clearAllWidthDiff);
+         }
+ 
+         boolean pageScrollChanged = false;
+@@ -3596,10 +3550,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+                 showAsFullscreen()));
+     }
+ 
+-    public ClearAllButton getClearAllButton() {
+-        return mClearAllButton;
+-    }
+-
+     /**
+      * @return How many pixels the running task is offset on the currently laid out dominant axis.
+      */
+-- 
+2.25.1
+

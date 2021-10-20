@@ -1,0 +1,102 @@
+From 4252dd5be9f193c3f25f6771986b868e065b90e7 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 2 Nov 2019 08:31:36 +0000
+Subject: [PATCH 08/16] Keyguard: Refine indication text
+
+Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
+---
+ packages/SystemUI/res-keyguard/values/styles.xml     |  2 --
+ packages/SystemUI/res/values/dimens.xml              |  2 +-
+ .../KeyguardIndicationRotateTextViewController.java  | 12 +++++++++++-
+ .../statusbar/KeyguardIndicationController.java      |  5 ++---
+ .../statusbar/phone/KeyguardIndicationTextView.java  |  2 +-
+ 5 files changed, 15 insertions(+), 8 deletions(-)
+
+diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
+index 6bfca3ece20e..54e5b8511b57 100644
+--- a/packages/SystemUI/res-keyguard/values/styles.xml
++++ b/packages/SystemUI/res-keyguard/values/styles.xml
+@@ -137,7 +137,5 @@
+         <item name="android:textSize">14sp</item>
+         <item name="android:maxLines">1</item>
+         <item name="android:textColor">?attr/wallpaperTextColor</item>
+-        <item name="android:shadowColor">@color/keyguard_shadow_color</item>
+-        <item name="android:shadowRadius">?attr/shadowRadius</item>
+     </style>
+ </resources>
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index 6ad9ab9a26ec..661a03aa9671 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -923,7 +923,7 @@
+     <dimen name="keyguard_lock_width">42dp</dimen>
+     <dimen name="keyguard_lock_padding">20dp</dimen>
+ 
+-    <dimen name="keyguard_indication_margin_bottom">32dp</dimen>
++    <dimen name="keyguard_indication_margin_bottom">16dp</dimen>
+     <dimen name="lock_icon_margin_bottom">98dp</dimen>
+ 
+     <!-- The text size for battery level -->
+diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
+index 2d215e0f1f62..0c5870d6b6bf 100644
+--- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
++++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
+@@ -183,12 +183,22 @@ public class KeyguardIndicationRotateTextViewController extends
+     }
+ 
+     /**
+-     * @return true if there are available indications to show
++     * @return true if there are available non-resting indications to show.
+      */
+     public boolean hasIndications() {
++        if (hasIndication(INDICATION_TYPE_RESTING)) {
++            return mIndicationMessages.keySet().size() > 1;
++        }
+         return mIndicationMessages.keySet().size() > 0;
+     }
+ 
++    /**
++     * @return true if there is an indication of the following type.
++     */
++    public boolean hasIndication(@IndicationType int type) {
++        return mIndicationMessages.containsKey(type);
++    }
++
+     /**
+      * Immediately show the passed indication type and schedule the next indication to show.
+      * Will re-add this indication to be re-shown after all other indications have been
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
+index 503b5c0ee4b0..e49561ff1f45 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
+@@ -432,12 +432,11 @@ public class KeyguardIndicationController {
+     }
+ 
+     private void updateResting() {
+-        if (mRestingIndication != null
+-                && !mRotateTextViewController.hasIndications()) {
++        if (!mRotateTextViewController.hasIndications()) {
+             mRotateTextViewController.updateIndication(
+                     INDICATION_TYPE_RESTING,
+                     new KeyguardIndication.Builder()
+-                            .setMessage(mRestingIndication)
++                            .setMessage(mContext.getResources().getString(R.string.keyguard_unlock))
+                             .setTextColor(mInitialTextColorState)
+                             .build(),
+                     false);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
+index f1cde8a9be7a..10037fc93d75 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
+@@ -40,7 +40,7 @@ import java.util.LinkedList;
+ public class KeyguardIndicationTextView extends TextView {
+     private static final long MSG_MIN_DURATION_MILLIS_DEFAULT = 1500;
+     private long mNextAnimationTime = 0;
+-    private boolean mAnimationsEnabled = true;
++    private boolean mAnimationsEnabled = false;
+     private LinkedList<CharSequence> mMessages = new LinkedList<>();
+     private LinkedList<KeyguardIndication> mKeyguardIndicationInfo = new LinkedList<>();
+ 
+-- 
+2.25.1
+

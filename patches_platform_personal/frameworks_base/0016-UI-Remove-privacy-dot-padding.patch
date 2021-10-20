@@ -1,0 +1,26 @@
+From 14441d096f1442c397d65ee31f962f7a8c861ae3 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 19 Oct 2021 12:09:34 +0000
+Subject: [PATCH 16/16] UI: Remove privacy dot padding
+
+Change-Id: I5d2e2b3e36f027b4348a83030d4b4d3c4f0209d1
+---
+ packages/SystemUI/res/values/dimens.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index ad49bf4237b6..19815aa58acb 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -1271,7 +1271,7 @@
+     <dimen name="ongoing_appops_chip_max_width">76dp</dimen>
+     <dimen name="ongoing_appops_dot_diameter">6dp</dimen>
+     <!--  Total minimum padding to enforce to ensure that the dot can always show  -->
+-    <dimen name="ongoing_appops_dot_min_padding">20dp</dimen>
++    <dimen name="ongoing_appops_dot_min_padding">0dp</dimen>
+ 
+     <dimen name="ongoing_appops_dialog_side_margins">@dimen/notification_shade_content_margin_horizontal</dimen>
+ 
+-- 
+2.25.1
+

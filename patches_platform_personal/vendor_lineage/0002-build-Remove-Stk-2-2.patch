@@ -1,0 +1,40 @@
+From e3633d610a46dfa849b01ae66ff233e615efa079 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 16 Oct 2021 00:41:07 +0000
+Subject: [PATCH 2/4] build: Remove Stk (2/2)
+
+Change-Id: I4e1cfacd296e47ef1731f3c32555089a5fca6f0c
+---
+ config/data_only.mk | 4 ----
+ config/telephony.mk | 3 +--
+ 2 files changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/config/data_only.mk b/config/data_only.mk
+index 5ff877c9..ab70301b 100644
+--- a/config/data_only.mk
++++ b/config/data_only.mk
+@@ -1,7 +1,3 @@
+ # World APN list
+ PRODUCT_PACKAGES += \
+     apns-conf.xml
+-
+-# Telephony packages
+-PRODUCT_PACKAGES += \
+-    Stk
+diff --git a/config/telephony.mk b/config/telephony.mk
+index 6adf48d9..e63b320d 100644
+--- a/config/telephony.mk
++++ b/config/telephony.mk
+@@ -8,8 +8,7 @@ PRODUCT_PACKAGES += \
+ 
+ # Telephony packages
+ PRODUCT_PACKAGES += \
+-    messaging \
+-    Stk
++    messaging
+ 
+ # Default ringtone
+ PRODUCT_PRODUCT_PROPERTIES += \
+-- 
+2.25.1
+

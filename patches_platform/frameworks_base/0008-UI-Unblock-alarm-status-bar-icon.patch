@@ -1,0 +1,40 @@
+From 79a42cc701c4d0f7a0e2f53d89bb9ec76ae1102a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 14 Oct 2021 15:45:24 +0000
+Subject: [PATCH 08/21] UI: Unblock alarm status bar icon
+
+That's very Zen of you, Google...
+
+Change-Id: I2c9f91f47bb1e324a20c13d588dcdbbca91dc12e
+---
+ .../systemui/statusbar/phone/CollapsedStatusBarFragment.java     | 1 -
+ .../android/systemui/statusbar/phone/KeyguardStatusBarView.java  | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/CollapsedStatusBarFragment.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/CollapsedStatusBarFragment.java
+index 6a171ceff1ed..2c1321f1c013 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/CollapsedStatusBarFragment.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/CollapsedStatusBarFragment.java
+@@ -158,7 +158,6 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
+         }
+         mDarkIconManager = new DarkIconManager(view.findViewById(R.id.statusIcons), mFeatureFlags);
+         mDarkIconManager.setShouldLog(true);
+-        mBlockedIcons.add(getString(com.android.internal.R.string.status_bar_alarm_clock));
+         mBlockedIcons.add(getString(com.android.internal.R.string.status_bar_call_strength));
+         mDarkIconManager.setBlockList(mBlockedIcons);
+         mStatusBarIconController.addIconGroup(mDarkIconManager);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+index 6a37890bc59f..c79991314318 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+@@ -207,7 +207,6 @@ public class KeyguardStatusBarView extends RelativeLayout implements
+     // Set hidden status bar items
+     private void loadBlockList() {
+         Resources r = getResources();
+-        mBlockedIcons.add(r.getString(com.android.internal.R.string.status_bar_alarm_clock));
+         mBlockedIcons.add(r.getString(com.android.internal.R.string.status_bar_call_strength));
+     }
+ 
+-- 
+2.25.1
+

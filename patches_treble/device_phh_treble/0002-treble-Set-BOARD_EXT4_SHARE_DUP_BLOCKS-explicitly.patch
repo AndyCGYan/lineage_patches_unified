@@ -1,0 +1,23 @@
+From 0edf02638abc9086f1c5b9264e2429c1bd0fc7eb Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 8 Aug 2021 09:29:32 +0000
+Subject: [PATCH 2/4] treble: Set BOARD_EXT4_SHARE_DUP_BLOCKS explicitly
+
+Change-Id: I725443154fabde548d2e6c1b072d34c27596c421
+---
+ board-base.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/board-base.mk b/board-base.mk
+index 1ddacaf..e363dd5 100644
+--- a/board-base.mk
++++ b/board-base.mk
+@@ -7,3 +7,5 @@ BOARD_ROOT_EXTRA_FOLDERS += bt_firmware sec_storage efs persist
+ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+ 
+ BOARD_ROOT_EXTRA_SYMLINKS := $(filter-out $(BOARD_ROOT_EXTRA_SYMLINKS),/mnt/vendor/persist:/persist)
++
++BOARD_EXT4_SHARE_DUP_BLOCKS := true
+-- 
+2.25.1
+

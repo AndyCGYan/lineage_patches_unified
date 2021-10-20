@@ -1,0 +1,34 @@
+From 39b514256d6808d950595331e0ba7bc72d860290 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 19 Oct 2021 15:48:43 +0000
+Subject: [PATCH 2/2] vendor_lineage: Disable ADB authentication
+
+Change-Id: I4370583ecab1c88ef6f42e29d3eaa52c24d13f09
+---
+ config/common.mk | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/config/common.mk b/config/common.mk
+index 55aab3f9..f85a7330 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -13,16 +13,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+     ro.com.google.clientidbase=$(PRODUCT_GMS_CLIENTID_BASE)
+ endif
+ 
+-ifeq ($(TARGET_BUILD_VARIANT),eng)
+ # Disable ADB authentication
+ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.adb.secure=0
+-else
+-# Enable ADB authentication
+-PRODUCT_SYSTEM_DEFAULT_PROPERTIES += ro.adb.secure=1
+ 
+ # Disable extra StrictMode features on all non-engineering builds
+ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += persist.sys.strictmode.disable=true
+-endif
+ 
+ # Backup Tool
+ PRODUCT_COPY_FILES += \
+-- 
+2.25.1
+
