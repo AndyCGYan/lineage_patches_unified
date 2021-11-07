@@ -1,4 +1,4 @@
-From af4b8268484150b18acdf3acb8362f196b365c68 Mon Sep 17 00:00:00 2001
+From d06024052d975a00ebbc90dfe0e25479773ca0c4 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 9 Oct 2021 14:39:38 -0700
 Subject: [PATCH 11/21] SystemUI: Use Monet colors for power menu

@@ -1,4 +1,4 @@
-From 41ed8b60f340207cdeddf7fd4ad53c625be32534 Mon Sep 17 00:00:00 2001
+From 999b53f49d6b0a4c5d5fd123a04686d35118cee0 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 5 Oct 2021 21:02:12 -0700
 Subject: [PATCH 19/21] SystemUI: Fix QS status font weight mismatch in dark

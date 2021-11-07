@@ -1,4 +1,4 @@
-From 0cd11d9386e398392716883c6bdadab65777c8ce Mon Sep 17 00:00:00 2001
+From 48d242260887d95b592b8796fce1176d334394d0 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 25 Oct 2021 19:32:33 -0700
 Subject: [PATCH 21/21] SystemUI: Allow Wi-Fi/cell tiles to co-exist with

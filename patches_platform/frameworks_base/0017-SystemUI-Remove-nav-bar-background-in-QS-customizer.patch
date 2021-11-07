@@ -1,4 +1,4 @@
-From 9e456e96992024257f6eb7f4bad5fa5aed626ad8 Mon Sep 17 00:00:00 2001
+From db01ad5d34519b5bd3d4c68f195b69de43d8bf3e Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:25:11 -0700
 Subject: [PATCH 17/21] SystemUI: Remove nav bar background in QS customizer

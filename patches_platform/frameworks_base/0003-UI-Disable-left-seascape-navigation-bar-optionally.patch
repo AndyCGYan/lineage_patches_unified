@@ -1,4 +1,4 @@
-From d7f67355ac41dec8b9d9cff29c8ea21e1d3f9a22 Mon Sep 17 00:00:00 2001
+From 86eedab915fadd671299755f597e1f6e1d1b08f9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 9 Mar 2018 15:41:26 +0800
 Subject: [PATCH 03/21] UI: Disable left (seascape) navigation bar optionally

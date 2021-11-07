@@ -1,4 +1,4 @@
-From 79a42cc701c4d0f7a0e2f53d89bb9ec76ae1102a Mon Sep 17 00:00:00 2001
+From 9f0eafb52cf46793f29714979fabe9d245df530f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 14 Oct 2021 15:45:24 +0000
 Subject: [PATCH 08/21] UI: Unblock alarm status bar icon
@@ -24,10 +24,10 @@ index 6a171ceff1ed..2c1321f1c013 100644
          mDarkIconManager.setBlockList(mBlockedIcons);
          mStatusBarIconController.addIconGroup(mDarkIconManager);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-index 6a37890bc59f..c79991314318 100644
+index b9df71304b3c..4d6886714120 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-@@ -207,7 +207,6 @@ public class KeyguardStatusBarView extends RelativeLayout implements
+@@ -210,7 +210,6 @@ public class KeyguardStatusBarView extends RelativeLayout implements
      // Set hidden status bar items
      private void loadBlockList() {
          Resources r = getResources();

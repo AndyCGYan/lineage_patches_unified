@@ -1,7 +1,7 @@
-From fd8c95c473df2b62fd22ce3711b8ec7cfd2a337b Mon Sep 17 00:00:00 2001
+From e2392f1b2f4afbf783fd6b1b25c2d905828c71f1 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Wed, 3 Mar 2021 06:31:17 -0500
-Subject: [PATCH 2/3] Restore /sbin for Magisk compatibility
+Subject: [PATCH 3/4] Restore /sbin for Magisk compatibility
 
 Squash of:
 - Revert "Do not create /sbin"

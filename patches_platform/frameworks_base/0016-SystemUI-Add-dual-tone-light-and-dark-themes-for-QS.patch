@@ -1,4 +1,4 @@
-From 864e73e5348f9fbb70e81797e874587723b96a7d Mon Sep 17 00:00:00 2001
+From 8b5cdeea2207623ae90fbb7dfa7707c91c70d33d Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:25:08 -0700
 Subject: [PATCH 16/21] SystemUI: Add dual-tone light and dark themes for QS
@@ -93,10 +93,10 @@ index 5d230e522636..a03e9ea89342 100644
          <item name="android:itemTextAppearance">@style/Control.MenuItem</item>
      </style>
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-index 4c394c0b631d..afcb940a72ae 100644
+index 2e3d5bbcc4af..89e178117393 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-@@ -172,6 +172,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -186,6 +186,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
      private UnlockedScreenOffAnimationController mUnlockedScreenOffAnimationController;
  
      private GradientColors mColors;
@@ -104,7 +104,7 @@ index 4c394c0b631d..afcb940a72ae 100644
      private boolean mNeedsDrawableColorUpdate;
  
      private float mScrimBehindAlphaKeyguard = KEYGUARD_SCRIM_ALPHA;
-@@ -270,6 +271,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -284,6 +285,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
          });
  
          mColors = new GradientColors();
@@ -112,7 +112,7 @@ index 4c394c0b631d..afcb940a72ae 100644
      }
  
      /**
-@@ -829,7 +831,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -849,7 +851,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
                      && !mBlankScreen;
  
              mScrimInFront.setColors(mColors, animateScrimInFront);
@@ -121,7 +121,7 @@ index 4c394c0b631d..afcb940a72ae 100644
              mNotificationsScrim.setColors(mColors, animateScrimNotifications);
  
              dispatchBackScrimState(mScrimBehind.getViewAlpha());
-@@ -1185,11 +1187,20 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -1205,11 +1207,20 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
          if (mScrimBehind == null) return;
          int background = Utils.getColorAttr(mScrimBehind.getContext(),
                  android.R.attr.colorBackgroundFloating).getDefaultColor();

@@ -1,4 +1,4 @@
-From a36b9e02358ad6f3dd12f1a51ca8780e70155573 Mon Sep 17 00:00:00 2001
+From 92ab25604e1dcf584f0790b3f1eb8f8d40e8b753 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:24:58 -0700
 Subject: [PATCH 14/21] SystemUI: Follow light/dark theme in quick settings
@@ -163,10 +163,10 @@ index 222539d49526..da7c63ff15a3 100644
      private val colorUnavailable = Utils.applyAlpha(UNAVAILABLE_ALPHA, colorInactive)
  
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-index cfcea9684c3b..4c394c0b631d 100644
+index 7d25aeef6f98..2e3d5bbcc4af 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-@@ -675,7 +675,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -690,7 +690,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
                  mNotificationsAlpha = behindAlpha;
                  mNotificationsTint = behindTint;
                  mBehindAlpha = 1;
@@ -176,7 +176,7 @@ index cfcea9684c3b..4c394c0b631d 100644
                  mBehindAlpha = behindAlpha;
                  if (mState == ScrimState.SHADE_LOCKED) {
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
-index 06811932ac0c..044f12e9d544 100644
+index 2c0de629de8a..066d3e2f94c3 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
 @@ -88,7 +88,7 @@ public enum ScrimState {
@@ -218,8 +218,8 @@ index 06811932ac0c..044f12e9d544 100644
          }
      },
  
-@@ -247,27 +247,27 @@ public enum ScrimState {
-             mAnimateChange = !mLaunchingAffordanceWithPreview;
+@@ -248,27 +248,27 @@ public enum ScrimState {
+             mAnimateChange = !mLaunchingAffordanceWithPreview && !fromAod;
  
              mFrontTint = Color.TRANSPARENT;
 -            mBehindTint = Color.BLACK;
@@ -250,7 +250,7 @@ index 06811932ac0c..044f12e9d544 100644
              }
          }
      },
-@@ -441,4 +441,4 @@ public enum ScrimState {
+@@ -442,4 +442,4 @@ public enum ScrimState {
      public void setClipQsScrim(boolean clipsQsScrim) {
          mClipQsScrim = clipsQsScrim;
      }

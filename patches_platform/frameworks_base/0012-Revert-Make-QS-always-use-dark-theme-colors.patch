@@ -1,4 +1,4 @@
-From 2eb0c2c90aa31dea5f17bdd32f00ca6ac5b576d3 Mon Sep 17 00:00:00 2001
+From ca37991b2e96c287dfdd2bbc34d968a88a488fa1 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Wed, 6 Oct 2021 18:40:30 -0700
 Subject: [PATCH 12/21] Revert "Make QS always use dark theme colors"

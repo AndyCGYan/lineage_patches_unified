@@ -1,4 +1,4 @@
-From 4252dd5be9f193c3f25f6771986b868e065b90e7 Mon Sep 17 00:00:00 2001
+From 2dedbf09b293ee2081ce65ccd52e49c839dc0885 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 08/16] Keyguard: Refine indication text
@@ -6,11 +6,12 @@ Subject: [PATCH 08/16] Keyguard: Refine indication text
 Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
 ---
  packages/SystemUI/res-keyguard/values/styles.xml     |  2 --
+ .../SystemUI/res/layout/keyguard_bottom_area.xml     |  1 +
  packages/SystemUI/res/values/dimens.xml              |  2 +-
  .../KeyguardIndicationRotateTextViewController.java  | 12 +++++++++++-
  .../statusbar/KeyguardIndicationController.java      |  5 ++---
  .../statusbar/phone/KeyguardIndicationTextView.java  |  2 +-
- 5 files changed, 15 insertions(+), 8 deletions(-)
+ 6 files changed, 16 insertions(+), 8 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
 index 6bfca3ece20e..54e5b8511b57 100644
@@ -24,8 +25,20 @@ index 6bfca3ece20e..54e5b8511b57 100644
 -        <item name="android:shadowRadius">?attr/shadowRadius</item>
      </style>
  </resources>
+diff --git a/packages/SystemUI/res/layout/keyguard_bottom_area.xml b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
+index 8dbd59d42ab7..68cba51e07fa 100644
+--- a/packages/SystemUI/res/layout/keyguard_bottom_area.xml
++++ b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
+@@ -36,6 +36,7 @@
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center"
++            android:minHeight="48dp"
+             android:paddingStart="@dimen/keyguard_indication_text_padding"
+             android:paddingEnd="@dimen/keyguard_indication_text_padding"
+             android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 6ad9ab9a26ec..661a03aa9671 100644
+index 78db2a8a3485..b5c96a4df1a1 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -923,7 +923,7 @@
@@ -66,7 +79,7 @@ index 2d215e0f1f62..0c5870d6b6bf 100644
       * Immediately show the passed indication type and schedule the next indication to show.
       * Will re-add this indication to be re-shown after all other indications have been
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 503b5c0ee4b0..e49561ff1f45 100644
+index 1c933505172f..cad5cdaec533 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 @@ -432,12 +432,11 @@ public class KeyguardIndicationController {

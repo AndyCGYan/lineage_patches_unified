@@ -1,4 +1,4 @@
-From ed4137c747881e1db53edaaf7c8e937367eebc77 Mon Sep 17 00:00:00 2001
+From 0b204ff8b577160aed587cff1d9d7b60c78c6b1d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 Apr 2020 08:56:13 +0000
 Subject: [PATCH 07/21] UI: Use SNAP_FIXED_RATIO for multi-window globally
@@ -78,7 +78,7 @@ index 34b6a54be493..3921c9edfeac 100644
           Only applies if the device display is not square. -->
      <bool name="config_navBarCanMove">false</bool>
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index 60890561308d..6479e5ed5eed 100644
+index 7e42418e06c8..b723eb64dc6a 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
 @@ -3515,7 +3515,7 @@
