@@ -1,7 +1,7 @@
-From eeea95f0991885edec372341a77c440da9298706 Mon Sep 17 00:00:00 2001
+From 3306f103b490afb20cf47fa7468dc836e78d34b4 Mon Sep 17 00:00:00 2001
 From: penn5 <penn5@users.noreply.github.com>
 Date: Mon, 4 Mar 2019 22:21:07 +0000
-Subject: [PATCH 2/4] Add props to control supported features and states (#1)
+Subject: [PATCH 2/5] Add props to control supported features and states (#1)
 
 * Add bitmask for supported fields
 Use persist.sys.bt.unsupport.states, defaults to 0, left-aligned.
