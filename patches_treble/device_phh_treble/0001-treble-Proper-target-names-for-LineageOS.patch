@@ -1,0 +1,27 @@
+From cadb66ad47c20d7f1bc3698e830bbde1ac528ace Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 18 Nov 2021 02:19:52 +0000
+Subject: [PATCH 1/4] treble: Proper target names for LineageOS
+
+Change-Id: Ib8c12e98d4e875733f0df7874b3a14370f7166e3
+---
+ generate.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/generate.sh b/generate.sh
+index c1494c7..1ee98ad 100644
+--- a/generate.sh
++++ b/generate.sh
+@@ -65,6 +65,9 @@ for part in a ab;do
+ 				fi
+ 
+ 				target="treble_${arch}_${part_suffix}${apps_suffix}${su_suffix}"
++				if [ "$1" == "lineage" ];then
++					target="lineage_${target}"
++				fi
+ 
+ 				baseArch="$arch"
+ 				if [ "$arch" = "a64" ];then
+-- 
+2.25.1
+

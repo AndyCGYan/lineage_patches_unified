@@ -1,7 +1,7 @@
-From d2ccffcaf2ad6f8b467afb04683677a3271deafa Mon Sep 17 00:00:00 2001
+From 9dd12aff1bdee7020ddd18c4821d390611dc2b5f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 01:43:40 +0000
-Subject: [PATCH 2/2] Revert "mainline_system: Exclude vendor.lineage.power@1.0
+Subject: [PATCH] Revert "mainline_system: Exclude vendor.lineage.power@1.0
  from artifact path requirements"
 
 This reverts commit 78c28df40f72fdcbe3f82a83828060ad19765fa1.
