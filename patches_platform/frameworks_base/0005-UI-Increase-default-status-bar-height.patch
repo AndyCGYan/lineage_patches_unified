@@ -1,7 +1,7 @@
-From 4aa1829873f1f8f855fc2bb32f37c5dfd343d9cd Mon Sep 17 00:00:00 2001
+From 88c071a7385821219dbb90bc8475bece813e84c9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 3 Jun 2020 01:31:34 +0000
-Subject: [PATCH 05/21] UI: Increase default status bar height
+Subject: [PATCH 05/22] UI: Increase default status bar height
 
 Change-Id: Ibbcf63159e19bb2bb2b1094ea07ab85917630b07
 ---
@@ -9,7 +9,7 @@ Change-Id: Ibbcf63159e19bb2bb2b1094ea07ab85917630b07
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/core/res/res/values/dimens.xml b/core/res/res/values/dimens.xml
-index de7a1175b4a3..8d56e94458db 100644
+index a666a5b4b796..b62a785cd69f 100644
 --- a/core/res/res/values/dimens.xml
 +++ b/core/res/res/values/dimens.xml
 @@ -43,7 +43,7 @@

@@ -1,4 +1,4 @@
-From bd31f40a9c03f568e6dfa1defbe1fb73d8a57a9a Mon Sep 17 00:00:00 2001
+From 2319811d1b5e5055c236807ce0ff8be759056741 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 6 Dec 2020 12:20:08 +0100
 Subject: [PATCH 13/24] Make rounded corners padding overridable with
@@ -12,7 +12,7 @@ Change-Id: I481c1c8849b2f22a7cdfb2896a6d3c2e7e3b44d9
  3 files changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index 77906abce625..8cbfefcb4fea 100644
+index 84b961e7c48a..a5150000f47c 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 @@ -22,6 +22,7 @@ import android.content.res.Configuration;
@@ -23,7 +23,7 @@ index 77906abce625..8cbfefcb4fea 100644
  import android.util.AttributeSet;
  import android.util.Pair;
  import android.view.DisplayCutout;
-@@ -219,8 +220,10 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -234,8 +235,10 @@ public class QuickStatusBarHeader extends FrameLayout {
  
          mConfigShowBatteryEstimate = resources.getBoolean(R.bool.config_showBatteryEstimateQSBH);
  
@@ -37,7 +37,7 @@ index 77906abce625..8cbfefcb4fea 100644
          int qsOffsetHeight = resources.getDimensionPixelSize(
                  com.android.internal.R.dimen.quick_qs_offset_height);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-index e272d2713e2a..ed0abcce5b06 100644
+index 788665269edb..f9c6ebbd26e3 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 @@ -30,6 +30,7 @@ import android.graphics.Color;
@@ -48,7 +48,7 @@ index e272d2713e2a..ed0abcce5b06 100644
  import android.util.AttributeSet;
  import android.util.Pair;
  import android.util.TypedValue;
-@@ -200,8 +201,10 @@ public class KeyguardStatusBarView extends RelativeLayout implements
+@@ -196,8 +197,10 @@ public class KeyguardStatusBarView extends RelativeLayout implements
                  R.dimen.display_cutout_margin_consumption);
          mShowPercentAvailable = getContext().getResources().getBoolean(
                  com.android.internal.R.bool.config_battery_percentage_setting_available);

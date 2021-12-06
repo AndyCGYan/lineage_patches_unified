@@ -1,4 +1,4 @@
-From e385463bdbb1849425d9ad30fa21be9e30d447d8 Mon Sep 17 00:00:00 2001
+From f81da8f238f0ddf872ce900bade1783482bac0cb Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 26 Oct 2020 14:06:56 +0000
 Subject: [PATCH 14/16] UI: Reconfigure power menu items
@@ -11,10 +11,10 @@ Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
  1 file changed, 5 deletions(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index b723eb64dc6a..6fe30556c175 100644
+index 1319c26bb1be..e294223c9066 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
-@@ -2947,13 +2947,8 @@
+@@ -2961,13 +2961,8 @@
           "logout" =  Logout the current user
           -->
      <string-array translatable="false" name="config_globalActionsList">

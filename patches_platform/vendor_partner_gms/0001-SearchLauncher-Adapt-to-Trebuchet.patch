@@ -1,0 +1,49 @@
+From c4eac79c4f34e34e793f19e50d97a74daa05ec69 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 30 Nov 2021 12:58:00 +0000
+Subject: [PATCH] SearchLauncher: Adapt to Trebuchet
+
+---
+ apps/SearchLauncher/Android.mk          | 4 ++--
+ apps/SearchLauncher/AndroidManifest.xml | 3 ++-
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/apps/SearchLauncher/Android.mk b/apps/SearchLauncher/Android.mk
+index a9f182a..6b90364 100644
+--- a/apps/SearchLauncher/Android.mk
++++ b/apps/SearchLauncher/Android.mk
+@@ -20,7 +20,7 @@ include $(BUILD_PREBUILT)
+ include $(CLEAR_VARS)
+ 
+ # Relative path for Launcher3 directory
+-LAUNCHER_PATH := ../../../../packages/apps/Launcher3
++LAUNCHER_PATH := ../../../../packages/apps/Trebuchet
+ 
+ LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
+ LOCAL_STATIC_JAVA_LIBRARIES := lib_launcherClient
+@@ -59,7 +59,7 @@ include $(BUILD_PACKAGE)
+ include $(CLEAR_VARS)
+ 
+ # Relative path for Launcher3 directory
+-LAUNCHER_PATH := ../../../../packages/apps/Launcher3
++LAUNCHER_PATH := ../../../../packages/apps/Trebuchet
+ 
+ LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
+ LOCAL_STATIC_JAVA_LIBRARIES := \
+diff --git a/apps/SearchLauncher/AndroidManifest.xml b/apps/SearchLauncher/AndroidManifest.xml
+index d5ffded..a9b5597 100644
+--- a/apps/SearchLauncher/AndroidManifest.xml
++++ b/apps/SearchLauncher/AndroidManifest.xml
+@@ -55,7 +55,8 @@
+         android:label="@string/derived_app_name"
+         android:largeHeap="@bool/config_largeHeap"
+         android:restoreAnyVersion="true"
+-        android:supportsRtl="true" >
++        android:supportsRtl="true"
++        tools:replace="android:icon" >
+ 
+         <activity
+             android:name="com.android.searchlauncher.SearchLauncher"
+-- 
+2.25.1
+

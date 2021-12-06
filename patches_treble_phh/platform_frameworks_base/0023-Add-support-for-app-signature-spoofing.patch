@@ -1,4 +1,4 @@
-From 6efec3a6f3f2dfbe89fb7b2b72d24110a94aa2d6 Mon Sep 17 00:00:00 2001
+From 38da0b29efb2577ebd9295a45617160e3caec696 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 16 Oct 2021 05:27:57 -0700
 Subject: [PATCH 23/24] Add support for app signature spoofing
@@ -56,10 +56,10 @@ index 1de47b548a5c..52c7ea2e1321 100644
      field public static final String MICROPHONE = "android.permission-group.MICROPHONE";
      field public static final String NEARBY_DEVICES = "android.permission-group.NEARBY_DEVICES";
 diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
-index bad79eb13749..e4475497b12e 100644
+index cd6af189a04a..318a7f06494e 100644
 --- a/core/res/AndroidManifest.xml
 +++ b/core/res/AndroidManifest.xml
-@@ -3186,6 +3186,21 @@
+@@ -3189,6 +3189,21 @@
          android:description="@string/permdesc_getPackageSize"
          android:protectionLevel="normal" />
  
@@ -82,7 +82,7 @@ index bad79eb13749..e4475497b12e 100644
           {@link android.content.pm.PackageManager#addPackageToPreferred}
           for details. -->
 diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
-index a99a22009e3b..81ca9b23ae70 100644
+index b58638cc3ade..8cf98fa56bf6 100644
 --- a/core/res/res/values/strings.xml
 +++ b/core/res/res/values/strings.xml
 @@ -880,6 +880,18 @@
@@ -105,10 +105,10 @@ index a99a22009e3b..81ca9b23ae70 100644
      <string name="permlab_statusBar">disable or modify status bar</string>
      <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index 46b0b600960d..a88e518eb624 100644
+index b77483012ee8..04f55ae83ef0 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
-@@ -3299,6 +3299,29 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -3325,6 +3325,29 @@ public class PackageManagerService extends IPackageManager.Stub
              return result;
          }
  
@@ -138,7 +138,7 @@ index 46b0b600960d..a88e518eb624 100644
          public final PackageInfo generatePackageInfo(PackageSetting ps, int flags, int userId) {
              if (!mUserManager.exists(userId)) return null;
              if (ps == null) {
-@@ -3327,12 +3350,14 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -3353,12 +3376,14 @@ public class PackageManagerService extends IPackageManager.Stub
                  final int[] gids = (flags & PackageManager.GET_GIDS) == 0 ? EMPTY_INT_ARRAY
                          : mPermissionManager.getGidsForUid(UserHandle.getUid(userId, ps.appId));
                  // Compute granted permissions only if package has requested permissions

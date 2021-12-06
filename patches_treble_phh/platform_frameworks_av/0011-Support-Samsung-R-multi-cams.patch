@@ -1,7 +1,7 @@
-From 80e55073914af5719060ef1c6b1f3bddfb6b7b5f Mon Sep 17 00:00:00 2001
+From 2f93928141323d08cba2f10517c4338d3af0ef59 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 13 Mar 2021 14:20:03 -0500
-Subject: [PATCH 12/19] Support Samsung R multi-cams
+Subject: [PATCH 11/18] Support Samsung R multi-cams
 
 Change-Id: If46f385e8dd16185cbf37ab083e6a1242e1d1555
 ---
@@ -63,5 +63,5 @@ index ab5ddd12d0..c08bcb9ce2 100644
      else
          ret = interface->getCameraIdList(cb);
 -- 
-2.29.2
+2.25.1
 

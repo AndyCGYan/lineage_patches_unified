@@ -1,7 +1,7 @@
-From 48d242260887d95b592b8796fce1176d334394d0 Mon Sep 17 00:00:00 2001
+From 6ec18b7fe383ba54de08df6d6d76b74361491ddd Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 25 Oct 2021 19:32:33 -0700
-Subject: [PATCH 21/21] SystemUI: Allow Wi-Fi/cell tiles to co-exist with
+Subject: [PATCH 21/22] SystemUI: Allow Wi-Fi/cell tiles to co-exist with
  provider model
 
 The dedicated Wi-Fi/cellular data QS tiles are partially working now
@@ -24,10 +24,10 @@ Change-Id: I10af134b35dfabdb9275f1aca8ca8512e1db6d27
  4 files changed, 37 insertions(+), 58 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/tiles/InternetTile.java b/packages/SystemUI/src/com/android/systemui/qs/tiles/InternetTile.java
-index 7cb1421e3f0f..aa917d9ec397 100644
+index cc9e7485dcff..4bf8053017f1 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/tiles/InternetTile.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/tiles/InternetTile.java
-@@ -245,7 +245,7 @@ public class InternetTile extends QSTileImpl<SignalState> {
+@@ -255,7 +255,7 @@ public class InternetTile extends QSTileImpl<SignalState> {
                  Log.d(TAG, "setWifiIndicators: " + indicators);
              }
              mWifiInfo.mEnabled = indicators.enabled;
@@ -36,7 +36,7 @@ index 7cb1421e3f0f..aa917d9ec397 100644
                  return;
              }
              mWifiInfo.mConnected = indicators.qsIcon.visible;
-@@ -265,7 +265,7 @@ public class InternetTile extends QSTileImpl<SignalState> {
+@@ -275,7 +275,7 @@ public class InternetTile extends QSTileImpl<SignalState> {
              if (DEBUG) {
                  Log.d(TAG, "setMobileDataIndicators: " + indicators);
              }
@@ -110,10 +110,10 @@ index 43781f3941ba..cf89cabf6ab9 100644
          }
      }
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkController.java b/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkController.java
-index ef2ca985858d..39fa68cab281 100644
+index eeea699a0b74..4a25d1bd7661 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/policy/NetworkController.java
-@@ -58,10 +58,11 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -59,10 +59,11 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
          public String description;
          public boolean isTransient;
          public String statusLabel;
@@ -126,7 +126,7 @@ index ef2ca985858d..39fa68cab281 100644
              this.enabled = enabled;
              this.statusIcon = statusIcon;
              this.qsIcon = qsIcon;
-@@ -70,6 +71,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -71,6 +72,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
              this.description = description;
              this.isTransient = isTransient;
              this.statusLabel = statusLabel;
@@ -134,7 +134,7 @@ index ef2ca985858d..39fa68cab281 100644
          }
  
          @Override
-@@ -83,6 +85,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -84,6 +86,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
                  .append(",description=").append(description)
                  .append(",isTransient=").append(isTransient)
                  .append(",statusLabel=").append(statusLabel)
@@ -142,7 +142,7 @@ index ef2ca985858d..39fa68cab281 100644
                  .append(']').toString();
          }
      }
-@@ -104,12 +107,13 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -105,12 +108,13 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
          public int subId;
          public boolean roaming;
          public boolean showTriangle;
@@ -157,7 +157,7 @@ index ef2ca985858d..39fa68cab281 100644
              this.statusIcon = statusIcon;
              this.qsIcon = qsIcon;
              this.statusType = statusType;
-@@ -123,6 +127,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -124,6 +128,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
              this.subId = subId;
              this.roaming = roaming;
              this.showTriangle = showTriangle;
@@ -165,7 +165,7 @@ index ef2ca985858d..39fa68cab281 100644
          }
  
          @Override
-@@ -141,6 +146,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
+@@ -142,6 +147,7 @@ public interface NetworkController extends CallbackController<SignalCallback>, D
                  .append(",subId=").append(subId)
                  .append(",roaming=").append(roaming)
                  .append(",showTriangle=").append(showTriangle)

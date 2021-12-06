@@ -1,4 +1,4 @@
-From 2dedbf09b293ee2081ce65ccd52e49c839dc0885 Mon Sep 17 00:00:00 2001
+From adc13dccc4a4a1f0c59f6d53630d8cd48210b7de Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 08/16] Keyguard: Refine indication text
@@ -14,17 +14,18 @@ Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
  6 files changed, 16 insertions(+), 8 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
-index 6bfca3ece20e..54e5b8511b57 100644
+index 86f053535ee6..b03c87af3059 100644
 --- a/packages/SystemUI/res-keyguard/values/styles.xml
 +++ b/packages/SystemUI/res-keyguard/values/styles.xml
-@@ -137,7 +137,5 @@
+@@ -137,8 +137,6 @@
          <item name="android:textSize">14sp</item>
          <item name="android:maxLines">1</item>
          <item name="android:textColor">?attr/wallpaperTextColor</item>
 -        <item name="android:shadowColor">@color/keyguard_shadow_color</item>
 -        <item name="android:shadowRadius">?attr/shadowRadius</item>
      </style>
- </resources>
+ 
+     <style name="TextAppearance.Keyguard.BottomArea.Button">
 diff --git a/packages/SystemUI/res/layout/keyguard_bottom_area.xml b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
 index 8dbd59d42ab7..68cba51e07fa 100644
 --- a/packages/SystemUI/res/layout/keyguard_bottom_area.xml
@@ -38,10 +39,10 @@ index 8dbd59d42ab7..68cba51e07fa 100644
              android:paddingEnd="@dimen/keyguard_indication_text_padding"
              android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 78db2a8a3485..b5c96a4df1a1 100644
+index c231afc41953..1485f3a936ca 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -923,7 +923,7 @@
+@@ -920,7 +920,7 @@
      <dimen name="keyguard_lock_width">42dp</dimen>
      <dimen name="keyguard_lock_padding">20dp</dimen>
  
@@ -51,10 +52,10 @@ index 78db2a8a3485..b5c96a4df1a1 100644
  
      <!-- The text size for battery level -->
 diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
-index 2d215e0f1f62..0c5870d6b6bf 100644
+index a424674ed252..b2af483bb76e 100644
 --- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
 +++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
-@@ -183,12 +183,22 @@ public class KeyguardIndicationRotateTextViewController extends
+@@ -182,12 +182,22 @@ public class KeyguardIndicationRotateTextViewController extends
      }
  
      /**
@@ -79,14 +80,14 @@ index 2d215e0f1f62..0c5870d6b6bf 100644
       * Immediately show the passed indication type and schedule the next indication to show.
       * Will re-add this indication to be re-shown after all other indications have been
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 1c933505172f..cad5cdaec533 100644
+index 8a397199dc84..f2df767db567 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-@@ -432,12 +432,11 @@ public class KeyguardIndicationController {
+@@ -433,12 +433,11 @@ public class KeyguardIndicationController {
      }
  
      private void updateResting() {
--        if (mRestingIndication != null
+-        if (!TextUtils.isEmpty(mRestingIndication)
 -                && !mRotateTextViewController.hasIndications()) {
 +        if (!mRotateTextViewController.hasIndications()) {
              mRotateTextViewController.updateIndication(
@@ -98,12 +99,12 @@ index 1c933505172f..cad5cdaec533 100644
                              .build(),
                      false);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
-index f1cde8a9be7a..10037fc93d75 100644
+index a5b5f1cbf1e7..df981c4e3129 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
-@@ -40,7 +40,7 @@ import java.util.LinkedList;
- public class KeyguardIndicationTextView extends TextView {
-     private static final long MSG_MIN_DURATION_MILLIS_DEFAULT = 1500;
+@@ -49,7 +49,7 @@ public class KeyguardIndicationTextView extends TextView {
+     private static int sButtonStyleId = R.style.TextAppearance_Keyguard_BottomArea_Button;
+ 
      private long mNextAnimationTime = 0;
 -    private boolean mAnimationsEnabled = true;
 +    private boolean mAnimationsEnabled = false;

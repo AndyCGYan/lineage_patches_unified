@@ -1,4 +1,4 @@
-From 89f0089b29765a7ea10524941bca9f96f2a18715 Mon Sep 17 00:00:00 2001
+From 2377ef0cd6f3fb4abd5038b84c5bf785035ce738 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
 Subject: [PATCH 12/16] UI: Always render windows into cutouts
@@ -55,10 +55,10 @@ index 32e43ca4e56c..18c28ae674f9 100644
      }
  
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index a070942cc76a..32abd1e60714 100644
+index 10b36fe67daf..2a1817269446 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
-@@ -1604,7 +1604,7 @@ public class DisplayPolicy {
+@@ -1616,7 +1616,7 @@ public class DisplayPolicy {
              pf.set((fl & FLAG_LAYOUT_IN_SCREEN) == 0 ? attached.getFrame() : df);
          }
  

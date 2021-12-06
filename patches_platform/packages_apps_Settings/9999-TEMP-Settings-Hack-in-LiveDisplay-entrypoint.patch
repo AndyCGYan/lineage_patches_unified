@@ -1,26 +1,18 @@
-From 29dda55886a296b913d358f292e67ac6d149830e Mon Sep 17 00:00:00 2001
+From 6e0b68e9e9da6bcb33eac9e91402a9479419bb86 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 26 Oct 2021 08:03:39 +0000
-Subject: [PATCH] [TEMP] Settings: Hack in LiveDisplay entrypoint
+Subject: [PATCH] Settings: Hack in LiveDisplay entrypoint
 
 Change-Id: Icec153e3d9203bba8bb5b000ecf537397058b349
 ---
- res/xml/display_settings.xml | 5 +++++
- 1 file changed, 5 insertions(+)
+ res/xml/display_settings.xml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/res/xml/display_settings.xml b/res/xml/display_settings.xml
-index c48dcbcaef..fa5d3cc77e 100644
+index 7bd370816e..9cf7afe0a5 100644
 --- a/res/xml/display_settings.xml
 +++ b/res/xml/display_settings.xml
-@@ -16,6 +16,7 @@
- 
- <PreferenceScreen
-     xmlns:android="http://schemas.android.com/apk/res/android"
-+    xmlns:lineage="http://schemas.android.com/apk/res/lineageos.platform"
-     xmlns:settings="http://schemas.android.com/apk/res-auto"
-     android:key="display_settings_screen"
-     android:title="@string/display_settings"
-@@ -85,6 +86,10 @@
+@@ -86,6 +86,10 @@
      <PreferenceCategory
          android:title="@string/category_name_color">
  

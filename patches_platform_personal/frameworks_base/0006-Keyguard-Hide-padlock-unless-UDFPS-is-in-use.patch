@@ -1,4 +1,4 @@
-From 6ec7695af3b3811a4acbad3c8b4b0f3763ae2c68 Mon Sep 17 00:00:00 2001
+From 2f8ba4aa72d1c8941f1f6060a0c3a11b179d9447 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 06:41:03 +0000
 Subject: [PATCH 06/16] Keyguard: Hide padlock unless UDFPS is in use
@@ -11,10 +11,10 @@ Change-Id: Ie91e80ca5c6637a51a8acc72fb28cd6ac2a7abb6
  1 file changed, 7 insertions(+), 22 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
-index a41997ce3107..b27e1256ea30 100644
+index 52ebf2fa09d0..0ed36b4fa949 100644
 --- a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
 +++ b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
-@@ -254,32 +254,17 @@ public class LockIconViewController extends ViewController<LockIconView> impleme
+@@ -259,32 +259,17 @@ public class LockIconViewController extends ViewController<LockIconView> impleme
              return;
          }
  

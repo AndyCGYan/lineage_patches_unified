@@ -1,7 +1,7 @@
-From 7541559278b514f14a4f2f8a5f775996ee1e5e68 Mon Sep 17 00:00:00 2001
+From 9e9c10692262d752934e2343dfe76b0582c23601 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 14 May 2020 19:54:55 +0200
-Subject: [PATCH 05/19] Add persist.sys.phh.samsung.camera_ids property to
+Subject: [PATCH 05/18] Add persist.sys.phh.samsung.camera_ids property to
  access hidden Samsung cameras
 
 Change-Id: I2c7bf535272acc28ed2277e96c78ddd28a0b4593
@@ -76,5 +76,5 @@ index 4f2b878d26..d11ad8d766 100644
          ALOGE("%s: Transaction error in getting camera ID list from provider '%s': %s",
                  __FUNCTION__, mProviderName.c_str(), linked.description().c_str());
 -- 
-2.29.2
+2.25.1
 

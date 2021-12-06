@@ -1,4 +1,4 @@
-From afb9dc934893cffcb4710beac437d0b618277305 Mon Sep 17 00:00:00 2001
+From ec9c979cb9c2399380292d775d068ce596ba855d Mon Sep 17 00:00:00 2001
 From: Arne Coucheron <arco68@gmail.com>
 Date: Thu, 5 Nov 2020 05:38:44 +0100
 Subject: [PATCH 19/24] SystemUI: Use AVCProfileMain for screen recorder
@@ -13,7 +13,7 @@ Change-Id: Iac23480e080edf4300e6f411c3394c0b41030daa
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/screenrecord/ScreenMediaRecorder.java b/packages/SystemUI/src/com/android/systemui/screenrecord/ScreenMediaRecorder.java
-index 26781f4ccf09..9a6e657876f0 100644
+index 2133cf63d1c3..6100b6030544 100644
 --- a/packages/SystemUI/src/com/android/systemui/screenrecord/ScreenMediaRecorder.java
 +++ b/packages/SystemUI/src/com/android/systemui/screenrecord/ScreenMediaRecorder.java
 @@ -135,7 +135,7 @@ public class ScreenMediaRecorder {

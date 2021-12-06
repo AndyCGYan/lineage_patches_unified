@@ -1,4 +1,4 @@
-From 6daf65e81a4f18bc0b1418281ad021fef9bc59e5 Mon Sep 17 00:00:00 2001
+From ae4b40705428d23abf321050a64e7793c591ae2b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
 Subject: [PATCH 05/16] Keyguard: Adjust clock style
@@ -60,7 +60,7 @@ index 7e3c87b24f07..58a1734aad22 100644
 +    <dimen name="below_clock_padding_start_icons">22dp</dimen>
  </resources>
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
-index 72b027af1bf6..6bfca3ece20e 100644
+index 098b7e8dedbe..86f053535ee6 100644
 --- a/packages/SystemUI/res-keyguard/values/styles.xml
 +++ b/packages/SystemUI/res-keyguard/values/styles.xml
 @@ -123,8 +123,6 @@
@@ -73,7 +73,7 @@ index 72b027af1bf6..6bfca3ece20e 100644
  
      <style name="TextAppearance.Keyguard.Secondary">
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index a03e9ea89342..285dd4766cab 100644
+index bb258ab18f82..f03f14d3316c 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
 @@ -343,7 +343,7 @@

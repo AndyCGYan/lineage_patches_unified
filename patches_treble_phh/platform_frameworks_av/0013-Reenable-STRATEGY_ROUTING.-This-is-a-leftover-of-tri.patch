@@ -1,7 +1,7 @@
-From f9a6347168b123aa485e642fa0c63eaef0be0d30 Mon Sep 17 00:00:00 2001
+From d3d598ad4f8d22fefd4248e9fc04fb77c2800ace Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 28 Mar 2021 14:47:52 +0200
-Subject: [PATCH 14/19] Reenable STRATEGY_ROUTING. This is a leftover of tries
+Subject: [PATCH 13/18] Reenable STRATEGY_ROUTING. This is a leftover of tries
  of 587b198, wrongly commited in 20f869
 
 ---
@@ -22,5 +22,5 @@ index 314de7889b..c73c17d1e4 100644
          { "STRATEGY_CALL_ASSISTANT", STRATEGY_CALL_ASSISTANT },
      };
 -- 
-2.29.2
+2.25.1
 

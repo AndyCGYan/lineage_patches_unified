@@ -1,7 +1,7 @@
-From f12a643ff63c4d54bb5d50a0a9d62d518b5db470 Mon Sep 17 00:00:00 2001
+From 8ee7ce7f56c8f45288e9a0135a8ee20f18d79b57 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 Oct 2019 13:35:49 +0200
-Subject: [PATCH 02/19] Add (partial, cam id is hardcoded) support for Asus ZF6
+Subject: [PATCH 02/18] Add (partial, cam id is hardcoded) support for Asus ZF6
  motor camera
 
 Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
@@ -90,5 +90,5 @@ index bc2e3479bc..b58c41e115 100644
      // Client functionality
  
 -- 
-2.29.2
+2.25.1
 

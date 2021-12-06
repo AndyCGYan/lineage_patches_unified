@@ -1,7 +1,7 @@
-From 92ab25604e1dcf584f0790b3f1eb8f8d40e8b753 Mon Sep 17 00:00:00 2001
+From c0aadaca1ab833a13ecacc48cf5c458427f8f6b4 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:24:58 -0700
-Subject: [PATCH 14/21] SystemUI: Follow light/dark theme in quick settings
+Subject: [PATCH 14/22] SystemUI: Follow light/dark theme in quick settings
 
 Android 12's dual-tone style where the quick settings panel is always
 dark makes the light theme look like a second-class citizen. Pure black
@@ -82,7 +82,7 @@ index 860d23b11439..8f12b95ed4f6 100644
              </shape>
          </item>
 diff --git a/packages/SystemUI/res/values-night/styles.xml b/packages/SystemUI/res/values-night/styles.xml
-index 461505f12ce6..c1d2ca23de31 100644
+index ffcc3a821d36..a9fa9f3f9fde 100644
 --- a/packages/SystemUI/res/values-night/styles.xml
 +++ b/packages/SystemUI/res/values-night/styles.xml
 @@ -24,6 +24,18 @@
@@ -105,7 +105,7 @@ index 461505f12ce6..c1d2ca23de31 100644
          <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
          <item name="android:textColor">?android:attr/textColorPrimary</item>
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index 504a06cfd9ba..5d230e522636 100644
+index e592fe2dd630..a5ed039bd3fd 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
 @@ -398,12 +398,12 @@
@@ -125,7 +125,7 @@ index 504a06cfd9ba..5d230e522636 100644
          <item name="android:itemTextAppearance">@style/Control.MenuItem</item>
      </style>
  
-@@ -617,7 +617,7 @@
+@@ -619,7 +619,7 @@
  
      <style name="QSCustomizeToolbar" parent="@*android:style/Widget.DeviceDefault.Toolbar">
          <item name="android:textColor">?android:attr/textColorPrimary</item>
@@ -163,10 +163,10 @@ index 222539d49526..da7c63ff15a3 100644
      private val colorUnavailable = Utils.applyAlpha(UNAVAILABLE_ALPHA, colorInactive)
  
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-index 7d25aeef6f98..2e3d5bbcc4af 100644
+index 27c129ad34c5..6bdf82a60e40 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
-@@ -690,7 +690,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+@@ -692,7 +692,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
                  mNotificationsAlpha = behindAlpha;
                  mNotificationsTint = behindTint;
                  mBehindAlpha = 1;
@@ -176,7 +176,7 @@ index 7d25aeef6f98..2e3d5bbcc4af 100644
                  mBehindAlpha = behindAlpha;
                  if (mState == ScrimState.SHADE_LOCKED) {
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
-index 2c0de629de8a..066d3e2f94c3 100644
+index 15b8c67fd4ba..577e33c3c8d6 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
 @@ -88,7 +88,7 @@ public enum ScrimState {
@@ -250,7 +250,7 @@ index 2c0de629de8a..066d3e2f94c3 100644
              }
          }
      },
-@@ -442,4 +442,4 @@ public enum ScrimState {
+@@ -468,4 +468,4 @@ public enum ScrimState {
      public void setClipQsScrim(boolean clipsQsScrim) {
          mClipQsScrim = clipsQsScrim;
      }

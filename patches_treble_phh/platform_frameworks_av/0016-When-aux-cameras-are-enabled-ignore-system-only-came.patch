@@ -1,7 +1,7 @@
-From 3db998a6d6224eda055820b23ff7db1e3b49b555 Mon Sep 17 00:00:00 2001
+From f69403f665a91492fcfd5d2afe52b8e88c903b85 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 7 Aug 2021 11:11:39 +0200
-Subject: [PATCH 17/19] When aux cameras are enabled, ignore "system only"
+Subject: [PATCH 16/18] When aux cameras are enabled, ignore "system only"
  camera flag (it shouldnt be q security issue since secure cameras are listed
  otherwise)
 
@@ -31,5 +31,5 @@ index c08bcb9ce2..5a68fe8cc9 100644
      }
      return SystemCameraKind::PUBLIC;
 -- 
-2.29.2
+2.25.1
 

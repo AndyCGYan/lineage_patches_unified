@@ -1,7 +1,7 @@
-From ed52289663535821829ebdd1241471d72e0f9d2f Mon Sep 17 00:00:00 2001
+From 244b0d93a9a1c3d2425b50c11f5c1abf310d21f9 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 28 Mar 2021 18:54:47 +0200
-Subject: [PATCH 16/19] Not all sources in a route are valid. Dont ignore the
+Subject: [PATCH 15/18] Not all sources in a route are valid. Dont ignore the
  whole route because of one broken source
 
 Change-Id: If8a51740e71bef3a4738262ad7b43a337b0ec36d
@@ -23,5 +23,5 @@ index a76da4569b..2ff11ddbab 100644
                  return BAD_VALUE;
              } else if (source == NULL) {
 -- 
-2.29.2
+2.25.1
 
