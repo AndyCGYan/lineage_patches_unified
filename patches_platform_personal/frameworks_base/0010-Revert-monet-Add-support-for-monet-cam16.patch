@@ -1,21 +1,76 @@
-From 083ce1f8d7cd3baa0aa97940b2d53d0b65ced059 Mon Sep 17 00:00:00 2001
+From 9fa5b43574c485faebf2806584f82311fa220b16 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 12:11:24 +0000
 Subject: [PATCH 10/16] Revert "monet: Add support for monet (cam16)"
 
 This reverts commit f4460c9cb0494ddcc1829b05298d140fa1afc526.
+
+Change-Id: I94ca83b2c147a32afeb4fbddbc5d6dbcfd804199
 ---
+ packages/SystemUI/Android.bp                  |   2 -
+ packages/SystemUI/monet/Android.bp            |  12 --
+ packages/SystemUI/monet/AndroidManifest.xml   |   4 -
  .../com/android/systemui/monet/ColorScheme.kt | 168 ------------------
  .../com/android/systemui/monet/Shades.java    |  19 --
- .../theme/ThemeOverlayController.java         |  55 ++----
- 3 files changed, 10 insertions(+), 232 deletions(-)
- delete mode 100644 packages/SystemUI/src/com/android/systemui/monet/ColorScheme.kt
- delete mode 100644 packages/SystemUI/src/com/android/systemui/monet/Shades.java
+ .../theme/ThemeOverlayController.java         |  56 ++----
+ 6 files changed, 10 insertions(+), 251 deletions(-)
+ delete mode 100644 packages/SystemUI/monet/Android.bp
+ delete mode 100644 packages/SystemUI/monet/AndroidManifest.xml
+ delete mode 100644 packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
+ delete mode 100644 packages/SystemUI/monet/src/com/android/systemui/monet/Shades.java
 
-diff --git a/packages/SystemUI/src/com/android/systemui/monet/ColorScheme.kt b/packages/SystemUI/src/com/android/systemui/monet/ColorScheme.kt
+diff --git a/packages/SystemUI/Android.bp b/packages/SystemUI/Android.bp
+index e677b10295f6..e86486dbc6bc 100644
+--- a/packages/SystemUI/Android.bp
++++ b/packages/SystemUI/Android.bp
+@@ -97,7 +97,6 @@ android_library {
+         "lottie",
+         "org.lineageos.platform.internal",
+         "vendor.lineage.powershare-V1.0-java",
+-        "monet",
+     ],
+     manifest: "AndroidManifest.xml",
+     additional_manifests: ["LineageManifest.xml"],
+@@ -188,7 +187,6 @@ android_library {
+         "WindowManager-Shell",
+         "org.lineageos.platform.internal",
+         "vendor.lineage.powershare-V1.0-java",
+-        "monet",
+     ],
+     libs: [
+         "android.test.runner",
+diff --git a/packages/SystemUI/monet/Android.bp b/packages/SystemUI/monet/Android.bp
+deleted file mode 100644
+index 42563765b077..000000000000
+--- a/packages/SystemUI/monet/Android.bp
++++ /dev/null
+@@ -1,12 +0,0 @@
+-java_library {
+-    name: "monet",
+-    platform_apis: true,
+-    static_libs: [
+-        "androidx.annotation_annotation",
+-        "androidx.core_core",
+-    ],
+-    srcs: [
+-        "src/**/*.java",
+-        "src/**/*.kt",
+-    ],
+-}
+diff --git a/packages/SystemUI/monet/AndroidManifest.xml b/packages/SystemUI/monet/AndroidManifest.xml
+deleted file mode 100644
+index 37f0050ee949..000000000000
+--- a/packages/SystemUI/monet/AndroidManifest.xml
++++ /dev/null
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    package="com.android.systemui.monet">
+-</manifest>
+diff --git a/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt b/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
 deleted file mode 100644
 index 56a9c805ca81..000000000000
---- a/packages/SystemUI/src/com/android/systemui/monet/ColorScheme.kt
+--- a/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
 +++ /dev/null
 @@ -1,168 +0,0 @@
 -package com.android.systemui.monet
@@ -186,10 +241,10 @@ index 56a9c805ca81..000000000000
 -        }
 -    }
 -}
-diff --git a/packages/SystemUI/src/com/android/systemui/monet/Shades.java b/packages/SystemUI/src/com/android/systemui/monet/Shades.java
+diff --git a/packages/SystemUI/monet/src/com/android/systemui/monet/Shades.java b/packages/SystemUI/monet/src/com/android/systemui/monet/Shades.java
 deleted file mode 100644
 index 5ab00a1afcb4..000000000000
---- a/packages/SystemUI/src/com/android/systemui/monet/Shades.java
+--- a/packages/SystemUI/monet/src/com/android/systemui/monet/Shades.java
 +++ /dev/null
 @@ -1,19 +0,0 @@
 -package com.android.systemui.monet;
@@ -212,7 +267,7 @@ index 5ab00a1afcb4..000000000000
 -    }
 -}
 diff --git a/packages/SystemUI/src/com/android/systemui/theme/ThemeOverlayController.java b/packages/SystemUI/src/com/android/systemui/theme/ThemeOverlayController.java
-index 7cd3ae1f8062..81999b534046 100644
+index 1e35c9e51150..81999b534046 100644
 --- a/packages/SystemUI/src/com/android/systemui/theme/ThemeOverlayController.java
 +++ b/packages/SystemUI/src/com/android/systemui/theme/ThemeOverlayController.java
 @@ -37,7 +37,6 @@ import android.content.IntentFilter;
@@ -235,14 +290,14 @@ index 7cd3ae1f8062..81999b534046 100644
  import com.android.systemui.Dumpable;
  import com.android.systemui.SystemUI;
  import com.android.systemui.broadcast.BroadcastDispatcher;
-@@ -62,7 +59,6 @@ import com.android.systemui.dagger.qualifiers.Main;
+@@ -61,7 +58,6 @@ import com.android.systemui.dagger.qualifiers.Background;
+ import com.android.systemui.dagger.qualifiers.Main;
  import com.android.systemui.dump.DumpManager;
  import com.android.systemui.keyguard.WakefulnessLifecycle;
- import com.android.systemui.settings.UserTracker;
 -import com.android.systemui.monet.ColorScheme;
+ import com.android.systemui.settings.UserTracker;
  import com.android.systemui.statusbar.FeatureFlags;
  import com.android.systemui.statusbar.policy.DeviceProvisionedController;
- import com.android.systemui.statusbar.policy.DeviceProvisionedController.DeviceProvisionedListener;
 @@ -75,7 +71,6 @@ import java.io.FileDescriptor;
  import java.io.PrintWriter;
  import java.util.Collection;
@@ -251,7 +306,7 @@ index 7cd3ae1f8062..81999b534046 100644
  import java.util.Map;
  import java.util.Set;
  import java.util.concurrent.Executor;
-@@ -408,55 +403,25 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
+@@ -408,56 +403,25 @@ public class ThemeOverlayController extends SystemUI implements Dumpable {
       * Return the main theme color from a given {@link WallpaperColors} instance.
       */
      protected int getNeutralColor(@NonNull WallpaperColors wallpaperColors) {
@@ -293,19 +348,20 @@ index 7cd3ae1f8062..81999b534046 100644
 -        }
 -
 -        int size = colorScheme.getAccent1().size();
--        FabricatedOverlay.Builder builder = new FabricatedOverlay.Builder(mContext.getPackageName(), name, "android");
+-        FabricatedOverlay.Builder builder =
+-                new FabricatedOverlay.Builder(mContext.getPackageName(), name, "android");
 -
 -        for (int i = 0; i < colors.size(); i++) {
 -            int lightness = i % size;
 -            int shade = i / size + 1;
 -
--            String targetResource;
+-            String targetResource = "android:color/system_";
 -            if (lightness == 0) {
--                targetResource = "android:color/system_" + name + shade + "_10";
+-                targetResource += name + shade + "_10";
 -            } else if (lightness == 1) {
--                targetResource = "android:color/system_" + name + shade + "_50";
+-                targetResource += name + shade + "_50";
 -            } else {
--                targetResource = "android:color/system_" + name + shade + "_" + (lightness - 1) + "00";
+-                targetResource += name + shade + "_" + (lightness - 1) + "00";
 -            }
 -
 -            builder.setResourceValue(targetResource, TypedValue.TYPE_INT_COLOR_ARGB8,

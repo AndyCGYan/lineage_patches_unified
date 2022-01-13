@@ -1,4 +1,4 @@
-From adc13dccc4a4a1f0c59f6d53630d8cd48210b7de Mon Sep 17 00:00:00 2001
+From ce11b93da782f5bd95c0f5c7ce02aa6ace01e6eb Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 08/16] Keyguard: Refine indication text
@@ -39,7 +39,7 @@ index 8dbd59d42ab7..68cba51e07fa 100644
              android:paddingEnd="@dimen/keyguard_indication_text_padding"
              android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index c231afc41953..1485f3a936ca 100644
+index 5d4e4a6ad3c4..cd11fb7d81ac 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -920,7 +920,7 @@

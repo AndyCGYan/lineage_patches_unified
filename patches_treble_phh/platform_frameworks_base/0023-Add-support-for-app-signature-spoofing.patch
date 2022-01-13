@@ -1,7 +1,7 @@
-From 38da0b29efb2577ebd9295a45617160e3caec696 Mon Sep 17 00:00:00 2001
+From 7b0c25ae3dfe6af5d9d9a2b2518964f7c5f034bf Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 16 Oct 2021 05:27:57 -0700
-Subject: [PATCH 23/24] Add support for app signature spoofing
+Subject: [PATCH 23/28] Add support for app signature spoofing
 
 This is needed by microG GmsCore to pretend to be the official Google
 Play Services package, because client apps check the package signature
@@ -56,10 +56,10 @@ index 1de47b548a5c..52c7ea2e1321 100644
      field public static final String MICROPHONE = "android.permission-group.MICROPHONE";
      field public static final String NEARBY_DEVICES = "android.permission-group.NEARBY_DEVICES";
 diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
-index cd6af189a04a..318a7f06494e 100644
+index 76b8547cea2a..8bd3206d1e3a 100644
 --- a/core/res/AndroidManifest.xml
 +++ b/core/res/AndroidManifest.xml
-@@ -3189,6 +3189,21 @@
+@@ -3199,6 +3199,21 @@
          android:description="@string/permdesc_getPackageSize"
          android:protectionLevel="normal" />
  
@@ -105,7 +105,7 @@ index b58638cc3ade..8cf98fa56bf6 100644
      <string name="permlab_statusBar">disable or modify status bar</string>
      <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index b77483012ee8..04f55ae83ef0 100644
+index f69922f64787..7d0ba265ff7e 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
 @@ -3325,6 +3325,29 @@ public class PackageManagerService extends IPackageManager.Stub

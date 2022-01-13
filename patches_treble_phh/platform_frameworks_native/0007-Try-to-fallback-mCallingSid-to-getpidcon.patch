@@ -1,7 +1,7 @@
-From 9b3166a5bdba49f210b1a9dac1c7a27f5e2cfdd2 Mon Sep 17 00:00:00 2001
+From 3f8be28fc09a5d3dba6528be7f6144cecc804b17 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 20 Oct 2021 09:39:47 -0400
-Subject: [PATCH 7/7] Try to fallback mCallingSid to getpidcon
+Subject: [PATCH 07/13] Try to fallback mCallingSid to getpidcon
 
 This is needed because old vendors (before April 2019 ~) don't support
 reporting SELinux context of the caller.
@@ -14,7 +14,7 @@ Change-Id: I3b6c4dac9d0e20a3d66f931b283e3a535ab499cd
  1 file changed, 21 insertions(+)
 
 diff --git a/libs/binder/IPCThreadState.cpp b/libs/binder/IPCThreadState.cpp
-index 445df9eeff..a5c4a7e106 100644
+index c415ea02e2..66d790af4b 100644
 --- a/libs/binder/IPCThreadState.cpp
 +++ b/libs/binder/IPCThreadState.cpp
 @@ -36,6 +36,7 @@
@@ -60,5 +60,5 @@ index 445df9eeff..a5c4a7e106 100644
              mCallingUid = origUid;
              mStrictModePolicy = origStrictModePolicy;
 -- 
-2.29.2
+2.25.1
 

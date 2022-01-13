@@ -1,8 +1,8 @@
-From 0153bec21c46eab87c37fb0f5c3139567460f546 Mon Sep 17 00:00:00 2001
+From 8a382e0be8155b21e0e99d03311476b8f0194736 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 14 Aug 2019 23:37:10 +0200
-Subject: [PATCH 1/7] On Samsung, we need to send a hack-message to HAL to get
- all Sensors
+Subject: [PATCH 01/13] On Samsung, we need to send a hack-message to HAL to
+ get all Sensors
 
 Change-Id: Id6a1fa48340de61c418493668e9abd22c2599376
 ---
@@ -33,5 +33,5 @@ index c233bf06cf..623ba66364 100644
              [&](const auto &list) {
                  const size_t count = list.size();
 -- 
-2.29.2
+2.25.1
 

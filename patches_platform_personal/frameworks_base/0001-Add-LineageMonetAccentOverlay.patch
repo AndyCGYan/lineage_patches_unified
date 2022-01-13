@@ -1,4 +1,4 @@
-From 72efb86a4e4e42b9d20c8d8ac30beb6471f96ad2 Mon Sep 17 00:00:00 2001
+From d72fc12143501bfa376db5fd888b9115e0c279e7 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 27 Oct 2021 14:38:37 +0000
 Subject: [PATCH 01/16] Add LineageMonetAccentOverlay
@@ -17,7 +17,7 @@ Change-Id: Ib93b2bc68a08dfe12a7c3f503dcc62cce098b459
  create mode 100644 packages/overlays/LineageMonetAccentOverlay/res/values/config.xml
 
 diff --git a/packages/overlays/Android.mk b/packages/overlays/Android.mk
-index 928892c60e47..d90aae92e1c5 100644
+index 3a114bc8ec79..15c55d3d588e 100644
 --- a/packages/overlays/Android.mk
 +++ b/packages/overlays/Android.mk
 @@ -26,6 +26,7 @@ LOCAL_REQUIRED_MODULES := \

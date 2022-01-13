@@ -1,0 +1,64 @@
+From a77071568a33266c3f93db359d865eddd2b38313 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 6 Oct 2020 01:41:16 +0000
+Subject: [PATCH 07/21] UI: Revive navbar layout tuning via sysui_nav_bar
+ tunable
+
+Google keeps fixing what ain't broken.
+
+Change-Id: Ied7d7859e50fd0fcc346219964e747c5d5f4c352
+---
+ .../navigationbar/NavigationBarInflaterView.java  | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+index c8bc143f0bd8..fab079b91608 100644
+--- a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
++++ b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+@@ -118,6 +118,7 @@ public class NavigationBarInflaterView extends FrameLayout
+ 
+     private boolean mInverseLayout;
+     private boolean mIsHintEnabled;
++    private boolean mUsingCustomLayout;
+ 
+     public NavigationBarInflaterView(Context context, AttributeSet attrs) {
+         super(context, attrs);
+@@ -177,6 +178,7 @@ public class NavigationBarInflaterView extends FrameLayout
+         super.onAttachedToWindow();
+         Dependency.get(TunerService.class).addTunable(this, NAV_BAR_INVERSE);
+         Dependency.get(TunerService.class).addTunable(this, KEY_NAVIGATION_HINT);
++        Dependency.get(TunerService.class).addTunable(this, NAV_BAR_VIEWS);
+     }
+ 
+     @Override
+@@ -195,6 +197,8 @@ public class NavigationBarInflaterView extends FrameLayout
+             mIsHintEnabled = TunerService.parseIntegerSwitch(newValue, true);
+             updateHint();
+             onLikelyDefaultLayoutChange();
++        } else if (NAV_BAR_VIEWS.equals(key)) {
++            setNavigationBarLayout(newValue);
+         }
+     }
+ 
+@@ -204,7 +208,18 @@ public class NavigationBarInflaterView extends FrameLayout
+         updateLayoutInversion();
+     }
+ 
++    public void setNavigationBarLayout(String layoutValue) {
++        if (!Objects.equals(mCurrentLayout, layoutValue)) {
++            mUsingCustomLayout = layoutValue != null;
++            clearViews();
++            inflateLayout(layoutValue);
++        }
++    }
++
+     public void onLikelyDefaultLayoutChange() {
++        // Don't override custom layouts
++        if (mUsingCustomLayout) return;
++
+         // Reevaluate new layout
+         final String newValue = getDefaultLayout();
+         if (!Objects.equals(mCurrentLayout, newValue)) {
+-- 
+2.25.1
+

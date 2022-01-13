@@ -1,11 +1,11 @@
-From 131d58227278ec7d36fe16223335368d4674ce46 Mon Sep 17 00:00:00 2001
+From 9b99205d455b3628d4ab017c77649e116fff182a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 03:39:32 +0000
 Subject: [PATCH 02/16] Add MiuiNavbarOverlay
 
 Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
 ---
- packages/overlays/Android.mk                  |   3 +-
+ packages/overlays/Android.mk                  |   1 +
  .../overlays/MiuiNavbarOverlay/Android.bp     |  28 ++++++++++++++++++
  .../MiuiNavbarOverlay/AndroidManifest.xml     |  22 ++++++++++++++
  .../res/drawable-440dpi-v4/ic_sysbar_back.png | Bin 0 -> 2756 bytes
@@ -16,7 +16,7 @@ Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
  .../ic_sysbar_home_darkmode.png               | Bin 0 -> 980 bytes
  .../drawable-440dpi-v4/ic_sysbar_recent.png   | Bin 0 -> 278 bytes
  .../ic_sysbar_recent_darkmode.png             | Bin 0 -> 205 bytes
- 11 files changed, 52 insertions(+), 1 deletion(-)
+ 11 files changed, 51 insertions(+)
  create mode 100644 packages/overlays/MiuiNavbarOverlay/Android.bp
  create mode 100644 packages/overlays/MiuiNavbarOverlay/AndroidManifest.xml
  create mode 100644 packages/overlays/MiuiNavbarOverlay/res/drawable-440dpi-v4/ic_sysbar_back.png
@@ -29,10 +29,10 @@ Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
  create mode 100644 packages/overlays/MiuiNavbarOverlay/res/drawable-440dpi-v4/ic_sysbar_recent_darkmode.png
 
 diff --git a/packages/overlays/Android.mk b/packages/overlays/Android.mk
-index d90aae92e1c5..2e53fed86f15 100644
+index 15c55d3d588e..ff20a7a30092 100644
 --- a/packages/overlays/Android.mk
 +++ b/packages/overlays/Android.mk
-@@ -27,12 +27,13 @@ LOCAL_REQUIRED_MODULES := \
+@@ -27,6 +27,7 @@ LOCAL_REQUIRED_MODULES := \
  	DisplayCutoutEmulationWaterfallOverlay \
  	FontNotoSerifSourceOverlay \
  	LineageMonetAccentOverlay \
@@ -40,13 +40,6 @@ index d90aae92e1c5..2e53fed86f15 100644
  	NavigationBarMode3ButtonOverlay \
  	NavigationBarModeGesturalOverlay \
  	NavigationBarModeGesturalOverlayNarrowBack \
- 	NavigationBarModeGesturalOverlayWideBack \
- 	NavigationBarModeGesturalOverlayExtraWideBack \
--        OneHandedModeGesturalOverlay \
-+    OneHandedModeGesturalOverlay \
- 	preinstalled-packages-platform-overlays.xml
- 
- include $(BUILD_PHONY_PACKAGE)
 diff --git a/packages/overlays/MiuiNavbarOverlay/Android.bp b/packages/overlays/MiuiNavbarOverlay/Android.bp
 new file mode 100644
 index 000000000000..fc724fb7a686

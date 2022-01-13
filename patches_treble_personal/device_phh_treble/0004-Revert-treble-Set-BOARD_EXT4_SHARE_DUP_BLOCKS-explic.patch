@@ -1,4 +1,4 @@
-From 45739cc78ffe6af2124211ef108fef17bdc56baa Mon Sep 17 00:00:00 2001
+From dfb80c5cb89c33b2be845fec1cca084399a7f71f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 09:31:01 +0000
 Subject: [PATCH 4/4] Revert "treble: Set BOARD_EXT4_SHARE_DUP_BLOCKS

@@ -1,4 +1,4 @@
-From 934dfff90102f46f097c5912ab9994d6796d9c63 Mon Sep 17 00:00:00 2001
+From ac98eee7ee113a71ae05e00c23b14e94c3539f73 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 12:09:34 +0000
 Subject: [PATCH 16/16] UI: Remove privacy dot padding
@@ -9,7 +9,7 @@ Change-Id: I5d2e2b3e36f027b4348a83030d4b4d3c4f0209d1
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 140043673612..51d4ffbc2d49 100644
+index 7217156d8972..4354442fb51d 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -1265,7 +1265,7 @@

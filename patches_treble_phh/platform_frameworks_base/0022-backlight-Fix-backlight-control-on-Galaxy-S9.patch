@@ -1,7 +1,7 @@
-From 97d62e3f56c39729d3756166599999216fbc2639 Mon Sep 17 00:00:00 2001
+From 0935d80aa90b9575b77bd55a37432a5f4a6c3747 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
-Subject: [PATCH 22/24] backlight: Fix backlight control on Galaxy S9(+)
+Subject: [PATCH 22/28] backlight: Fix backlight control on Galaxy S9(+)
 
 Change-Id: I1fbbb47939c377597ef8ad6b88b2acea5f4acaa6
 
@@ -53,10 +53,10 @@ Change-Id: I4e85178327d2bb63d5d0a37786058843662a89ba
  1 file changed, 46 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index 91f14de040fe..8fa9c4f3a698 100644
+index fea6b29d9260..caf9eba7d9a8 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -31,6 +31,7 @@ import android.os.IBinder;
+@@ -32,6 +32,7 @@ import android.os.IBinder;
  import android.os.Looper;
  import android.os.RemoteException;
  import android.os.ServiceManager;
@@ -64,7 +64,7 @@ index 91f14de040fe..8fa9c4f3a698 100644
  import android.os.Trace;
  import android.provider.Settings;
  import android.util.Slog;
-@@ -294,6 +295,51 @@ public class LightsService extends SystemService {
+@@ -295,6 +296,51 @@ public class LightsService extends SystemService {
                      return;
                  }
                  int brightnessInt = BrightnessSynchronizer.brightnessFloatToInt(brightness);

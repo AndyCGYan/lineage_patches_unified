@@ -1,4 +1,4 @@
-From fd5e5139356c792a17328692a90abc6b2c40677e Mon Sep 17 00:00:00 2001
+From 0cca559de53a92eac0e6810ebed31967d70d4ca0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 27 Jun 2021 05:21:38 +0000
 Subject: [PATCH 2/4] Only use meizu-vibrator on Meizu 18
@@ -76,10 +76,10 @@ index 0000000..b34a10b
 +<manifest version="1.0" type="framework">
 +</manifest>
 diff --git a/rw-system.sh b/rw-system.sh
-index a49e8f5..434be7c 100644
+index ee4df70..3ed1cdd 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -325,6 +325,12 @@ if [ "$foundFingerprint" = false ];then
+@@ -356,6 +356,12 @@ if [ "$foundFingerprint" = false ];then
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.fingerprint.xml
  fi
  
@@ -92,7 +92,7 @@ index a49e8f5..434be7c 100644
  if ! grep android.hardware.bluetooth /vendor/manifest.xml && ! grep android.hardware.bluetooth /vendor/etc/vintf/manifest.xml; then
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.bluetooth.xml
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.bluetooth_le.xml
-@@ -396,7 +402,7 @@ if getprop ro.build.overlay.deviceid |grep -q -e CPH1859 -e CPH1861 -e RMX1811 -
+@@ -427,7 +433,7 @@ if getprop ro.build.overlay.deviceid |grep -q -e CPH1859 -e CPH1861 -e RMX1811 -
      setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
  fi
  
@@ -101,7 +101,7 @@ index a49e8f5..434be7c 100644
      setprop persist.sys.qcom-brightness 2047
      setprop persist.sys.overlay.devinputjack true
      setprop persist.sys.phh.fingerprint.nocleanup true
-@@ -891,7 +897,7 @@ if getprop ro.build.overlay.deviceid |grep -qiE -e '^RMX' -e '^CPH';then
+@@ -940,7 +946,7 @@ if (getprop ro.vendor.build.fingerprint;getprop ro.odm.build.fingerprint) |grep
      setprop persist.sys.phh.fod.bbk true
  fi
  

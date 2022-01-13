@@ -1,0 +1,260 @@
+From 54374a8c7cdb6df7657090ff849cce25d051ee52 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 10 Jan 2022 04:44:58 +0000
+Subject: [PATCH] Revert "Implement LocalColorExtractor using monet theme
+ engine"
+
+This reverts commit 43594af5b025d2223f9eab97e9226541b2851419.
+---
+ Android.bp                                    |   1 -
+ res/values/config.xml                         |   2 +-
+ .../widget/LocalWallpaperColorsExtractor.java | 212 ------------------
+ 3 files changed, 1 insertion(+), 214 deletions(-)
+ delete mode 100644 src/com/android/launcher3/widget/LocalWallpaperColorsExtractor.java
+
+diff --git a/Android.bp b/Android.bp
+index 621eaf0a1e..f700dedf03 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -122,7 +122,6 @@ android_library {
+         "com.google.android.material_material",
+         "iconloader_base",
+         "libGoogleFeed",
+-        "monet",
+     ],
+     manifest: "AndroidManifest-common.xml",
+     sdk_version: "current",
+diff --git a/res/values/config.xml b/res/values/config.xml
+index 95f94af904..0ac0f9c588 100644
+--- a/res/values/config.xml
++++ b/res/values/config.xml
+@@ -87,7 +87,7 @@
+ 
+     <!-- Default packages -->
+     <string name="wallpaper_picker_package" translatable="false"></string>
+-    <string name="local_colors_extraction_class" translatable="false">com.android.launcher3.widget.LocalWallpaperColorsExtractor</string>
++    <string name="local_colors_extraction_class" translatable="false"></string>
+ 
+     <!-- Accessibility actions -->
+     <item type="id" name="action_remove" />
+diff --git a/src/com/android/launcher3/widget/LocalWallpaperColorsExtractor.java b/src/com/android/launcher3/widget/LocalWallpaperColorsExtractor.java
+deleted file mode 100644
+index 29d464826e..0000000000
+--- a/src/com/android/launcher3/widget/LocalWallpaperColorsExtractor.java
++++ /dev/null
+@@ -1,212 +0,0 @@
+-package com.android.launcher3.widget;
+-
+-import android.app.WallpaperColors;
+-import android.app.WallpaperManager;
+-import android.content.Context;
+-import android.content.res.Configuration;
+-import android.content.res.Resources;
+-import android.graphics.Rect;
+-import android.graphics.RectF;
+-import android.util.SparseIntArray;
+-import android.view.View;
+-import android.widget.RemoteViews;
+-
+-import com.android.launcher3.DeviceProfile;
+-import com.android.launcher3.Launcher;
+-import com.android.launcher3.Utilities;
+-import com.android.launcher3.widget.LocalColorExtractor;
+-import com.android.systemui.monet.ColorScheme;
+-
+-import java.util.List;
+-
+-public class LocalWallpaperColorsExtractor extends LocalColorExtractor implements
+-        WallpaperManager.LocalWallpaperColorConsumer {
+-
+-    private final WallpaperManager wallpaperManager;
+-    private Listener listener;
+-    private Context mContext;
+-
+-    // For calculating and returning bounds
+-    private final float[] tempFloatArray = new float[4];
+-    private final Rect tempRect = new Rect();
+-    private final RectF tempRectF = new RectF();
+-
+-    public static final int[] accent = {
+-            android.R.color.system_accent1_10,
+-            android.R.color.system_accent1_50,
+-            android.R.color.system_accent1_100,
+-            android.R.color.system_accent1_200,
+-            android.R.color.system_accent1_300,
+-            android.R.color.system_accent1_400,
+-            android.R.color.system_accent1_500,
+-            android.R.color.system_accent1_600,
+-            android.R.color.system_accent1_700,
+-            android.R.color.system_accent1_800,
+-            android.R.color.system_accent1_900,
+-            android.R.color.system_accent1_1000,
+-            android.R.color.system_accent2_10,
+-            android.R.color.system_accent2_50,
+-            android.R.color.system_accent2_100,
+-            android.R.color.system_accent2_200,
+-            android.R.color.system_accent2_300,
+-            android.R.color.system_accent2_400,
+-            android.R.color.system_accent2_500,
+-            android.R.color.system_accent2_600,
+-            android.R.color.system_accent2_700,
+-            android.R.color.system_accent2_800,
+-            android.R.color.system_accent2_900,
+-            android.R.color.system_accent2_1000,
+-            android.R.color.system_accent3_10,
+-            android.R.color.system_accent3_50,
+-            android.R.color.system_accent3_100,
+-            android.R.color.system_accent3_200,
+-            android.R.color.system_accent3_300,
+-            android.R.color.system_accent3_400,
+-            android.R.color.system_accent3_500,
+-            android.R.color.system_accent3_600,
+-            android.R.color.system_accent3_700,
+-            android.R.color.system_accent3_800,
+-            android.R.color.system_accent3_900,
+-            android.R.color.system_accent3_1000
+-    };
+-
+-    public static final int[] neutral = {
+-            android.R.color.system_neutral1_10,
+-            android.R.color.system_neutral1_50,
+-            android.R.color.system_neutral1_100,
+-            android.R.color.system_neutral1_200,
+-            android.R.color.system_neutral1_300,
+-            android.R.color.system_neutral1_400,
+-            android.R.color.system_neutral1_500,
+-            android.R.color.system_neutral1_600,
+-            android.R.color.system_neutral1_700,
+-            android.R.color.system_neutral1_800,
+-            android.R.color.system_neutral1_900,
+-            android.R.color.system_neutral1_1000,
+-            android.R.color.system_neutral2_10,
+-            android.R.color.system_neutral2_50,
+-            android.R.color.system_neutral2_100,
+-            android.R.color.system_neutral2_200,
+-            android.R.color.system_neutral2_300,
+-            android.R.color.system_neutral2_400,
+-            android.R.color.system_neutral2_500,
+-            android.R.color.system_neutral2_600,
+-            android.R.color.system_neutral2_700,
+-            android.R.color.system_neutral2_800,
+-            android.R.color.system_neutral2_900,
+-            android.R.color.system_neutral2_1000
+-    };
+-
+-    public LocalWallpaperColorsExtractor(Context context) {
+-        mContext = context;
+-        wallpaperManager = (WallpaperManager) context.getSystemService(Context.WALLPAPER_SERVICE);
+-    }
+-
+-    private static void addColorsToArray(List<Integer> list, int[] resArray, SparseIntArray array) {
+-        for (int i = 0; i < resArray.length; i++) {
+-            array.put(resArray[i], -16777216 | list.get(i));
+-        }
+-    }
+-
+-    @Override
+-    public void setListener(Listener listener) {
+-        this.listener = listener;
+-    }
+-
+-    @Override
+-    public void addLocation(List<RectF> locations) {
+-        wallpaperManager.addOnColorsChangedListener(this, locations);
+-    }
+-
+-    @Override
+-    public void removeLocations() {
+-        wallpaperManager.removeOnColorsChangedListener(this);
+-    }
+-
+-    @Override
+-    public SparseIntArray generateColorsOverride(WallpaperColors colors) {
+-        SparseIntArray colorRes = new SparseIntArray(5 * 13);
+-        boolean nightMode = (mContext.getResources().getConfiguration().uiMode
+-                & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+-
+-        ColorScheme colorScheme = new ColorScheme(ColorScheme.getSeedColor(colors), nightMode);
+-
+-        addColorsToArray(colorScheme.getAllAccentColors(), accent, colorRes);
+-        addColorsToArray(colorScheme.getAllNeutralColors(), neutral, colorRes);
+-
+-        return colorRes;
+-    }
+-
+-    @Override
+-    public void applyColorsOverride(Context base, WallpaperColors colors) {
+-        RemoteViews.ColorResources res =
+-                RemoteViews.ColorResources.create(base, generateColorsOverride(colors));
+-        if (res != null) {
+-            res.apply(base);
+-        }
+-    }
+-
+-    @Override
+-    public void getExtractedRectForView(Launcher launcher, int pageId, View v,
+-            RectF colorExtractionRectOut) {
+-        Rect viewRect = tempRect;
+-        viewRect.set(0, 0, v.getWidth(), v.getHeight());
+-        Utilities.getBoundsForViewInDragLayer(launcher.getDragLayer(), v, viewRect, false,
+-                tempFloatArray, tempRectF);
+-        Utilities.setRect(tempRectF, viewRect);
+-        getExtractedRectForViewRect(launcher, pageId, viewRect, colorExtractionRectOut);
+-    }
+-
+-    @Override
+-    public void getExtractedRectForViewRect(Launcher launcher, int pageId, Rect rectInDragLayer,
+-            RectF colorExtractionRectOut) {
+-        // If the view hasn't been measured and laid out, we cannot do this.
+-        if (rectInDragLayer.isEmpty()) {
+-            colorExtractionRectOut.setEmpty();
+-            return;
+-        }
+-
+-        Resources res = launcher.getResources();
+-        DeviceProfile dp = launcher.getDeviceProfile().inv.getDeviceProfile(launcher);
+-        float screenWidth = dp.widthPx;
+-        float screenHeight = dp.heightPx;
+-        int numScreens = launcher.getWorkspace().getNumPagesForWallpaperParallax();
+-        pageId = Utilities.isRtl(res) ? numScreens - pageId - 1 : pageId;
+-        float relativeScreenWidth = 1f / numScreens;
+-
+-        int[] dragLayerBounds = new int[2];
+-        launcher.getDragLayer().getLocationOnScreen(dragLayerBounds);
+-        // Translate from drag layer coordinates to screen coordinates.
+-        int screenLeft = rectInDragLayer.left + dragLayerBounds[0];
+-        int screenTop = rectInDragLayer.top + dragLayerBounds[1];
+-        int screenRight = rectInDragLayer.right + dragLayerBounds[0];
+-        int screenBottom = rectInDragLayer.bottom + dragLayerBounds[1];
+-
+-        // This is the position of the view relative to the wallpaper, as expected by the
+-        // local color extraction of the WallpaperManager.
+-        // The coordinate system is such that, on the horizontal axis, each screen has a
+-        // distinct range on the [0,1] segment. So if there are 3 screens, they will have the
+-        // ranges [0, 1/3], [1/3, 2/3] and [2/3, 1]. The position on the subrange should be
+-        // the position of the view relative to the screen. For the vertical axis, this is
+-        // simply the location of the view relative to the screen.
+-        // Translate from drag layer coordinates to screen coordinates
+-        colorExtractionRectOut.left = (screenLeft / screenWidth + pageId) * relativeScreenWidth;
+-        colorExtractionRectOut.right = (screenRight / screenWidth + pageId) * relativeScreenWidth;
+-        colorExtractionRectOut.top = screenTop / screenHeight;
+-        colorExtractionRectOut.bottom = screenBottom / screenHeight;
+-
+-        if (colorExtractionRectOut.left < 0
+-                || colorExtractionRectOut.right > 1
+-                || colorExtractionRectOut.top < 0
+-                || colorExtractionRectOut.bottom > 1) {
+-            colorExtractionRectOut.setEmpty();
+-        }
+-    }
+-
+-    @Override
+-    public void onColorsChanged(RectF area, WallpaperColors colors) {
+-        if (listener != null) {
+-            listener.onColorsChanged(area, generateColorsOverride(colors));
+-        }
+-    }
+-}
+-- 
+2.25.1
+

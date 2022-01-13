@@ -1,4 +1,4 @@
-From c7a8da0bbddfb96af36f8c62caef774a027ed4a0 Mon Sep 17 00:00:00 2001
+From 3ead32747cd79901a272ed399e88ce957370f0e0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
 Subject: [PATCH 09/16] Keyguard/UI: Fix status bar / quick settings margins
@@ -136,7 +136,7 @@ index 0a34dfd71c7e..3d590d752a7b 100644
      <dimen name="screen_pinning_request_width">400dp</dimen>
      <!-- Screen pinning request bottom button circle widths -->
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 1485f3a936ca..b3941ff7f82b 100644
+index cd11fb7d81ac..786b21f7595a 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -449,7 +449,7 @@
@@ -167,10 +167,10 @@ index 1485f3a936ca..b3941ff7f82b 100644
      <!-- Additional translation (downwards) for appearing notifications when going to the full shade
           from Keyguard. -->
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index a5150000f47c..8ef433c7af17 100644
+index 3478ec463573..386b4e007a90 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-@@ -88,6 +88,10 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -91,6 +91,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private QSExpansionPathInterpolator mQSExpansionPathInterpolator;
  
      private int mRoundedCornerPadding = 0;
@@ -181,7 +181,7 @@ index a5150000f47c..8ef433c7af17 100644
      private int mWaterfallTopInset;
      private int mCutOutPaddingLeft;
      private int mCutOutPaddingRight;
-@@ -99,6 +103,8 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -102,6 +106,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private List<String> mRssiIgnoredSlots;
      private boolean mIsSingleCarrier;
  
@@ -190,7 +190,7 @@ index a5150000f47c..8ef433c7af17 100644
      private boolean mHasCenterCutout;
      private boolean mConfigShowBatteryEstimate;
  
-@@ -240,6 +246,11 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -244,6 +250,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
              mRoundedCornerPadding = resources.getDimensionPixelSize(
                      R.dimen.rounded_corner_content_padding);
  
@@ -202,7 +202,7 @@ index a5150000f47c..8ef433c7af17 100644
          int qsOffsetHeight = resources.getDimensionPixelSize(
                  com.android.internal.R.dimen.quick_qs_offset_height);
  
-@@ -320,6 +331,9 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -324,6 +335,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  .addFloat(mDateView, "alpha", 0, 0, 1)
                  .addFloat(mClockDateView, "alpha", 1, 0, 0)
                  .addFloat(mQSCarriers, "alpha", 0, 1)
@@ -212,7 +212,7 @@ index a5150000f47c..8ef433c7af17 100644
                  .setListener(new TouchAnimator.ListenerAdapter() {
                      @Override
                      public void onAnimationAtEnd() {
-@@ -426,8 +440,6 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -430,8 +444,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
          Pair<Integer, Integer> padding =
                  StatusBarWindowView.paddingNeededForCutoutAndRoundedCorner(
                          cutout, cornerCutoutPadding, -1);
@@ -221,7 +221,7 @@ index a5150000f47c..8ef433c7af17 100644
          LinearLayout.LayoutParams datePrivacySeparatorLayoutParams =
                  (LinearLayout.LayoutParams) mDatePrivacySeparator.getLayoutParams();
          LinearLayout.LayoutParams mClockIconsSeparatorLayoutParams =
-@@ -442,6 +454,12 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -446,6 +458,12 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  mClockIconsSeparatorLayoutParams.width = 0;
                  setSeparatorVisibility(false);
                  mShowClockIconsSeparator = false;
@@ -234,7 +234,7 @@ index a5150000f47c..8ef433c7af17 100644
                  mHasCenterCutout = false;
              } else {
                  datePrivacySeparatorLayoutParams.width = topCutout.width();
-@@ -449,6 +467,8 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -453,6 +471,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  mClockIconsSeparatorLayoutParams.width = topCutout.width();
                  mShowClockIconsSeparator = true;
                  setSeparatorVisibility(mKeyguardExpansionFraction == 0f);
@@ -243,7 +243,7 @@ index a5150000f47c..8ef433c7af17 100644
                  mHasCenterCutout = true;
              }
          }
-@@ -493,34 +513,37 @@ public class QuickStatusBarHeader extends FrameLayout {
+@@ -497,34 +517,37 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private void updateHeadersPadding() {
          setContentMargins(mDatePrivacyView, 0, 0);
          setContentMargins(mClockIconsView, 0, 0);
@@ -299,10 +299,10 @@ index a5150000f47c..8ef433c7af17 100644
      }
  
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-index 7b4dc47a7b48..f3cd8daf8d03 100644
+index efc02548763a..ce5719c674dd 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-@@ -165,14 +165,7 @@ public class KeyguardStatusBarView extends RelativeLayout implements
+@@ -164,14 +164,7 @@ public class KeyguardStatusBarView extends RelativeLayout implements
          mCarrierLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                  getResources().getDimensionPixelSize(
                          com.android.internal.R.dimen.text_size_small_material));

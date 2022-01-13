@@ -1,0 +1,48 @@
+From e9e767ef589530c378b9233ae3d3c5aa37f500ec Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Mon, 11 Oct 2021 19:25:11 -0700
+Subject: [PATCH 18/21] SystemUI: Remove nav bar background in QS customizer
+
+This looks outdated, since most apps are edge-to-edge nowadays.
+
+Change-Id: I8c54e61e618a9b5bed1a59753ce76e8fbd69fae2
+---
+ packages/SystemUI/res/layout/qs_customize_panel_content.xml | 6 ------
+ .../src/com/android/systemui/qs/customize/QSCustomizer.java | 4 ----
+ 2 files changed, 10 deletions(-)
+
+diff --git a/packages/SystemUI/res/layout/qs_customize_panel_content.xml b/packages/SystemUI/res/layout/qs_customize_panel_content.xml
+index 8ca1b8e85634..5f96dacba80e 100644
+--- a/packages/SystemUI/res/layout/qs_customize_panel_content.xml
++++ b/packages/SystemUI/res/layout/qs_customize_panel_content.xml
+@@ -56,10 +56,4 @@
+             android:importantForAccessibility="auto" />
+     </com.android.keyguard.AlphaOptimizedLinearLayout>
+ 
+-    <View
+-        android:id="@+id/nav_bar_background"
+-        android:layout_width="match_parent"
+-        android:layout_height="@dimen/navigation_bar_size"
+-        android:layout_gravity="bottom"
+-        android:background="#ff000000" />
+ </merge>
+diff --git a/packages/SystemUI/src/com/android/systemui/qs/customize/QSCustomizer.java b/packages/SystemUI/src/com/android/systemui/qs/customize/QSCustomizer.java
+index 7518b200c7e2..20359b64e4cb 100644
+--- a/packages/SystemUI/src/com/android/systemui/qs/customize/QSCustomizer.java
++++ b/packages/SystemUI/src/com/android/systemui/qs/customize/QSCustomizer.java
+@@ -90,12 +90,8 @@ public class QSCustomizer extends LinearLayout {
+     }
+ 
+     void updateNavBackDrop(Configuration newConfig, LightBarController lightBarController) {
+-        View navBackdrop = findViewById(R.id.nav_bar_background);
+         mIsShowingNavBackdrop = newConfig.smallestScreenWidthDp >= 600
+                 || newConfig.orientation != Configuration.ORIENTATION_LANDSCAPE;
+-        if (navBackdrop != null) {
+-            navBackdrop.setVisibility(mIsShowingNavBackdrop ? View.VISIBLE : View.GONE);
+-        }
+         updateNavColors(lightBarController);
+     }
+ 
+-- 
+2.25.1
+

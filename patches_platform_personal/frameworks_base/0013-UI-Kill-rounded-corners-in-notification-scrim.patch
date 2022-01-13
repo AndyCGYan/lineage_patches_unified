@@ -1,4 +1,4 @@
-From cb0906eadc39915aae89e82b32905fc1e3925359 Mon Sep 17 00:00:00 2001
+From e79fe0c08cb680f1c2855caa877acacdf0bdb3dd Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:10:50 +0000
 Subject: [PATCH 13/16] UI: Kill rounded corners in notification scrim
@@ -11,7 +11,7 @@ Change-Id: I09ed59e0e658ebd512a9d02a8ef3edfe2c9888da
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index b3941ff7f82b..140043673612 100644
+index 786b21f7595a..7217156d8972 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -757,7 +757,7 @@
