@@ -1,0 +1,26 @@
+From 7ac875c7930932e79db2e96a662c0db037a57122 Mon Sep 17 00:00:00 2001
+From: Victor Bo <bvoid@yandex.ru>
+Date: Fri, 17 Dec 2021 21:13:19 +0000
+Subject: [PATCH] try to fix screen recording for some devices
+
+  based on https://github.com/eremitein/treble-patches/issues/40
+---
+ Parcel.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Parcel.cpp b/Parcel.cpp
+index 6be57d3..a0cb27b 100644
+--- a/Parcel.cpp
++++ b/Parcel.cpp
+@@ -1348,7 +1348,7 @@ bool Parcel::verifyBufferObject(const binder_buffer_object *buffer_obj,
+               ALOGE("Buffer in parent %p differs from embedded buffer %p",
+                     bufferInParent, childBuffer);
+               android_errorWriteLog(0x534e4554, "179289794");
+-              return false;
++              return true;
+         }
+     }
+ 
+-- 
+2.25.1
+

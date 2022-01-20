@@ -1,0 +1,28 @@
+From d3a5ff46fdff9f0fe115600168e4fd1e9a6df940 Mon Sep 17 00:00:00 2001
+From: Raphael Mounier <mounierr07@gmail.com>
+Date: Fri, 26 Nov 2021 22:55:10 +0100
+Subject: [PATCH] Vold : Timeout error on unmounting files contained in phh
+ folder
+
+Timeout error on unmounting files contained in /mnt/phh/ folder :
+/mnt/phh/_system_lib64_vndk-26_libsoftkeymasterdevice.so
+/mnt/phh/_apex_com.android.vndk.v26_lib_libsoftkeymasterdevice.so
+---
+ VolumeManager.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/VolumeManager.cpp b/VolumeManager.cpp
+index 585d2d5..6f67d4a 100644
+--- a/VolumeManager.cpp
++++ b/VolumeManager.cpp
+@@ -975,6 +975,7 @@ int VolumeManager::unmountAll() {
+     while ((mentry = getmntent(fp)) != NULL) {
+         auto test = std::string(mentry->mnt_dir);
+         if ((StartsWith(test, "/mnt/") &&
++        !StartsWith(test, "/mnt/phh") &&
+ #ifdef __ANDROID_DEBUGGABLE__
+              !StartsWith(test, "/mnt/scratch") &&
+ #endif
+-- 
+2.30.2
+
