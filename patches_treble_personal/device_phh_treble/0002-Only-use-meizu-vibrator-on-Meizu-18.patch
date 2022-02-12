@@ -1,4 +1,4 @@
-From 0cca559de53a92eac0e6810ebed31967d70d4ca0 Mon Sep 17 00:00:00 2001
+From 72db86f75fae20fef140c4760383acf21902002a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 27 Jun 2021 05:21:38 +0000
 Subject: [PATCH 2/4] Only use meizu-vibrator on Meizu 18
@@ -12,8 +12,8 @@ Change-Id: I97fc52a98a77aa72bbd5601f36abc0cf18efbaea
  hal/meizu-vibrator/Android.bp                         |  1 +
  .../android.hardware.vibrator@1.3-service.meizu.xml   | 11 +++++++++++
  hal/meizu-vibrator/manifest_dummy.xml                 |  3 +++
- rw-system.sh                                          | 10 ++++++++--
- 5 files changed, 23 insertions(+), 12 deletions(-)
+ rw-system.sh                                          |  6 ++++++
+ 5 files changed, 21 insertions(+), 10 deletions(-)
  create mode 100644 hal/meizu-vibrator/android.hardware.vibrator@1.3-service.meizu.xml
  create mode 100644 hal/meizu-vibrator/manifest_dummy.xml
 
@@ -76,10 +76,10 @@ index 0000000..b34a10b
 +<manifest version="1.0" type="framework">
 +</manifest>
 diff --git a/rw-system.sh b/rw-system.sh
-index ee4df70..3ed1cdd 100644
+index 5e275af..e8bd30b 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -356,6 +356,12 @@ if [ "$foundFingerprint" = false ];then
+@@ -355,6 +355,12 @@ if [ "$foundFingerprint" = false ];then
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.fingerprint.xml
  fi
  
@@ -92,24 +92,6 @@ index ee4df70..3ed1cdd 100644
  if ! grep android.hardware.bluetooth /vendor/manifest.xml && ! grep android.hardware.bluetooth /vendor/etc/vintf/manifest.xml; then
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.bluetooth.xml
      mount -o bind system/phh/empty /system/etc/permissions/android.hardware.bluetooth_le.xml
-@@ -427,7 +433,7 @@ if getprop ro.build.overlay.deviceid |grep -q -e CPH1859 -e CPH1861 -e RMX1811 -
-     setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
- fi
- 
--if getprop ro.build.overlay.deviceid |grep -iq -e RMX2020 -e RMX2027 -e RMX2040 -e RMX2193 -e RMX2191;then	
-+if getprop ro.build.overlay.deviceid |grep -iq -e RMX2020 -e RMX2027 -e RMX2040 -e RMX2193 -e RMX2191;then
-     setprop persist.sys.qcom-brightness 2047
-     setprop persist.sys.overlay.devinputjack true
-     setprop persist.sys.phh.fingerprint.nocleanup true
-@@ -940,7 +946,7 @@ if (getprop ro.vendor.build.fingerprint;getprop ro.odm.build.fingerprint) |grep
-     setprop persist.sys.phh.fod.bbk true
- fi
- 
--if getprop ro.build.overlay.deviceid |grep -iq -e RMX1941 -e RMX1945 -e RMX1943 -e RMX1942;then	
-+if getprop ro.build.overlay.deviceid |grep -iq -e RMX1941 -e RMX1945 -e RMX1943 -e RMX1942;then
-     setprop persist.sys.qcom-brightness "$(cat /sys/class/leds/lcd-backlight/max_brightness)"
-     setprop persist.sys.phh.mainkeys 0
- fi
 -- 
 2.25.1
 

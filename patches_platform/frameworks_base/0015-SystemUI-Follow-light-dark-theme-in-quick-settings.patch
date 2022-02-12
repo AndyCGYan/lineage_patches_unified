@@ -1,7 +1,7 @@
-From a9bd8968c9baae389fd4e5cc54d2c4403d603690 Mon Sep 17 00:00:00 2001
+From c87db4a6ea8c4c399dd92923dd28f2533246c293 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:24:58 -0700
-Subject: [PATCH 15/21] SystemUI: Follow light/dark theme in quick settings
+Subject: [PATCH 15/19] SystemUI: Follow light/dark theme in quick settings
 
 Android 12's dual-tone style where the quick settings panel is always
 dark makes the light theme look like a second-class citizen. Pure black
@@ -82,7 +82,7 @@ index 860d23b11439..8f12b95ed4f6 100644
              </shape>
          </item>
 diff --git a/packages/SystemUI/res/values-night/styles.xml b/packages/SystemUI/res/values-night/styles.xml
-index ffcc3a821d36..a9fa9f3f9fde 100644
+index dd999837a1ba..3fd6f9cc5454 100644
 --- a/packages/SystemUI/res/values-night/styles.xml
 +++ b/packages/SystemUI/res/values-night/styles.xml
 @@ -24,6 +24,18 @@
@@ -102,7 +102,7 @@ index ffcc3a821d36..a9fa9f3f9fde 100644
 +    </style>
 +
      <style name="TextAppearance.QS.Status" parent="TextAppearance.QS.TileLabel.Secondary">
-         <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+         <item name="android:fontFamily">@*android:string/config_bodyFontFamilyMedium</item>
          <item name="android:textColor">?android:attr/textColorPrimary</item>
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
 index e592fe2dd630..a5ed039bd3fd 100644

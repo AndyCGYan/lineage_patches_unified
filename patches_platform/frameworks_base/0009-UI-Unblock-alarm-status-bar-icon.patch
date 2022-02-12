@@ -1,7 +1,7 @@
-From 2e11990cb2b10f0fe3c87273d76b3875da3b2e8f Mon Sep 17 00:00:00 2001
+From 5bfabfbe5d9b44e85f18151fa1f29ed59b505dd5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 14 Oct 2021 15:45:24 +0000
-Subject: [PATCH 09/21] UI: Unblock alarm status bar icon
+Subject: [PATCH 09/19] UI: Unblock alarm status bar icon
 
 That's very Zen of you, Google...
 

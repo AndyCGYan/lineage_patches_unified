@@ -1,4 +1,4 @@
-From 87bc53364912c939e19465304593cf7f03b96b54 Mon Sep 17 00:00:00 2001
+From 66149d4057081df5f550cad82db44b5c0f2bd0c7 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:41:53 +0000
 Subject: [PATCH 07/16] Keyguard: Never switch to large clock

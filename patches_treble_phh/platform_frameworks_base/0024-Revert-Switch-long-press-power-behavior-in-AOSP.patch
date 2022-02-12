@@ -1,4 +1,4 @@
-From 7003808f45a75893726d4073da9132c314091e98 Mon Sep 17 00:00:00 2001
+From afdd9f16ebf1993e982389260129fed10c3820fa Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 4 Sep 2021 08:26:30 +0000
 Subject: [PATCH 24/28] Revert "Switch long-press power behavior in AOSP."

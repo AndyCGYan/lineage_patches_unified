@@ -1,7 +1,7 @@
-From 8ee7ce7f56c8f45288e9a0135a8ee20f18d79b57 Mon Sep 17 00:00:00 2001
+From efb1576f000a7bf89e53381c5863dbe5e407f77e Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 1 Oct 2019 13:35:49 +0200
-Subject: [PATCH 02/18] Add (partial, cam id is hardcoded) support for Asus ZF6
+Subject: [PATCH 02/19] Add (partial, cam id is hardcoded) support for Asus ZF6
  motor camera
 
 Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
@@ -11,7 +11,7 @@ Change-Id: Iea6e1370780a1d16f728748d1d948d092532d8fe
  2 files changed, 29 insertions(+)
 
 diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
-index d0d3a9d81b..6705186fdd 100644
+index 04b56048e0..24b022226f 100644
 --- a/services/camera/libcameraservice/CameraService.cpp
 +++ b/services/camera/libcameraservice/CameraService.cpp
 @@ -26,6 +26,7 @@
@@ -66,7 +66,7 @@ index d0d3a9d81b..6705186fdd 100644
  Status CameraService::setTorchMode(const String16& cameraId, bool enabled,
          const sp<IBinder>& clientBinder) {
      Mutex::Autolock lock(mServiceLock);
-@@ -3049,6 +3073,8 @@ binder::Status CameraService::BasicClient::disconnect() {
+@@ -3054,6 +3078,8 @@ binder::Status CameraService::BasicClient::disconnect() {
      }
      mDisconnected = true;
  

@@ -1,4 +1,4 @@
-From 33fb74d694502c95ee26f331ea308114f8506b90 Mon Sep 17 00:00:00 2001
+From 3d3ef7ef4a0406ed5b3761ee934d172bfdbe02e7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 6 Aug 2018 12:49:00 +0200
 Subject: [PATCH 04/28] Show APN Settings for CDMA carriers

@@ -1,4 +1,4 @@
-From 184f59f82b11e4180a12586ab01b926b9187c418 Mon Sep 17 00:00:00 2001
+From 71294e86127acffb85bd93dd6ebd867e1111ac8c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 12 Jan 2022 04:07:34 -0500
 Subject: [PATCH 13/13] Fix loading power hidl v1.0
@@ -9,10 +9,10 @@ Change-Id: Ife20a98d2a11c79c7b42f359f30c28e2dede1f25
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/services/powermanager/PowerHalLoader.cpp b/services/powermanager/PowerHalLoader.cpp
-index 803888dabb..f04abdcbd0 100644
+index f9f5bbc347..412fda3c35 100644
 --- a/services/powermanager/PowerHalLoader.cpp
 +++ b/services/powermanager/PowerHalLoader.cpp
-@@ -108,10 +108,11 @@ sp<vendor::samsung::hardware::miscpower::V2_0::ISehMiscPower> PowerHalLoader::lo
+@@ -92,10 +92,11 @@ sp<vendor::samsung::hardware::miscpower::V2_0::ISehMiscPower> PowerHalLoader::lo
  }
  
  sp<V1_0::IPower> PowerHalLoader::loadHidlV1_0Locked() {

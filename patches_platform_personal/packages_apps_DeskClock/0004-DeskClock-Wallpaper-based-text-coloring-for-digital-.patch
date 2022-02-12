@@ -1,0 +1,118 @@
+From 1ed07dfbc441e06da971a04d6a40eaff13c27b3a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 20 Jan 2022 04:42:03 +0000
+Subject: [PATCH 4/4] DeskClock: Wallpaper-based text coloring for digital
+ clock widget
+
+RemoteViews is such a restrictive PITA
+
+Change-Id: Ie22c4980526575f73ebb4e56780d4c2193cc45d3
+---
+ .../alarmclock/DigitalAppWidgetProvider.java  | 57 +++++++++++++++++++
+ 1 file changed, 57 insertions(+)
+
+diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+index 52685f1f4..fec78bed7 100644
+--- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
++++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+@@ -19,6 +19,8 @@ package com.android.alarmclock;
+ import android.annotation.SuppressLint;
+ import android.app.AlarmManager;
+ import android.app.PendingIntent;
++import android.app.WallpaperColors;
++import android.app.WallpaperManager;
+ import android.appwidget.AppWidgetManager;
+ import android.appwidget.AppWidgetProvider;
+ import android.content.ComponentName;
+@@ -108,12 +110,40 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+     /** Intent used to deliver the {@link #ACTION_ON_DAY_CHANGE} callback. */
+     private static final Intent DAY_CHANGE_INTENT = new Intent(ACTION_ON_DAY_CHANGE);
+ 
++    private static WallpaperManager mWallpaperManager;
++    private static boolean mDarkText;
++
++    private static void relayoutAllWidgets(Context context) {
++        final AppWidgetManager wm = AppWidgetManager.getInstance(context);
++        final ComponentName provider = new ComponentName(context, DigitalAppWidgetProvider.class);
++        final int[] widgetIds = wm.getAppWidgetIds(provider);
++        for (int widgetId : widgetIds) {
++            relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
++        }
++    }
++
++    private static void addOnColorsChangedListener(Context context) {
++        mWallpaperManager.addOnColorsChangedListener(new WallpaperManager.OnColorsChangedListener() {
++            @Override
++            public void onColorsChanged(WallpaperColors colors, int which) {
++                relayoutAllWidgets(context);
++            }
++        }, null);
++    }
++
+     @Override
+     public void onEnabled(Context context) {
+         super.onEnabled(context);
+ 
+         // Schedule the day-change callback if necessary.
+         updateDayChangeCallback(context);
++
++        // Listen for wallpaper color changes
++        mWallpaperManager = WallpaperManager.getInstance(context);
++        addOnColorsChangedListener(context);
++
++        // Force a relayout to pick up initial colors
++        relayoutAllWidgets(context);
+     }
+ 
+     @Override
+@@ -203,6 +233,19 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+      */
+     private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
+             Bundle options, boolean portrait) {
++        // Determine text colors.
++        if (mWallpaperManager == null) {
++            mWallpaperManager = WallpaperManager.getInstance(context);
++            addOnColorsChangedListener(context);
++        }
++        WallpaperColors wallpaperColors = mWallpaperManager.getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
++        // Live wallpapers might not implement the WallpaperColors API.
++        if (wallpaperColors == null) {
++            mDarkText = false;
++        } else {
++            mDarkText = (wallpaperColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_TEXT) != 0;
++        }
++
+         // Create a remote view for the digital clock.
+         final String packageName = context.getPackageName();
+         final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget);
+@@ -260,6 +303,17 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+ 
++        // Apply the text color to the remote views.
++        if (mDarkText) {
++            rv.setTextColor(R.id.clock, resources.getColor(R.color.black));
++            rv.setTextColor(R.id.date, resources.getColor(R.color.black));
++            rv.setTextColor(R.id.nextAlarm, resources.getColor(R.color.black));
++        } else {
++            rv.setTextColor(R.id.clock, resources.getColor(R.color.white));
++            rv.setTextColor(R.id.date, resources.getColor(R.color.white));
++            rv.setTextColor(R.id.nextAlarm, resources.getColor(R.color.white));
++        }
++
+         final int smallestWorldCityListSizePx =
+                 resources.getDimensionPixelSize(R.dimen.widget_min_world_city_list_size);
+         if (sizes.getListHeight() <= smallestWorldCityListSizePx) {
+@@ -414,6 +468,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+         nextAlarmIcon.setPadding(0, 0, measuredSizes.mIconPaddingPx, 0);
+ 
++        // Adjust the alarm icon text color before generating its bitmap.
++        nextAlarmIcon.setTextColor(context.getResources().getColor(mDarkText ? R.color.black : R.color.white));
++
+         // Measure and layout the sizer.
+         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
+         final int heightSize = View.MeasureSpec.getSize(measuredSizes.mTargetHeightPx);
+-- 
+2.25.1
+

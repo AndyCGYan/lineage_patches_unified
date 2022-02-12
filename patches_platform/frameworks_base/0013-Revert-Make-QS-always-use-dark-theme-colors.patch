@@ -1,7 +1,7 @@
-From a3d2feb6e711e9a96cec4fa19276be18bdda118c Mon Sep 17 00:00:00 2001
+From 09ea8e6106959f6c8a6399227ee029d1feace6b2 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Wed, 6 Oct 2021 18:40:30 -0700
-Subject: [PATCH 13/21] Revert "Make QS always use dark theme colors"
+Subject: [PATCH 13/19] Revert "Make QS always use dark theme colors"
 
 This reverts commit d62f7249f9e3222da95ecf6816601c408aac6be5.
 

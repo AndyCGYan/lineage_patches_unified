@@ -1,4 +1,4 @@
-From 16f193c5d1d5a358a4d08432254477bdb69724ea Mon Sep 17 00:00:00 2001
+From ddd7c07b9bc675ca50a4dfa1d15906791649b688 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 17 Dec 2021 17:18:20 -0500
 Subject: [PATCH 09/13] On Samsung devices for FOD HBM, set specific usage bits

@@ -1,4 +1,4 @@
-From 1636cbb066d3a7f835588dad5aee9c2e764117d1 Mon Sep 17 00:00:00 2001
+From b5fe4477aa2acd28d60ce9f382dce31ac9d5c168 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 19 Dec 2021 17:04:51 -0500
 Subject: [PATCH 11/13] For FOD/HBM on Asus devices, call the HWC extended call

@@ -1,7 +1,7 @@
-From e37d16ac9d6d84412f64243dee1c48d8b1eb6ed5 Mon Sep 17 00:00:00 2001
+From 9644e048f2a52b51195003bb90a45c3a0efb67c8 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 13 Jan 2022 14:22:24 +0000
-Subject: [PATCH 01/21] Add SPenPointerOverlay
+Subject: [PATCH 01/19] Add SPenPointerOverlay
 
 Toggle this overlay with property "persist.ui.spen.pointer"
 
@@ -114,7 +114,7 @@ HcmV?d00001
 
 diff --git a/packages/overlays/SPenPointerOverlay/res/drawable/pointer_arrow_icon.xml b/packages/overlays/SPenPointerOverlay/res/drawable/pointer_arrow_icon.xml
 new file mode 100644
-index 000000000000..6db08716fc62
+index 000000000000..f35255c5f961
 --- /dev/null
 +++ b/packages/overlays/SPenPointerOverlay/res/drawable/pointer_arrow_icon.xml
 @@ -0,0 +1,5 @@

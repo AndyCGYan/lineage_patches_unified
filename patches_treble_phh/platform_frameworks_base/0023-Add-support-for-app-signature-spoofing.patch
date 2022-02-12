@@ -1,4 +1,4 @@
-From 7b0c25ae3dfe6af5d9d9a2b2518964f7c5f034bf Mon Sep 17 00:00:00 2001
+From 3c7d6c5106eea744e08250998ce3d60af7c9b306 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 16 Oct 2021 05:27:57 -0700
 Subject: [PATCH 23/28] Add support for app signature spoofing
@@ -56,10 +56,10 @@ index 1de47b548a5c..52c7ea2e1321 100644
      field public static final String MICROPHONE = "android.permission-group.MICROPHONE";
      field public static final String NEARBY_DEVICES = "android.permission-group.NEARBY_DEVICES";
 diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
-index 76b8547cea2a..8bd3206d1e3a 100644
+index a006db9d8373..8c88f2d3dcba 100644
 --- a/core/res/AndroidManifest.xml
 +++ b/core/res/AndroidManifest.xml
-@@ -3199,6 +3199,21 @@
+@@ -3202,6 +3202,21 @@
          android:description="@string/permdesc_getPackageSize"
          android:protectionLevel="normal" />
  

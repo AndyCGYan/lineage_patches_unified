@@ -1,4 +1,4 @@
-From d884ed740455da2dc943c14b7c2c41b5a2236c74 Mon Sep 17 00:00:00 2001
+From 978be1fd8202655676e335cdd611f9c6756c0025 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 01:43:40 +0000
 Subject: [PATCH 1/4] treble: Lineage-ify
@@ -30,7 +30,7 @@ index 6a317e4..e69de29 100644
 -PRODUCT_COPY_FILES += \
 -	device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
 diff --git a/base.mk b/base.mk
-index 3655b72..ce99bcc 100644
+index 73abbab..057ad0c 100644
 --- a/base.mk
 +++ b/base.mk
 @@ -8,12 +8,14 @@ PRODUCT_COPY_FILES := \
@@ -68,7 +68,7 @@ index 3655b72..ce99bcc 100644
  #VNDK config files
  PRODUCT_COPY_FILES += \
 diff --git a/generate.sh b/generate.sh
-index b9647b9..66a48a6 100644
+index 352fe12..7e4f137 100644
 --- a/generate.sh
 +++ b/generate.sh
 @@ -65,6 +65,9 @@ for part in a ab;do
@@ -169,7 +169,7 @@ index 0000000..8df673a
 +    <integer name="config_deviceHardwareWakeKeys">127</integer>
 +</resources>
 diff --git a/overlay/frameworks/base/core/res/res/values/config.xml b/overlay/frameworks/base/core/res/res/values/config.xml
-index 2d5c21e..7a15163 100644
+index 89be3f6..bad8f29 100644
 --- a/overlay/frameworks/base/core/res/res/values/config.xml
 +++ b/overlay/frameworks/base/core/res/res/values/config.xml
 @@ -22,7 +22,6 @@
@@ -181,12 +181,12 @@ index 2d5c21e..7a15163 100644
  	<integer name="config_multiuserMaximumUsers">5</integer>
  	<bool name="config_enableMultiUserUI">true</bool>
 diff --git a/sepolicy/file_contexts b/sepolicy/file_contexts
-index 4ae5095..5e39d5b 100644
+index 999ff97..11dd447 100644
 --- a/sepolicy/file_contexts
 +++ b/sepolicy/file_contexts
-@@ -6,9 +6,6 @@
- /system/bin/phh-on-data.sh u:object_r:phhsu_exec:s0
+@@ -7,9 +7,6 @@
  /system/bin/asus-motor u:object_r:phhsu_exec:s0
+ /system/bin/xiaomi-touch u:object_r:phhsu_exec:s0
  
 -#/system/bin/fsck\.exfat                 u:object_r:fsck_exec:s0
 -/system/bin/fsck\.ntfs                  u:object_r:fsck_exec:s0

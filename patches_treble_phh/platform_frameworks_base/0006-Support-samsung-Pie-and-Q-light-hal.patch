@@ -1,4 +1,4 @@
-From 073b07985a88b4ab54a9451503d58070de0f0721 Mon Sep 17 00:00:00 2001
+From fec18df4c1900f54a9581569a27f44d4aa6689ce Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 Mar 2019 23:05:14 +0100
 Subject: [PATCH 06/28] Support samsung Pie and Q light hal
@@ -10,13 +10,13 @@ Change-Id: I01f94acd7d0672733e48854d80368f9ac6f861c6
  2 files changed, 53 insertions(+)
 
 diff --git a/services/core/jni/Android.bp b/services/core/jni/Android.bp
-index 81532bcba0ae..8ddc16aae3d7 100644
+index 53401fd47178..59256cc73df1 100644
 --- a/services/core/jni/Android.bp
 +++ b/services/core/jni/Android.bp
-@@ -184,6 +184,8 @@ cc_defaults {
+@@ -183,6 +183,8 @@ cc_defaults {
+         "android.system.suspend.control.internal-cpp",
          "android.system.suspend@1.0",
          "service.incremental",
-         "vendor.lineage.power-V1-cpp",
 +        "vendor.samsung.hardware.light@2.0",
 +        "vendor.samsung.hardware.light@3.0",
      ],

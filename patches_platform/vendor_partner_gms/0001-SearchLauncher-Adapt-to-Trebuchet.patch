@@ -1,12 +1,13 @@
-From c4eac79c4f34e34e793f19e50d97a74daa05ec69 Mon Sep 17 00:00:00 2001
+From facde4b2b88c2ced8092714df21c4e09751ca1da Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 30 Nov 2021 12:58:00 +0000
 Subject: [PATCH] SearchLauncher: Adapt to Trebuchet
 
 ---
- apps/SearchLauncher/Android.mk          | 4 ++--
- apps/SearchLauncher/AndroidManifest.xml | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ apps/SearchLauncher/Android.mk                                | 4 ++--
+ apps/SearchLauncher/AndroidManifest.xml                       | 3 ++-
+ .../quickstep/res/layout/search_container_all_apps.xml        | 2 +-
+ 3 files changed, 5 insertions(+), 4 deletions(-)
 
 diff --git a/apps/SearchLauncher/Android.mk b/apps/SearchLauncher/Android.mk
 index a9f182a..6b90364 100644
@@ -44,6 +45,19 @@ index d5ffded..a9b5597 100644
  
          <activity
              android:name="com.android.searchlauncher.SearchLauncher"
+diff --git a/apps/SearchLauncher/quickstep/res/layout/search_container_all_apps.xml b/apps/SearchLauncher/quickstep/res/layout/search_container_all_apps.xml
+index 1fae132..82ccf38 100644
+--- a/apps/SearchLauncher/quickstep/res/layout/search_container_all_apps.xml
++++ b/apps/SearchLauncher/quickstep/res/layout/search_container_all_apps.xml
+@@ -47,7 +47,7 @@
+         android:scrollHorizontally="true"
+         android:singleLine="true"
+         android:textColor="?android:attr/textColorSecondary"
+-        android:textColorHint="@drawable/all_apps_search_hint"
++        android:textColorHint="?android:attr/textColorSecondary"
+         android:textSize="16sp"
+         android:visibility="invisible" />
+ </com.android.searchlauncher.HotseatQsbWidget>
 -- 
 2.25.1
 

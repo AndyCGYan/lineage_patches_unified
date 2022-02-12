@@ -1,7 +1,7 @@
-From 5778373cb0bfbf81bfb264930a61435a1c5eda2a Mon Sep 17 00:00:00 2001
+From ced2463ffce1b064312ac607fcab72ef3a7a3c3c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 5 Sep 2021 00:30:33 +0000
-Subject: [PATCH 3/3] DeskClock: Remove night mode
+Subject: [PATCH 2/4] DeskClock: Remove night mode
 
 Change-Id: I885f39027e78fcda397f1be59d17bc24bc66671a
 ---
@@ -28,10 +28,10 @@ index 1680aab83..73375dcfa 100644
 \ No newline at end of file
 +</PreferenceScreen>
 diff --git a/src/com/android/deskclock/Screensaver.java b/src/com/android/deskclock/Screensaver.java
-index 7f01d880a..b295d7a77 100644
+index 49530d44c..864a41575 100644
 --- a/src/com/android/deskclock/Screensaver.java
 +++ b/src/com/android/deskclock/Screensaver.java
-@@ -166,9 +166,8 @@ public final class Screensaver extends DreamService {
+@@ -164,9 +164,8 @@ public final class Screensaver extends DreamService {
  
      private void setClockStyle() {
          Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
@@ -44,10 +44,10 @@ index 7f01d880a..b295d7a77 100644
  
      /**
 diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
-index 14c9bab00..912d59b2c 100644
+index e1db8c5ff..a735263b3 100644
 --- a/src/com/android/deskclock/ScreensaverActivity.java
 +++ b/src/com/android/deskclock/ScreensaverActivity.java
-@@ -119,7 +119,7 @@ public class ScreensaverActivity extends BaseActivity {
+@@ -117,7 +117,7 @@ public class ScreensaverActivity extends BaseActivity {
          Utils.setClockIconTypeface(mMainClockView);
          Utils.setTimeFormat((TextClock) digitalClock, false);
          Utils.setClockStyle(digitalClock, analogClock);

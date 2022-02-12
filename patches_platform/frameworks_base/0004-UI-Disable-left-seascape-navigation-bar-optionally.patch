@@ -1,7 +1,7 @@
-From b6ee471eb9405c82d26fc2cddc4c1446fa872467 Mon Sep 17 00:00:00 2001
+From 47b42ba04a71792b6a0d9bcfa6fe515593d4bcc8 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 9 Mar 2018 15:41:26 +0800
-Subject: [PATCH 04/21] UI: Disable left (seascape) navigation bar optionally
+Subject: [PATCH 04/19] UI: Disable left (seascape) navigation bar optionally
 
 Toggle this behaviour with property "persist.ui.seascape.disable"
 

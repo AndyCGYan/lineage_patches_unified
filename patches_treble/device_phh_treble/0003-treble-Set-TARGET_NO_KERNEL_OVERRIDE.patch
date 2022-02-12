@@ -1,4 +1,4 @@
-From 882eaf34cd14cbf1c9617498f0318bcaffca8632 Mon Sep 17 00:00:00 2001
+From 56c20273ac8c3c34de36f80edc2e94fc5f60b78a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 20 Oct 2021 11:30:25 +0000
 Subject: [PATCH 3/4] treble: Set TARGET_NO_KERNEL_OVERRIDE
