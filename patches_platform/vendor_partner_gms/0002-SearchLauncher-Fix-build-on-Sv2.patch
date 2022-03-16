@@ -1,0 +1,42 @@
+From addc56fdc030440cc10fafd693aab28badeef2f0 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 20 Mar 2022 02:13:47 +0000
+Subject: [PATCH 2/2] SearchLauncher: Fix build on Sv2
+
+---
+ apps/SearchLauncher/Android.mk                               | 5 ++++-
+ .../src/com/android/searchlauncher/HotseatQsbWidget.java     | 2 +-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/apps/SearchLauncher/Android.mk b/apps/SearchLauncher/Android.mk
+index 6b90364..8202b04 100644
+--- a/apps/SearchLauncher/Android.mk
++++ b/apps/SearchLauncher/Android.mk
+@@ -61,7 +61,10 @@ include $(CLEAR_VARS)
+ # Relative path for Launcher3 directory
+ LAUNCHER_PATH := ../../../../packages/apps/Trebuchet
+ 
+-LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
++LOCAL_STATIC_ANDROID_LIBRARIES := \
++    Launcher3CommonDepsLib \
++    Launcher3QuickStepLib \
++    QuickstepResLib
+ LOCAL_STATIC_JAVA_LIBRARIES := \
+     lib_launcherClient \
+     SystemUISharedLib \
+diff --git a/apps/SearchLauncher/quickstep/src/com/android/searchlauncher/HotseatQsbWidget.java b/apps/SearchLauncher/quickstep/src/com/android/searchlauncher/HotseatQsbWidget.java
+index 24c2de9..17162ed 100644
+--- a/apps/SearchLauncher/quickstep/src/com/android/searchlauncher/HotseatQsbWidget.java
++++ b/apps/SearchLauncher/quickstep/src/com/android/searchlauncher/HotseatQsbWidget.java
+@@ -126,7 +126,7 @@ public class HotseatQsbWidget extends QsbContainerView implements Insettable, Se
+         MarginLayoutParams mlp = (MarginLayoutParams) getLayoutParams();
+         mlp.topMargin = Math.max(-mFixedTranslationY, insets.top - mMarginTopAdjusting);
+ 
+-        Rect padding = mActivity.getDeviceProfile().getHotseatLayoutPadding();
++        Rect padding = mActivity.getDeviceProfile().getHotseatLayoutPadding(getContext());
+         setPaddingUnchecked(padding.left, 0, padding.right, 0);
+ 
+ 
+-- 
+2.25.1
+

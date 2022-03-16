@@ -1,0 +1,334 @@
+From e75e1b19b2da6bea129d320436f3796de4635936 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 14 Mar 2022 08:20:43 +0000
+Subject: [PATCH 02/22] UI: Monet: Default to Lineage Teal
+
+Embrace Monet, but also maintain some LOS identity
+Applies the signature teal of LineageOS (#167C80) as fallback (e.g. with live wallpapers)
+
+Change-Id: Ida88fa1d891223ad11e058d24b3c96bebbc9cd62
+---
+ core/res/res/values/colors.xml                | 120 +++++++++---------
+ .../com/android/systemui/monet/ColorScheme.kt |  14 +-
+ 2 files changed, 67 insertions(+), 67 deletions(-)
+
+diff --git a/core/res/res/values/colors.xml b/core/res/res/values/colors.xml
+index 59d6005ba193..36cf03f5268e 100644
+--- a/core/res/res/values/colors.xml
++++ b/core/res/res/values/colors.xml
+@@ -245,200 +245,200 @@
+ 
+     <!-- Lightest shade of the accent color used by the system. White.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_0">#ffffff</color>
++    <color name="system_accent1_0">#FFFFFF</color>
+     <!-- Shade of the accent system color at 99% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_10">#F9FCFF</color>
++    <color name="system_accent1_10">#EFFFFF</color>
+     <!-- Shade of the accent system color at 95% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_50">#E0F3FF</color>
++    <color name="system_accent1_50">#B4FDFF</color>
+     <!-- Shade of the accent system color at 90% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_100">#C1E8FF</color>
++    <color name="system_accent1_100">#6EF6FC</color>
+     <!-- Shade of the accent system color at 80% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_200">#76D1FF</color>
++    <color name="system_accent1_200">#4CD9E0</color>
+     <!-- Shade of the accent system color at 70% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_300">#4BB6E8</color>
++    <color name="system_accent1_300">#1EBDC4</color>
+     <!-- Shade of the accent system color at 60% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_400">#219BCC</color>
++    <color name="system_accent1_400">#00A1A7</color>
+     <!-- Shade of the accent system color at 49.6% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_500">#007FAC</color>
++    <color name="system_accent1_500">#008388</color>
+     <!-- Shade of the accent system color at 40% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_600">#00668B</color>
++    <color name="system_accent1_600">#00696E</color>
+     <!-- Shade of the accent system color at 30% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_700">#004C69</color>
++    <color name="system_accent1_700">#004F53</color>
+     <!-- Shade of the accent system color at 20% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_800">#003549</color>
++    <color name="system_accent1_800">#00373A</color>
+     <!-- Shade of the accent system color at 10% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent1_900">#001E2C</color>
++    <color name="system_accent1_900">#002022</color>
+     <!-- Darkest shade of the accent color used by the system. Black.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+     <color name="system_accent1_1000">#000000</color>
+ 
+     <!-- Lightest shade of the secondary accent color used by the system. White.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_0">#ffffff</color>
++    <color name="system_accent2_0">#FFFFFF</color>
+     <!-- Shade of the secondary accent system color at 99% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_10">#F9FCFF</color>
++    <color name="system_accent2_10">#EFFFFF</color>
+     <!-- Shade of the secondary accent system color at 95% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_50">#E0F3FF</color>
++    <color name="system_accent2_50">#DAF6F7</color>
+     <!-- Shade of the secondary accent system color at 90% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_100">#D1E5F4</color>
++    <color name="system_accent2_100">#CCE8E8</color>
+     <!-- Shade of the secondary accent system color at 80% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_200">#B5CAD7</color>
++    <color name="system_accent2_200">#B0CCCC</color>
+     <!-- Shade of the secondary accent system color at 70% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_300">#9AAEBB</color>
++    <color name="system_accent2_300">#96B0B1</color>
+     <!-- Shade of the secondary accent system color at 60% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_400">#8094A0</color>
++    <color name="system_accent2_400">#7B9697</color>
+     <!-- Shade of the secondary accent system color at 49.6% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_500">#657985</color>
++    <color name="system_accent2_500">#617B7C</color>
+     <!-- Shade of the secondary accent system color at 40% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_600">#4E616C</color>
++    <color name="system_accent2_600">#496364</color>
+     <!-- Shade of the secondary accent system color at 30% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_700">#374955</color>
++    <color name="system_accent2_700">#324B4D</color>
+     <!-- Shade of the secondary accent system color at 20% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_800">#20333D</color>
++    <color name="system_accent2_800">#1B3436</color>
+     <!-- Shade of the secondary accent system color at 10% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent2_900">#091E28</color>
++    <color name="system_accent2_900">#051F21</color>
+     <!-- Darkest shade of the secondary accent color used by the system. Black.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+     <color name="system_accent2_1000">#000000</color>
+ 
+     <!-- Lightest shade of the tertiary accent color used by the system. White.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_0">#ffffff</color>
++    <color name="system_accent3_0">#FFFFFF</color>
+     <!-- Shade of the tertiary accent system color at 99% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_10">#FFFBFF</color>
++    <color name="system_accent3_10">#FDFCFF</color>
+     <!-- Shade of the tertiary accent system color at 95% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_50">#F5EEFF</color>
++    <color name="system_accent3_50">#EBF1FF</color>
+     <!-- Shade of the tertiary accent system color at 90% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_100">#E6DEFF</color>
++    <color name="system_accent3_100">#D4E3FF</color>
+     <!-- Shade of the tertiary accent system color at 80% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_200">#CAC1EA</color>
++    <color name="system_accent3_200">#ACC8F7</color>
+     <!-- Shade of the tertiary accent system color at 70% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_300">#AEA6CE</color>
++    <color name="system_accent3_300">#91ACDB</color>
+     <!-- Shade of the tertiary accent system color at 60% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_400">#938CB1</color>
++    <color name="system_accent3_400">#7692BE</color>
+     <!-- Shade of the tertiary accent system color at 49% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_500">#787296</color>
++    <color name="system_accent3_500">#5C77A2</color>
+     <!-- Shade of the tertiary accent system color at 40% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_600">#605A7C</color>
++    <color name="system_accent3_600">#445F8A</color>
+     <!-- Shade of the tertiary accent system color at 30% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_700">#484264</color>
++    <color name="system_accent3_700">#2B4770</color>
+     <!-- Shade of the tertiary accent system color at 20% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_800">#322C4C</color>
++    <color name="system_accent3_800">#113158</color>
+     <!-- Shade of the tertiary accent system color at 10% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_accent3_900">#1D1736</color>
++    <color name="system_accent3_900">#001B3D</color>
+     <!-- Darkest shade of the tertiary accent color used by the system. Black.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+     <color name="system_accent3_1000">#000000</color>
+ 
+     <!-- Lightest shade of the neutral color used by the system. White.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_0">#ffffff</color>
++    <color name="system_neutral1_0">#FFFFFF</color>
+     <!-- Shade of the neutral system color at 99% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_10">#FCFCFF</color>
++    <color name="system_neutral1_10">#FAFDFC</color>
+     <!-- Shade of the neutral system color at 95% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_50">#F0F0F3</color>
++    <color name="system_neutral1_50">#EFF1F1</color>
+     <!-- Shade of the neutral system color at 90% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_100">#E1E3E5</color>
++    <color name="system_neutral1_100">#E0E3E2</color>
+     <!-- Shade of the neutral system color at 80% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_200">#C5C7C9</color>
++    <color name="system_neutral1_200">#C4C7C6</color>
+     <!-- Shade of the neutral system color at 70% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_300">#AAABAE</color>
++    <color name="system_neutral1_300">#A9ACAB</color>
+     <!-- Shade of the neutral system color at 60% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_400">#8F9193</color>
++    <color name="system_neutral1_400">#8E9191</color>
+     <!-- Shade of the neutral system color at 49% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_500">#747679</color>
++    <color name="system_neutral1_500">#737776</color>
+     <!-- Shade of the neutral system color at 40% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_600">#5C5F61</color>
++    <color name="system_neutral1_600">#5B5F5F</color>
+     <!-- Shade of the neutral system color at 30% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_700">#454749</color>
++    <color name="system_neutral1_700">#444747</color>
+     <!-- Shade of the neutral system color at 20% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_800">#2E3133</color>
++    <color name="system_neutral1_800">#2E3131</color>
+     <!-- Shade of the neutral system color at 10% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral1_900">#191C1E</color>
++    <color name="system_neutral1_900">#191C1C</color>
+     <!-- Darkest shade of the neutral color used by the system. Black.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+     <color name="system_neutral1_1000">#000000</color>
+ 
+     <!-- Lightest shade of the secondary neutral color used by the system. White.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_0">#ffffff</color>
++    <color name="system_neutral2_0">#FFFFFF</color>
+     <!-- Shade of the secondary neutral system color at 99% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_10">#F9FCFF</color>
++    <color name="system_neutral2_10">#F4FEFE</color>
+     <!-- Shade of the secondary neutral system color at 95% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_50">#EBF1F8</color>
++    <color name="system_neutral2_50">#E8F3F2</color>
+     <!-- Shade of the secondary neutral system color at 90% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_100">#DCE3E9</color>
++    <color name="system_neutral2_100">#DAE5E4</color>
+     <!-- Shade of the secondary neutral system color at 80% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_200">#C0C7CD</color>
++    <color name="system_neutral2_200">#BEC8C9</color>
+     <!-- Shade of the secondary neutral system color at 70% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_300">#A5ACB2</color>
++    <color name="system_neutral2_300">#A3ADAE</color>
+     <!-- Shade of the secondary neutral system color at 60% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_400">#8A9297</color>
++    <color name="system_neutral2_400">#889393</color>
+     <!-- Shade of the secondary neutral system color at 49% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_500">#70777C</color>
++    <color name="system_neutral2_500">#6E7878</color>
+     <!-- Shade of the secondary neutral system color at 40% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_600">#585F65</color>
++    <color name="system_neutral2_600">#566061</color>
+     <!-- Shade of the secondary neutral system color at 30% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_700">#40484D</color>
++    <color name="system_neutral2_700">#3F4949</color>
+     <!-- Shade of the secondary neutral system color at 20% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_800">#2A3136</color>
++    <color name="system_neutral2_800">#293232</color>
+     <!-- Shade of the secondary neutral system color at 10% perceptual luminance (L* in L*a*b* color space).
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+-    <color name="system_neutral2_900">#161C20</color>
++    <color name="system_neutral2_900">#141D1E</color>
+     <!-- Darkest shade of the secondary neutral color used by the system. Black.
+      This value can be overlaid at runtime by OverlayManager RROs. -->
+     <color name="system_neutral2_1000">#000000</color>
+diff --git a/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt b/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
+index 0b3eccfd3a91..eabc1c510ecb 100644
+--- a/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
++++ b/packages/SystemUI/monet/src/com/android/systemui/monet/ColorScheme.kt
+@@ -35,7 +35,7 @@ const val ACCENT3_HUE_SHIFT = 60.0f
+ const val NEUTRAL1_CHROMA = 4.0f
+ const val NEUTRAL2_CHROMA = 8.0f
+ 
+-const val GOOGLE_BLUE = 0xFF1b6ef3.toInt()
++const val LINEAGE_TEAL = 0xFF167C80.toInt()
+ 
+ const val MIN_CHROMA = 5
+ 
+@@ -76,9 +76,9 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+     init {
+         val proposedSeedCam = Cam.fromInt(seed)
+         val seedArgb = if (seed == Color.TRANSPARENT) {
+-            GOOGLE_BLUE
++            LINEAGE_TEAL
+         } else if (proposedSeedCam.chroma < 5) {
+-            GOOGLE_BLUE
++            LINEAGE_TEAL
+         } else {
+             seed
+         }
+@@ -140,7 +140,7 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+                 }.toList()
+ 
+                 if (distinctColors.isEmpty()) {
+-                    return listOf(GOOGLE_BLUE)
++                    return listOf(LINEAGE_TEAL)
+                 }
+                 return distinctColors
+             }
+@@ -204,8 +204,8 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+             }
+ 
+             if (seeds.isEmpty()) {
+-                // Use gBlue 500 if there are 0 colors
+-                seeds.add(GOOGLE_BLUE)
++                // Use Lineage Teal 500 if there are 0 colors
++                seeds.add(LINEAGE_TEAL)
+             }
+ 
+             return seeds
+@@ -259,4 +259,4 @@ public class ColorScheme(@ColorInt seed: Int, val darkTheme: Boolean) {
+             return huePopulation
+         }
+     }
+-}
+\ No newline at end of file
++}
+-- 
+2.25.1
+

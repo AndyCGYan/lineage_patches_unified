@@ -1,4 +1,4 @@
-From e2392f1b2f4afbf783fd6b1b25c2d905828c71f1 Mon Sep 17 00:00:00 2001
+From 7b79958277c40838fdbbcd7c9324cb9543318290 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Wed, 3 Mar 2021 06:31:17 -0500
 Subject: [PATCH 3/4] Restore /sbin for Magisk compatibility

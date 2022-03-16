@@ -1,9 +1,9 @@
-From 291265e4179a03a9407ed2e7a7f898be0eb25e00 Mon Sep 17 00:00:00 2001
+From 5e9668c16e8cd71526cb2b451c9a072ed14f12dc Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
-Date: Sat, 6 Nov 2021 05:43:23 +0000
+Date: Sun, 13 Mar 2022 11:06:37 +0000
 Subject: [PATCH 1/4] Revert "init: Add vendor-specific initialization hooks."
 
-This reverts commit e2dc41bcfb140e0119e0f7e34eccfb2335ae7f89.
+This reverts commit 99ef051a7d0d34103babf5f2297dd2747c28570c.
 ---
  init/Android.bp           |  9 ---------
  init/NOTICE               | 26 --------------------------
@@ -15,7 +15,7 @@ This reverts commit e2dc41bcfb140e0119e0f7e34eccfb2335ae7f89.
  delete mode 100644 init/vendor_init.h
 
 diff --git a/init/Android.bp b/init/Android.bp
-index 69f8815ed..7eeafa24b 100644
+index 00ac6a752..a57f3a407 100644
 --- a/init/Android.bp
 +++ b/init/Android.bp
 @@ -89,14 +89,6 @@ init_host_sources = [
@@ -30,10 +30,10 @@ index 69f8815ed..7eeafa24b 100644
 -    ],
 -}
 -
- cc_defaults {
-     name: "init_defaults",
-     sanitize: {
-@@ -190,7 +182,6 @@ cc_library_static {
+ soong_config_module_type {
+     name: "libinit_cc_defaults",
+     module_type: "cc_defaults",
+@@ -211,7 +203,6 @@ cc_library_static {
      defaults: [
          "init_defaults",
          "selinux_policy_version",
@@ -76,7 +76,7 @@ index 383d0f541..c5b1efa7a 100644
 -OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
 -IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 diff --git a/init/property_service.cpp b/init/property_service.cpp
-index bc9a29dea..5974065f5 100644
+index 1600744ff..49500428e 100644
 --- a/init/property_service.cpp
 +++ b/init/property_service.cpp
 @@ -73,7 +73,6 @@
@@ -87,7 +87,7 @@ index bc9a29dea..5974065f5 100644
  
  using namespace std::literals;
  
-@@ -1097,9 +1096,6 @@ void PropertyLoadBootDefaults() {
+@@ -1102,9 +1101,6 @@ void PropertyLoadBootDefaults() {
          }
      }
  

@@ -1,0 +1,32 @@
+From bd9f9e0fab155e87e20de3f8abde37b65b9a46e2 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 14 Mar 2022 03:44:59 +0000
+Subject: [PATCH 2/2] Revert "overlay: Default to night mode"
+
+This reverts commit 4d4e39a845d54e37b20728f1448ae6e3fde4b97d.
+
+Change-Id: I036bdd576e536392cf41e3c536d5ca2eb04e5a0f
+---
+ .../common/frameworks/base/core/res/res/values/config.xml | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/overlay/common/frameworks/base/core/res/res/values/config.xml b/overlay/common/frameworks/base/core/res/res/values/config.xml
+index 8028dc8d..179f96d7 100644
+--- a/overlay/common/frameworks/base/core/res/res/values/config.xml
++++ b/overlay/common/frameworks/base/core/res/res/values/config.xml
+@@ -155,12 +155,4 @@
+     <bool name="config_supportsMicToggle">true</bool>
+     <!-- Whether this device is supporting the camera toggle -->
+     <bool name="config_supportsCamToggle">true</bool>
+-
+-    <!-- Control the default night mode to use when there is no other mode override set.
+-         One of the following values (see UiModeManager.java):
+-             0 - MODE_NIGHT_AUTO
+-             1 - MODE_NIGHT_NO
+-             2 - MODE_NIGHT_YES
+-    -->
+-    <integer name="config_defaultNightMode">2</integer>
+ </resources>
+-- 
+2.25.1
+

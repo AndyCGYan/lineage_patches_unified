@@ -1,0 +1,54 @@
+From bf258bd06284df94c2872e677679299d2498b4df Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Wed, 6 Oct 2021 18:40:30 -0700
+Subject: [PATCH 15/22] Revert "Make QS always use dark theme colors"
+
+This reverts commit d62f7249f9e3222da95ecf6816601c408aac6be5.
+
+This is a prerequisite for making the QS panel follow the light system
+theme setting.
+
+Change-Id: Iac4c96ccb3845812ca3df820bf27dc533816f72e
+---
+ packages/SystemUI/res/layout/quick_qs_status_icons.xml | 2 +-
+ packages/SystemUI/res/values/styles.xml                | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/packages/SystemUI/res/layout/quick_qs_status_icons.xml b/packages/SystemUI/res/layout/quick_qs_status_icons.xml
+index 542a1c9d22bd..7a370d8cbc48 100644
+--- a/packages/SystemUI/res/layout/quick_qs_status_icons.xml
++++ b/packages/SystemUI/res/layout/quick_qs_status_icons.xml
+@@ -24,7 +24,7 @@
+     android:minHeight="@dimen/qs_header_row_min_height"
+     android:clickable="false"
+     android:focusable="true"
+-    android:theme="@style/Theme.SystemUI.QuickSettings.Header">
++    android:theme="@style/QSHeaderTheme">
+ 
+     <LinearLayout
+         android:id="@+id/clock_container"
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index f26159f5176a..e2665f879e5e 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -326,7 +326,7 @@
+         <item name="*android:dotColor">?android:attr/textColorSecondary</item>
+     </style>
+ 
+-    <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault">
++    <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault.SystemUI">
+         <item name="lightIconTheme">@style/QSIconTheme</item>
+         <item name="darkIconTheme">@style/QSIconTheme</item>
+         <item name="android:colorError">@*android:color/error_color_material_dark</item>
+@@ -421,7 +421,7 @@
+         <item name="singleToneColor">@color/dark_mode_qs_icon_color_single_tone</item>
+     </style>
+ 
+-    <style name="Theme.SystemUI.QuickSettings.Header">
++    <style name="QSHeaderTheme" parent="@style/Theme.SystemUI">
+         <item name="lightIconTheme">@style/DualToneLightTheme</item>
+         <item name="darkIconTheme">@style/QSHeaderDarkTheme</item>
+     </style>
+-- 
+2.25.1
+

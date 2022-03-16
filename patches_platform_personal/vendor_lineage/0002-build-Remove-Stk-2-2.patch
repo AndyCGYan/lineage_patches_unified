@@ -1,7 +1,7 @@
-From e3633d610a46dfa849b01ae66ff233e615efa079 Mon Sep 17 00:00:00 2001
+From 0187e006bf6b0374d00ad42689295bb96d59a587 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 00:41:07 +0000
-Subject: [PATCH 2/4] build: Remove Stk (2/2)
+Subject: [PATCH 2/3] build: Remove Stk (2/2)
 
 Change-Id: I4e1cfacd296e47ef1731f3c32555089a5fca6f0c
 ---

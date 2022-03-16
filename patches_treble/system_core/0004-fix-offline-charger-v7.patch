@@ -1,4 +1,4 @@
-From 1c13959077f9616c050b4ee92420f561b3af6121 Mon Sep 17 00:00:00 2001
+From e3589c745007dbc2f9c983dd68f0fc82fdd56244 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Wed, 26 Feb 2020 07:23:44 +0200
 Subject: [PATCH 4/4] fix offline charger v7
@@ -9,7 +9,7 @@ Subject: [PATCH 4/4] fix offline charger v7
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/rootdir/init.rc b/rootdir/init.rc
-index 376a678a8..6434d06bf 100644
+index 5116c0fea..76f2bf60e 100644
 --- a/rootdir/init.rc
 +++ b/rootdir/init.rc
 @@ -11,6 +11,11 @@ import /vendor/etc/init/hw/init.${ro.hardware}.rc
@@ -24,7 +24,7 @@ index 376a678a8..6434d06bf 100644
  # Cgroups are mounted right before early-init using list from /etc/cgroups.json
  on early-init
      # Disable sysrq from keyboard
-@@ -452,7 +457,7 @@ on init
+@@ -456,7 +461,7 @@ on init
  # Healthd can trigger a full boot from charger mode by signaling this
  # property when the power button is held.
  on property:sys.boot_from_charger_mode=1
@@ -33,7 +33,7 @@ index 376a678a8..6434d06bf 100644
      trigger late-init
  
  on load_persist_props_action
-@@ -1090,8 +1095,12 @@ on nonencrypted
+@@ -1108,8 +1113,12 @@ on nonencrypted
  on property:sys.init_log_level=*
      loglevel ${sys.init_log_level}
  

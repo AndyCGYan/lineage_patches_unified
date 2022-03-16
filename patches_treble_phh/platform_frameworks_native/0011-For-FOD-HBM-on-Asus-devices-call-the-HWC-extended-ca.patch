@@ -1,7 +1,7 @@
-From b5fe4477aa2acd28d60ce9f382dce31ac9d5c168 Mon Sep 17 00:00:00 2001
+From b22d8d3469382c919362fb31f6f88e3efd9fdc07 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 19 Dec 2021 17:04:51 -0500
-Subject: [PATCH 11/13] For FOD/HBM on Asus devices, call the HWC extended call
+Subject: [PATCH 11/14] For FOD/HBM on Asus devices, call the HWC extended call
  setLayerClass
 
 Change-Id: Id8773fc3d2fb6d2bd228503b1ee0d77864b2eb05
@@ -36,7 +36,7 @@ index f605b0271b..cd81a5e5d0 100644
      }
  
 diff --git a/services/surfaceflinger/DisplayHardware/ComposerHal.cpp b/services/surfaceflinger/DisplayHardware/ComposerHal.cpp
-index caf0294a56..ff5039f75b 100644
+index 09734c275f..19f22f453b 100644
 --- a/services/surfaceflinger/DisplayHardware/ComposerHal.cpp
 +++ b/services/surfaceflinger/DisplayHardware/ComposerHal.cpp
 @@ -1220,6 +1220,13 @@ V2_4::Error Composer::setLayerGenericMetadata(Display display, Layer layer, cons
@@ -54,7 +54,7 @@ index caf0294a56..ff5039f75b 100644
          std::vector<IComposerClient::LayerGenericMetadataKey>* outKeys) {
      using Error = V2_4::Error;
 diff --git a/services/surfaceflinger/DisplayHardware/ComposerHal.h b/services/surfaceflinger/DisplayHardware/ComposerHal.h
-index b525e63c66..2eb63f3c2e 100644
+index fe114b9512..669e652fba 100644
 --- a/services/surfaceflinger/DisplayHardware/ComposerHal.h
 +++ b/services/surfaceflinger/DisplayHardware/ComposerHal.h
 @@ -231,6 +231,9 @@ public:

@@ -1,7 +1,7 @@
-From facde4b2b88c2ced8092714df21c4e09751ca1da Mon Sep 17 00:00:00 2001
+From 0f9d8e22d10d8a7de0eac999abce808ab456b973 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 30 Nov 2021 12:58:00 +0000
-Subject: [PATCH] SearchLauncher: Adapt to Trebuchet
+Subject: [PATCH 1/2] SearchLauncher: Adapt to Trebuchet
 
 ---
  apps/SearchLauncher/Android.mk                                | 4 ++--

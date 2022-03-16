@@ -1,0 +1,294 @@
+From dae69872bd37ea8b2f4877ecb44ef5338f589079 Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Mon, 11 Oct 2021 19:24:58 -0700
+Subject: [PATCH 17/22] SystemUI: Follow light/dark theme in quick settings
+
+Android 12's dual-tone style where the quick settings panel is always
+dark makes the light theme look like a second-class citizen. Pure black
+also looks out-of-place next to QS tiles and the notification panel
+because dynamic themes don't affect it at all.
+
+Revert to the ~Beta 1 style where quick settings used the same theme as
+the notification shade.
+
+- colorAccentPrimary has been replaced with colorAccent for contrast in
+  light mode, because colorAccentPrimary is system_accent1_100 (dark
+  accent color)
+- Footer chips have been converted to surfaces (similar to QS tiles and
+  notifications), which makes more sense with the new style
+- The QS background is now the same as the notification shade background
+  in both light and dark modes
+
+Demo screenshots (with dual-tone commit):
+https://twitter.com/kdrag0n/status/1445922541218922496
+
+[kdrag0n: ported to 12L]
+
+Change-Id: I3d45b72f0f119e100505409d178ab8f698993881
+---
+ .../brightness_progress_full_drawable.xml     |  2 +-
+ .../qs_footer_action_chip_background.xml      |  8 +-------
+ .../qs_security_footer_background.xml         |  3 +--
+ .../res/layout/combined_qs_header.xml         |  4 ++--
+ .../res/layout/split_shade_header.xml         |  2 +-
+ packages/SystemUI/res/values-night/styles.xml | 12 +++++++++++
+ packages/SystemUI/res/values/styles.xml       | 10 +++++-----
+ .../systemui/privacy/OngoingPrivacyChip.kt    |  4 ++--
+ .../systemui/qs/tileimpl/QSTileViewImpl.kt    |  2 +-
+ .../statusbar/phone/ScrimController.java      |  2 +-
+ .../systemui/statusbar/phone/ScrimState.java  | 20 +++++++++----------
+ 11 files changed, 37 insertions(+), 32 deletions(-)
+
+diff --git a/packages/SystemUI/res/drawable/brightness_progress_full_drawable.xml b/packages/SystemUI/res/drawable/brightness_progress_full_drawable.xml
+index 4d9188c40822..1eae667c6e79 100644
+--- a/packages/SystemUI/res/drawable/brightness_progress_full_drawable.xml
++++ b/packages/SystemUI/res/drawable/brightness_progress_full_drawable.xml
+@@ -22,7 +22,7 @@
+         android:height="@dimen/rounded_slider_height">
+         <shape>
+             <size android:height="@dimen/rounded_slider_height" />
+-            <solid android:color="?priv-android:attr/colorAccentPrimary" />
++            <solid android:color="?android:attr/colorAccent" />
+             <corners android:radius="@dimen/rounded_slider_corner_radius"/>
+         </shape>
+     </item>
+diff --git a/packages/SystemUI/res/drawable/qs_footer_action_chip_background.xml b/packages/SystemUI/res/drawable/qs_footer_action_chip_background.xml
+index 9076da795e71..3aefc95a98b5 100644
+--- a/packages/SystemUI/res/drawable/qs_footer_action_chip_background.xml
++++ b/packages/SystemUI/res/drawable/qs_footer_action_chip_background.xml
+@@ -28,13 +28,7 @@
+         </item>
+         <item>
+             <shape android:shape="rectangle">
+-                <solid android:color="?attr/underSurfaceColor"/>
+-                <corners android:radius="@dimen/qs_footer_action_corner_radius"/>
+-            </shape>
+-        </item>
+-        <item>
+-            <shape android:shape="rectangle">
+-                <stroke android:width="1dp" android:color="?android:attr/colorBackground"/>
++                <solid android:color="?attr/offStateColor"/>
+                 <corners android:radius="@dimen/qs_footer_action_corner_radius"/>
+             </shape>
+         </item>
+diff --git a/packages/SystemUI/res/drawable/qs_security_footer_background.xml b/packages/SystemUI/res/drawable/qs_security_footer_background.xml
+index 860d23b11439..8f12b95ed4f6 100644
+--- a/packages/SystemUI/res/drawable/qs_security_footer_background.xml
++++ b/packages/SystemUI/res/drawable/qs_security_footer_background.xml
+@@ -28,8 +28,7 @@
+         </item>
+         <item>
+             <shape android:shape="rectangle">
+-                <stroke android:width="1dp"
+-                        android:color="?android:attr/colorBackground"/>
++                <solid android:color="?attr/offStateColor"/>
+                 <corners android:radius="@dimen/qs_security_footer_corner_radius"/>
+             </shape>
+         </item>
+diff --git a/packages/SystemUI/res/layout/combined_qs_header.xml b/packages/SystemUI/res/layout/combined_qs_header.xml
+index 1f10e5dfeed8..4e46c42a053a 100644
+--- a/packages/SystemUI/res/layout/combined_qs_header.xml
++++ b/packages/SystemUI/res/layout/combined_qs_header.xml
+@@ -26,7 +26,7 @@
+     android:paddingLeft="@dimen/qs_panel_padding"
+     android:paddingRight="@dimen/qs_panel_padding"
+     android:visibility="gone"
+-    android:theme="@style/Theme.SystemUI.QuickSettings.Header"
++    android:theme="@style/QSHeaderTheme"
+     app:layoutDescription="@xml/combined_qs_header_scene">
+ 
+     <androidx.constraintlayout.widget.Guideline
+@@ -101,4 +101,4 @@
+         app:layout_constraintBottom_toBottomOf="parent"
+     />
+ 
+-</androidx.constraintlayout.motion.widget.MotionLayout>
+\ No newline at end of file
++</androidx.constraintlayout.motion.widget.MotionLayout>
+diff --git a/packages/SystemUI/res/layout/split_shade_header.xml b/packages/SystemUI/res/layout/split_shade_header.xml
+index b6e96ceeaf20..ecb017a3b606 100644
+--- a/packages/SystemUI/res/layout/split_shade_header.xml
++++ b/packages/SystemUI/res/layout/split_shade_header.xml
+@@ -25,7 +25,7 @@
+     android:paddingLeft="@dimen/qs_panel_padding"
+     android:paddingRight="@dimen/qs_panel_padding"
+     android:visibility="gone"
+-    android:theme="@style/Theme.SystemUI.QuickSettings.Header">
++    android:theme="@style/QSHeaderTheme">
+ 
+     <com.android.systemui.statusbar.policy.Clock
+         android:id="@+id/clock"
+diff --git a/packages/SystemUI/res/values-night/styles.xml b/packages/SystemUI/res/values-night/styles.xml
+index e82230ab5fbc..897f7ae00824 100644
+--- a/packages/SystemUI/res/values-night/styles.xml
++++ b/packages/SystemUI/res/values-night/styles.xml
+@@ -24,6 +24,18 @@
+         <item name="android:windowIsFloating">true</item>
+     </style>
+ 
++    <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault.SystemUI">
++        <item name="lightIconTheme">@style/QSIconTheme</item>
++        <item name="darkIconTheme">@style/QSIconTheme</item>
++        <item name="android:colorError">@*android:color/error_color_material_dark</item>
++        <item name="android:windowIsFloating">true</item>
++        <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
++        <item name="offStateColor">@android:color/system_neutral1_800</item>
++        <item name="underSurfaceColor">@android:color/system_neutral1_900</item>
++        <item name="android:colorBackground">@android:color/system_neutral1_900</item>
++        <item name="android:itemTextAppearance">@style/Control.MenuItem</item>
++    </style>
++
+     <style name="TextAppearance.QS.Status" parent="TextAppearance.QS.TileLabel.Secondary">
+         <item name="android:fontFamily">@*android:string/config_bodyFontFamilyMedium</item>
+         <item name="android:textColor">?android:attr/textColorPrimary</item>
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index e2665f879e5e..47344cb6d352 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -329,12 +329,12 @@
+     <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault.SystemUI">
+         <item name="lightIconTheme">@style/QSIconTheme</item>
+         <item name="darkIconTheme">@style/QSIconTheme</item>
+-        <item name="android:colorError">@*android:color/error_color_material_dark</item>
++        <item name="android:colorError">@*android:color/error_color_material_light</item>
+         <item name="android:windowIsFloating">true</item>
+         <item name="android:homeAsUpIndicator">@drawable/ic_arrow_back</item>
+-        <item name="offStateColor">@android:color/system_neutral1_800</item>
+-        <item name="underSurfaceColor">@android:color/system_neutral1_1000</item>
+-        <item name="android:colorBackground">@android:color/system_neutral1_900</item>
++        <item name="offStateColor">@*android:color/surface_light</item>
++        <item name="underSurfaceColor">@android:color/system_neutral1_50</item>
++        <item name="android:colorBackground">@android:color/system_neutral1_50</item>
+         <item name="android:itemTextAppearance">@style/Control.MenuItem</item>
+     </style>
+ 
+@@ -540,7 +540,7 @@
+ 
+     <style name="QSCustomizeToolbar" parent="@*android:style/Widget.DeviceDefault.Toolbar">
+         <item name="android:textColor">?android:attr/textColorPrimary</item>
+-        <item name="android:elevation">10dp</item>
++        <item name="android:elevation">0dp</item>
+     </style>
+ 
+     <!-- Media controls always have light background -->
+diff --git a/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt b/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
+index 9cd97ff8e343..461f67935a11 100644
+--- a/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
++++ b/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
+@@ -90,8 +90,8 @@ class OngoingPrivacyChip @JvmOverloads constructor(
+                 .getDimensionPixelSize(R.dimen.ongoing_appops_chip_icon_margin)
+         iconSize = context.resources
+                 .getDimensionPixelSize(R.dimen.ongoing_appops_chip_icon_size)
+-        iconColor =
+-                Utils.getColorAttrDefaultColor(context, com.android.internal.R.attr.colorPrimary)
++        iconColor = context.resources
++                .getColor(android.R.color.system_neutral1_900)
+ 
+         val padding = context.resources
+                 .getDimensionPixelSize(R.dimen.ongoing_appops_chip_side_padding)
+diff --git a/packages/SystemUI/src/com/android/systemui/qs/tileimpl/QSTileViewImpl.kt b/packages/SystemUI/src/com/android/systemui/qs/tileimpl/QSTileViewImpl.kt
+index 9d60e63032c3..405080c32807 100644
+--- a/packages/SystemUI/src/com/android/systemui/qs/tileimpl/QSTileViewImpl.kt
++++ b/packages/SystemUI/src/com/android/systemui/qs/tileimpl/QSTileViewImpl.kt
+@@ -83,7 +83,7 @@ open class QSTileViewImpl @JvmOverloads constructor(
+         }
+ 
+     private val colorActive = Utils.getColorAttrDefaultColor(context,
+-            com.android.internal.R.attr.colorAccentPrimary)
++            android.R.attr.colorAccent)
+     private val colorInactive = Utils.getColorAttrDefaultColor(context, R.attr.offStateColor)
+     private val colorUnavailable = Utils.applyAlpha(UNAVAILABLE_ALPHA, colorInactive)
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+index 1077347eab0a..fd44a9b5a5b3 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+@@ -704,7 +704,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+                 mNotificationsAlpha = behindAlpha;
+                 mNotificationsTint = behindTint;
+                 mBehindAlpha = 1;
+-                mBehindTint = Color.BLACK;
++                mBehindTint = Color.TRANSPARENT;
+             } else {
+                 mBehindAlpha = behindAlpha;
+                 if (mState == ScrimState.SHADE_LOCKED) {
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
+index 9246c0e73289..b30641bbf1af 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimState.java
+@@ -82,7 +82,7 @@ public enum ScrimState {
+             mBehindAlpha = mClipQsScrim ? 1 : mScrimBehindAlphaKeyguard;
+             mNotifAlpha = mClipQsScrim ? mScrimBehindAlphaKeyguard : 0;
+             if (mClipQsScrim) {
+-                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.BLACK);
++                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.TRANSPARENT);
+             }
+         }
+     },
+@@ -119,7 +119,7 @@ public enum ScrimState {
+         @Override
+         public void prepare(ScrimState previousState) {
+             mBehindAlpha = mClipQsScrim ? 1 : mDefaultScrimAlpha;
+-            mBehindTint = mClipQsScrim ? Color.BLACK : Color.TRANSPARENT;
++            mBehindTint = Color.TRANSPARENT;
+             mNotifAlpha = mClipQsScrim ? mDefaultScrimAlpha : 0;
+             mNotifTint = Color.TRANSPARENT;
+             mFrontAlpha = 0f;
+@@ -143,17 +143,17 @@ public enum ScrimState {
+             mBehindAlpha = mClipQsScrim ? 1 : mDefaultScrimAlpha;
+             mNotifAlpha = 1f;
+             mFrontAlpha = 0f;
+-            mBehindTint = Color.BLACK;
++            mBehindTint = Color.TRANSPARENT;
+ 
+             if (mClipQsScrim) {
+-                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.BLACK);
++                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.TRANSPARENT);
+             }
+         }
+ 
+         // to make sure correct color is returned before "prepare" is called
+         @Override
+         public int getBehindTint() {
+-            return Color.BLACK;
++            return Color.TRANSPARENT;
+         }
+     },
+ 
+@@ -244,22 +244,22 @@ public enum ScrimState {
+             mAnimateChange = !mLaunchingAffordanceWithPreview && !fromAod;
+ 
+             mFrontTint = Color.TRANSPARENT;
+-            mBehindTint = Color.BLACK;
++            mBehindTint = Color.TRANSPARENT;
+             mBlankScreen = false;
+ 
+             if (previousState == ScrimState.AOD) {
+                 // Set all scrims black, before they fade transparent.
+                 updateScrimColor(mScrimInFront, 1f /* alpha */, Color.BLACK /* tint */);
+-                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.BLACK /* tint */);
++                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.TRANSPARENT /* tint */);
+ 
+                 // Scrims should still be black at the end of the transition.
+                 mFrontTint = Color.BLACK;
+-                mBehindTint = Color.BLACK;
++                mBehindTint = Color.TRANSPARENT;
+                 mBlankScreen = true;
+             }
+ 
+             if (mClipQsScrim) {
+-                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.BLACK);
++                updateScrimColor(mScrimBehind, 1f /* alpha */, Color.TRANSPARENT);
+             }
+         }
+     };
+@@ -399,4 +399,4 @@ public enum ScrimState {
+     public void setClipQsScrim(boolean clipsQsScrim) {
+         mClipQsScrim = clipsQsScrim;
+     }
+-}
+\ No newline at end of file
++}
+-- 
+2.25.1
+
