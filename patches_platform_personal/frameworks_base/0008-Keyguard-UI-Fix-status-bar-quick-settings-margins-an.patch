@@ -1,4 +1,4 @@
-From a98e2005d08374939d821f1ff95b8489bcbdcaaf Mon Sep 17 00:00:00 2001
+From f708c045269ec504c7571120751e4a7465b9da63 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
 Subject: [PATCH 08/15] Keyguard/UI: Fix status bar / quick settings margins
@@ -126,7 +126,7 @@ index 7d033018c27f..3cd67d844895 100644
      <dimen name="keyguard_affordance_height">80dp</dimen>
      <dimen name="keyguard_affordance_width">120dp</dimen>
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index a34805f37278..6eac3b8f357d 100644
+index aa59fd6a9b51..a55c394a3e53 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
 @@ -672,7 +672,7 @@

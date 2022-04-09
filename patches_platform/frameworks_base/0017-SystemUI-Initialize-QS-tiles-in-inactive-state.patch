@@ -1,7 +1,7 @@
-From cee09b3e6dfdf780f6dab8d4d679a5a4c6ef9d23 Mon Sep 17 00:00:00 2001
+From 78256a2d065b0f0ee85221f92911e56389963d97 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:25:02 -0700
-Subject: [PATCH 18/22] SystemUI: Initialize QS tiles in inactive state
+Subject: [PATCH 17/21] SystemUI: Initialize QS tiles in inactive state
 
 Now that the QS fragment is recreated when changing the UI mode (so that
 it follows light/dark themes), all tiles flash with active color briefly

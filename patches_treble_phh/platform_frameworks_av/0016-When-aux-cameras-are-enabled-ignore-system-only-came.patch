@@ -1,7 +1,7 @@
-From 42780cbfbbb8ad0f5eef80541cb251c54c41129a Mon Sep 17 00:00:00 2001
+From 7a4aca68a3a50e50518abed26c09253b273736de Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 7 Aug 2021 11:11:39 +0200
-Subject: [PATCH 16/19] When aux cameras are enabled, ignore "system only"
+Subject: [PATCH 16/21] When aux cameras are enabled, ignore "system only"
  camera flag (it shouldnt be q security issue since secure cameras are listed
  otherwise)
 
@@ -10,10 +10,10 @@ Subject: [PATCH 16/19] When aux cameras are enabled, ignore "system only"
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index c08bcb9ce2..5a68fe8cc9 100644
+index c873989b08..9d26bd44d7 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-@@ -579,10 +579,12 @@ SystemCameraKind CameraProviderManager::ProviderInfo::DeviceInfo3::getSystemCame
+@@ -586,10 +586,12 @@ SystemCameraKind CameraProviderManager::ProviderInfo::DeviceInfo3::getSystemCame
  
      // Go through the capabilities and check if it has
      // ANDROID_REQUEST_AVAILABLE_CAPABILITIES_SYSTEM_CAMERA

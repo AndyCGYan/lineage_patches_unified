@@ -1,7 +1,7 @@
-From e75e1b19b2da6bea129d320436f3796de4635936 Mon Sep 17 00:00:00 2001
+From e7f6397daa3b9761756e5fef41a32b7401541192 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 14 Mar 2022 08:20:43 +0000
-Subject: [PATCH 02/22] UI: Monet: Default to Lineage Teal
+Subject: [PATCH 02/21] UI: Monet: Default to Lineage Teal
 
 Embrace Monet, but also maintain some LOS identity
 Applies the signature teal of LineageOS (#167C80) as fallback (e.g. with live wallpapers)

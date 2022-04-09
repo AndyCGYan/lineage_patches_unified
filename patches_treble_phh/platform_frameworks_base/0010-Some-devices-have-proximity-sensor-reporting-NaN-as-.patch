@@ -1,7 +1,7 @@
-From e19859819c2b065315c5fb07ea7ffc1bb605d48b Mon Sep 17 00:00:00 2001
+From 0c03c7a32ba5cadf840e8c599df83486a75c8cca Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 29 Sep 2020 22:39:47 +0200
-Subject: [PATCH 10/30] Some devices have proximity sensor reporting NaN as max
+Subject: [PATCH 10/31] Some devices have proximity sensor reporting NaN as max
  range for some reason. Make them behave standard way by setting 5 cm
 
 Change-Id: I3c39e3e914a05903c140235702e0480d2d58a612

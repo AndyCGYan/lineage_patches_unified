@@ -1,4 +1,4 @@
-From 10a8d7cb2306f928abc91fbeb24f3b6fc6aa9057 Mon Sep 17 00:00:00 2001
+From 9ee8209308b775f6cd4a104fe1cd89c9645e4742 Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Jan 2019 21:44:48 +0800
 Subject: [PATCH] LineageParts: Invert per-app stretch-to-fullscreen
@@ -27,13 +27,13 @@ index 40d0938..1119cef 100644
          android:visibility="gone" />
  
 diff --git a/res/values-zh-rCN/strings.xml b/res/values-zh-rCN/strings.xml
-index 37d129d..97600b8 100644
+index 9340e57..63a4b71 100644
 --- a/res/values-zh-rCN/strings.xml
 +++ b/res/values-zh-rCN/strings.xml
-@@ -446,9 +446,9 @@
-     <string name="auto_power_save_summary_on">电量 %s 时自动启用省电</string>
-     <string name="auto_power_save_summary_off">不要自动启用省电</string>
-     <string name="auto_power_save_never">永不</string>
+@@ -434,9 +434,9 @@
+     <string name="display_rotation_90_title">90 度</string>
+     <string name="display_rotation_180_title">180 度</string>
+     <string name="display_rotation_270_title">270 度</string>
 -    <string name="long_screen_settings_title">全屏应用</string>
 -    <string name="long_screen_settings_summary">强制旧式应用程序使用全屏长宽比</string>
 -    <string name="long_screen_settings_no_apps">无应用</string>
@@ -44,10 +44,10 @@ index 37d129d..97600b8 100644
      <string name="charging_sounds_enable_title">启用充电提示音</string>
      <string name="charging_sounds_summary">连接或断开电源时发出声音</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index efb9fbf..dda3125 100644
+index 9fe4181..998a5f6 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -563,9 +563,9 @@
+@@ -567,9 +567,9 @@
      <string name="display_rotation_270_title">270 degrees</string>
  
      <!-- Applications: Long screen -->

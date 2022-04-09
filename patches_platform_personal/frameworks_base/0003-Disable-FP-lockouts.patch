@@ -1,4 +1,4 @@
-From c1629264abb7564b076956dfd74994d659c8cb72 Mon Sep 17 00:00:00 2001
+From 95a969046908077ee6f6d12898ca9194b44a1baa Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Fri, 22 Mar 2019 00:41:20 +0800
 Subject: [PATCH 03/15] Disable FP lockouts

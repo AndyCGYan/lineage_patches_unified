@@ -1,7 +1,7 @@
-From 308ffd0c8945640cf84ce5b9b50bf066b2dc4e83 Mon Sep 17 00:00:00 2001
+From e04878670b5c3bfffd2991fa4501b08eb5516636 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 16 Oct 2021 05:27:57 -0700
-Subject: [PATCH 22/30] Add support for app signature spoofing
+Subject: [PATCH 22/31] Add support for app signature spoofing
 
 This is needed by microG GmsCore to pretend to be the official Google
 Play Services package, because client apps check the package signature
@@ -105,10 +105,10 @@ index 166d6abd1809..cba87ff17600 100644
      <string name="permlab_statusBar">disable or modify status bar</string>
      <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index e9fcac5fac57..a4a7da126051 100644
+index 1e001c598987..61a303fcee22 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
-@@ -3328,6 +3328,29 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -3330,6 +3330,29 @@ public class PackageManagerService extends IPackageManager.Stub
              return result;
          }
  
@@ -138,7 +138,7 @@ index e9fcac5fac57..a4a7da126051 100644
          public final PackageInfo generatePackageInfo(PackageSetting ps, int flags, int userId) {
              if (!mUserManager.exists(userId)) return null;
              if (ps == null) {
-@@ -3356,12 +3379,14 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -3358,12 +3381,14 @@ public class PackageManagerService extends IPackageManager.Stub
                  final int[] gids = (flags & PackageManager.GET_GIDS) == 0 ? EMPTY_INT_ARRAY
                          : mPermissionManager.getGidsForUid(UserHandle.getUid(userId, ps.appId));
                  // Compute granted permissions only if package has requested permissions

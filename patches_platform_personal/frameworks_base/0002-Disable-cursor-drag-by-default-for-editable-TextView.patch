@@ -1,4 +1,4 @@
-From bf95c1ec3307856306212316a59d0f0ec7df6284 Mon Sep 17 00:00:00 2001
+From c0b7cd81b24e7ca43f86394e7e23f64b9aca6084 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 27 Sep 2021 16:30:00 +0000
 Subject: [PATCH 02/15] Disable cursor drag by default for editable TextViews

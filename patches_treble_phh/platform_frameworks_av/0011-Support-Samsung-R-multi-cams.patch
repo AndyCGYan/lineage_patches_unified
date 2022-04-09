@@ -1,7 +1,7 @@
-From ed5f24d5cf810c146b60b90a01a85a37ab6c4a28 Mon Sep 17 00:00:00 2001
+From 031c6f960ea02acf8e43779c8f7e19d2c6ccad15 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 13 Mar 2021 14:20:03 -0500
-Subject: [PATCH 11/19] Support Samsung R multi-cams
+Subject: [PATCH 11/21] Support Samsung R multi-cams
 
 Change-Id: If46f385e8dd16185cbf37ab083e6a1242e1d1555
 ---
@@ -22,7 +22,7 @@ index e940c33845..a2a2ad623e 100644
      ],
  
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index ab5ddd12d0..c08bcb9ce2 100644
+index 5158655d33..c873989b08 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
 @@ -22,6 +22,7 @@
@@ -33,7 +33,7 @@ index ab5ddd12d0..c08bcb9ce2 100644
  
  #include <algorithm>
  #include <chrono>
-@@ -1412,7 +1413,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+@@ -1421,7 +1422,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
      }
  
      auto samsungCast = vendor::samsung::hardware::camera::provider::V3_0::ISehCameraProvider::castFrom(interface);
@@ -43,7 +43,7 @@ index ab5ddd12d0..c08bcb9ce2 100644
  
      hardware::Return<bool> linked = interface->linkToDeath(this, /*cookie*/ mId);
      if (!linked.isOk()) {
-@@ -1450,6 +1453,7 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+@@ -1459,6 +1462,7 @@ status_t CameraProviderManager::ProviderInfo::initialize(
          status = idStatus;
          if (status == Status::OK) {
              for (auto& name : cameraDeviceNames) {
@@ -51,7 +51,7 @@ index ab5ddd12d0..c08bcb9ce2 100644
                  uint16_t major, minor;
                  std::string type, id;
                  status_t res = parseDeviceName(name, &major, &minor, &type, &id);
-@@ -1463,7 +1467,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
+@@ -1472,7 +1476,9 @@ status_t CameraProviderManager::ProviderInfo::initialize(
              }
          } };
      hardware::Return<void> ret;

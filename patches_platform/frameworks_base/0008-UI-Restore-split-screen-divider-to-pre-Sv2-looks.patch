@@ -1,7 +1,7 @@
-From c84e0185c5cd5e9312eb1d393e36a2b82cf02e67 Mon Sep 17 00:00:00 2001
+From f947d96463246f92ed606028dd1e4b4941769b7b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
-Subject: [PATCH 08/22] UI: Restore split-screen divider to pre-Sv2 looks
+Subject: [PATCH 08/21] UI: Restore split-screen divider to pre-Sv2 looks
 
 - Kill rounded corners - where two rectangles collide should be perfectly straight
 - Make it black again - taskbar should mind its own business

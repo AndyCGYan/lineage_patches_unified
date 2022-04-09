@@ -1,13 +1,13 @@
-From 0f9d8e22d10d8a7de0eac999abce808ab456b973 Mon Sep 17 00:00:00 2001
+From 2a0ccee75e3fd1ab7d5ef27fd46c9e6d41eed9d6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 30 Nov 2021 12:58:00 +0000
 Subject: [PATCH 1/2] SearchLauncher: Adapt to Trebuchet
 
 ---
- apps/SearchLauncher/Android.mk                                | 4 ++--
- apps/SearchLauncher/AndroidManifest.xml                       | 3 ++-
- .../quickstep/res/layout/search_container_all_apps.xml        | 2 +-
- 3 files changed, 5 insertions(+), 4 deletions(-)
+ apps/SearchLauncher/Android.mk                               | 4 ++--
+ apps/SearchLauncher/AndroidManifest.xml                      | 5 +++--
+ .../quickstep/res/layout/search_container_all_apps.xml       | 2 +-
+ 3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/apps/SearchLauncher/Android.mk b/apps/SearchLauncher/Android.mk
 index a9f182a..6b90364 100644
@@ -32,10 +32,15 @@ index a9f182a..6b90364 100644
  LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
  LOCAL_STATIC_JAVA_LIBRARIES := \
 diff --git a/apps/SearchLauncher/AndroidManifest.xml b/apps/SearchLauncher/AndroidManifest.xml
-index d5ffded..a9b5597 100644
+index d5ffded..5a249b5 100644
 --- a/apps/SearchLauncher/AndroidManifest.xml
 +++ b/apps/SearchLauncher/AndroidManifest.xml
-@@ -55,7 +55,8 @@
+@@ -51,11 +51,12 @@
+         android:fullBackupOnly="true"
+         android:fullBackupContent="@xml/backupscheme"
+         android:hardwareAccelerated="true"
+-        android:icon="@drawable/ic_launcher_home"
++        android:icon="@mipmap/ic_launcher"
          android:label="@string/derived_app_name"
          android:largeHeap="@bool/config_largeHeap"
          android:restoreAnyVersion="true"

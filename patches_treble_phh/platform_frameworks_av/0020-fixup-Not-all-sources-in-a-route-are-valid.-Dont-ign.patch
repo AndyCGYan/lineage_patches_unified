@@ -1,24 +1,23 @@
-From 9a975152664ef309b06f1de15947a0dec2489376 Mon Sep 17 00:00:00 2001
+From f9496b5e570c38233be509c4b14bd0e0f36518ef Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
-Date: Sun, 28 Mar 2021 18:54:47 +0200
-Subject: [PATCH 15/21] Not all sources in a route are valid. Dont ignore the
- whole route because of one broken source
+Date: Sat, 12 Mar 2022 18:07:43 -0500
+Subject: [PATCH 20/21] fixup! Not all sources in a route are valid. Dont
+ ignore the whole route because of one broken source
 
-Change-Id: If8a51740e71bef3a4738262ad7b43a337b0ec36d
 ---
  .../audiopolicy/common/managerdefinitions/src/Serializer.cpp    | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
-index a76da4569b..2ff11ddbab 100644
+index df4f2dff63..2d6aff6146 100644
 --- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
 +++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
 @@ -656,7 +656,7 @@ std::variant<status_t, RouteTraits::Element> PolicySerializer::deserialize<Route
              if (source == NULL) {
                  source = ctx->findPortByTagName(trim(devTag));
  	    }
--            if (source == NULL && !mIgnoreVendorExtensions) {
-+            if (source == NULL) {
+-            if (source == NULL) {
++            if (source == NULL && false) {
                  ALOGE("%s: no source found with name=%s", __func__, devTag);
                  return BAD_VALUE;
              } else if (source == NULL) {

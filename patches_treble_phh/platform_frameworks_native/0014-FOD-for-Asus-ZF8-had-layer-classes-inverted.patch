@@ -1,7 +1,7 @@
-From a2cab046b8b59be40eb869ed9a3a4b57ea5d3837 Mon Sep 17 00:00:00 2001
+From a37e367e149becaa633ced984e6fbf6465f1ff1a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 4 Mar 2022 19:28:41 -0500
-Subject: [PATCH 14/14] FOD for Asus ZF8 had layer classes inverted
+Subject: [PATCH 14/16] FOD for Asus ZF8 had layer classes inverted
 
 ---
  services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp | 4 ++--
