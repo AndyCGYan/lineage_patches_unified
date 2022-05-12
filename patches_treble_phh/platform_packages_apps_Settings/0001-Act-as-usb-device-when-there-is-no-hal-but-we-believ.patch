@@ -1,8 +1,8 @@
-From e5a3d5022cac5006195485aca93bc621b6a68473 Mon Sep 17 00:00:00 2001
+From 61dc02d02befdac9aa545ce6908403cffddd3a9b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 14 Aug 2018 21:48:19 +0200
-Subject: [PATCH] Act as usb device when there is no hal, but we believe we are
- a device
+Subject: [PATCH 1/2] Act as usb device when there is no hal, but we believe we
+ are a device
 
 Change-Id: I036090738525fd8cc63534d52d02ab1852950a7d
 ---
@@ -28,5 +28,5 @@ index c5bcbed00c..77b6148fa6 100644
              UsbPortStatus portStatus = intent.getExtras()
                      .getParcelable(UsbManager.EXTRA_PORT_STATUS);
 -- 
-2.29.2
+2.25.1
 

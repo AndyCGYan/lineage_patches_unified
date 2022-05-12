@@ -1,7 +1,7 @@
-From be98345ce808cf14de1a8510fcdb32bb0a0bbc64 Mon Sep 17 00:00:00 2001
+From 8015abe8a29cf35760b18691a8e732f0d1b84b65 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:25:08 -0700
-Subject: [PATCH 18/21] SystemUI: Add dual-tone light and dark themes for QS
+Subject: [PATCH 17/19] SystemUI: Add dual-tone light and dark themes for QS
 
 Google's dual-tone QS design where the notification panel has a
 semantically higher elevation adds depth to the notification+QS shade,

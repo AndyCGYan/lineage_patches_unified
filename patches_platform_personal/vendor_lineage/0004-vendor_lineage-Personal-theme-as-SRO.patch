@@ -1,9 +1,9 @@
-From 54580a295da1f927d2809ed58c61254bdb4ded0a Mon Sep 17 00:00:00 2001
+From b304d258198c2b7e4b481e9803a8463bb0cf395d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 9 Apr 2022 02:48:55 +0000
 Subject: [PATCH 4/4] vendor_lineage: Personal theme as SRO
 
-Last revised on 2022/04/09
+Last revised on 2022/04/24
 
 ...
 
@@ -11,55 +11,55 @@ I look forward to what LOS will look like in the future, when everything's ready
 
 Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
 ---
- config/common.mk                              |   7 +-
- .../res/drawable/ic_launcher_background.xml   |  24 ++++
- .../res/drawable/ic_launcher_foreground.xml   |  39 ++++++
- .../res/drawable/ic_launcher_background.xml   |  27 ++++
- .../res/drawable/ic_launcher_foreground.xml   |  36 +++++
- .../res/drawable/ic_launcher_background.xml   |  20 +++
- .../res/drawable/ic_launcher_foreground.xml   |  36 +++++
- .../res/drawable/ic_launcher_background.xml   |  23 ++++
- .../res/drawable/ic_launcher_foreground.xml   |  39 ++++++
- .../apps/DeskClock/res/layout/desk_clock.xml  | 130 ++++++++++++++++++
- .../DeskClock/res/values-night/colors.xml     |   6 +
- .../apps/DeskClock/res/values/colors.xml      |   6 +
- .../res/drawable/ic_launcher_background.xml   |  14 ++
- .../res/drawable/ic_launcher_foreground.xml   |  41 ++++++
- .../res/drawable/ic_launcher_background.xml   |  17 +++
- .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
- .../res/drawable/ic_launcher_background.xml   |  22 +++
- .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
- .../res/drawable/ic_launcher_background.xml   |  14 ++
- .../res/drawable/ic_launcher_foreground.xml   |  38 +++++
- .../res/drawable/ic_launcher_background.xml   |  17 +++
- .../res/drawable/ic_launcher_foreground.xml   |  57 ++++++++
- .../ExactCalculator/res/values/colors.xml     |   4 +
- .../res/drawable/ic_launcher_background.xml   |  24 ++++
- .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
- .../res/drawable/ic_launcher_background.xml   |  17 +++
- .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
- .../Jelly/app/src/main/res/values/colors.xml  |   4 +
- .../res/drawable/ic_launcher_background.xml   |  18 +++
- .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
- .../apps/Messaging/res/values/colors.xml      |   7 +
- .../Messaging/res/values/lineage_colors.xml   |   4 +
- .../res/drawable/ic_launcher_background.xml   |  23 ++++
- .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
- .../app/src/main/res/values-night/colors.xml  |   4 +
- .../app/src/main/res/values/colors.xml        |   4 +
- .../res/drawable/ic_launcher_background.xml   |  18 +++
- .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
- 38 files changed, 972 insertions(+), 2 deletions(-)
+ config/common.mk                              |  7 ++-
+ .../res/drawable/ic_launcher_background.xml   | 24 ++++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 39 ++++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 24 ++++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 33 ++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 14 +++++
+ .../res/drawable/ic_launcher_foreground.xml   | 33 ++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 20 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 36 +++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 23 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 39 ++++++++++++
+ .../apps/DeskClock/res/values/colors.xml      |  8 +++
+ .../res/drawable/ic_launcher_background.xml   | 14 +++++
+ .../res/drawable/ic_launcher_foreground.xml   | 41 +++++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 17 ++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 22 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 14 +++++
+ .../res/drawable/ic_launcher_foreground.xml   | 40 +++++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 14 +++++
+ .../res/drawable/ic_launcher_foreground.xml   | 60 +++++++++++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 24 ++++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 17 ++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 33 ++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 18 ++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ .../apps/Messaging/res/values/colors.xml      |  7 +++
+ .../Messaging/res/values/lineage_colors.xml   |  4 ++
+ .../res/drawable/ic_launcher_background.xml   | 23 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 33 ++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 18 ++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 33 ++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 23 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ .../res/drawable/ic_launcher_background.xml   | 20 +++++++
+ .../res/drawable/ic_launcher_foreground.xml   | 34 +++++++++++
+ 38 files changed, 977 insertions(+), 2 deletions(-)
  create mode 100644 overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
- create mode 100644 overlay/personal/packages/apps/DeskClock/res/layout/desk_clock.xml
- create mode 100644 overlay/personal/packages/apps/DeskClock/res/values-night/colors.xml
  create mode 100644 overlay/personal/packages/apps/DeskClock/res/values/colors.xml
  create mode 100644 overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
@@ -71,28 +71,28 @@ Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
  create mode 100644 overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
- create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/values/colors.xml
  create mode 100644 overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
- create mode 100644 overlay/personal/packages/apps/Jelly/app/src/main/res/values/colors.xml
  create mode 100644 overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Messaging/res/values/colors.xml
  create mode 100644 overlay/personal/packages/apps/Messaging/res/values/lineage_colors.xml
  create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_foreground.xml
- create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/values-night/colors.xml
- create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/values/colors.xml
  create mode 100644 overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
 
 diff --git a/config/common.mk b/config/common.mk
-index e6a7d87a..9fd5db10 100644
+index e9e0c2d5..9687b647 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -184,10 +184,13 @@ endif
+@@ -188,10 +188,13 @@ endif
  PRODUCT_DEXPREOPT_SPEED_APPS += \
      SystemUI
  
@@ -110,7 +110,7 @@ index e6a7d87a..9fd5db10 100644
      TrebuchetOverlay
 diff --git a/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..c69cb4a7
+index 00000000..9a30966d
 --- /dev/null
 +++ b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,24 @@
@@ -129,18 +129,18 @@ index 00000000..c69cb4a7
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M0,0h108v108h-108z"
-+        android:fillColor="#2A3232"/>
++        android:fillColor="@android:color/system_accent1_800"/>
 +    <path
 +        android:pathData="M0,0L108,0L65.314,42.686C62.418,39.791 58.418,38 54,38C45.163,38 38,45.163 38,54C38,58.418 39.791,62.418 42.686,65.314L0,108L0,0Z"
-+        android:fillColor="#4D84E9"/>
++        android:fillColor="@android:color/system_accent1_500"/>
 +    <path
 +        android:pathData="M65.314,65.314L108,108L108,0L65.314,42.686C68.209,45.582 70,49.582 70,54C70,58.418 68.209,62.418 65.314,65.314Z"
-+        android:fillColor="#994D84E9"/>
++        android:fillColor="@android:color/system_accent1_600"/>
 +  </group>
 +</vector>
 diff --git a/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..8c633187
+index 00000000..64ffa3df
 --- /dev/null
 +++ b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,39 @@
@@ -163,7 +163,7 @@ index 00000000..8c633187
 +        android:fillColor="#ffffff"/>
 +    <path
 +        android:pathData="M54,54m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0"
-+        android:fillColor="#2A3232"/>
++        android:fillColor="@android:color/system_accent1_700"/>
 +    <path
 +        android:pathData="M54,54m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
 +        android:fillColor="#ffffff"/>
@@ -185,10 +185,10 @@ index 00000000..8c633187
 +</vector>
 diff --git a/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..db9be19e
+index 00000000..db946c4e
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,24 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -201,27 +201,24 @@ index 00000000..db9be19e
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#666666"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M52.472,34C50.957,34 49.572,34.856 48.894,36.211L47,40L33.084,43.274C31.277,43.7 30,45.312 30,47.168V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V46.599C78,45.019 77.069,43.586 75.625,42.944L69,40L67.106,36.211C66.428,34.856 65.043,34 63.528,34H52.472Z"
-+      android:fillColor="#98A7A7"
++      android:fillColor="#FFFFFF"
 +      android:fillType="evenOdd"/>
 +  <path
 +      android:pathData="M30,47.171C30,45.314 31.278,43.701 33.086,43.277L38,42.124V70.001H34C31.791,70.001 30,68.21 30,66.001V47.171Z"
-+      android:fillColor="#D0D7D8"/>
++      android:fillColor="@android:color/system_neutral1_100"/>
 +  <path
 +      android:pathData="M34,47m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
-+      android:fillColor="#0092E4"/>
-+  <path
-+      android:pathData="M58,54m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"
-+      android:fillColor="#666666"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..ab24a759
+index 00000000..ca215f97
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
-@@ -0,0 +1,36 @@
+@@ -0,0 +1,33 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -237,11 +234,67 @@ index 00000000..ab24a759
 +    <clip-path
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
-+        android:pathData="M58,55m-17,0a17,17 0,1 1,34 0a17,17 0,1 1,-34 0"
-+        android:fillColor="#596666"/>
++        android:pathData="M58,54m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"
++        android:fillColor="@android:color/system_accent1_600"/>
 +    <path
-+        android:pathData="M58,55m-15,0a15,15 0,1 1,30 0a15,15 0,1 1,-30 0"
-+        android:fillColor="#2A3232"/>
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..65b0e2db
+--- /dev/null
++++ b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..ae31cbef
+--- /dev/null
++++ b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M65,52.167V55.833H72.333V52.167H65ZM61.333,64.285C63.093,65.587 65.385,67.31 67.2,68.667C67.933,67.695 68.667,66.705 69.4,65.733C67.585,64.377 65.293,62.653 63.533,61.333C62.8,62.323 62.067,63.313 61.333,64.285ZM69.4,42.267C68.667,41.295 67.933,40.305 67.2,39.333C65.385,40.69 63.093,42.413 61.333,43.733C62.067,44.705 62.8,45.695 63.533,46.667C65.293,45.347 67.585,43.642 69.4,42.267ZM39.333,48.5C37.317,48.5 35.667,50.15 35.667,52.167V55.833C35.667,57.85 37.317,59.5 39.333,59.5H41.167V66.833H44.833V59.5H46.667L55.833,65V43L46.667,48.5H39.333ZM60.417,54C60.417,51.562 59.353,49.362 57.667,47.858V60.123C59.353,58.638 60.417,56.438 60.417,54Z"
++        android:fillColor="#FFFFFF"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -260,7 +313,7 @@ index 00000000..ab24a759
 +</vector>
 diff --git a/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..34a78556
+index 00000000..00262be1
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,20 @@
@@ -276,17 +329,17 @@ index 00000000..34a78556
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#2A56C6"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M77,51C77,59.837 70,63 61,63C52,63 45,59.837 45,51C45,38.163 52,31 61,31C70,31 77,38.163 77,51Z"
-+      android:fillColor="#CCCCCC"/>
++      android:fillColor="@android:color/system_neutral1_100"/>
 +  <path
 +      android:pathData="M71,49C68.569,50.255 64.821,51 61,51C57.179,51 53.431,50.255 51,49C52.093,52.47 54.333,57 61,57C67.667,57 69.907,52.47 71,49Z"
-+      android:fillColor="#1C3AA9"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..ce1f5832
+index 00000000..2a374437
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,36 @@
@@ -309,7 +362,7 @@ index 00000000..ce1f5832
 +        android:fillColor="#FFFFFF"/>
 +    <path
 +        android:pathData="M58,62C55.569,63.255 51.821,64 48,64C44.179,64 40.431,63.255 38,62C39.093,65.47 41.333,70 48,70C54.667,70 56.907,65.47 58,62Z"
-+        android:fillColor="#2A56C6"/>
++        android:fillColor="@android:color/system_accent1_600"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -328,7 +381,7 @@ index 00000000..ce1f5832
 +</vector>
 diff --git a/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..a68fa731
+index 00000000..fb1b75c1
 --- /dev/null
 +++ b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,23 @@
@@ -344,20 +397,20 @@ index 00000000..a68fa731
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#333333"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M37.147,39.859C36.783,40.292 36.81,40.932 37.209,41.334L49.958,54.17C49.973,54.186 49.989,54.201 50.006,54.217C50.002,54.145 50,54.073 50,54C50,51.953 51.537,50.266 53.52,50.028C53.502,50.015 53.484,50.002 53.465,49.989L38.611,39.663C38.146,39.34 37.511,39.425 37.147,39.859Z"
-+      android:fillColor="#ffffff"/>
++      android:fillColor="@android:color/system_neutral1_100"/>
 +  <path
 +      android:pathData="M75.449,36.002C75.087,35.57 74.453,35.492 73.997,35.822L54.501,49.942C54.466,49.967 54.432,49.993 54.399,50.02C56.421,50.22 58,51.925 58,54C58,54.1 57.996,54.2 57.989,54.298C58.021,54.27 58.052,54.241 58.083,54.211L75.374,37.464C75.779,37.071 75.812,36.433 75.449,36.002Z"
-+      android:fillColor="#ffffff"/>
++      android:fillColor="@android:color/system_neutral1_100"/>
 +  <path
 +      android:pathData="M54,54m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
 +      android:fillColor="#98A7A7"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..bb985f9e
+index 00000000..f54da6b5
 --- /dev/null
 +++ b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,39 @@
@@ -379,11 +432,11 @@ index 00000000..bb985f9e
 +        android:pathData="M54,79L54,54"
 +        android:strokeWidth="2"
 +        android:fillColor="#00000000"
-+        android:strokeColor="#0288D1"
++        android:strokeColor="#FFFFFF"
 +        android:strokeLineCap="round"/>
 +    <path
 +        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
-+        android:fillColor="#0277BD"/>
++        android:fillColor="#FFFFFF"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -400,169 +453,23 @@ index 00000000..bb985f9e
 +    </path>
 +  </group>
 +</vector>
-diff --git a/overlay/personal/packages/apps/DeskClock/res/layout/desk_clock.xml b/overlay/personal/packages/apps/DeskClock/res/layout/desk_clock.xml
-new file mode 100644
-index 00000000..468fd39d
---- /dev/null
-+++ b/overlay/personal/packages/apps/DeskClock/res/layout/desk_clock.xml
-@@ -0,0 +1,130 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<!--
-+  Copyright (C) 2016 The Android Open Source Project
-+
-+  Licensed under the Apache License, Version 2.0 (the "License");
-+  you may not use this file except in compliance with the License.
-+  You may obtain a copy of the License at
-+
-+      http://www.apache.org/licenses/LICENSE-2.0
-+
-+  Unless required by applicable law or agreed to in writing, software
-+  distributed under the License is distributed on an "AS IS" BASIS,
-+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-+  See the License for the specific language governing permissions and
-+  limitations under the License.
-+  -->
-+
-+<LinearLayout
-+    xmlns:android="http://schemas.android.com/apk/res/android"
-+    xmlns:app="http://schemas.android.com/apk/res-auto"
-+    xmlns:tools="http://schemas.android.com/tools"
-+    android:layout_width="match_parent"
-+    android:layout_height="match_parent"
-+    android:orientation="vertical"
-+    app:statusBarBackground="@null"
-+    android:fitsSystemWindows="true">
-+
-+    <com.google.android.material.appbar.AppBarLayout
-+        android:layout_width="match_parent"
-+        android:layout_height="wrap_content"
-+        android:background="@null"
-+        app:elevation="0dp">
-+
-+        <androidx.appcompat.widget.Toolbar
-+            android:id="@+id/toolbar"
-+            android:layout_width="match_parent"
-+            android:layout_height="wrap_content"
-+            app:contentInsetStart="0dp"
-+            tools:ignore="RtlSymmetry"
-+            android:gravity="center">
-+
-+            <TextView
-+                android:id="@+id/title_view"
-+                android:layout_width="wrap_content"
-+                android:layout_height="wrap_content"
-+                android:layout_gravity="start|center_vertical"
-+                android:layout_marginStart="20dp"
-+                style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title" />
-+
-+        </androidx.appcompat.widget.Toolbar>
-+    </com.google.android.material.appbar.AppBarLayout>
-+
-+    <androidx.coordinatorlayout.widget.CoordinatorLayout
-+        android:id="@+id/content"
-+        android:layout_width="match_parent"
-+        android:layout_height="0dp"
-+        android:layout_weight="1">
-+
-+        <FrameLayout
-+            android:id="@+id/fragment_container"
-+            android:layout_width="match_parent"
-+            android:layout_height="match_parent"/>
-+
-+        <LinearLayout
-+            android:layout_width="match_parent"
-+            android:layout_height="wrap_content"
-+            android:layout_gravity="bottom"
-+            android:baselineAligned="false"
-+            android:orientation="horizontal"
-+            app:layout_behavior="com.android.deskclock.widget.toast.SnackbarSlidingBehavior">
-+
-+            <FrameLayout
-+                android:layout_width="0dp"
-+                android:layout_height="match_parent"
-+                android:layout_gravity="start|center_vertical"
-+                android:layout_weight="1">
-+
-+                <Button
-+                    android:id="@+id/left_button"
-+                    style="?attr/borderlessButtonStyle"
-+                    android:layout_width="wrap_content"
-+                    android:layout_height="wrap_content"
-+                    android:layout_gravity="center"
-+                    android:scaleType="centerInside" />
-+
-+            </FrameLayout>
-+
-+            <com.google.android.material.floatingactionbutton.FloatingActionButton
-+                android:id="@+id/fab"
-+                android:layout_width="wrap_content"
-+                android:layout_height="wrap_content"
-+                android:layout_gravity="center"
-+                android:layout_margin="@dimen/fab_margin"
-+                app:borderWidth="0dp"
-+                app:elevation="@dimen/fab_elevation" />
-+
-+            <FrameLayout
-+                android:layout_width="0dp"
-+                android:layout_height="match_parent"
-+                android:layout_gravity="end|center_vertical"
-+                android:layout_weight="1">
-+
-+                <Button
-+                    android:id="@+id/right_button"
-+                    style="?attr/borderlessButtonStyle"
-+                    android:layout_width="wrap_content"
-+                    android:layout_height="wrap_content"
-+                    android:layout_gravity="center"
-+                    android:scaleType="centerInside" />
-+
-+            </FrameLayout>
-+
-+        </LinearLayout>
-+
-+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-+
-+    <com.google.android.material.bottomnavigation.BottomNavigationView
-+        android:id="@+id/bottom_view"
-+        android:layout_width="match_parent"
-+        android:layout_height="wrap_content"
-+        android:layout_below="@id/content"
-+        android:background="@color/secondary_color"
-+        app:menu="@menu/bottom_navigation_menu"
-+        app:itemIconTint="@color/tab_tint_color"
-+        app:itemTextColor="@color/tab_tint_color"
-+        app:itemTextAppearanceActive="@style/navText"
-+        app:itemTextAppearanceInactive="@style/navText"
-+        app:labelVisibilityMode="labeled" />
-+
-+</LinearLayout>
-diff --git a/overlay/personal/packages/apps/DeskClock/res/values-night/colors.xml b/overlay/personal/packages/apps/DeskClock/res/values-night/colors.xml
-new file mode 100644
-index 00000000..3d7d294e
---- /dev/null
-+++ b/overlay/personal/packages/apps/DeskClock/res/values-night/colors.xml
-@@ -0,0 +1,6 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+    <color name="default_background">#333333</color>
-+    <color name="accent_color">#0288D1</color>
-+    <color name="secondary_color">#333333</color>
-+</resources>
 diff --git a/overlay/personal/packages/apps/DeskClock/res/values/colors.xml b/overlay/personal/packages/apps/DeskClock/res/values/colors.xml
 new file mode 100644
-index 00000000..3d7d294e
+index 00000000..f147a9d1
 --- /dev/null
 +++ b/overlay/personal/packages/apps/DeskClock/res/values/colors.xml
-@@ -0,0 +1,6 @@
+@@ -0,0 +1,8 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<resources>
-+    <color name="default_background">#333333</color>
-+    <color name="accent_color">#0288D1</color>
-+    <color name="secondary_color">#333333</color>
++    <color name="accent_color">@android:color/system_accent1_200</color>
++    <color name="accent_100">@android:color/system_accent1_100</color>
++    <color name="accent_200">@android:color/system_accent1_200</color>
++    <color name="accent_600">@android:color/system_accent1_600</color>
++    <color name="accent_900">@android:color/system_accent1_900</color>
 +</resources>
 diff --git a/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..c40a3141
+index 00000000..65b0e2db
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,14 @@
@@ -578,11 +485,11 @@ index 00000000..c40a3141
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#2A56C6"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..90a9876c
+index 00000000..a6847e2c
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,41 @@
@@ -602,11 +509,11 @@ index 00000000..90a9876c
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M47.422,77.789C48.1,79.144 49.485,80 51,80H61C62.515,80 63.9,79.144 64.578,77.789L66.578,73.789C67.141,72.663 67.141,71.337 66.578,70.211L64.578,66.211C63.9,64.856 62.515,64 61,64H51C49.485,64 48.1,64.856 47.422,66.211L45.422,70.211C44.859,71.337 44.859,72.663 45.422,73.789L47.422,77.789Z"
-+        android:fillColor="#CCCCCC"
++        android:fillColor="@android:color/system_neutral1_100"
 +        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M47.422,30.211C48.1,28.856 49.485,28 51,28H61C62.515,28 63.9,28.856 64.578,30.211L66.578,34.211C67.141,35.337 67.141,36.663 66.578,37.789L64.578,41.789C63.9,43.144 62.515,44 61,44H51C49.485,44 48.1,43.144 47.422,41.789L45.422,37.789C44.859,36.663 44.859,35.337 45.422,34.211L47.422,30.211Z"
-+        android:fillColor="#CCCCCC"
++        android:fillColor="@android:color/system_neutral1_100"
 +        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M41,54C41,43.751 43.836,37.383 45.422,34.211L47.425,30.209C48.102,28.855 49.486,28 51,28H61C59.486,28 58.102,28.855 57.425,30.209L55.422,34.211C53.836,37.383 51,43.751 51,54C51,64.249 53.836,70.617 55.422,73.789L57.425,77.791C58.102,79.145 59.486,80 61,80H51C49.486,80 48.102,79.145 47.425,77.791L45.422,73.789C43.836,70.617 41,64.249 41,54Z"
@@ -629,7 +536,7 @@ index 00000000..90a9876c
 +</vector>
 diff --git a/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..7768c809
+index 00000000..4f313e32
 --- /dev/null
 +++ b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,17 @@
@@ -645,14 +552,14 @@ index 00000000..7768c809
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#E3F2FD"/>
++      android:fillColor="@android:color/system_neutral1_100"/>
 +  <path
 +      android:pathData="M60,70m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"
 +      android:fillColor="#FFFFFF"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..c92be957
+index 00000000..6d88a93d
 --- /dev/null
 +++ b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,34 @@
@@ -672,7 +579,7 @@ index 00000000..c92be957
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M108,0H0V108H108V0ZM34,38C31.791,38 30,39.791 30,42V68C30,70.209 31.791,72 34,72H74C76.209,72 78,70.209 78,68V42C78,39.791 76.209,38 74,38H58L54.586,34.586C54.211,34.211 53.702,34 53.172,34H38.828C38.298,34 37.789,34.211 37.414,34.586L34,38Z"
-+        android:fillColor="#1E88E5"
++        android:fillColor="@android:color/system_accent1_600"
 +        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
@@ -692,7 +599,7 @@ index 00000000..c92be957
 +</vector>
 diff --git a/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..6c449c83
+index 00000000..f969cf68
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,22 @@
@@ -708,14 +615,14 @@ index 00000000..6c449c83
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#323C46"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M45,44V55.515C43.57,54.558 41.85,54 40,54C35.029,54 31,58.029 31,63C31,67.971 35.029,72 40,72C44.971,72 49,67.971 49,63V48C49,45.791 50.791,44 53,44H67C69.209,44 71,45.791 71,48V55.515C69.57,54.558 67.85,54 66,54C61.029,54 57,58.029 57,63C57,67.971 61.029,72 66,72C70.971,72 75,67.971 75,63V44C75,39.582 71.418,36 67,36H53C48.582,36 45,39.582 45,44ZM71,63C71,60.239 68.761,58 66,58C63.239,58 61,60.239 61,63C61,65.761 63.239,68 66,68C68.761,68 71,65.761 71,63ZM40,68C42.761,68 45,65.761 45,63C45,60.239 42.761,58 40,58C37.239,58 35,60.239 35,63C35,65.761 37.239,68 40,68Z"
-+      android:fillColor="#CCCCCC"
++      android:fillColor="@android:color/system_neutral1_100"
 +      android:fillType="evenOdd"/>
 +  <path
 +      android:pathData="M40,68C42.761,68 45,65.761 45,63C45,60.239 42.761,58 40,58C37.239,58 35,60.239 35,63C35,65.761 37.239,68 40,68ZM66,68C68.761,68 71,65.761 71,63C71,60.239 68.761,58 66,58C63.239,58 61,60.239 61,63C61,65.761 63.239,68 66,68Z"
-+      android:fillColor="#CCCCCC"
++      android:fillColor="@android:color/system_neutral1_100"
 +      android:fillType="evenOdd"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml
@@ -760,7 +667,7 @@ index 00000000..b2e98016
 +</vector>
 diff --git a/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..96d1bced
+index 00000000..65b0e2db
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,14 @@
@@ -776,14 +683,14 @@ index 00000000..96d1bced
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#323C46"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..84f7005b
+index 00000000..18756857
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,40 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -799,12 +706,14 @@ index 00000000..84f7005b
 +    <clip-path
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
-+        android:pathData="M44,34H38C35.791,34 34,35.791 34,38V70C34,72.209 35.791,74 38,74H70C72.209,74 74,72.209 74,70V38C74,35.791 72.209,34 70,34H64Z"
-+        android:fillColor="#FFFFFF"
-+        android:fillType="evenOdd"/>
++        android:pathData="M34,42V70C34,72.209 35.791,74 38,74H70C72.209,74 74,72.209 74,70V42Z"
++        android:fillColor="#FFFFFF"/>
 +    <path
-+        android:pathData="M41.172,57.672H43.578C44.349,57.672 44.984,57.542 45.484,57.281C45.984,57.01 46.354,56.635 46.594,56.156C46.844,55.667 46.969,55.099 46.969,54.453C46.969,53.87 46.854,53.354 46.625,52.906C46.406,52.448 46.068,52.094 45.609,51.844C45.151,51.583 44.573,51.453 43.875,51.453C43.323,51.453 42.813,51.563 42.344,51.781C41.875,52 41.5,52.307 41.219,52.703C40.938,53.099 40.797,53.578 40.797,54.141H36.281C36.281,52.891 36.615,51.802 37.281,50.875C37.958,49.948 38.865,49.224 40,48.703C41.135,48.182 42.385,47.922 43.75,47.922C45.292,47.922 46.641,48.172 47.797,48.672C48.953,49.161 49.854,49.885 50.5,50.844C51.146,51.802 51.469,52.99 51.469,54.406C51.469,55.125 51.302,55.823 50.969,56.5C50.635,57.167 50.156,57.771 49.531,58.313C49.079,58.703 48.554,59.038 47.955,59.316C48.722,59.587 49.377,59.951 49.922,60.406C50.557,60.927 51.036,61.547 51.359,62.266C51.421,62.402 51.478,62.541 51.528,62.683C51.509,62.322 51.499,61.948 51.499,61.563V57.625C51.499,55.917 51.682,54.453 52.046,53.234C52.421,52.005 52.947,51 53.624,50.219C54.312,49.438 55.124,48.865 56.062,48.5C56.999,48.125 58.041,47.938 59.187,47.938C60.104,47.938 60.952,48.057 61.734,48.297C62.525,48.526 63.239,48.885 63.874,49.375C64.51,49.865 65.051,50.495 65.499,51.266C65.947,52.026 66.291,52.938 66.531,54C66.77,55.052 66.89,56.26 66.89,57.625V61.563C66.89,63.271 66.708,64.745 66.343,65.984C65.979,67.214 65.452,68.224 64.765,69.016C64.088,69.797 63.281,70.375 62.343,70.75C61.406,71.125 60.364,71.313 59.218,71.313C58.301,71.313 57.447,71.198 56.656,70.969C55.864,70.729 55.15,70.359 54.515,69.859C53.89,69.359 53.348,68.729 52.89,67.969C52.442,67.198 52.098,66.281 51.859,65.219C51.849,65.176 51.84,65.133 51.83,65.09C51.779,65.966 51.581,66.759 51.234,67.469C50.828,68.292 50.255,68.99 49.516,69.563C48.786,70.135 47.932,70.573 46.953,70.875C45.974,71.167 44.906,71.313 43.75,71.313C42.792,71.313 41.849,71.182 40.922,70.922C40.005,70.651 39.172,70.25 38.422,69.719C37.682,69.177 37.089,68.5 36.641,67.688C36.203,66.865 35.984,65.891 35.984,64.766H40.5C40.5,65.349 40.646,65.87 40.938,66.328C41.229,66.786 41.63,67.146 42.141,67.406C42.661,67.667 43.24,67.797 43.875,67.797C44.594,67.797 45.208,67.667 45.719,67.406C46.24,67.135 46.635,66.76 46.906,66.281C47.188,65.792 47.328,65.224 47.328,64.578C47.328,63.745 47.177,63.078 46.875,62.578C46.573,62.068 46.141,61.693 45.578,61.453C45.016,61.214 44.349,61.094 43.578,61.094H41.172V57.672ZM62.374,57.016V62.156C62.374,63.188 62.307,64.063 62.171,64.781C62.036,65.5 61.827,66.083 61.546,66.531C61.275,66.969 60.942,67.292 60.546,67.5C60.161,67.698 59.718,67.797 59.218,67.797C58.812,67.797 58.437,67.734 58.093,67.609C57.76,67.484 57.463,67.286 57.202,67.016C56.952,66.734 56.734,66.375 56.546,65.938C56.369,65.49 56.234,64.953 56.14,64.328C56.057,63.703 56.015,62.979 56.015,62.156V57.016C56.015,55.995 56.083,55.13 56.218,54.422C56.364,53.703 56.572,53.13 56.843,52.703C57.114,52.266 57.442,51.948 57.827,51.75C58.223,51.552 58.676,51.453 59.187,51.453C59.593,51.453 59.963,51.516 60.296,51.641C60.63,51.766 60.926,51.964 61.187,52.234C61.447,52.505 61.666,52.859 61.843,53.297C62.02,53.724 62.15,54.245 62.234,54.859C62.327,55.474 62.374,56.193 62.374,57.016Z"
-+        android:fillColor="#323C46"
++        android:pathData="M44,34H38C35.791,34 34,35.791 34,38V42H74V38C74,35.791 72.209,34 70,34H64Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++    <path
++        android:pathData="M43.672,56.072H46.078C46.849,56.072 47.484,55.942 47.984,55.681C48.484,55.41 48.854,55.035 49.094,54.556C49.344,54.067 49.469,53.499 49.469,52.853C49.469,52.27 49.354,51.754 49.125,51.306C48.906,50.848 48.568,50.494 48.109,50.244C47.651,49.983 47.073,49.853 46.375,49.853C45.823,49.853 45.313,49.963 44.844,50.181C44.375,50.4 44,50.707 43.719,51.103C43.438,51.499 43.297,51.978 43.297,52.541H38.781C38.781,51.291 39.115,50.202 39.781,49.275C40.458,48.348 41.365,47.624 42.5,47.103C43.635,46.582 44.885,46.322 46.25,46.322C47.792,46.322 49.141,46.572 50.297,47.072C51.453,47.561 52.354,48.285 53,49.244C53.646,50.202 53.969,51.39 53.969,52.806C53.969,53.525 53.802,54.223 53.469,54.9C53.135,55.567 52.656,56.171 52.031,56.713C51.579,57.103 51.054,57.438 50.455,57.716C51.222,57.987 51.877,58.351 52.422,58.806C53.057,59.327 53.536,59.947 53.859,60.666C53.921,60.802 53.978,60.941 54.028,61.083C54.009,60.722 53.999,60.348 53.999,59.963V56.025C53.999,54.317 54.182,52.853 54.546,51.634C54.921,50.405 55.447,49.4 56.124,48.619C56.812,47.838 57.624,47.265 58.562,46.9C59.499,46.525 60.541,46.338 61.687,46.338C62.604,46.338 63.452,46.457 64.234,46.697C65.025,46.926 65.739,47.285 66.374,47.775C67.01,48.265 67.551,48.895 67.999,49.666C68.447,50.426 68.791,51.338 69.031,52.4C69.27,53.452 69.39,54.66 69.39,56.025V59.963C69.39,61.671 69.208,63.145 68.843,64.384C68.479,65.614 67.952,66.624 67.265,67.416C66.588,68.197 65.781,68.775 64.843,69.15C63.906,69.525 62.864,69.713 61.718,69.713C60.801,69.713 59.947,69.598 59.156,69.369C58.364,69.129 57.65,68.759 57.015,68.259C56.39,67.759 55.848,67.129 55.39,66.369C54.942,65.598 54.598,64.681 54.359,63.619C54.349,63.576 54.34,63.533 54.33,63.49C54.279,64.366 54.081,65.159 53.734,65.869C53.328,66.692 52.755,67.39 52.016,67.963C51.286,68.535 50.432,68.973 49.453,69.275C48.474,69.567 47.406,69.713 46.25,69.713C45.292,69.713 44.349,69.582 43.422,69.322C42.505,69.051 41.672,68.65 40.922,68.119C40.182,67.577 39.589,66.9 39.141,66.088C38.703,65.265 38.484,64.291 38.484,63.166H43C43,63.749 43.146,64.27 43.438,64.728C43.729,65.186 44.13,65.546 44.641,65.806C45.161,66.067 45.74,66.197 46.375,66.197C47.094,66.197 47.708,66.067 48.219,65.806C48.74,65.535 49.135,65.16 49.406,64.681C49.688,64.192 49.828,63.624 49.828,62.978C49.828,62.145 49.677,61.478 49.375,60.978C49.073,60.468 48.641,60.093 48.078,59.853C47.516,59.614 46.849,59.494 46.078,59.494H43.672V56.072ZM64.874,55.416V60.556C64.874,61.588 64.807,62.463 64.671,63.181C64.536,63.9 64.327,64.483 64.046,64.931C63.775,65.369 63.442,65.692 63.046,65.9C62.661,66.098 62.218,66.197 61.718,66.197C61.312,66.197 60.937,66.134 60.593,66.009C60.26,65.884 59.963,65.686 59.702,65.416C59.452,65.134 59.234,64.775 59.046,64.338C58.869,63.89 58.734,63.353 58.64,62.728C58.557,62.103 58.515,61.379 58.515,60.556V55.416C58.515,54.395 58.583,53.53 58.718,52.822C58.864,52.103 59.072,51.53 59.343,51.103C59.614,50.666 59.942,50.348 60.327,50.15C60.723,49.952 61.176,49.853 61.687,49.853C62.093,49.853 62.463,49.916 62.796,50.041C63.13,50.166 63.426,50.364 63.687,50.634C63.947,50.905 64.166,51.259 64.343,51.697C64.52,52.124 64.65,52.645 64.734,53.259C64.827,53.874 64.874,54.593 64.874,55.416Z"
++        android:fillColor="@android:color/system_accent1_600"
 +        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
@@ -824,10 +733,10 @@ index 00000000..84f7005b
 +</vector>
 diff --git a/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..28caf96f
+index 00000000..65b0e2db
 --- /dev/null
 +++ b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
-@@ -0,0 +1,17 @@
+@@ -0,0 +1,14 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -840,17 +749,14 @@ index 00000000..28caf96f
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#666666"/>
-+  <path
-+      android:pathData="M0,0h108v46h-108z"
-+      android:fillColor="#333333"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..bdedbc2f
+index 00000000..faf2caf4
 --- /dev/null
 +++ b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
-@@ -0,0 +1,57 @@
+@@ -0,0 +1,60 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -866,6 +772,9 @@ index 00000000..bdedbc2f
 +    <clip-path
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
++        android:pathData="M42,32H66C67.105,32 68,32.895 68,34V45A1,1 0,0 1,67 46H41A1,1 0,0 1,40 45V34C40,32.895 40.895,32 42,32z"
++        android:fillColor="#ffffff"/>
++    <path
 +        android:pathData="M41,48L47,48A1,1 0,0 1,48 49L48,55A1,1 0,0 1,47 56L41,56A1,1 0,0 1,40 55L40,49A1,1 0,0 1,41 48z"
 +        android:fillColor="#ffffff"/>
 +    <path
@@ -879,19 +788,19 @@ index 00000000..bdedbc2f
 +        android:fillColor="#ffffff"/>
 +    <path
 +        android:pathData="M61,48L67,48A1,1 0,0 1,68 49L68,55A1,1 0,0 1,67 56L61,56A1,1 0,0 1,60 55L60,49A1,1 0,0 1,61 48z"
-+        android:fillColor="#4D84E9"/>
++        android:fillColor="@android:color/system_neutral1_100"/>
 +    <path
 +        android:pathData="M51,58L57,58A1,1 0,0 1,58 59L58,65A1,1 0,0 1,57 66L51,66A1,1 0,0 1,50 65L50,59A1,1 0,0 1,51 58z"
 +        android:fillColor="#ffffff"/>
 +    <path
 +        android:pathData="M61,58L67,58A1,1 0,0 1,68 59L68,65A1,1 0,0 1,67 66L61,66A1,1 0,0 1,60 65L60,59A1,1 0,0 1,61 58z"
-+        android:fillColor="#4D84E9"/>
++        android:fillColor="@android:color/system_neutral1_100"/>
 +    <path
 +        android:pathData="M51,68L57,68A1,1 0,0 1,58 69L58,75A1,1 0,0 1,57 76L51,76A1,1 0,0 1,50 75L50,69A1,1 0,0 1,51 68z"
 +        android:fillColor="#ffffff"/>
 +    <path
 +        android:pathData="M60,69C60,68.448 60.448,68 61,68H67C67.552,68 68,68.448 68,69V74C68,75.105 67.105,76 66,76H61C60.448,76 60,75.552 60,75V69Z"
-+        android:fillColor="#4D84E9"/>
++        android:fillColor="@android:color/system_neutral1_100"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -908,19 +817,9 @@ index 00000000..bdedbc2f
 +    </path>
 +  </group>
 +</vector>
-diff --git a/overlay/personal/packages/apps/ExactCalculator/res/values/colors.xml b/overlay/personal/packages/apps/ExactCalculator/res/values/colors.xml
-new file mode 100644
-index 00000000..4c985230
---- /dev/null
-+++ b/overlay/personal/packages/apps/ExactCalculator/res/values/colors.xml
-@@ -0,0 +1,4 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+	<color name="calculator_accent_color">#4D84E9</color>
-+</resources>
 diff --git a/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..4ef11067
+index 00000000..32abe0b8
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,24 @@
@@ -939,21 +838,21 @@ index 00000000..4ef11067
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M0,0h108v108h-108z"
-+        android:fillColor="#CBDEFB"/>
++        android:fillColor="#FFFFFF"/>
 +    <path
 +        android:pathData="M15,108L78,45L141,108H15Z"
-+        android:fillColor="#00354A"/>
++        android:fillColor="@android:color/system_neutral1_200"/>
 +    <path
-+        android:pathData="M61,13L45,29L61,45L77,29L61,13Z"
-+        android:fillColor="#F09F38"/>
++        android:pathData="M-18,108L45,45L108,108H-18Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
 +  </group>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..9b3f52bd
+index 00000000..03b51d0c
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,34 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
 +     SPDX-FileCopyrightText: 2022 The LineageOS Project
@@ -969,8 +868,9 @@ index 00000000..9b3f52bd
 +    <clip-path
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
-+        android:pathData="M-18,108L45,45L108,108H-18Z"
-+        android:fillColor="#0092E4"/>
++        android:pathData="M108,0H0V108H108V0ZM34,38C31.791,38 30,39.791 30,42V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V42C78,39.791 76.209,38 74,38H34Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -989,7 +889,7 @@ index 00000000..9b3f52bd
 +</vector>
 diff --git a/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..5f443383
+index 00000000..bf75b615
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,17 @@
@@ -1005,14 +905,14 @@ index 00000000..5f443383
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#4D84E9"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M50.856,71.087C48.735,64.459 43.541,59.265 36.913,57.144L33.497,56.05C31.501,55.412 31.501,52.588 33.497,51.95L36.913,50.856C43.541,48.735 48.735,43.541 50.856,36.913L51.95,33.497C52.588,31.501 55.412,31.501 56.05,33.497L57.144,36.913C59.265,43.541 64.459,48.735 71.087,50.856L74.503,51.95C76.499,52.588 76.499,55.412 74.503,56.05L71.087,57.144C64.459,59.265 59.265,64.459 57.144,71.087L56.05,74.503C55.412,76.499 52.588,76.499 51.95,74.503L50.856,71.087Z"
 +      android:fillColor="#ffffff"/>
 +</vector>
 diff --git a/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..d159f44a
+index 00000000..7f152b9c
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,33 @@
@@ -1032,7 +932,7 @@ index 00000000..d159f44a
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M53.229,61.503C51.872,58.519 49.481,56.128 46.497,54.771C45.834,54.47 45.834,53.53 46.497,53.229C49.481,51.872 51.872,49.481 53.229,46.497C53.53,45.834 54.47,45.834 54.771,46.497C56.128,49.481 58.519,51.872 61.503,53.229C62.166,53.53 62.166,54.47 61.503,54.771C58.519,56.128 56.128,58.519 54.771,61.503C54.47,62.166 53.53,62.166 53.229,61.503Z"
-+        android:fillColor="#4D84E9"/>
++        android:fillColor="@android:color/system_accent1_600"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">
@@ -1049,19 +949,9 @@ index 00000000..d159f44a
 +    </path>
 +  </group>
 +</vector>
-diff --git a/overlay/personal/packages/apps/Jelly/app/src/main/res/values/colors.xml b/overlay/personal/packages/apps/Jelly/app/src/main/res/values/colors.xml
-new file mode 100644
-index 00000000..755d95ee
---- /dev/null
-+++ b/overlay/personal/packages/apps/Jelly/app/src/main/res/values/colors.xml
-@@ -0,0 +1,4 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+    <color name="colorAccent">#4D84E9</color>
-+</resources>
 diff --git a/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..5da866ad
+index 00000000..b9256675
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,18 @@
@@ -1077,7 +967,7 @@ index 00000000..5da866ad
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#2A56C6"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M54,76C66.15,76 76,66.15 76,54C76,49.769 74.806,45.817 72.736,42.463L74.327,36.098C74.693,34.634 73.366,33.307 71.902,33.673L65.537,35.264C62.183,33.194 58.231,32 54,32C41.85,32 32,41.85 32,54C32,66.15 41.85,76 54,76Z"
 +      android:fillColor="#ffffff"
@@ -1085,7 +975,7 @@ index 00000000..5da866ad
 +</vector>
 diff --git a/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..b20c1322
+index 00000000..ab598892
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,34 @@
@@ -1105,7 +995,7 @@ index 00000000..b20c1322
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
 +        android:pathData="M54,66C60.75,66 66,63.627 66,57C66,47.373 60.75,42 54,42C47.25,42 42,47.373 42,57C42,63.627 47.25,66 54,66ZM54,57.5C57.057,57.5 60.055,56.942 62,56C61.125,58.603 59.333,62 54,62C48.667,62 46.875,58.603 46,56C47.945,56.942 50.943,57.5 54,57.5Z"
-+        android:fillColor="#2A56C6"
++        android:fillColor="@android:color/system_accent1_600"
 +        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
@@ -1148,7 +1038,7 @@ index 00000000..7b407a1c
 +</resources>
 diff --git a/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..fbddcdd4
+index 00000000..afc988fc
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,23 @@
@@ -1164,7 +1054,7 @@ index 00000000..fbddcdd4
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#4D84E9"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M34,43L34,43A2,2 0,0 1,36 45L36,63A2,2 0,0 1,34 65L34,65A2,2 0,0 1,32 63L32,45A2,2 0,0 1,34 43z"
 +      android:fillColor="#ffffff"/>
@@ -1214,29 +1104,9 @@ index 00000000..1a699688
 +    </path>
 +  </group>
 +</vector>
-diff --git a/overlay/personal/packages/apps/Recorder/app/src/main/res/values-night/colors.xml b/overlay/personal/packages/apps/Recorder/app/src/main/res/values-night/colors.xml
-new file mode 100644
-index 00000000..755d95ee
---- /dev/null
-+++ b/overlay/personal/packages/apps/Recorder/app/src/main/res/values-night/colors.xml
-@@ -0,0 +1,4 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+    <color name="colorAccent">#4D84E9</color>
-+</resources>
-diff --git a/overlay/personal/packages/apps/Recorder/app/src/main/res/values/colors.xml b/overlay/personal/packages/apps/Recorder/app/src/main/res/values/colors.xml
-new file mode 100644
-index 00000000..755d95ee
---- /dev/null
-+++ b/overlay/personal/packages/apps/Recorder/app/src/main/res/values/colors.xml
-@@ -0,0 +1,4 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+    <color name="colorAccent">#4D84E9</color>
-+</resources>
 diff --git a/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
 new file mode 100644
-index 00000000..4c0bb569
+index 00000000..19d7e4f0
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,18 @@
@@ -1252,7 +1122,7 @@ index 00000000..4c0bb569
 +    android:viewportHeight="108">
 +  <path
 +      android:pathData="M0,0h108v108h-108z"
-+      android:fillColor="#666666"/>
++      android:fillColor="@android:color/system_accent1_600"/>
 +  <path
 +      android:pathData="M58.148,28C59.193,28 60.062,28.805 60.142,29.847L60.254,31.303C60.431,33.606 62.018,35.527 64.017,36.685C66.016,37.844 68.441,38.236 70.525,37.237L71.846,36.604C72.789,36.153 73.92,36.503 74.443,37.408L78.59,44.592C79.113,45.497 78.851,46.652 77.988,47.243L76.782,48.068C74.876,49.374 74,51.689 74,54C74,56.311 74.876,58.626 76.782,59.932L77.988,60.757C78.851,61.348 79.113,62.503 78.59,63.408L74.443,70.592C73.92,71.497 72.789,71.847 71.846,71.396L70.525,70.763C68.441,69.764 66.016,70.156 64.017,71.315C62.018,72.473 60.431,74.394 60.254,76.697L60.142,78.153C60.062,79.195 59.193,80 58.148,80H49.852C48.807,80 47.938,79.195 47.858,78.153L47.746,76.697C47.569,74.394 45.981,72.473 43.983,71.315C41.984,70.156 39.558,69.764 37.475,70.763L36.153,71.396C35.211,71.847 34.08,71.497 33.557,70.592L29.409,63.408C28.887,62.503 29.149,61.348 30.011,60.757L31.218,59.931C33.124,58.626 34,56.311 34,54C34,51.689 33.124,49.374 31.218,48.068L30.011,47.242C29.149,46.652 28.887,45.497 29.409,44.592L33.557,37.408C34.08,36.503 35.211,36.153 36.153,36.604L37.475,37.237C39.558,38.236 41.984,37.844 43.983,36.685C45.982,35.527 47.569,33.606 47.746,31.303L47.858,29.847C47.938,28.805 48.807,28 49.852,28H58.148ZM54,66C60.627,66 66,60.627 66,54C66,47.373 60.627,42 54,42C47.373,42 42,47.373 42,54C42,60.627 47.373,66 54,66Z"
 +      android:fillColor="#FFFFFF"
@@ -1260,7 +1130,7 @@ index 00000000..4c0bb569
 +</vector>
 diff --git a/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
-index 00000000..92fe4757
+index 00000000..8cd7953c
 --- /dev/null
 +++ b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,33 @@
@@ -1279,8 +1149,143 @@ index 00000000..92fe4757
 +    <clip-path
 +        android:pathData="M0,0h108v108h-108z"/>
 +    <path
-+        android:pathData="M54,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
 +        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..791bba6b
+--- /dev/null
++++ b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="#FFFFFF"/>
++  <path
++      android:pathData="M66,66m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M42,66m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M54,62m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_200"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..138b559b
+--- /dev/null
++++ b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M108,0H0V108H108V0ZM42,30C39.791,30 38,31.791 38,34V74C38,76.209 39.791,78 42,78H66C68.209,78 70,76.209 70,74V34C70,31.791 68.209,30 66,30H42Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..b70d3060
+--- /dev/null
++++ b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M30,61C30,60.448 30.448,60 31,60H37C37.552,60 38,60.448 38,61V67C38,67.552 37.552,68 37,68H32C30.895,68 30,67.105 30,66V61Z"
++      android:fillColor="@android:color/system_accent1_10"/>
++  <path
++      android:pathData="M70,61C70,60.448 70.448,60 71,60H77C77.552,60 78,60.448 78,61V66C78,67.105 77.105,68 76,68H71C70.448,68 70,67.552 70,67V61Z"
++      android:fillColor="@android:color/system_accent1_10"/>
++</vector>
+diff --git a/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..4e86fe3d
+--- /dev/null
++++ b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M30,42C30,40.895 30.895,40 32,40H37C37.552,40 38,40.448 38,41V47C38,47.552 37.552,48 37,48H31C30.448,48 30,47.552 30,47V42ZM40,51C40,50.448 40.448,50 41,50H47C47.552,50 48,50.448 48,51V57C48,57.552 47.552,58 47,58H41C40.448,58 40,57.552 40,57V51ZM41,40C40.448,40 40,40.448 40,41V47C40,47.552 40.448,48 41,48H47C47.552,48 48,47.552 48,47V41C48,40.448 47.552,40 47,40H41ZM50,51C50,50.448 50.448,50 51,50H57C57.552,50 58,50.448 58,51V57C58,57.552 57.552,58 57,58H51C50.448,58 50,57.552 50,57V51ZM51,40C50.448,40 50,40.448 50,41V47C50,47.552 50.448,48 51,48H57C57.552,48 58,47.552 58,47V41C58,40.448 57.552,40 57,40H51ZM40,61C40,60.448 40.448,60 41,60H67C67.552,60 68,60.448 68,61V67C68,67.552 67.552,68 67,68H41C40.448,68 40,67.552 40,67V61ZM61,50C60.448,50 60,50.448 60,51V57C60,57.552 60.448,58 61,58H67C67.552,58 68,57.552 68,57V51C68,50.448 67.552,50 67,50H61ZM60,41C60,40.448 60.448,40 61,40H67C67.552,40 68,40.448 68,41V47C68,47.552 67.552,48 67,48H61C60.448,48 60,47.552 60,47V41ZM71,40C70.448,40 70,40.448 70,41V47C70,47.552 70.448,48 71,48H77C77.552,48 78,47.552 78,47V42C78,40.895 77.105,40 76,40H71Z"
++        android:fillColor="#FFFFFF"
++        android:fillType="evenOdd"/>
 +    <path
 +        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
 +        android:fillAlpha="0.6">

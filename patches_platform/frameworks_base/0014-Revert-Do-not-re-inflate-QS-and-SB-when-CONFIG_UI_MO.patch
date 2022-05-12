@@ -1,7 +1,7 @@
-From 29f62822e50aeb4e4f55ca19f6c4e5c5446500b1 Mon Sep 17 00:00:00 2001
+From 3e3f73958f43aa63986cac35a119467ca4cafbd8 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Wed, 6 Oct 2021 18:41:11 -0700
-Subject: [PATCH 15/21] Revert "Do not re-inflate QS and SB when
+Subject: [PATCH 14/19] Revert "Do not re-inflate QS and SB when
  CONFIG_UI_MODE"
 
 This reverts commit 8a40ff855b86bc86e23367017002289920855a4e.

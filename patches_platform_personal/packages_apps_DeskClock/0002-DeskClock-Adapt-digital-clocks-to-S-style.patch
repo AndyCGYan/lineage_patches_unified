@@ -1,4 +1,4 @@
-From c41f2ff6fbb5c2ca72d4f03bb459159c56966968 Mon Sep 17 00:00:00 2001
+From fe60811c629e1e8376955463f4f0dafc5b832056 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
 Subject: [PATCH 2/3] DeskClock: Adapt digital clocks to S style
@@ -13,23 +13,23 @@ Caveats/TODO:
 
 Change-Id: I10c6fa213c89ac2f6e342be13fdd6390f7f787b0
 ---
- res/layout-land/main_clock_frame.xml          | 18 ++---
- res/layout/date_and_next_alarm_time.xml       | 51 ++++++------
+ res/layout-land/main_clock_frame.xml          | 19 ++---
+ res/layout/date_and_next_alarm_time.xml       | 57 +++++++-------
  res/layout/desk_clock_saver.xml               | 12 +--
  res/layout/digital_widget.xml                 | 71 ++++++++---------
  res/layout/digital_widget_sizer.xml           | 77 ++++++++-----------
- res/layout/main_clock_frame.xml               | 21 +++--
+ res/layout/main_clock_frame.xml               | 23 +++---
  res/values/dimens.xml                         | 12 ++-
- res/values/styles.xml                         | 18 +++++
- .../alarmclock/DigitalAppWidgetProvider.java  | 29 ++++---
+ res/values/styles.xml                         | 19 +++++
+ .../alarmclock/DigitalAppWidgetProvider.java  | 31 ++++----
  src/com/android/deskclock/AlarmUtils.java     |  2 +-
- 10 files changed, 162 insertions(+), 149 deletions(-)
+ 10 files changed, 167 insertions(+), 156 deletions(-)
 
 diff --git a/res/layout-land/main_clock_frame.xml b/res/layout-land/main_clock_frame.xml
-index b72f62333..afa9404f3 100644
+index 6abfdddd6..8ad98c0cf 100644
 --- a/res/layout-land/main_clock_frame.xml
 +++ b/res/layout-land/main_clock_frame.xml
-@@ -20,10 +20,11 @@
+@@ -21,10 +21,11 @@
      android:gravity="center_horizontal"
      android:orientation="vertical">
  
@@ -44,36 +44,38 @@ index b72f62333..afa9404f3 100644
  
          <com.android.deskclock.AnalogClock
              android:id="@+id/analog_clock"
-@@ -37,16 +38,13 @@
+@@ -38,19 +39,13 @@
  
          <com.android.deskclock.widget.AutoSizingTextClock
              android:id="@+id/digital_clock"
 -            style="@style/display_time"
 +            style="@style/sc_keyguard_clock"
              android:layout_width="wrap_content"
--            android:layout_height="wrap_content"
+             android:layout_height="wrap_content"
 -            android:ellipsize="none"
 -            android:singleLine="true"
--            android:textSize="@dimen/main_clock_digital_font_size" />
-+            android:layout_height="wrap_content" />
+-            android:textSize="@dimen/main_clock_digital_font_size"
+             tools:text="01:23" />
  
 -    </FrameLayout>
 +        <include layout="@layout/date_and_next_alarm_time" />
  
--    <include layout="@layout/date_and_next_alarm_time" />
+-    <include layout="@layout/date_and_next_alarm_time"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal"/>
 +    </LinearLayout>
  
-     <View
-         android:id="@+id/hairline"
+ </LinearLayout>
 diff --git a/res/layout/date_and_next_alarm_time.xml b/res/layout/date_and_next_alarm_time.xml
-index ad25502a8..d89172637 100644
+index 23df1cd3b..b29ffedcf 100644
 --- a/res/layout/date_and_next_alarm_time.xml
 +++ b/res/layout/date_and_next_alarm_time.xml
-@@ -18,34 +18,39 @@
-     xmlns:android="http://schemas.android.com/apk/res/android"
+@@ -18,36 +18,41 @@
      android:layout_width="wrap_content"
      android:layout_height="wrap_content"
--    android:layout_gravity="center"
+     xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_gravity="center_vertical"
 -    android:gravity="center">
 +    android:gravity="center_vertical|start"
 +    android:orientation="vertical">
@@ -84,9 +86,10 @@ index ad25502a8..d89172637 100644
 +        style="@style/sc_keyguard_row"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
--        android:textAllCaps="true" />
+-        android:textAllCaps="true"
 +        android:paddingTop="@dimen/sc_keyguard_status_area_top_padding"
-+        android:paddingStart="@dimen/sc_keyguard_row_date_start_padding" />
++        android:paddingStart="@dimen/sc_keyguard_row_date_start_padding"
+         tools:text="Sa., 01.01."/>
  
 -    <TextView
 -        android:id="@+id/nextAlarmIcon"
@@ -104,15 +107,18 @@ index ad25502a8..d89172637 100644
 -    <TextView
 -        android:id="@+id/nextAlarm"
 -        style="@style/body"
-+    <LinearLayout
-         android:layout_width="wrap_content"
-         android:layout_height="wrap_content"
--        android:textAllCaps="true" />
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:textAllCaps="true"
+-        tools:text="Mo., 07:00"/>
 -
 -</LinearLayout>
 \ No newline at end of file
-+        android:paddingTop="@dimen/sc_keyguard_row_top_padding"
-+        android:paddingStart="@dimen/sc_keyguard_row_alarm_start_padding">
++    <LinearLayout
++         android:layout_width="wrap_content"
++         android:layout_height="wrap_content"
++         android:paddingTop="@dimen/sc_keyguard_row_top_padding"
++         android:paddingStart="@dimen/sc_keyguard_row_alarm_start_padding">
 +
 +        <TextView
 +            android:id="@+id/nextAlarmIcon"
@@ -128,7 +134,8 @@ index ad25502a8..d89172637 100644
 +            android:id="@+id/nextAlarm"
 +            style="@style/sc_keyguard_row"
 +            android:layout_width="wrap_content"
-+            android:layout_height="wrap_content" />
++            android:layout_height="wrap_content"
++            tools:text="Mo., 07:00"/>
 +
 +    </LinearLayout>
 +
@@ -367,59 +374,55 @@ index f524cf536..b9a28c79f 100644
      </LinearLayout>
  
 diff --git a/res/layout/main_clock_frame.xml b/res/layout/main_clock_frame.xml
-index ab960728f..72b71d4f4 100644
+index 159956f19..d0701eaf0 100644
 --- a/res/layout/main_clock_frame.xml
 +++ b/res/layout/main_clock_frame.xml
-@@ -33,10 +33,11 @@
-         android:gravity="center_horizontal"
-         android:orientation="vertical">
+@@ -24,11 +24,11 @@
+     android:layout_marginEnd="24dp"
+     android:orientation="vertical">
  
--        <FrameLayout
-+        <LinearLayout
-             android:layout_width="wrap_content"
--            android:layout_height="0dp"
--            android:layout_weight="1">
-+            android:layout_height="wrap_content"
-+            android:gravity="center_vertical|start"
-+            android:orientation="vertical">
+-    <FrameLayout
++    <LinearLayout
+         android:layout_width="wrap_content"
+-        android:layout_height="0dp"
+-        android:layout_weight="1"
+-        android:layout_gravity="start">
++        android:layout_height="wrap_content"
++        android:gravity="center_vertical|start"
++        android:orientation="vertical">
  
-             <com.android.deskclock.AnalogClock
-                 android:id="@+id/analog_clock"
-@@ -50,18 +51,14 @@
+         <com.android.deskclock.AnalogClock
+             android:id="@+id/analog_clock"
+@@ -42,17 +42,14 @@
  
-             <com.android.deskclock.widget.AutoSizingTextClock
-                 android:id="@+id/digital_clock"
--                style="@style/display_time"
-+                style="@style/sc_keyguard_clock"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
--                android:ellipsize="none"
--                android:includeFontPadding="false"
--                android:paddingTop="@dimen/main_clock_digital_padding"
--                android:singleLine="true"
--                android:textSize="@dimen/main_clock_digital_font_size" />
-+                android:paddingTop="@dimen/main_clock_digital_padding" />
+         <com.android.deskclock.widget.AutoSizingTextClock
+             android:id="@+id/digital_clock"
+-            style="@style/display_time"
+-            android:layout_width="match_parent"
++            style="@style/sc_keyguard_clock"
++            android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+-            android:ellipsize="none"
+-            android:includeFontPadding="false"
+             android:paddingTop="@dimen/main_clock_digital_padding"
+-            android:singleLine="true"
+-            android:textSize="@dimen/main_clock_digital_font_size"
+             tools:text="01:23" />
  
--        </FrameLayout>
-+            <include layout="@layout/date_and_next_alarm_time" />
+-    </FrameLayout>
++        <include layout="@layout/date_and_next_alarm_time" />
++
++    </LinearLayout>
  
--        <include layout="@layout/date_and_next_alarm_time" />
-+        </LinearLayout>
- 
-         <View
-             android:id="@+id/hairline"
-@@ -77,4 +74,4 @@
-         android:layout_height="match_parent"
-         android:layout_weight="@integer/gutter_width_percent" />
- 
+-    <include layout="@layout/date_and_next_alarm_time" />
 -</LinearLayout>
 \ No newline at end of file
 +</LinearLayout>
 diff --git a/res/values/dimens.xml b/res/values/dimens.xml
-index 6a384e94b..c4b47abb7 100644
+index 856ef8241..3061e27f6 100644
 --- a/res/values/dimens.xml
 +++ b/res/values/dimens.xml
-@@ -62,7 +62,7 @@
+@@ -61,7 +61,7 @@
      <dimen name="body_font_padding">4dp</dimen>
  
      <dimen name="alarm_label_size">14sp</dimen>
@@ -428,10 +431,10 @@ index 6a384e94b..c4b47abb7 100644
  
      <dimen name="backspace_icon_size">24dp</dimen>
      <dimen name="no_alarms_size">90dp</dimen>
-@@ -129,4 +129,14 @@
+@@ -140,4 +140,14 @@
+     <dimen name="alarm_clock_expanded_vertical_margin">8dp</dimen>
  
-     <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
-     <dimen name="fab_height">96dp</dimen>
+     <dimen name="settings_padding">4dp</dimen>
 +
 +    <!-- Keyguard dimens, taken from S fwb -->
 +    <dimen name="sc_keyguard_clock_text_size">86dp</dimen>
@@ -444,13 +447,14 @@ index 6a384e94b..c4b47abb7 100644
 +    <dimen name="sc_keyguard_row_alarm_start_padding">5.5dp</dimen>
  </resources>
 diff --git a/res/values/styles.xml b/res/values/styles.xml
-index fbe62ae3a..e9ae028f9 100644
+index 7ae54c97c..73a800383 100644
 --- a/res/values/styles.xml
 +++ b/res/values/styles.xml
-@@ -134,4 +134,22 @@
-         <item name="android:numbersSelectorColor">?attr/colorAccent</item>
+@@ -187,4 +187,23 @@
+     <style name="TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+         <item name="android:textSize">22.0sp</item>
      </style>
- 
++
 +    <style name="sc_keyguard_clock">
 +        <item name="android:fontFamily">sans-serif-light</item>
 +        <item name="android:fontFeatureSettings">tnum</item>
@@ -471,19 +475,19 @@ index fbe62ae3a..e9ae028f9 100644
 +
  </resources>
 diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
-index 80a724e85..52685f1f4 100644
+index e31f2d801..a93766697 100644
 --- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 +++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
-@@ -211,7 +211,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -212,7 +212,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          if (Utils.isWidgetClickable(wm, widgetId)) {
              final Intent openApp = new Intent(context, DeskClock.class);
-             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
+             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, FLAG_IMMUTABLE);
 -            rv.setOnClickPendingIntent(R.id.digital_widget, pi);
 +            rv.setOnClickPendingIntent(R.id.digital_widget_actual, pi);
          }
  
          // Configure child views of the remote view.
-@@ -243,7 +243,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -244,7 +244,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
          final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
          final int largestClockFontSizePx =
@@ -492,7 +496,7 @@ index 80a724e85..52685f1f4 100644
  
          // Create a size template that describes the widget bounds.
          final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
-@@ -314,13 +314,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -316,13 +316,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          }
  
          // Measure the widget at the largest possible size.
@@ -508,7 +512,7 @@ index 80a724e85..52685f1f4 100644
          if (low.hasViolations()) {
              return low;
          }
-@@ -332,7 +332,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -334,7 +334,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                  return low;
              }
  
@@ -517,7 +521,7 @@ index 80a724e85..52685f1f4 100644
              if (midSize.hasViolations()) {
                  high = midSize;
              } else {
-@@ -395,7 +395,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -397,7 +397,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
       * the offscreen {@code sizer} view. Measure the {@code sizer} view and return the resulting
       * size measurements.
       */
@@ -526,7 +530,7 @@ index 80a724e85..52685f1f4 100644
          // Create a copy of the given template sizes.
          final Sizes measuredSizes = template.newSize();
  
-@@ -406,13 +406,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -408,13 +408,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          final TextView nextAlarmIcon = (TextView) sizer.findViewById(R.id.nextAlarmIcon);
  
          // Adjust the font sizes.
@@ -542,7 +546,7 @@ index 80a724e85..52685f1f4 100644
  
          // Measure and layout the sizer.
          final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
-@@ -493,11 +493,16 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -495,12 +495,17 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          private int getLargestClockFontSizePx() { return mLargestClockFontSizePx; }
          private int getSmallestClockFontSizePx() { return mSmallestClockFontSizePx; }
          private int getClockFontSizePx() { return mClockFontSizePx; }
@@ -557,12 +561,14 @@ index 80a724e85..52685f1f4 100644
 -            mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
 -            mIconFontSizePx = (int) (mFontSizePx * 1.4f);
 -            mIconPaddingPx = mFontSizePx / 3;
+-        }
 +            mFontSizePx = max(1, round(clockFontSizePx / (float) keyguardClockTextSizePx * (float) keyguardRowTextSizePx));
 +            mIconFontSizePx = max(1, round(clockFontSizePx / (float) keyguardClockTextSizePx * (float) keyguardAlarmIconSizePx));
 +            mIconPaddingPx = max(1, round(clockFontSizePx / (float) keyguardClockTextSizePx * (float) alarmIconPaddingPx));
-         }
++         }
  
          /**
+          * @return the amount of widget height available to the world cities list
 diff --git a/src/com/android/deskclock/AlarmUtils.java b/src/com/android/deskclock/AlarmUtils.java
 index db60ace95..43767d313 100644
 --- a/src/com/android/deskclock/AlarmUtils.java

@@ -1,7 +1,7 @@
-From 25f408530b37ae70f3699a8ae88115c457b6275f Mon Sep 17 00:00:00 2001
+From ba083752bf0310ee14884e4a2fe3e3e5846c62b5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 02:23:48 +0000
-Subject: [PATCH 04/21] UI: Adjust default navbar layouts
+Subject: [PATCH 03/19] UI: Adjust default navbar layouts
 
 - Slightly tighten nodpi layout
 - Remove sw372dp layout - looks terrible, probably meant for legacy phablets, but most modern phones qualify
