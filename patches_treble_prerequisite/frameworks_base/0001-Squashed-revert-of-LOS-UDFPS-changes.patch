@@ -1,7 +1,7 @@
-From 953e5c0c69a444a75f18ae8f6ff7f1614be75ce0 Mon Sep 17 00:00:00 2001
+From fbb1939f6ab28ce541cde5edfe442bfbc212c131 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Mar 2022 09:51:36 +0000
-Subject: [PATCH] Squashed revert of LOS UDFPS changes
+Subject: [PATCH 1/2] Squashed revert of LOS UDFPS changes
 
 Way less than FOD, but reverting them nonetheless to keep in line with PHH AOSP
 
@@ -123,7 +123,7 @@ index a1ec9c2bb76e..000000000000
 -    }
 -}
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
-index e77d78acff02..3e9d6b0fa362 100644
+index 8533f356d67a..250c16c81eac 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
 @@ -426,12 +426,7 @@ public class UdfpsController implements DozeReceiver {
@@ -139,7 +139,7 @@ index e77d78acff02..3e9d6b0fa362 100644
                      handled = true;
                  }
                  if ((withinSensorArea || fromUdfpsView) && shouldTryToDismissKeyguard()) {
-@@ -552,7 +547,7 @@ public class UdfpsController implements DozeReceiver {
+@@ -577,7 +572,7 @@ public class UdfpsController implements DozeReceiver {
              @NonNull ScreenLifecycle screenLifecycle,
              @Nullable Vibrator vibrator,
              @NonNull UdfpsHapticsSimulator udfpsHapticsSimulator,
@@ -148,7 +148,7 @@ index e77d78acff02..3e9d6b0fa362 100644
              @NonNull KeyguardStateController keyguardStateController,
              @NonNull KeyguardBypassController keyguardBypassController,
              @NonNull DisplayManager displayManager,
-@@ -581,7 +576,7 @@ public class UdfpsController implements DozeReceiver {
+@@ -606,7 +601,7 @@ public class UdfpsController implements DozeReceiver {
          mPowerManager = powerManager;
          mAccessibilityManager = accessibilityManager;
          mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
@@ -157,7 +157,7 @@ index e77d78acff02..3e9d6b0fa362 100644
          screenLifecycle.addObserver(mScreenObserver);
          mScreenOn = screenLifecycle.getScreenState() == ScreenLifecycle.SCREEN_ON;
          mKeyguardBypassController = keyguardBypassController;
-@@ -603,7 +598,7 @@ public class UdfpsController implements DozeReceiver {
+@@ -628,7 +623,7 @@ public class UdfpsController implements DozeReceiver {
                  });
  
          mCoreLayoutParams = new WindowManager.LayoutParams(

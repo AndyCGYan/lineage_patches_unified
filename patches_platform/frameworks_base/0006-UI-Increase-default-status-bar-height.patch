@@ -1,24 +1,33 @@
-From 972bc4938064c391290503d7fbeb200e339fe326 Mon Sep 17 00:00:00 2001
+From f67b7f525bf11860fcb6e08a4450937040b786cd Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 3 Jun 2020 01:31:34 +0000
-Subject: [PATCH 06/19] UI: Increase default status bar height
+Subject: [PATCH 06/12] UI: Increase default status bar height
 
 Change-Id: Ibbcf63159e19bb2bb2b1094ea07ab85917630b07
 ---
- core/res/res/values/dimens.xml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ core/res/res/values/dimens.xml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/core/res/res/values/dimens.xml b/core/res/res/values/dimens.xml
-index f331f1ab720f..a31e166296ee 100644
+index cafebcec454e..11515b57dff1 100644
 --- a/core/res/res/values/dimens.xml
 +++ b/core/res/res/values/dimens.xml
-@@ -42,7 +42,7 @@
+@@ -41,7 +41,7 @@
+ 
+     <!-- The default height of the status bar used in {@link SystemBarUtils#getStatusBarHeight} to
+          calculate the status bar height. -->
+-    <dimen name="status_bar_height_default">24dp</dimen>
++    <dimen name="status_bar_height_default">28dp</dimen>
      <!-- Height of the status bar.
           Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
           -->
--    <dimen name="status_bar_height">24dp</dimen>
-+    <dimen name="status_bar_height">28dp</dimen>
+@@ -49,7 +49,7 @@
      <!-- Height of the status bar in portrait.
+          Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
+          -->
+-    <dimen name="status_bar_height_portrait">24dp</dimen>
++    <dimen name="status_bar_height_portrait">28dp</dimen>
+     <!-- Height of the status bar in landscape.
           Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
           -->
 -- 

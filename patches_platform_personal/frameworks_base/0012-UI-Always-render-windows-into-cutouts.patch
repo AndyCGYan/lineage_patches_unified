@@ -1,7 +1,7 @@
-From f94652bb879b8fbe9f9710276b7ca46fd0e8c76a Mon Sep 17 00:00:00 2001
+From 6906f3f8b74104d9c2e80f469d1296ed72f1af96 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
-Subject: [PATCH 11/16] UI: Always render windows into cutouts
+Subject: [PATCH 12/17] UI: Always render windows into cutouts
 
 Eliminates black/white letterboxing
 Quick and dirty way to do the latter - wait for proper fix from Google
@@ -55,10 +55,10 @@ index 32e43ca4e56c..18c28ae674f9 100644
      }
  
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index 89ac6585c673..b08604c6b4e7 100644
+index 969d70099cfb..3a64c085beaf 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
-@@ -1817,7 +1817,7 @@ public class DisplayPolicy {
+@@ -1867,7 +1867,7 @@ public class DisplayPolicy {
              pf.set((fl & FLAG_LAYOUT_IN_SCREEN) == 0 ? attached.getFrame() : df);
          }
  

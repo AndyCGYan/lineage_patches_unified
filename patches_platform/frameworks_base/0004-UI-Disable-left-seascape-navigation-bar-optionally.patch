@@ -1,7 +1,7 @@
-From d461abc9968ac7937e5530efd15d46671565c316 Mon Sep 17 00:00:00 2001
+From 7c54f36cc9e53c9b4781d7233fb0b0f389c12ecc Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 9 Mar 2018 15:41:26 +0800
-Subject: [PATCH 04/19] UI: Disable left (seascape) navigation bar optionally
+Subject: [PATCH 04/12] UI: Disable left (seascape) navigation bar optionally
 
 Toggle this behaviour with property "persist.ui.seascape.disable"
 
@@ -45,10 +45,10 @@ index f1e1366404a2..f43bef8532b8 100644
          for (int i = 0; i < group.getChildCount(); i++) {
              final View child = group.getChildAt(i);
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index 65eaa63118b2..89ac6585c673 100644
+index 0a5d7f41f40f..969d70099cfb 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
-@@ -2644,9 +2644,10 @@ public class DisplayPolicy {
+@@ -2694,9 +2694,10 @@ public class DisplayPolicy {
              }
          }
          if (navigationBarCanMove() && displayWidth > displayHeight) {

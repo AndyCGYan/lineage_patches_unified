@@ -1,7 +1,7 @@
-From 312bf4b794331d797c37b9e9bfe0f3a2605a4905 Mon Sep 17 00:00:00 2001
+From 8ce58e00f60ce8a9c28b8d1ce4dcaa656e51cc51 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
-Subject: [PATCH 08/16] Keyguard/UI: Fix status bar / quick settings margins
+Subject: [PATCH 08/17] Keyguard/UI: Fix status bar / quick settings margins
  and paddings
 
 Last revised on 2022/03/13, targeting s-v2
@@ -139,7 +139,7 @@ index aa59fd6a9b51..a55c394a3e53 100644
      <!-- Additional translation (downwards) for appearing notifications when going to the full shade
           from Keyguard. -->
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index 60a5df0665e7..55112ee27ef3 100644
+index ec31c4cd942b..936a1f98f767 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 @@ -93,6 +93,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu

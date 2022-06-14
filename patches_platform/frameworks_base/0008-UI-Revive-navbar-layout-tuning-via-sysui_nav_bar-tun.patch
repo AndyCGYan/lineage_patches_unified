@@ -1,7 +1,7 @@
-From bb47f4b8d64a57c3eb5dae7a13c3abdac8533736 Mon Sep 17 00:00:00 2001
+From 179273341668efc421afb80fdf4356f1034adff4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 6 Oct 2020 01:41:16 +0000
-Subject: [PATCH 08/19] UI: Revive navbar layout tuning via sysui_nav_bar
+Subject: [PATCH 08/12] UI: Revive navbar layout tuning via sysui_nav_bar
  tunable
 
 Google keeps fixing what ain't broken.
@@ -12,7 +12,7 @@ Change-Id: Ied7d7859e50fd0fcc346219964e747c5d5f4c352
  1 file changed, 15 insertions(+)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
-index c8bc143f0bd8..fab079b91608 100644
+index eb9544c1372b..8cc9a32a1794 100644
 --- a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
 +++ b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
 @@ -118,6 +118,7 @@ public class NavigationBarInflaterView extends FrameLayout
