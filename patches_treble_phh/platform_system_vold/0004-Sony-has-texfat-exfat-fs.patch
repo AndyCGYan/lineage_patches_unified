@@ -1,4 +1,4 @@
-From 8ffe3b736fa6736eb12951977eabdde6cd999359 Mon Sep 17 00:00:00 2001
+From 719cfde8ee01af3d1d9304bad2337466876a5af4 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 28 Jan 2020 00:27:17 +0100
 Subject: [PATCH 4/6] Sony has `texfat` exfat fs
@@ -34,5 +34,5 @@ index 3aa9494..03ad649 100644
          return 0;
      }
 -- 
-2.17.1
+2.25.1
 

@@ -1,4 +1,4 @@
-From 32affddf47a6a3aba580707f349565b3655a16b7 Mon Sep 17 00:00:00 2001
+From fdfa781b28c22610fc2cc26a2820da5d0fda4c32 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 17 Feb 2018 19:39:38 +0100
 Subject: [PATCH 1/6] Allow deletion of symlink
@@ -9,10 +9,10 @@ Change-Id: I9731895f88729072297f753088583aabbe6990f4
  1 file changed, 1 insertion(+)
 
 diff --git a/FsCrypt.cpp b/FsCrypt.cpp
-index e21524a..ca8e6f9 100644
+index fd42cbe..230fdf6 100644
 --- a/FsCrypt.cpp
 +++ b/FsCrypt.cpp
-@@ -313,6 +313,7 @@ static bool prepare_dir(const std::string& dir, mode_t mode, uid_t uid, gid_t gi
+@@ -321,6 +321,7 @@ static bool prepare_dir(const std::string& dir, mode_t mode, uid_t uid, gid_t gi
  static bool destroy_dir(const std::string& dir) {
      LOG(DEBUG) << "Destroying: " << dir;
      if (rmdir(dir.c_str()) != 0 && errno != ENOENT) {
@@ -21,5 +21,5 @@ index e21524a..ca8e6f9 100644
          return false;
      }
 -- 
-2.17.1
+2.25.1
 

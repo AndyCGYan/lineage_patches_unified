@@ -1,7 +1,7 @@
-From d69f9a1231d08fd6508e7219b3298cdbc3158796 Mon Sep 17 00:00:00 2001
+From e46c9b776cef6a26dceb5e447a7efbe14608df93 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 16 Sep 2019 13:49:05 +0200
-Subject: [PATCH] Check needsCheckpoint only if checkpoint is supported
+Subject: [PATCH 3/6] Check needsCheckpoint only if checkpoint is supported
 
 This is needed because some devices (Xiaomi MiPad 4, uncertified)
 declares a bootctrl HAL in manifest, but doesn't have it.
@@ -13,10 +13,10 @@ Change-Id: I2dafcbca7e994d7a3ac36ef3698590db2ab482fa
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/cryptfs.cpp b/cryptfs.cpp
-index 33f0913..7db1ef6 100644
+index 3c6ed15..4188797 100644
 --- a/cryptfs.cpp
 +++ b/cryptfs.cpp
-@@ -1963,7 +1963,9 @@ static int cryptfs_restart_internal(int restart_main) {
+@@ -1968,7 +1968,9 @@ static int cryptfs_restart_internal(int restart_main) {
              SLOGE("Failed to setexeccon");
              return -1;
          }

@@ -1,0 +1,57 @@
+From 54ae0f29ba89e7dc79b69540f78cdabdd943a0d3 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 30 Nov 2021 12:58:00 +0000
+Subject: [PATCH] SearchLauncher: Adapt to Trebuchet
+
+---
+ apps/SearchLauncher/Android.mk          | 4 ++--
+ apps/SearchLauncher/AndroidManifest.xml | 4 +++-
+ 2 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/apps/SearchLauncher/Android.mk b/apps/SearchLauncher/Android.mk
+index 0b7f7d4..91da3c8 100644
+--- a/apps/SearchLauncher/Android.mk
++++ b/apps/SearchLauncher/Android.mk
+@@ -23,7 +23,7 @@ LOCAL_USE_AAPT2 := true
+ LOCAL_AAPT2_ONLY := true
+ 
+ # Relative path for AOSP Launcher3 directory
+-LAUNCHER_PATH := ../../../../packages/apps/Launcher3
++LAUNCHER_PATH := ../../../../packages/apps/Trebuchet
+ 
+ LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
+ LOCAL_STATIC_JAVA_LIBRARIES := lib_launcherClient
+@@ -60,7 +60,7 @@ LOCAL_USE_AAPT2 := true
+ LOCAL_AAPT2_ONLY := true
+ 
+ # Relative path for AOSP Launcher3 directory
+-LAUNCHER_PATH := ../../../../packages/apps/Launcher3
++LAUNCHER_PATH := ../../../../packages/apps/Trebuchet
+ 
+ LOCAL_STATIC_ANDROID_LIBRARIES := Launcher3CommonDepsLib
+ LOCAL_STATIC_JAVA_LIBRARIES := \
+diff --git a/apps/SearchLauncher/AndroidManifest.xml b/apps/SearchLauncher/AndroidManifest.xml
+index 6f48d23..f8ca8e3 100644
+--- a/apps/SearchLauncher/AndroidManifest.xml
++++ b/apps/SearchLauncher/AndroidManifest.xml
+@@ -19,6 +19,7 @@
+ -->
+ <manifest
+     xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
+     package="com.android.launcher3">
+     <uses-sdk android:targetSdkVersion="29" android:minSdkVersion="25"/>
+     <!--
+@@ -36,7 +37,8 @@
+         android:theme="@style/AppTheme"
+         android:largeHeap="@bool/config_largeHeap"
+         android:restoreAnyVersion="true"
+-        android:supportsRtl="true" >
++        android:supportsRtl="true"
++        tools:replace="android:icon" >
+ 
+         <!--
+         Main launcher activity. When extending only change the name, and keep all the
+-- 
+2.25.1
+
