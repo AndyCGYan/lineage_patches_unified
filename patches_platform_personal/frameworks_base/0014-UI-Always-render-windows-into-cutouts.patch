@@ -1,7 +1,7 @@
-From 6906f3f8b74104d9c2e80f469d1296ed72f1af96 Mon Sep 17 00:00:00 2001
+From b472b86f1bc17ade0b4b5e2e9743d11ef704ab4f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
-Subject: [PATCH 12/17] UI: Always render windows into cutouts
+Subject: [PATCH 14/19] UI: Always render windows into cutouts
 
 Eliminates black/white letterboxing
 Quick and dirty way to do the latter - wait for proper fix from Google

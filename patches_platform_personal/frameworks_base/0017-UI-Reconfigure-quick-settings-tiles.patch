@@ -1,7 +1,7 @@
-From d7fc8ae4d57d3ec1ccd9ff6ca6d7becbfaec9c70 Mon Sep 17 00:00:00 2001
+From 819573575f21c3ebef03940d91b48ed1fe206034 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 5 Mar 2022 01:43:37 +0000
-Subject: [PATCH 15/17] UI: Reconfigure quick settings tiles
+Subject: [PATCH 17/19] UI: Reconfigure quick settings tiles
 
 Change-Id: I743f52ef3a95db0ca2c02ae973faa4629e41885d
 ---

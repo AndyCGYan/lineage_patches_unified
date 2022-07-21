@@ -1,7 +1,7 @@
-From 8ce58e00f60ce8a9c28b8d1ce4dcaa656e51cc51 Mon Sep 17 00:00:00 2001
+From d1f90b64712601d17974e3651fa709e409f171d6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
-Subject: [PATCH 08/17] Keyguard/UI: Fix status bar / quick settings margins
+Subject: [PATCH 10/19] Keyguard/UI: Fix status bar / quick settings margins
  and paddings
 
 Last revised on 2022/03/13, targeting s-v2
@@ -139,10 +139,10 @@ index aa59fd6a9b51..a55c394a3e53 100644
      <!-- Additional translation (downwards) for appearing notifications when going to the full shade
           from Keyguard. -->
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index ec31c4cd942b..936a1f98f767 100644
+index 5d3539b66141..a93c71987855 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-@@ -93,6 +93,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -98,6 +98,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private StatusBarContentInsetsProvider mInsetsProvider;
  
      private int mRoundedCornerPadding = 0;
@@ -153,7 +153,7 @@ index ec31c4cd942b..936a1f98f767 100644
      private int mWaterfallTopInset;
      private int mCutOutPaddingLeft;
      private int mCutOutPaddingRight;
-@@ -259,6 +263,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -271,6 +275,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
              mRoundedCornerPadding = resources.getDimensionPixelSize(
                      R.dimen.rounded_corner_content_padding);
  
@@ -165,7 +165,7 @@ index ec31c4cd942b..936a1f98f767 100644
          int qsOffsetHeight = SystemBarUtils.getQuickQsOffsetHeight(mContext);
  
          mDatePrivacyView.getLayoutParams().height =
-@@ -346,6 +355,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -358,6 +367,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  .addFloat(mDateView, "alpha", 0, 0, 1)
                  .addFloat(mClockDateView, "alpha", 1, 0, 0)
                  .addFloat(mQSCarriers, "alpha", 0, 1)
@@ -175,7 +175,7 @@ index ec31c4cd942b..936a1f98f767 100644
                  .setListener(new TouchAnimator.ListenerAdapter() {
                      @Override
                      public void onAnimationAtEnd() {
-@@ -451,8 +463,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -463,8 +475,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  .getStatusBarContentInsetsForCurrentRotation();
          boolean hasCornerCutout = mInsetsProvider.currentRotationHasCornerCutout();
  
@@ -184,7 +184,7 @@ index ec31c4cd942b..936a1f98f767 100644
          LinearLayout.LayoutParams datePrivacySeparatorLayoutParams =
                  (LinearLayout.LayoutParams) mDatePrivacySeparator.getLayoutParams();
          LinearLayout.LayoutParams mClockIconsSeparatorLayoutParams =
-@@ -516,34 +526,37 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -528,34 +538,37 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private void updateHeadersPadding() {
          setContentMargins(mDatePrivacyView, 0, 0);
          setContentMargins(mStatusIconsView, 0, 0);

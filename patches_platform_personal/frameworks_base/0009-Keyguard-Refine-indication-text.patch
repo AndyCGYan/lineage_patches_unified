@@ -1,7 +1,7 @@
-From 096def92c7e4ff40d1bee39e27f57ca858957324 Mon Sep 17 00:00:00 2001
+From 595b07a5e1d1f446dea60072eb5fd35945aee741 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
-Subject: [PATCH 07/17] Keyguard: Refine indication text
+Subject: [PATCH 09/19] Keyguard: Refine indication text
 
 Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
 ---
@@ -9,9 +9,9 @@ Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
  .../SystemUI/res/layout/keyguard_bottom_area.xml     |  1 +
  packages/SystemUI/res/values/dimens.xml              |  3 +--
  .../KeyguardIndicationRotateTextViewController.java  | 12 +++++++++++-
- .../statusbar/KeyguardIndicationController.java      |  5 ++---
+ .../statusbar/KeyguardIndicationController.java      |  7 ++++---
  .../statusbar/phone/KeyguardIndicationTextView.java  |  2 +-
- 6 files changed, 16 insertions(+), 9 deletions(-)
+ 6 files changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
 index 7f47e274304a..bb6c56455d72 100644
@@ -84,7 +84,7 @@ index d73d9cdb7d40..a7a23032963a 100644
       * Clears all messages in the queue and sets the current message to an empty string.
       */
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index d7b4738340e6..e4f01184e0d8 100644
+index d7b4738340e6..d89440057975 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 @@ -471,12 +471,11 @@ public class KeyguardIndicationController {
@@ -102,6 +102,19 @@ index d7b4738340e6..e4f01184e0d8 100644
                              .setTextColor(mInitialTextColorState)
                              .build(),
                      false);
+@@ -861,10 +860,12 @@ public class KeyguardIndicationController {
+         public void handleMessage(Message msg) {
+             if (msg.what == MSG_HIDE_TRANSIENT) {
+                 hideTransientIndication();
++                updatePersistentIndications(false /* animate */, KeyguardUpdateMonitor.getCurrentUser());
+             } else if (msg.what == MSG_SHOW_ACTION_TO_UNLOCK) {
+                 showActionToUnlock();
+             } else if (msg.what == MSG_HIDE_BIOMETRIC_MESSAGE) {
+                 hideBiometricMessage();
++                updatePersistentIndications(false /* animate */, KeyguardUpdateMonitor.getCurrentUser());
+             }
+         }
+     };
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
 index 339f371c0d12..bd1432303463 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java

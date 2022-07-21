@@ -1,4 +1,4 @@
-From b8d27a58aba6540dd1ae28b395ed0057f378ebac Mon Sep 17 00:00:00 2001
+From 5462fd810d54e1c5a667108a2f4a8bf976d4a79e Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Tue, 2 Feb 2021 10:20:51 +0000
 Subject: [PATCH 18/34] Fix Wakelock issue

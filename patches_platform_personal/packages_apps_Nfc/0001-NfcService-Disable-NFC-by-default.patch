@@ -1,0 +1,26 @@
+From 99b3533fe66a7bdc71dd6c63c4ba6c75e2ef2082 Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sat, 6 Jun 2015 10:40:51 -0400
+Subject: [PATCH] NfcService: Disable NFC by default
+
+Change-Id: Ibe6abec7fa84c6fde476b8a083f57a3f61b50909
+---
+ src/com/android/nfc/NfcService.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/nfc/NfcService.java b/src/com/android/nfc/NfcService.java
+index 3facdeeb..878b7e21 100644
+--- a/src/com/android/nfc/NfcService.java
++++ b/src/com/android/nfc/NfcService.java
+@@ -133,7 +133,7 @@ public class NfcService implements DeviceHostListener {
+     public static final String PREF = "NfcServicePrefs";
+ 
+     static final String PREF_NFC_ON = "nfc_on";
+-    static final boolean NFC_ON_DEFAULT = true;
++    static final boolean NFC_ON_DEFAULT = false;
+     static final String PREF_NDEF_PUSH_ON = "ndef_push_on";
+     static final boolean NDEF_PUSH_ON_DEFAULT = false;
+     static final String PREF_SECURE_NFC_ON = "secure_nfc_on";
+-- 
+2.25.1
+

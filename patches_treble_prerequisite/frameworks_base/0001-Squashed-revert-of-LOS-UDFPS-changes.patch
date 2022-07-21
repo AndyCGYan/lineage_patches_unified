@@ -1,4 +1,4 @@
-From fbb1939f6ab28ce541cde5edfe442bfbc212c131 Mon Sep 17 00:00:00 2001
+From 0ef5fe793afdf7128618f4b5a286572fbc449c48 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Mar 2022 09:51:36 +0000
 Subject: [PATCH 1/2] Squashed revert of LOS UDFPS changes
@@ -51,14 +51,13 @@ z&)mfH)S%SFl*+=BsWw1Ge4Z|jAr-fh5*U~o7?>FtSQ!{^cTT<plwt66^>bP0l+XkK
 D@OB!I
 
 diff --git a/packages/SystemUI/res/values/lineage_config.xml b/packages/SystemUI/res/values/lineage_config.xml
-index ff40c892ddb8..926acda7fa31 100644
+index 6c92a4fb2a3c..910a55d0f347 100644
 --- a/packages/SystemUI/res/values/lineage_config.xml
 +++ b/packages/SystemUI/res/values/lineage_config.xml
-@@ -24,16 +24,4 @@
-          the sensor embedded in the power key and listening all the time
+@@ -25,18 +25,6 @@
           causes a poor experience. -->
      <bool name="config_fingerprintWakeAndUnlock">true</bool>
--
+ 
 -    <!-- Color of the UDFPS pressed view -->
 -    <color name="config_udfpsColor">#ffffffff</color>
 -
@@ -70,7 +69,10 @@ index ff40c892ddb8..926acda7fa31 100644
 -
 -    <!-- Udfps HBM provider class name -->
 -    <string name="config_udfpsHbmProviderComponent">com.android.systemui.biometrics.DummyUdfpsHbmProvider</string>
- </resources>
+-
+     <!-- Doze: does the double tap sensor need a proximity check? -->
+     <bool name="doze_double_tap_proximity_check">false</bool>
+ 
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java b/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java
 index fb5a948c6716..fd37b3509a4e 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java

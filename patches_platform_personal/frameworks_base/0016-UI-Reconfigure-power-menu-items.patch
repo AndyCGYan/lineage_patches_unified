@@ -1,7 +1,7 @@
-From 9dbf50b60e1ceb062174e05e28b78f34149c25e0 Mon Sep 17 00:00:00 2001
+From 53ca533e468c5b88268399b905ad61585431361b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 26 Oct 2020 14:06:56 +0000
-Subject: [PATCH 14/17] UI: Reconfigure power menu items
+Subject: [PATCH 16/19] UI: Reconfigure power menu items
 
 Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
 ---
@@ -9,7 +9,7 @@ Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index d7872f457b34..df9a0d487e9e 100644
+index 999e5b95003c..b61233bdf931 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
 @@ -3016,13 +3016,10 @@

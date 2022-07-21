@@ -1,7 +1,7 @@
-From b4ca2e090b7a049691be56bda35c36f51c201f1d Mon Sep 17 00:00:00 2001
+From 938658e1a31d80907f8f3f616710b27efb5aa74f Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Fri, 22 Mar 2019 00:41:20 +0800
-Subject: [PATCH 03/17] Disable FP lockouts
+Subject: [PATCH 04/19] Disable FP lockouts
 
 Both timed and permanent lockouts - GET THE FUCK OUT
 Now targeting LockoutFramework, introduced in Android 12

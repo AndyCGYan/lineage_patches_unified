@@ -1,4 +1,4 @@
-From a57f80f3a5570710a915141687eac995b52aa486 Mon Sep 17 00:00:00 2001
+From d5776b7e2edf66e2a03d79863c20c82da8a98bd5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 14 Mar 2022 03:44:59 +0000
 Subject: [PATCH 2/2] Revert "overlay: Default to night mode"
@@ -11,10 +11,10 @@ Change-Id: I036bdd576e536392cf41e3c536d5ca2eb04e5a0f
  1 file changed, 8 deletions(-)
 
 diff --git a/overlay/common/frameworks/base/core/res/res/values/config.xml b/overlay/common/frameworks/base/core/res/res/values/config.xml
-index 19104aa4..337c3f9f 100644
+index ee5bc917..4a4ae958 100644
 --- a/overlay/common/frameworks/base/core/res/res/values/config.xml
 +++ b/overlay/common/frameworks/base/core/res/res/values/config.xml
-@@ -144,12 +144,4 @@
+@@ -155,12 +155,4 @@
      <bool name="config_supportsMicToggle">true</bool>
      <!-- Whether this device is supporting the camera toggle -->
      <bool name="config_supportsCamToggle">true</bool>

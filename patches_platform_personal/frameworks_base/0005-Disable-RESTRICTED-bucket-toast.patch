@@ -1,0 +1,40 @@
+From 4a72033948d6fb7bbef8b4c4233d0f8077f83ae1 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 3 Jul 2022 00:08:42 +0000
+Subject: [PATCH 05/19] Disable "RESTRICTED bucket" toast
+
+Change-Id: I20a328d3c77962f3a6095bfca42d0b165a093ce8
+---
+ .../server/usage/AppStandbyController.java       | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
+index 4b081d258fd4..ded38c55325a 100644
+--- a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
++++ b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
+@@ -1493,21 +1493,7 @@ public class AppStandbyController
+                         .noteRestrictionAttempt(packageName, userId, elapsedRealtime, reason);
+ 
+                 if (isForcedByUser) {
+-                    // Only user force can bypass the delay restriction. If the user forced the
+-                    // app into the RESTRICTED bucket, then a toast confirming the action
+-                    // shouldn't be surprising.
+-                    if (Build.IS_DEBUGGABLE) {
+-                        Toast.makeText(mContext,
+-                                // Since AppStandbyController sits low in the lock hierarchy,
+-                                // make sure not to call out with the lock held.
+-                                mHandler.getLooper(),
+-                                mContext.getResources().getString(
+-                                        R.string.as_app_forced_to_restricted_bucket, packageName),
+-                                Toast.LENGTH_SHORT)
+-                                .show();
+-                    } else {
+-                        Slog.i(TAG, packageName + " restricted by user");
+-                    }
++                    Slog.i(TAG, packageName + " restricted by user");
+                 } else {
+                     final long timeUntilRestrictPossibleMs = app.lastUsedByUserElapsedTime
+                             + mInjector.getAutoRestrictedBucketDelayMs() - elapsedRealtime;
+-- 
+2.25.1
+
