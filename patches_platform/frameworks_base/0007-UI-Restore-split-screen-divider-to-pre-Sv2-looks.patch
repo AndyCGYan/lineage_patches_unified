@@ -1,4 +1,4 @@
-From e4cc0b28ec7a8ac5addecd370b2af6de0617abec Mon Sep 17 00:00:00 2001
+From a2c0b30aa763d11f8509402a2ed41dfc5e57a7f7 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
 Subject: [PATCH 07/12] UI: Restore split-screen divider to pre-Sv2 looks
@@ -8,9 +8,9 @@ Subject: [PATCH 07/12] UI: Restore split-screen divider to pre-Sv2 looks
 
 Change-Id: I240b627793b615c82bd07ebd77638cde180ef80f
 ---
- .../Shell/res/color/split_divider_background.xml              | 4 ++--
- libs/WindowManager/Shell/res/values/dimen.xml                 | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ .../Shell/res/color/split_divider_background.xml  |  4 ++--
+ .../wm/shell/common/split/SplitLayout.java        | 15 +--------------
+ 2 files changed, 3 insertions(+), 16 deletions(-)
 
 diff --git a/libs/WindowManager/Shell/res/color/split_divider_background.xml b/libs/WindowManager/Shell/res/color/split_divider_background.xml
 index 329e5b9b31a0..cd54ac26a7fd 100644
@@ -25,19 +25,32 @@ index 329e5b9b31a0..cd54ac26a7fd 100644
 \ No newline at end of file
 +    <item android:color="@android:color/black" />
 +</selector>
-diff --git a/libs/WindowManager/Shell/res/values/dimen.xml b/libs/WindowManager/Shell/res/values/dimen.xml
-index af78293eb3ea..489fb0c83681 100644
---- a/libs/WindowManager/Shell/res/values/dimen.xml
-+++ b/libs/WindowManager/Shell/res/values/dimen.xml
-@@ -88,7 +88,7 @@
-     <dimen name="split_divider_handle_height">3dp</dimen>
+diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+index ba343cb12085..e74013346afd 100644
+--- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
++++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+@@ -128,20 +128,7 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+     }
  
-     <dimen name="split_divider_bar_width">10dp</dimen>
--    <dimen name="split_divider_corner_size">42dp</dimen>
-+    <dimen name="split_divider_corner_size">0dp</dimen>
+     private int getDividerInsets(Resources resources, Display display) {
+-        final int dividerInset = resources.getDimensionPixelSize(
+-                com.android.internal.R.dimen.docked_stack_divider_insets);
+-
+-        int radius = 0;
+-        RoundedCorner corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-
+-        return Math.max(dividerInset, radius);
++        return 0;
+     }
  
-     <!-- One-Handed Mode -->
-     <!-- Threshold for dragging distance to enable one-handed mode -->
+     /** Gets bounds of the primary split. */
 -- 
 2.25.1
 

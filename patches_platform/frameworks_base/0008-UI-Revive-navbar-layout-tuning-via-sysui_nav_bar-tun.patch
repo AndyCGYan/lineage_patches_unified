@@ -1,4 +1,4 @@
-From 179273341668efc421afb80fdf4356f1034adff4 Mon Sep 17 00:00:00 2001
+From 76b1249b9b8a63a61bfbfeb4d762eccf95ca65ae Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 6 Oct 2020 01:41:16 +0000
 Subject: [PATCH 08/12] UI: Revive navbar layout tuning via sysui_nav_bar

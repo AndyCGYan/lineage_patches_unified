@@ -1,4 +1,4 @@
-From c4aa097340cc70ef21ad22b76fb3ae38a3ee4a28 Mon Sep 17 00:00:00 2001
+From 218534d5b15dcaed3f77ac95d3cea895b6bac9ba Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 6 Dec 2020 12:20:08 +0100
 Subject: [PATCH 13/34] Make rounded corners padding overridable with
@@ -12,7 +12,7 @@ Change-Id: I481c1c8849b2f22a7cdfb2896a6d3c2e7e3b44d9
  3 files changed, 14 insertions(+), 6 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index a16f300ae782..5d3539b66141 100644
+index d744df2a18c0..edeeb1448088 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 @@ -23,6 +23,7 @@ import android.content.res.Configuration;
@@ -20,10 +20,10 @@ index a16f300ae782..5d3539b66141 100644
  import android.graphics.Color;
  import android.graphics.Rect;
 +import android.os.SystemProperties;
+ import android.os.UserHandle;
  import android.provider.AlarmClock;
  import android.util.AttributeSet;
- import android.util.Pair;
-@@ -265,8 +266,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -271,8 +272,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
  
          mConfigShowBatteryEstimate = resources.getBoolean(R.bool.config_showBatteryEstimateQSBH);
  

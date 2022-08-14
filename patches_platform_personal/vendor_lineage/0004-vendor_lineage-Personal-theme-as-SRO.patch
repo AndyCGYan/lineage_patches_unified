@@ -1,9 +1,9 @@
-From 74e74e9646c3d61f4e287abc3e4deb18b2b2ddb8 Mon Sep 17 00:00:00 2001
+From 819ac7c469d4b793e15c018bd269fe2aa7b61c5d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 9 Apr 2022 02:48:55 +0000
 Subject: [PATCH 4/4] vendor_lineage: Personal theme as SRO
 
-Last revised on 2022/04/24
+Last revised on 2022/08/08
 
 ...
 
@@ -67,8 +67,8 @@ Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
  create mode 100644 overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml
- create mode 100644 overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml
- create mode 100644 overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
  create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
  create mode 100644 overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
@@ -665,11 +665,11 @@ index 00000000..b2e98016
 +    </path>
 +  </group>
 +</vector>
-diff --git a/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
 new file mode 100644
 index 00000000..65b0e2db
 --- /dev/null
-+++ b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_background.xml
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
 @@ -0,0 +1,14 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--
@@ -685,11 +685,11 @@ index 00000000..65b0e2db
 +      android:pathData="M0,0h108v108h-108z"
 +      android:fillColor="@android:color/system_accent1_600"/>
 +</vector>
-diff --git a/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
 new file mode 100644
 index 00000000..18756857
 --- /dev/null
-+++ b/overlay/personal/packages/apps/Etar/res/drawable/ic_launcher_foreground.xml
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
 @@ -0,0 +1,40 @@
 +<?xml version="1.0" encoding="utf-8"?>
 +<!--

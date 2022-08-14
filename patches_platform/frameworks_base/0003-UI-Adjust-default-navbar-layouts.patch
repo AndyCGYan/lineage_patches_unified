@@ -1,4 +1,4 @@
-From fc56cacb75ec154140784fe4115c610d2db9d2bc Mon Sep 17 00:00:00 2001
+From 15b0ad67e0d54c6a28903048e35408299807aa49 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 02:23:48 +0000
 Subject: [PATCH 03/12] UI: Adjust default navbar layouts

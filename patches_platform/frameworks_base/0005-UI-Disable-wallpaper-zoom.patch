@@ -1,4 +1,4 @@
-From a5daefa52e5bee3d961c2db3a288387736d58269 Mon Sep 17 00:00:00 2001
+From 5bbb7e3cca1af4295776fceaf31ad60dad3b17fe Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 10 Jan 2021 11:44:29 +0000
 Subject: [PATCH 05/12] UI: Disable wallpaper zoom
@@ -11,7 +11,7 @@ Change-Id: I78cc5484930b27f172cd8d8a5bd9042dce3478d0
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index e502765617af..92026da0981e 100644
+index 13a0a3935691..06d2b910b038 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
 @@ -4844,7 +4844,7 @@

@@ -1,4 +1,4 @@
-From 588545dc3524fd8b824a3fb01ef243622321c208 Mon Sep 17 00:00:00 2001
+From 8b662832a172ad596fd5d66b7f6ceb682a378bd2 Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Wed, 16 Dec 2020 21:24:12 +0800
 Subject: [PATCH 15/34] Revert "Remove unused SystemProperties.set"

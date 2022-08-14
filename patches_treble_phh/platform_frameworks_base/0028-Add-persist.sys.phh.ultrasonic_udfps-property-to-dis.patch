@@ -1,4 +1,4 @@
-From f366679ea5887cd203d5b4d29fb795cd2543ba89 Mon Sep 17 00:00:00 2001
+From 8f0212fce8025b4a6aa0c816779106c508f27488 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 3 Mar 2022 09:15:32 -0500
 Subject: [PATCH 28/34] Add persist.sys.phh.ultrasonic_udfps property to

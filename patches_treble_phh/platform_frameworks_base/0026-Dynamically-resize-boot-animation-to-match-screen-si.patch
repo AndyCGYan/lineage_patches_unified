@@ -1,4 +1,4 @@
-From 5e4cc754dfb9b71e06bac0b73cc29f008ee0d57e Mon Sep 17 00:00:00 2001
+From 986169aff899220d77732909b92e64689d58345d Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 Dec 2021 15:01:41 -0500
 Subject: [PATCH 26/34] Dynamically resize boot animation to match screen size

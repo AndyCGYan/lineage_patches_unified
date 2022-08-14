@@ -1,4 +1,4 @@
-From d8dfe72301f3dd75905565e8764a25c3fc1277a4 Mon Sep 17 00:00:00 2001
+From 445d002e99fec39a330eb92ae7a4fe1f0cf66463 Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Mon, 1 Jul 2019 07:03:04 +0000
 Subject: [PATCH 3/4] vendor_lineage: Ignore neverallows... again

@@ -1,4 +1,4 @@
-From f7ba774141c921d1c44a4d83d3c0dd40fc67061f Mon Sep 17 00:00:00 2001
+From ddbf589d6c381d468ca804f540804be491a57860 Mon Sep 17 00:00:00 2001
 From: SagarMakhar <sagarmakhar@gmail.com>
 Date: Sat, 6 Nov 2021 13:16:24 +0000
 Subject: [PATCH 12/12] Fix QS clock being white on light theme

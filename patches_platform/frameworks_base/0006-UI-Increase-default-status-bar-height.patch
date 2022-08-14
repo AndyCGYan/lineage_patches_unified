@@ -1,4 +1,4 @@
-From f67b7f525bf11860fcb6e08a4450937040b786cd Mon Sep 17 00:00:00 2001
+From 8df3b473861a9aedbcd9e72c6709944aede0340a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 3 Jun 2020 01:31:34 +0000
 Subject: [PATCH 06/12] UI: Increase default status bar height
