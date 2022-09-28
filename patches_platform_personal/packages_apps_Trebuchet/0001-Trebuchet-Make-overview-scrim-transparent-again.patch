@@ -1,0 +1,93 @@
+From 1f218b4e6572822d99ec46c1bfd65e7ff023c0d3 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 28 Oct 2021 02:30:59 +0000
+Subject: [PATCH 1/2] Trebuchet: Make overview scrim transparent again
+
+Also revert texts/buttons to workspace color
+
+Change-Id: I78c84865eb06b8e59c9c271cd2e267ae4cd7cc08
+---
+ quickstep/res/values/styles.xml                            | 4 ++--
+ quickstep/src/com/android/quickstep/views/RecentsView.java | 2 +-
+ res/color-v31/overview_scrim.xml                           | 2 +-
+ res/color-v31/overview_scrim_dark.xml                      | 2 +-
+ res/color/overview_button.xml                              | 6 +++---
+ 5 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/quickstep/res/values/styles.xml b/quickstep/res/values/styles.xml
+index 7225220876..59cce932a2 100644
+--- a/quickstep/res/values/styles.xml
++++ b/quickstep/res/values/styles.xml
+@@ -142,7 +142,7 @@
+         parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+         <item name="android:textColor">@color/overview_button</item>
+         <item name="android:drawableTint">@color/overview_button</item>
+-        <item name="android:tint">?android:attr/textColorPrimary</item>
++        <item name="android:tint">?attr/workspaceTextColor</item>
+         <item name="android:drawablePadding">8dp</item>
+         <item name="android:textAllCaps">false</item>
+     </style>
+@@ -182,4 +182,4 @@
+         <item name="android:textSize">24sp</item>
+         <item name="android:lines">2</item>
+     </style>
+-</resources>
+\ No newline at end of file
++</resources>
+diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
+index 4a4202ecc6..58e8c2508a 100644
+--- a/quickstep/src/com/android/quickstep/views/RecentsView.java
++++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
+@@ -717,7 +717,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         mEmptyIcon.setCallback(this);
+         mEmptyMessage = context.getText(R.string.recents_empty_message);
+         mEmptyMessagePaint = new TextPaint();
+-        mEmptyMessagePaint.setColor(Themes.getAttrColor(context, android.R.attr.textColorPrimary));
++        mEmptyMessagePaint.setColor(Themes.getAttrColor(context, R.attr.workspaceTextColor));
+         mEmptyMessagePaint.setTextSize(getResources()
+                 .getDimension(R.dimen.recents_empty_message_text_size));
+         mEmptyMessagePaint.setTypeface(Typeface.create(Themes.getDefaultBodyFont(context),
+diff --git a/res/color-v31/overview_scrim.xml b/res/color-v31/overview_scrim.xml
+index 212518ff65..894997c59a 100644
+--- a/res/color-v31/overview_scrim.xml
++++ b/res/color-v31/overview_scrim.xml
+@@ -14,5 +14,5 @@
+      limitations under the License.
+ -->
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="@android:color/system_neutral2_200" />
++  <item android:color="@android:color/transparent" />
+ </selector>
+diff --git a/res/color-v31/overview_scrim_dark.xml b/res/color-v31/overview_scrim_dark.xml
+index 2ab8ecdec9..894997c59a 100644
+--- a/res/color-v31/overview_scrim_dark.xml
++++ b/res/color-v31/overview_scrim_dark.xml
+@@ -14,5 +14,5 @@
+      limitations under the License.
+ -->
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="@android:color/system_neutral1_500" android:lStar="35" />
++  <item android:color="@android:color/transparent" />
+ </selector>
+diff --git a/res/color/overview_button.xml b/res/color/overview_button.xml
+index aa48b78604..e638ac2d4a 100644
+--- a/res/color/overview_button.xml
++++ b/res/color/overview_button.xml
+@@ -2,10 +2,10 @@
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item
+         android:alpha="1"
+-        android:color="?android:attr/textColorPrimary"
++        android:color="?attr/workspaceTextColor"
+         android:state_enabled="true" />
+     <item
+         android:alpha="?android:disabledAlpha"
+-        android:color="?android:attr/textColorPrimary"
++        android:color="?attr/workspaceTextColor"
+         android:state_enabled="false" />
+-</selector>
+\ No newline at end of file
++</selector>
+-- 
+2.25.1
+

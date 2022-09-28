@@ -1,0 +1,46 @@
+From 45ce666776f48f82151a4fc3c8a3219f3e4c210f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 20 Jun 2021 09:08:43 +0000
+Subject: [PATCH 1/2] build: Integrate prop modifications (1/2)
+
+Change-Id: I24f54937e3e542b7c29ea86d24e3f523583a0c61
+---
+ tools/buildinfo.sh | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/tools/buildinfo.sh b/tools/buildinfo.sh
+index c00e1e98b..490d15215 100755
+--- a/tools/buildinfo.sh
++++ b/tools/buildinfo.sh
+@@ -9,7 +9,7 @@ if [ "$BOARD_USE_VBMETA_DIGTEST_IN_FINGERPRINT" = "true" ] ; then
+ else
+   echo "ro.build.id=$BUILD_ID"
+ fi
+-echo "ro.build.display.id=$BUILD_DISPLAY_ID"
++echo "ro.build.display.id=$BUILD_ID"
+ echo "ro.build.version.incremental=$BUILD_NUMBER"
+ echo "ro.build.version.sdk=$PLATFORM_SDK_VERSION"
+ echo "ro.build.version.preview_sdk=$PLATFORM_PREVIEW_SDK_VERSION"
+@@ -23,7 +23,7 @@ echo "ro.build.version.release_or_preview_display=$PLATFORM_DISPLAY_VERSION"
+ echo "ro.build.version.security_patch=$PLATFORM_SECURITY_PATCH"
+ echo "ro.build.version.base_os=$PLATFORM_BASE_OS"
+ echo "ro.build.version.min_supported_target_sdk=$PLATFORM_MIN_SUPPORTED_TARGET_SDK_VERSION"
+-echo "ro.build.date=`$DATE`"
++echo "ro.build.date=`$DATE +\"%B %-d, %Y\"`"
+ echo "ro.build.date.utc=`$DATE +%s`"
+ echo "ro.build.type=$TARGET_BUILD_TYPE"
+ echo "ro.build.user=$BUILD_USERNAME"
+@@ -58,5 +58,10 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
+ fi
+ 
+ echo "ro.lineage.device=$LINEAGE_DEVICE"
++echo "ro.lineage.version=LineageOS 20 Self-built CGMod"
++echo "ro.lineage.display.version=LineageOS 20 Self-built CGMod"
++echo "ro.modversion=LineageOS 20 Self-built CGMod"
++
++echo "lockscreen.rot_override=true"
+ 
+ echo "# end build properties"
+-- 
+2.25.1
+

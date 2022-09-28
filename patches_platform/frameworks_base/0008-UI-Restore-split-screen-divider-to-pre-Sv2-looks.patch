@@ -1,0 +1,56 @@
+From e5ac2b04e10ce9b900e9a3ca0c1c609a26e4aaee Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 19 Mar 2022 09:22:24 +0000
+Subject: [PATCH 08/12] UI: Restore split-screen divider to pre-Sv2 looks
+
+- Kill rounded corners - where two rectangles collide should be perfectly straight
+- Make it black again - taskbar should mind its own business
+
+Change-Id: I240b627793b615c82bd07ebd77638cde180ef80f
+---
+ .../Shell/res/color/split_divider_background.xml  |  4 ++--
+ .../wm/shell/common/split/SplitLayout.java        | 15 +--------------
+ 2 files changed, 3 insertions(+), 16 deletions(-)
+
+diff --git a/libs/WindowManager/Shell/res/color/split_divider_background.xml b/libs/WindowManager/Shell/res/color/split_divider_background.xml
+index 049980803ee3..cd54ac26a7fd 100644
+--- a/libs/WindowManager/Shell/res/color/split_divider_background.xml
++++ b/libs/WindowManager/Shell/res/color/split_divider_background.xml
+@@ -15,5 +15,5 @@
+   ~ limitations under the License.
+   -->
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item android:color="@android:color/system_neutral1_500" android:lStar="15" />
+-</selector>
+\ No newline at end of file
++    <item android:color="@android:color/black" />
++</selector>
+diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+index c94455d9151a..5eedb1fdb824 100644
+--- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
++++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+@@ -138,20 +138,7 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+     }
+ 
+     private int getDividerInsets(Resources resources, Display display) {
+-        final int dividerInset = resources.getDimensionPixelSize(
+-                com.android.internal.R.dimen.docked_stack_divider_insets);
+-
+-        int radius = 0;
+-        RoundedCorner corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-
+-        return Math.max(dividerInset, radius);
++        return 0;
+     }
+ 
+     /** Gets bounds of the primary split with screen based coordinate. */
+-- 
+2.25.1
+

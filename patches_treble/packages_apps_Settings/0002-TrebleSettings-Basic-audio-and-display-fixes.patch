@@ -1,0 +1,288 @@
+From 937c56865ea02e00886920f40cabd85ab293a5fb Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 24 Sep 2022 03:38:41 +0000
+Subject: [PATCH 2/3] TrebleSettings: Basic audio and display fixes
+
+- Alternative audio policy
+- Disable soundvolume effect
+- Alternative backlight scale
+
+Change-Id: I4f22dcd9c59c40b3fd70ba642db35b9466467b7d
+---
+ res/values/strings.xml                        |  8 +++
+ res/xml/treble_settings.xml                   | 17 ++++++
+ ...SoundvolumeEffectPreferenceController.java | 59 +++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  3 +
+ ...nativeAudioPolicyPreferenceController.java | 59 +++++++++++++++++++
+ ...iveBacklightScalePreferenceController.java | 53 +++++++++++++++++
+ 6 files changed, 199 insertions(+)
+ create mode 100644 src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java
+ create mode 100644 src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java
+ create mode 100644 src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 8cebfe3964..4014c53eaa 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -8278,11 +8278,19 @@
+     <string name="treble_settings">Treble settings</string>
+     <!-- Summary for Treble settings [CHAR LIMIT=NONE]-->
+     <string name="treble_settings_summary">Fixes &amp; tweaks for GSIs</string>
++    <!-- Audio category name [CHAR LIMIT=none] -->
++    <string name="treble_settings_category_name_audio">Audio</string>
+     <!-- Display category name [CHAR LIMIT=none] -->
+     <string name="treble_settings_category_name_display">Display</string>
+ 
++    <!-- Treble settings screen, use alternative audio policy title -->
++    <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
++    <!-- Treble settings screen, disable soundvolume effect title -->
++    <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
+     <!-- Treble settings screen, screen resolution and refresh rate settings title -->
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
++    <!-- Treble settings screen, use alternative backlight scale title -->
++    <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
+ 
+     <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
+     <string name="network_dashboard_title">Network &amp; internet</string>
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 1a82c468a2..336137c95f 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -6,6 +6,19 @@
+     android:key="treble_settings_screen"
+     android:title="@string/treble_settings">
+ 
++    <PreferenceCategory
++        android:title="@string/treble_settings_category_name_audio">
++
++        <SwitchPreference
++            android:key="use_alternative_audio_policy"
++            android:title="@string/use_alternative_audio_policy_title" />
++
++        <SwitchPreference
++            android:key="disable_soundvolume_effect"
++            android:title="@string/disable_soundvolume_effect_title" />
++
++    </PreferenceCategory>
++
+     <PreferenceCategory
+         android:title="@string/treble_settings_category_name_display">
+ 
+@@ -13,6 +26,10 @@
+             android:key="screen_resolution_refresh_rate"
+             android:title="@string/screen_resolution_refresh_rate_title" />
+ 
++        <SwitchPreference
++            android:key="use_alternative_backlight_scale"
++            android:title="@string/use_alternative_backlight_scale_title" />
++
+     </PreferenceCategory>
+ 
+ </PreferenceScreen>
+diff --git a/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java b/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java
+new file mode 100644
+index 0000000000..8feb318f55
+--- /dev/null
++++ b/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java
+@@ -0,0 +1,59 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class DisableSoundvolumeEffectPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String DISABLE_SOUNDVOLUME_EFFECT_KEY = "disable_soundvolume_effect";
++    private static final String RO_HARDWARE_PROPERTY = "ro.hardware";
++    private static final String TREBLE_CAF_DISABLE_SOUNDVOLUME_EFFECT_PROPERTY = "persist.sys.treble.caf.disable_soundvolume_effect";
++
++    private SwitchPreference mSwitchPreference;
++
++    public DisableSoundvolumeEffectPreferenceController(Context context) {
++        super(context, DISABLE_SOUNDVOLUME_EFFECT_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return DISABLE_SOUNDVOLUME_EFFECT_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++
++        if (!SystemProperties.get(RO_HARDWARE_PROPERTY, "N/A").equals("qcom")) {
++            mSwitchPreference.setEnabled(false);
++        }
++
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(TREBLE_CAF_DISABLE_SOUNDVOLUME_EFFECT_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(TREBLE_CAF_DISABLE_SOUNDVOLUME_EFFECT_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index e581539229..5c1611c053 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -32,7 +32,10 @@ public class TrebleSettings extends DashboardFragment {
+     @Override
+     protected List<AbstractPreferenceController> createPreferenceControllers(Context context) {
+         final List<AbstractPreferenceController> controllers = new ArrayList<>();
++        controllers.add(new UseAlternativeAudioPolicyPreferenceController(context));
++        controllers.add(new DisableSoundvolumeEffectPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
++        controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
+         return controllers;
+     }
+ 
+diff --git a/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java b/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java
+new file mode 100644
+index 0000000000..fbc327cba0
+--- /dev/null
++++ b/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java
+@@ -0,0 +1,59 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class UseAlternativeAudioPolicyPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String USE_ALTERNATIVE_AUDIO_POLICY_KEY = "use_alternative_audio_policy";
++    private static final String RO_HARDWARE_PROPERTY = "ro.hardware";
++    private static final String TREBLE_CAF_AUDIO_POLICY_PROPERTY = "persist.sys.treble.caf.audio_policy";
++
++    private SwitchPreference mSwitchPreference;
++
++    public UseAlternativeAudioPolicyPreferenceController(Context context) {
++        super(context, USE_ALTERNATIVE_AUDIO_POLICY_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return USE_ALTERNATIVE_AUDIO_POLICY_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++
++        if (!SystemProperties.get(RO_HARDWARE_PROPERTY, "N/A").equals("qcom")) {
++            mSwitchPreference.setEnabled(false);
++        }
++
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(TREBLE_CAF_AUDIO_POLICY_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(TREBLE_CAF_AUDIO_POLICY_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java b/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
+new file mode 100644
+index 0000000000..bd9de82d90
+--- /dev/null
++++ b/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class UseAlternativeBacklightScalePreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String USE_ALTERNATIVE_BACKLIGHT_SCALE_KEY = "use_alternative_backlight_scale";
++    private static final String TREBLE_BACKLIGHT_SCALE_PROPERTY = "persist.sys.treble.backlight_scale";
++
++    private SwitchPreference mSwitchPreference;
++
++    public UseAlternativeBacklightScalePreferenceController(Context context) {
++        super(context, USE_ALTERNATIVE_BACKLIGHT_SCALE_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return USE_ALTERNATIVE_BACKLIGHT_SCALE_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(TREBLE_BACKLIGHT_SCALE_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(TREBLE_BACKLIGHT_SCALE_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+-- 
+2.25.1
+

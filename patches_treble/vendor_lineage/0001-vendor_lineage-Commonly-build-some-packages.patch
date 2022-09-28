@@ -1,0 +1,38 @@
+From 1193bdf321a07cbffbad383cf3a9968d293099c1 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 24 Sep 2022 11:40:52 +0000
+Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
+
+These were in handheld_product.mk and thus weren't included in GSI targets:
+Contacts, DeskClock, Gallery2, fwb overlays
+
+Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
+---
+ config/common_mobile.mk | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/config/common_mobile.mk b/config/common_mobile.mk
+index 547804ce..3c58d9ff 100644
+--- a/config/common_mobile.mk
++++ b/config/common_mobile.mk
+@@ -10,12 +10,16 @@ PRODUCT_PRODUCT_PROPERTIES += \
+ PRODUCT_PACKAGES += \
+     Aperture \
+     Backgrounds \
++    Contacts \
++    DeskClock \
+     Eleven \
+     Etar \
+     ExactCalculator \
++    Gallery2 \
+     Jelly \
+     Profiles \
+-    Seedvault
++    Seedvault \
++    frameworks-base-overlays
+ 
+ ifneq ($(TARGET_EXCLUDES_AUDIOFX),true)
+ PRODUCT_PACKAGES += \
+-- 
+2.25.1
+

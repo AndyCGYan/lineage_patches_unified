@@ -1,0 +1,356 @@
+From 4ecdcc515e80750e3423a5c203048b76aae0809c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 22 Sep 2022 12:37:50 +0000
+Subject: [PATCH 1/3] TrebleSettings: Screen resolution & refresh rate
+
+Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
+---
+ AndroidManifest.xml                           |   8 +
+ res/drawable/ic_settings_treble.xml           |  10 ++
+ res/values/menu_keys.xml                      |   1 +
+ res/values/strings.xml                        |  10 ++
+ res/xml/top_level_settings.xml                |   9 +
+ res/xml/treble_settings.xml                   |  18 ++
+ ...lutionRefreshRatePreferenceController.java | 169 ++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  39 ++++
+ 8 files changed, 264 insertions(+)
+ create mode 100644 res/drawable/ic_settings_treble.xml
+ create mode 100644 res/xml/treble_settings.xml
+ create mode 100644 src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
+ create mode 100644 src/com/android/settings/treble/TrebleSettings.java
+
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index d800bb472e..1495e851a7 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -220,6 +220,14 @@
+                 android:value="com.android.settings.shortcut.CreateShortcut" />
+         </activity>
+ 
++        <receiver
++            android:name=".treble.ScreenResolutionRefreshRatePreferenceController$BootReceiver"
++            android:exported="true">
++            <intent-filter>
++                <action android:name="android.intent.action.BOOT_COMPLETED"/>
++            </intent-filter>
++        </receiver>
++
+         <!-- Wireless Controls -->
+         <activity
+             android:name=".Settings$NetworkDashboardActivity"
+diff --git a/res/drawable/ic_settings_treble.xml b/res/drawable/ic_settings_treble.xml
+new file mode 100644
+index 0000000000..3c56ed7032
+--- /dev/null
++++ b/res/drawable/ic_settings_treble.xml
+@@ -0,0 +1,10 @@
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++        android:width="24dp"
++        android:height="24dp"
++        android:viewportWidth="24.0"
++        android:viewportHeight="24.0"
++        android:tint="?attr/colorControlNormal">
++    <path
++        android:fillColor="@android:color/white"
++        android:pathData="M10.82 12.49c.02-.16.04-.32.04-.49 0-.17-.02-.33-.04-.49l1.08-.82c.1-.07.12-.21.06-.32l-1.03-1.73c-.06-.11-.2-.15-.31-.11l-1.28.5c-.27-.2-.56-.36-.87-.49l-.2-1.33c0-.12-.11-.21-.24-.21H5.98c-.13 0-.24.09-.26.21l-.2 1.32c-.31.12-.6.3-.87.49l-1.28-.5c-.12-.05-.25 0-.31.11l-1.03 1.73c-.06.12-.03.25.07.33l1.08.82c-.02.16-.03.33-.03.49 0 .17.02.33.04.49l-1.09.83c-.1.07-.12.21-.06.32l1.03 1.73c.06.11.2.15.31.11l1.28-.5c.27.2.56.36.87.49l.2 1.32c.01.12.12.21.25.21h2.06c.13 0 .24-.09.25-.21l.2-1.32c.31-.12.6-.3.87-.49l1.28.5c.12.05.25 0 .31-.11l1.03-1.73c.06-.11.04-.24-.06-.32l-1.1-.83zM7 13.75c-.99 0-1.8-.78-1.8-1.75s.81-1.75 1.8-1.75 1.8.78 1.8 1.75S8 13.75 7 13.75zM18 1.01L8 1c-1.1 0-2 .9-2 2v3h2V5h10v14H8v-1H6v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99z"/>
++</vector>
+diff --git a/res/values/menu_keys.xml b/res/values/menu_keys.xml
+index 2841b699c9..c30d6392e9 100755
+--- a/res/values/menu_keys.xml
++++ b/res/values/menu_keys.xml
+@@ -16,6 +16,7 @@
+ 
+ <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ 
++    <string name="menu_key_treble" translatable="false">top_level_treble</string>
+     <string name="menu_key_network" translatable="false">top_level_network</string>
+     <string name="menu_key_connected_devices" translatable="false">top_level_connected_devices</string>
+     <string name="menu_key_apps" translatable="false">top_level_apps</string>
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 04b2de208b..8cebfe3964 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -8274,6 +8274,16 @@
+         <item quantity="other">Show %d hidden items</item>
+     </plurals>
+ 
++    <!-- Title for setting tile leading to Treble settings [CHAR LIMIT=40]-->
++    <string name="treble_settings">Treble settings</string>
++    <!-- Summary for Treble settings [CHAR LIMIT=NONE]-->
++    <string name="treble_settings_summary">Fixes &amp; tweaks for GSIs</string>
++    <!-- Display category name [CHAR LIMIT=none] -->
++    <string name="treble_settings_category_name_display">Display</string>
++
++    <!-- Treble settings screen, screen resolution and refresh rate settings title -->
++    <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
++
+     <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
+     <string name="network_dashboard_title">Network &amp; internet</string>
+     <!-- Summary for Network and Internet settings, explaining it contains mobile, wifi setting and data usage settings [CHAR LIMIT=NONE]-->
+diff --git a/res/xml/top_level_settings.xml b/res/xml/top_level_settings.xml
+index c9e60170eb..1127056675 100644
+--- a/res/xml/top_level_settings.xml
++++ b/res/xml/top_level_settings.xml
+@@ -20,6 +20,15 @@
+     xmlns:settings="http://schemas.android.com/apk/res-auto"
+     android:key="top_level_settings">
+ 
++    <com.android.settings.widget.HomepagePreference
++        android:fragment="com.android.settings.treble.TrebleSettings"
++        android:icon="@drawable/ic_settings_treble"
++        android:key="top_level_treble"
++        android:order="-160"
++        android:title="@string/treble_settings"
++        android:summary="@string/treble_settings_summary"
++        settings:highlightableMenuKey="@string/menu_key_treble"/>
++
+     <com.android.settings.widget.HomepagePreference
+         android:fragment="com.android.settings.network.NetworkDashboardFragment"
+         android:icon="@drawable/ic_settings_wireless"
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+new file mode 100644
+index 0000000000..1a82c468a2
+--- /dev/null
++++ b/res/xml/treble_settings.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++
++<PreferenceScreen
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:settings="http://schemas.android.com/apk/res-auto"
++    android:key="treble_settings_screen"
++    android:title="@string/treble_settings">
++
++    <PreferenceCategory
++        android:title="@string/treble_settings_category_name_display">
++
++        <ListPreference
++            android:key="screen_resolution_refresh_rate"
++            android:title="@string/screen_resolution_refresh_rate_title" />
++
++    </PreferenceCategory>
++
++</PreferenceScreen>
+diff --git a/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java b/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
+new file mode 100644
+index 0000000000..5d14f13209
+--- /dev/null
++++ b/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
+@@ -0,0 +1,169 @@
++package com.android.settings.treble;
++
++import static android.content.Intent.ACTION_BOOT_COMPLETED;
++
++import android.app.ActivityManager;
++import android.content.BroadcastReceiver;
++import android.content.Context;
++import android.content.Intent;
++import android.os.IBinder;
++import android.os.Parcel;
++import android.os.RemoteException;
++import android.os.ServiceManager;
++import android.os.SystemProperties;
++import android.view.SurfaceControl;
++import android.view.SurfaceControl.DisplayMode;
++
++import androidx.preference.ListPreference;
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++
++import com.android.settings.core.BasePreferenceController;
++
++import java.util.ArrayList;
++import java.util.Collections;
++import java.util.Comparator;
++import java.util.HashSet;
++import java.util.List;
++import java.util.Set;
++
++public class ScreenResolutionRefreshRatePreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String SCREEN_RESOLUTION_REFRESH_RATE_KEY = "screen_resolution_refresh_rate";
++    private static final String SURFACE_FLINGER_SERVICE_KEY = "SurfaceFlinger";
++    private static final String SURFACE_COMPOSER_INTERFACE_KEY = "android.ui.ISurfaceComposer";
++    private static final int SURFACE_FLINGER_CODE = 1035;
++    private static final String TREBLE_DISPLAY_MODE_PROPERTY = "persist.sys.treble.display_mode";
++    private static final String SYSTEMUI_PACKAGE_NAME = "com.android.systemui";
++
++    private ActivityManager mAm;
++    private ListPreference mListPreference;
++    private List<DisplayMode> mModes = new ArrayList<>();
++    private List<String> mEntries = new ArrayList<>();
++    private List<String> mValues = new ArrayList<>();
++
++    public ScreenResolutionRefreshRatePreferenceController(Context context) {
++        super(context, SCREEN_RESOLUTION_REFRESH_RATE_KEY);
++
++        mAm = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
++
++        DisplayMode[] supportedDisplayModes =
++                SurfaceControl.getDynamicDisplayInfo(SurfaceControl.getInternalDisplayToken()).supportedDisplayModes;
++        Set<String> summarySet = new HashSet<>();
++        for (DisplayMode m : supportedDisplayModes) {
++            String summary = String.format("%dx%d @ %dHz", m.width, m.height, Math.round(m.refreshRate));
++            if (!summarySet.contains(summary)) {
++                summarySet.add(summary);
++                mModes.add(m);
++            }
++        }
++        Collections.sort(mModes, Comparator.comparing((DisplayMode m)->m.width)
++                .thenComparing(m->m.height)
++                .thenComparing(m->m.refreshRate)
++                .thenComparing(m->m.id));
++        for (DisplayMode m : mModes) {
++            String summary = String.format("%dx%d @ %dHz", m.width, m.height, Math.round(m.refreshRate));
++            mEntries.add(summary);
++            mValues.add(String.valueOf(m.id));
++        }
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return SCREEN_RESOLUTION_REFRESH_RATE_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mListPreference = screen.findPreference(getPreferenceKey());
++        mListPreference.setEntries(mEntries.toArray(new String[mEntries.size()]));
++        mListPreference.setEntryValues(mValues.toArray(new String[mValues.size()]));
++
++        if (mEntries.size() <= 1) {
++            mListPreference.setEnabled(false);
++        }
++
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        int id = SurfaceControl.getDynamicDisplayInfo(SurfaceControl.getInternalDisplayToken()).activeDisplayModeId;
++        int index = mListPreference.findIndexOfValue(String.valueOf(id));
++        mListPreference.setValueIndex(index);
++        mListPreference.setSummary(mListPreference.getEntries()[index]);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        DisplayMode currentMode = getCurrentMode();
++        int id = Integer.valueOf((String) newValue);
++        DisplayMode newMode = getModeById(id);
++        setModeFromBackdoor(id);
++        SystemProperties.set(TREBLE_DISPLAY_MODE_PROPERTY, (String) newValue);
++        int index = mListPreference.findIndexOfValue((String) newValue);
++        mListPreference.setValueIndex(index);
++        mListPreference.setSummary(mListPreference.getEntries()[index]);
++        if ((newMode.width != currentMode.width) || (newMode.height != currentMode.height)) {
++            try {
++                for (ActivityManager.RunningAppProcessInfo app: mAm.getRunningAppProcesses()) {
++                    if (app.processName.equals(SYSTEMUI_PACKAGE_NAME)) {
++                        ActivityManager.getService().killApplicationProcess(app.processName, app.uid);
++                        break;
++                    }
++                }
++            } catch (Exception e) {
++                e.printStackTrace();
++            }
++        }
++        return true;
++    }
++
++    private DisplayMode getCurrentMode() {
++        int id = SurfaceControl.getDynamicDisplayInfo(SurfaceControl.getInternalDisplayToken()).activeDisplayModeId;
++        return getModeById(id);
++    }
++
++    private DisplayMode getModeById(int id) {
++        for (DisplayMode m : mModes) {
++            if (m.id == id) {
++                return m;
++            }
++        }
++        return null;
++    }
++
++    public static void setModeFromBackdoor(int id) {
++        IBinder surfaceFlinger = ServiceManager.getService(SURFACE_FLINGER_SERVICE_KEY);
++        try {
++            if (surfaceFlinger != null) {
++                Parcel data = Parcel.obtain();
++                data.writeInterfaceToken(SURFACE_COMPOSER_INTERFACE_KEY);
++                data.writeInt(id);
++                surfaceFlinger.transact(SURFACE_FLINGER_CODE, data, null, 0);
++                data.recycle();
++            }
++        } catch (RemoteException ex) {}
++    }
++
++    public static class BootReceiver extends BroadcastReceiver {
++
++        @Override
++        public void onReceive(Context context, Intent intent) {
++            if (ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
++                int id = SystemProperties.getInt(TREBLE_DISPLAY_MODE_PROPERTY, -1);
++                if (id != -1) {
++                    setModeFromBackdoor(id);
++                }
++            }
++        }
++
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+new file mode 100644
+index 0000000000..e581539229
+--- /dev/null
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -0,0 +1,39 @@
++package com.android.settings.treble;
++
++import android.app.settings.SettingsEnums;
++import android.content.Context;
++
++import com.android.settings.R;
++import com.android.settings.dashboard.DashboardFragment;
++import com.android.settingslib.core.AbstractPreferenceController;
++
++import java.util.ArrayList;
++import java.util.List;
++
++public class TrebleSettings extends DashboardFragment {
++
++    private static final String TAG = "TrebleSettings";
++
++    @Override
++    protected int getPreferenceScreenResId() {
++        return R.xml.treble_settings;
++    }
++
++    @Override
++    protected String getLogTag() {
++        return TAG;
++    }
++
++    @Override
++    public int getMetricsCategory() {
++        return SettingsEnums.SETTINGS_TREBLE_CATEGORY;
++    }
++
++    @Override
++    protected List<AbstractPreferenceController> createPreferenceControllers(Context context) {
++        final List<AbstractPreferenceController> controllers = new ArrayList<>();
++        controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
++        return controllers;
++    }
++
++}
+-- 
+2.25.1
+

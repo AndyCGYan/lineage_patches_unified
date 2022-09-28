@@ -1,0 +1,161 @@
+From 93192b8e62ac4a9ac9dd8241793830ceb063a4b8 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 11 Oct 2022 10:53:34 +0000
+Subject: [PATCH 2/2] Enable IMS overlays statically on QCOM/MTK devices
+
+Change-Id: I851cf859328cc431e8bb163297c33837d4270f58
+---
+ CAF-IMS/AndroidManifest.xml             | 8 ++++----
+ CAF-IMS/res/values/config.xml           | 4 ++--
+ MTK-IMS/AndroidManifest.xml             | 8 ++++----
+ MTK-IMS/res/values/config.xml           | 8 +++++---
+ Telephony/CAF-IMS/Android.mk            | 2 ++
+ Telephony/CAF-IMS/AndroidManifest.xml   | 6 ++++--
+ Telephony/CAF-IMS/res/values/config.xml | 2 +-
+ Telephony/MTK-IMS/Android.mk            | 2 ++
+ Telephony/MTK-IMS/AndroidManifest.xml   | 6 ++++--
+ Telephony/MTK-IMS/res/values/config.xml | 3 +--
+ 10 files changed, 29 insertions(+), 20 deletions(-)
+
+diff --git a/CAF-IMS/AndroidManifest.xml b/CAF-IMS/AndroidManifest.xml
+index 47236c6..5376fb8 100644
+--- a/CAF-IMS/AndroidManifest.xml
++++ b/CAF-IMS/AndroidManifest.xml
+@@ -3,8 +3,8 @@
+         android:versionCode="1"
+         android:versionName="1.0">
+         <overlay android:targetPackage="android"
+-                android:requiredSystemPropertyName="persist.sys.phh.ims.caf"
+-                android:requiredSystemPropertyValue="true"
+-		android:priority="39"
+-		android:isStatic="true" />
++                android:requiredSystemPropertyName="ro.hardware"
++                android:requiredSystemPropertyValue="qcom"
++        android:priority="39"
++        android:isStatic="true" />
+ </manifest>
+diff --git a/CAF-IMS/res/values/config.xml b/CAF-IMS/res/values/config.xml
+index 1af87c7..5b85ebd 100644
+--- a/CAF-IMS/res/values/config.xml
++++ b/CAF-IMS/res/values/config.xml
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-	<string name="config_ims_package">org.codeaurora.ims</string>
+-	<bool name="config_dynamic_bind_ims">true</bool>
++    <string name="config_ims_package">org.codeaurora.ims</string>
++    <bool name="config_dynamic_bind_ims">true</bool>
+     <bool name="config_carrier_volte_available">true</bool>
+     <bool name="config_device_volte_available">true</bool>
+     <bool name="config_device_wfc_ims_available">true</bool>
+diff --git a/MTK-IMS/AndroidManifest.xml b/MTK-IMS/AndroidManifest.xml
+index 96ba83e..33132cc 100644
+--- a/MTK-IMS/AndroidManifest.xml
++++ b/MTK-IMS/AndroidManifest.xml
+@@ -3,8 +3,8 @@
+         android:versionCode="1"
+         android:versionName="1.0">
+         <overlay android:targetPackage="android"
+-                android:requiredSystemPropertyName="persist.sys.phh.ims.mtk"
+-                android:requiredSystemPropertyValue="true"
+-		android:priority="79"
+-		android:isStatic="true" />
++                android:requiredSystemPropertyName="ro.hardware"
++                android:requiredSystemPropertyValue="+mt6*"
++        android:priority="79"
++        android:isStatic="true" />
+ </manifest>
+diff --git a/MTK-IMS/res/values/config.xml b/MTK-IMS/res/values/config.xml
+index f5e0486..2d49a11 100644
+--- a/MTK-IMS/res/values/config.xml
++++ b/MTK-IMS/res/values/config.xml
+@@ -1,6 +1,8 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-	<string name="config_ims_package">com.mediatek.ims</string>
+-        <bool name="config_carrier_volte_available">true</bool>
+-	<bool name="config_dynamic_bind_ims">true</bool>
++    <string name="config_ims_package">com.mediatek.ims</string>
++    <bool name="config_dynamic_bind_ims">true</bool>
++    <bool name="config_carrier_volte_available">true</bool>
++    <bool name="config_device_volte_available">true</bool>
++    <bool name="config_device_wfc_ims_available">true</bool>
+ </resources>
+diff --git a/Telephony/CAF-IMS/Android.mk b/Telephony/CAF-IMS/Android.mk
+index 7785cc3..416f501 100644
+--- a/Telephony/CAF-IMS/Android.mk
++++ b/Telephony/CAF-IMS/Android.mk
+@@ -2,5 +2,7 @@ LOCAL_PATH := $(call my-dir)
+ include $(CLEAR_VARS)
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_PACKAGE_NAME := treble-overlay-telephony-caf-ims
++LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/overlay
++LOCAL_IS_RUNTIME_RESOURCE_OVERLAY := true
+ LOCAL_PRIVATE_PLATFORM_APIS := true
+ include $(BUILD_PACKAGE)
+diff --git a/Telephony/CAF-IMS/AndroidManifest.xml b/Telephony/CAF-IMS/AndroidManifest.xml
+index 2267406..365525c 100644
+--- a/Telephony/CAF-IMS/AndroidManifest.xml
++++ b/Telephony/CAF-IMS/AndroidManifest.xml
+@@ -3,6 +3,8 @@
+         android:versionCode="1"
+         android:versionName="1.0">
+         <overlay android:targetPackage="com.android.phone"
+-		android:priority="79"
+-		/>
++                android:requiredSystemPropertyName="ro.hardware"
++                android:requiredSystemPropertyValue="qcom"
++        android:priority="79"
++        android:isStatic="true" />
+ </manifest>
+diff --git a/Telephony/CAF-IMS/res/values/config.xml b/Telephony/CAF-IMS/res/values/config.xml
+index 565ee42..ddf685d 100644
+--- a/Telephony/CAF-IMS/res/values/config.xml
++++ b/Telephony/CAF-IMS/res/values/config.xml
+@@ -1,4 +1,4 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-	<string name="config_ims_mmtel_package">org.codeaurora.ims</string>
++    <string name="config_ims_mmtel_package">org.codeaurora.ims</string>
+ </resources>
+diff --git a/Telephony/MTK-IMS/Android.mk b/Telephony/MTK-IMS/Android.mk
+index 314b1a9..d08cb5a 100644
+--- a/Telephony/MTK-IMS/Android.mk
++++ b/Telephony/MTK-IMS/Android.mk
+@@ -2,5 +2,7 @@ LOCAL_PATH := $(call my-dir)
+ include $(CLEAR_VARS)
+ LOCAL_MODULE_TAGS := optional
+ LOCAL_PACKAGE_NAME := treble-overlay-telephony-mtk-ims
++LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/overlay
++LOCAL_IS_RUNTIME_RESOURCE_OVERLAY := true
+ LOCAL_PRIVATE_PLATFORM_APIS := true
+ include $(BUILD_PACKAGE)
+diff --git a/Telephony/MTK-IMS/AndroidManifest.xml b/Telephony/MTK-IMS/AndroidManifest.xml
+index 5afe885..644d06b 100644
+--- a/Telephony/MTK-IMS/AndroidManifest.xml
++++ b/Telephony/MTK-IMS/AndroidManifest.xml
+@@ -3,6 +3,8 @@
+         android:versionCode="1"
+         android:versionName="1.0">
+         <overlay android:targetPackage="com.android.phone"
+-		android:priority="79"
+-		/>
++                android:requiredSystemPropertyName="ro.hardware"
++                android:requiredSystemPropertyValue="+mt6*"
++        android:priority="79"
++        android:isStatic="true" />
+ </manifest>
+diff --git a/Telephony/MTK-IMS/res/values/config.xml b/Telephony/MTK-IMS/res/values/config.xml
+index ead0cc2..01eca95 100644
+--- a/Telephony/MTK-IMS/res/values/config.xml
++++ b/Telephony/MTK-IMS/res/values/config.xml
+@@ -1,5 +1,4 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <resources>
+-	<string name="config_ims_mmtel_package">com.mediatek.ims</string>
+-
++    <string name="config_ims_mmtel_package">com.mediatek.ims</string>
+ </resources>
+-- 
+2.25.1
+

@@ -1,0 +1,363 @@
+From 106235d2d4f2e0540a0a73332cfecf465942e9cc Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 11 Oct 2022 10:29:36 +0000
+Subject: [PATCH 3/3] TrebleSettings: IMS
+
+Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
+---
+ Android.bp                                    |   1 +
+ res/values/strings.xml                        |   9 +
+ res/xml/treble_settings.xml                   |  13 ++
+ .../InstallImsApkPreferenceController.java    | 198 ++++++++++++++++++
+ ...VolteAvailabilityPreferenceController.java |  59 ++++++
+ .../settings/treble/TrebleSettings.java       |   2 +
+ 6 files changed, 282 insertions(+)
+ create mode 100644 src/com/android/settings/treble/InstallImsApkPreferenceController.java
+ create mode 100644 src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
+
+diff --git a/Android.bp b/Android.bp
+index 140d4480c8..c73a774a28 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -81,6 +81,7 @@ android_library {
+         "LineagePreferenceLib",
+         "vendor.lineage.fastcharge-V1.0-java",
+         "SystemUISharedLib",
++        "android.hidl.manager-V1.0-java",
+     ],
+ 
+     libs: [
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 4014c53eaa..ef8ffbbf46 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -8282,6 +8282,8 @@
+     <string name="treble_settings_category_name_audio">Audio</string>
+     <!-- Display category name [CHAR LIMIT=none] -->
+     <string name="treble_settings_category_name_display">Display</string>
++    <!-- IMS category name [CHAR LIMIT=none] -->
++    <string name="treble_settings_category_name_ims">IMS</string>
+ 
+     <!-- Treble settings screen, use alternative audio policy title -->
+     <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
+@@ -8291,6 +8293,13 @@
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
+     <!-- Treble settings screen, use alternative backlight scale title -->
+     <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
++    <!-- Treble settings screen, install IMS APK title -->
++    <string name="install_ims_apk_title">Install IMS APK</string>
++    <!-- Treble settings screen, install IMS APK toasts -->
++    <string name="install_ims_apk_toast_downloading">Downloading IMS APK...</string>
++    <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
++    <!-- Treble settings screen, override VoLTE availability title -->
++    <string name="override_volte_availability_title">Override VoLTE availability</string>
+ 
+     <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
+     <string name="network_dashboard_title">Network &amp; internet</string>
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 336137c95f..09e6bc5d00 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -32,4 +32,17 @@
+ 
+     </PreferenceCategory>
+ 
++    <PreferenceCategory
++        android:title="@string/treble_settings_category_name_ims">
++
++        <Preference
++            android:key="install_ims_apk"
++            android:title="@string/install_ims_apk_title" />
++
++        <SwitchPreference
++            android:key="override_volte_availability"
++            android:title="@string/override_volte_availability_title" />
++
++    </PreferenceCategory>
++
+ </PreferenceScreen>
+diff --git a/src/com/android/settings/treble/InstallImsApkPreferenceController.java b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
+new file mode 100644
+index 0000000000..f59e5d7d9a
+--- /dev/null
++++ b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
+@@ -0,0 +1,198 @@
++package com.android.settings.treble;
++
++import android.app.DownloadManager;
++import android.app.PendingIntent;
++import android.content.BroadcastReceiver;
++import android.content.Context;
++import android.content.Intent;
++import android.content.IntentFilter;
++import android.content.pm.PackageInstaller;
++import android.database.Cursor;
++import android.hidl.manager.V1_0.IServiceManager;
++import android.net.Uri;
++import android.os.Environment;
++import android.os.RemoteException;
++import android.os.ServiceManager;
++import android.os.SystemProperties;
++import android.util.Log;
++import android.widget.Toast;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++
++import com.android.settings.R;
++import com.android.settings.core.BasePreferenceController;
++
++import java.io.File;
++import java.io.FileInputStream;
++import java.io.IOException;
++import java.io.InputStream;
++import java.io.OutputStream;
++
++public class InstallImsApkPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceClickListener {
++
++    private static final String TAG = "TrebleSettings";
++    private static final String INSTALL_IMS_APK_KEY = "install_ims_apk";
++    private static final String[] IMS_SLOTS = {
++        "imsrild1", "imsrild2", "imsrild3",
++        "slot1", "slot2", "slot3",
++        "imsSlot1", "imsSlot2",
++        "mtkSlot1", "mtkSlot2",
++        "imsradio0", "imsradio1"
++    };
++    private static final String RO_PRODUCT_VENDOR_BRAND_PROPERTY = "ro.product.vendor.brand";
++
++    private Preference mPreference;
++    private String mImsType = "none";
++    private String mImsApkUrl = "";
++
++    public InstallImsApkPreferenceController(Context context) {
++        super(context, INSTALL_IMS_APK_KEY);
++
++        mImsType = getImsType();
++        Log.d(TAG, "IMS type = " + mImsType);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return INSTALL_IMS_APK_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mPreference = screen.findPreference(getPreferenceKey());
++
++        if (mImsType.equals("none")) {
++            mPreference.setEnabled(false);
++        } else {
++            mPreference.setOnPreferenceClickListener(this);
++        }
++
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public boolean onPreferenceClick(Preference preference) {
++        switch (mImsType) {
++            case "qcom_hidl_moto":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-caf-moto.apk";
++                break;
++            case "qcom_hidl":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-q.64.apk";
++                break;
++            case "qcom_aidl":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-caf-s.apk";
++                break;
++            case "mtk_p":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-p.apk";
++                break;
++            case "mtk_q":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-q.apk";
++                break;
++            case "mtk_r":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-r.apk";
++                break;
++            case "mtk_s":
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-s.apk";
++                break;
++            default:
++                break;
++        }
++
++        Context context = preference.getContext();
++        DownloadManager dm = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
++        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(mImsApkUrl));
++        request.setTitle("IMS APK");
++        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
++        request.setDestinationInExternalFilesDir(context, Environment.DIRECTORY_DOWNLOADS, "ims.apk");
++        long id = dm.enqueue(request);
++        Toast.makeText(context, context.getString(R.string.install_ims_apk_toast_downloading), Toast.LENGTH_LONG).show();
++
++        context.registerReceiver(new BroadcastReceiver() {
++            @Override
++            public void onReceive(Context context, Intent intent) {
++                if (intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1L) != id) {
++                    return;
++                }
++                Cursor cursor = dm.query(new DownloadManager.Query().setFilterById(id));
++                if (!cursor.moveToFirst()) {
++                    return;
++                }
++                Uri localUri = Uri.parse(cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_LOCAL_URI)));
++                String path = localUri.getPath();
++                if (path == null) {
++                    return;
++                }
++                long fileSize = 0;
++                File file = new File(path);
++                if (file.isFile()) {
++                    fileSize = file.length();
++                } else {
++                    return;
++                }
++
++                try (InputStream in = new FileInputStream(path)) {
++                    PackageInstaller pi = context.getPackageManager().getPackageInstaller();
++                    int sessionId = pi.createSession(new PackageInstaller.SessionParams(PackageInstaller.SessionParams.MODE_FULL_INSTALL));
++                    PackageInstaller.Session session = pi.openSession(sessionId);
++                    try (OutputStream out = session.openWrite(TAG, 0, fileSize)) {
++                        byte[] buffer = new byte[512 * 1024];
++                        while (in.available() > 0) {
++                            int l = in.read(buffer);
++                            out.write(buffer, 0, l);
++                        }
++                        session.fsync(out);
++                    }
++                    String action = TAG + "_" + sessionId;
++                    PendingIntent pendingIntent = PendingIntent.getBroadcast(context, sessionId,
++                            new Intent(action), PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_IMMUTABLE);
++                    context.registerReceiver(new BroadcastReceiver() {
++                        @Override
++                        public void onReceive(Context context, Intent intent) {
++                            Toast.makeText(context, context.getString(R.string.install_ims_apk_toast_completed), Toast.LENGTH_LONG).show();
++                        }
++                    }, new IntentFilter(action));
++                    session.commit(pendingIntent.getIntentSender());
++                    context.unregisterReceiver(this);
++                } catch (IOException ex) {
++                    Log.d(TAG, "IOException while installing IMS APK");
++                }
++            }
++        }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
++
++        return false;
++    }
++
++    protected static String getImsType() {
++        try {
++            IServiceManager hidlManager = IServiceManager.getService();
++            for (String slot: IMS_SLOTS) {
++                if (hidlManager.get("vendor.qti.hardware.radio.ims@1.0::IImsRadio", slot) != null) {
++                    if (SystemProperties.get(RO_PRODUCT_VENDOR_BRAND_PROPERTY, "N/A").equals("motorola")) {
++                        return "qcom_hidl_moto";
++                    }
++                    return "qcom_hidl";
++                } else if (ServiceManager.getService("vendor.qti.hardware.radio.ims.IImsRadio/" + slot) != null) {
++                    return "qcom_aidl";
++                } else if (hidlManager.get("vendor.mediatek.hardware.radio@3.0::IRadio", slot) != null) {
++                    return "mtk_p";
++                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx", slot) != null) {
++                    return "mtk_q";
++                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@2.0::IMtkRadioEx", slot) != null) {
++                    return "mtk_r";
++                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@3.0::IMtkRadioEx", slot) != null) {
++                    return "mtk_s";
++                }
++            }
++        } catch (RemoteException ex) {}
++
++        return "none";
++    }
++
++}
+diff --git a/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java b/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
+new file mode 100644
+index 0000000000..1ab12d3ca0
+--- /dev/null
++++ b/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
+@@ -0,0 +1,59 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class OverrideVolteAvailabilityPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String OVERRIDE_VOLTE_AVAILABILITY_KEY = "override_volte_availability";
++    private static final String[] IMSMANAGER_DEBUG_OVERRIDE_PROPERTIES = {
++        "persist.dbg.volte_avail_ovr",
++        "persist.dbg.wfc_avail_ovr",
++        "persist.dbg.allow_ims_off"
++    };
++
++    private SwitchPreference mSwitchPreference;
++
++    public OverrideVolteAvailabilityPreferenceController(Context context) {
++        super(context, OVERRIDE_VOLTE_AVAILABILITY_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return OVERRIDE_VOLTE_AVAILABILITY_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(IMSMANAGER_DEBUG_OVERRIDE_PROPERTIES[0], false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        for (String prop: IMSMANAGER_DEBUG_OVERRIDE_PROPERTIES) {
++            SystemProperties.set(prop, ((boolean) newValue) ? "1" : "0");
++        }
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index 5c1611c053..50e3eda8c6 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -36,6 +36,8 @@ public class TrebleSettings extends DashboardFragment {
+         controllers.add(new DisableSoundvolumeEffectPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
+         controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
++        controllers.add(new InstallImsApkPreferenceController(context));
++        controllers.add(new OverrideVolteAvailabilityPreferenceController(context));
+         return controllers;
+     }
+ 
+-- 
+2.25.1
+
