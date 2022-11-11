@@ -1,0 +1,27 @@
+From b4a2306f04fa26d24c6f5b6dd4f66a967c62974f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 8 Aug 2021 09:31:01 +0000
+Subject: [PATCH 3/3] Revert "treble: Set BOARD_EXT4_SHARE_DUP_BLOCKS
+ explicitly"
+
+This reverts commit d7b179f234d76c3acf7a723fc05f07efe9adc84c.
+
+Change-Id: I2bf95d40d4a096181710765c7d152f63556d27d8
+---
+ board-base.mk | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/board-base.mk b/board-base.mk
+index 9d1d45e..8cde64f 100644
+--- a/board-base.mk
++++ b/board-base.mk
+@@ -11,6 +11,4 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+ 
+ BOARD_ROOT_EXTRA_SYMLINKS := $(filter-out $(BOARD_ROOT_EXTRA_SYMLINKS),/mnt/vendor/persist:/persist)
+ 
+-BOARD_EXT4_SHARE_DUP_BLOCKS := true
+-
+ TARGET_NO_KERNEL_OVERRIDE := true
+-- 
+2.25.1
+

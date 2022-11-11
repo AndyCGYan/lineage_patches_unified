@@ -1,0 +1,87 @@
+From b09034c7e5f9bbc2d29c3f10452259956fcb9f46 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 16 Oct 2021 00:33:15 +0000
+Subject: [PATCH] Replace captive portal URLs globally
+
+...so that it works even without a SIM inserted, which is a typical usecase of mine
+URLs from Chinese OEM UIs are faster and more reliable than g.cn and other int'l ones
+
+Change-Id: Ic3e124b2b62838a2bcf1dad0d670515f3d056964
+---
+ res/values-mcc460/config.xml | 31 -------------------------------
+ res/values/config.xml        |  7 +++----
+ 2 files changed, 3 insertions(+), 35 deletions(-)
+ delete mode 100644 res/values-mcc460/config.xml
+
+diff --git a/res/values-mcc460/config.xml b/res/values-mcc460/config.xml
+deleted file mode 100644
+index 3c4b4933..00000000
+--- a/res/values-mcc460/config.xml
++++ /dev/null
+@@ -1,31 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<resources>
+-    <!-- Network validation URL configuration for devices using a Chinese SIM (MCC 460).
+-         The below URLs are often whitelisted by captive portals, so they should not be used in the
+-         general case as this could degrade the user experience (portals not detected properly).
+-         However in China the default URLs are not accessible in general. The below alternatives
+-         should allow users to connect to local networks normally. -->
+-    <!-- default_captive_portal_http_url is not configured as overlayable so
+-         OEMs that wish to change captive_portal_http_url configuration must
+-         do so via configuring runtime resource overlay to
+-         config_captive_portal_http_url and *NOT* by changing or overlaying
+-         this resource. It will break if the enforcement of overlayable starts.
+-         -->
+-    <string name="default_captive_portal_http_url" translatable="false">http://connectivitycheck.gstatic.cn/generate_204</string>
+-    <!-- default_captive_portal_https_url is not configured as overlayable so
+-         OEMs that wish to change captive_portal_https_url configuration must
+-         do so via configuring runtime resource overlay to
+-         config_captive_portal_https_url and *NOT* by changing or overlaying
+-         this resource. It will break if the enforcement of overlayable starts.
+-         -->
+-    <string name="default_captive_portal_https_url" translatable="false">https://connectivitycheck.gstatic.cn/generate_204</string>
+-    <!-- default_captive_portal_fallback_urls is not configured as overlayable
+-         so OEMs that wish to change captive_portal_fallback_urls configuration
+-         must do so via configuring runtime resource overlay to
+-         config_captive_portal_fallback_urls and *NOT* by changing or overlaying
+-         this resource. It will break if the enforcement of overlayable starts.
+-         -->
+-    <string-array name="default_captive_portal_fallback_urls" translatable="false">
+-        <item>http://www.googleapis.cn/generate_204</item>
+-    </string-array>
+-</resources>
+diff --git a/res/values/config.xml b/res/values/config.xml
+index 805ca041..61297dda 100644
+--- a/res/values/config.xml
++++ b/res/values/config.xml
+@@ -13,7 +13,7 @@
+          config_captive_portal_http_url and *NOT* by changing or overlaying
+          this resource. It will break if the enforcement of overlayable starts.
+          -->
+-    <string name="default_captive_portal_http_url" translatable="false">http://connectivitycheck.gstatic.com/generate_204</string>
++    <string name="default_captive_portal_http_url" translatable="false">http://conn4.coloros.com/generate204</string>
+     <!-- HTTPS URL for network validation, to use for confirming internet connectivity. -->
+     <!-- default_captive_portal_https_url is not configured as overlayable so
+          OEMs that wish to change captive_portal_https_url configuration must
+@@ -21,7 +21,7 @@
+          config_captive_portal_https_url and *NOT* by changing or overlaying
+          this resource. It will break if the enforcement of overlayable starts.
+          -->
+-    <string name="default_captive_portal_https_url" translatable="false">https://www.google.com/generate_204</string>
++    <string name="default_captive_portal_https_url" translatable="false">https://conn4.coloros.com/generate204</string>
+ 
+     <!-- List of fallback URLs to use for detecting captive portals. -->
+     <!-- default_captive_portal_fallback_urls is not configured as overlayable
+@@ -31,8 +31,7 @@
+          this resource. It will break if the enforcement of overlayable starts.
+          -->
+     <string-array name="default_captive_portal_fallback_urls" translatable="false">
+-        <item>http://www.google.com/gen_204</item>
+-        <item>http://play.googleapis.com/generate_204</item>
++        <item>http://connect.rom.miui.com/generate_204</item>
+     </string-array>
+     <!-- Configuration hooks for the above settings.
+          Empty by default but may be overridden by RROs. -->
+-- 
+2.25.1
+

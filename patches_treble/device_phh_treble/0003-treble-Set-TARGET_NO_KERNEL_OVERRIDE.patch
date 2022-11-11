@@ -1,0 +1,25 @@
+From a5d17b7fb89bc838b39e642952e897f3ee042e1a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 20 Oct 2021 11:30:25 +0000
+Subject: [PATCH 3/6] treble: Set TARGET_NO_KERNEL_OVERRIDE
+
+Taken from Lineage generic targets - skips building kernel cleanly
+
+Change-Id: Id71d3a3aed56fd4e815a64ef4191b125fc5026ce
+---
+ board-base.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/board-base.mk b/board-base.mk
+index e493d1c..9d1d45e 100644
+--- a/board-base.mk
++++ b/board-base.mk
+@@ -12,3 +12,5 @@ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+ BOARD_ROOT_EXTRA_SYMLINKS := $(filter-out $(BOARD_ROOT_EXTRA_SYMLINKS),/mnt/vendor/persist:/persist)
+ 
+ BOARD_EXT4_SHARE_DUP_BLOCKS := true
++
++TARGET_NO_KERNEL_OVERRIDE := true
+-- 
+2.25.1
+

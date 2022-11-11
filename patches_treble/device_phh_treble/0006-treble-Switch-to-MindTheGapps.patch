@@ -1,0 +1,26 @@
+From 667aa0b0c11f18bb8b0f5aeda31e186c0a1fc60d Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 5 Nov 2022 23:49:11 +0000
+Subject: [PATCH 6/6] treble: Switch to MindTheGapps
+
+Change-Id: I1b80d4c5176cbf4af21d147c71b0abce6027c7c7
+---
+ generate.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/generate.sh b/generate.sh
+index f64ea84..b0d6d41 100644
+--- a/generate.sh
++++ b/generate.sh
+@@ -27,7 +27,7 @@ for part in a ab;do
+ 		optional_base=""
+ 				if [ "$apps" == "gapps" ];then
+ 					apps_suffix="g"
+-					apps_script='$(call inherit-product, device/phh/treble/gapps.mk)'
++					apps_script='$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)'
+ 					apps_name="with GApps"
+ 				fi
+ 				if [ "$apps" == "gapps-go" ];then
+-- 
+2.25.1
+

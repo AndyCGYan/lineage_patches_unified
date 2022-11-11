@@ -1,0 +1,48 @@
+From cbf15ae92b72c4af571cae5bb584cf55dcc96fa4 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 10 Jun 2022 21:33:47 +0800
+Subject: [PATCH] Revert "Biometrics: Allow disabling of fingerprint cleanups"
+
+This reverts commit 87f04da03724b26f64b78e628f171e4bc4b20673.
+
+Change-Id: Iacbb74e392122c5c072251b8153367f7ee3e8aaf
+---
+ .../sensors/fingerprint/hidl/Fingerprint21.java           | 8 --------
+ 1 file changed, 8 deletions(-)
+
+diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
+index 72095d9cceb7..2a3f34ae3cd4 100644
+--- a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
++++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
+@@ -128,8 +128,6 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider
+     private final int mSensorId;
+     private final boolean mIsPowerbuttonFps;
+ 
+-    private boolean mCleanup;
+-
+     private final class BiometricTaskStackListener extends TaskStackListener {
+         @Override
+         public void onTaskStackChanged() {
+@@ -351,9 +349,6 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider
+             mCurrentUserId = UserHandle.USER_NULL;
+         });
+ 
+-        mCleanup = context.getResources().getBoolean(
+-                org.lineageos.platform.internal.R.bool.config_cleanupUnusedFingerprints);
+-
+         try {
+             ActivityManager.getService().registerUserSwitchObserver(mUserSwitchObserver, TAG);
+         } catch (RemoteException e) {
+@@ -734,9 +729,6 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider
+ 
+     private void scheduleInternalCleanup(int userId,
+             @Nullable ClientMonitorCallback callback) {
+-        if (!mCleanup) {
+-            return;
+-        }
+         mHandler.post(() -> {
+             scheduleUpdateActiveUserWithoutHandler(userId);
+ 
+-- 
+2.25.1
+

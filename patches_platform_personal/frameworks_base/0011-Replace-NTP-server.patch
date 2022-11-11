@@ -1,0 +1,26 @@
+From 8e54cfb859e4a6bdd99290108095974922cecc81 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 17 Apr 2022 08:48:42 +0000
+Subject: [PATCH 11/21] Replace NTP server
+
+Change-Id: I938ab46026d841e7536d8fc02b0ef6b28ebb6ea1
+---
+ core/res/res/values/config.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index a1b97506b1f5..3accbddbe38b 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -2352,7 +2352,7 @@
+     <bool name="config_actionMenuItemAllCaps">true</bool>
+ 
+     <!-- Remote server that can provide NTP responses. -->
+-    <string translatable="false" name="config_ntpServer">time.android.com</string>
++    <string translatable="false" name="config_ntpServer">cn.pool.ntp.org</string>
+     <!-- Normal polling frequency in milliseconds -->
+     <integer name="config_ntpPollingInterval">64800000</integer>
+     <!-- Try-again polling interval in milliseconds, in case the network request failed -->
+-- 
+2.25.1
+
