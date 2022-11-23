@@ -1,7 +1,7 @@
-From 8140556b5d24e3b07785299c710b94d6451f2dda Mon Sep 17 00:00:00 2001
+From 60aff0ef335bb79dda6d36b6e00a3c1673563f0e Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Wed, 9 Feb 2022 12:34:47 +0000
-Subject: [PATCH 4/6] treble: Set OTA JSON URL
+Subject: [PATCH 4/8] treble: Set OTA JSON URL
 
 Change-Id: I8f817b90d42629c208ceb45598daf5293850b953
 ---

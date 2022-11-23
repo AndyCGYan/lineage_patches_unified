@@ -1,7 +1,7 @@
-From 294fd56f000ff05d3982c6a0342f85ab07f85a51 Mon Sep 17 00:00:00 2001
+From f8d302e38f77e02b443eab76c1a0a58141877217 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 25 May 2020 21:26:54 +0200
-Subject: [PATCH 09/23] Add persist.sys.phh.disable_a2dp_offload property to
+Subject: [PATCH 09/24] Add persist.sys.phh.disable_a2dp_offload property to
  force a2dp offload
 
 Change-Id: Id474540c33c594cc4010a1a398d82bff8aadaeea
@@ -12,7 +12,7 @@ Change-Id: Id474540c33c594cc4010a1a398d82bff8aadaeea
  3 files changed, 197 insertions(+), 7 deletions(-)
 
 diff --git a/media/libstagefright/ACodec.cpp b/media/libstagefright/ACodec.cpp
-index 1e64538d89..2923575327 100644
+index 2c8d8de226..46cd6e47a0 100644
 --- a/media/libstagefright/ACodec.cpp
 +++ b/media/libstagefright/ACodec.cpp
 @@ -1183,6 +1183,9 @@ status_t ACodec::configureOutputBuffersFromNativeWindow(
@@ -309,7 +309,7 @@ index abc54ccc24..c6db471c8c 100644
      if (status != OK) config->clear();
      return status;
 diff --git a/services/audiopolicy/enginedefault/src/Engine.cpp b/services/audiopolicy/enginedefault/src/Engine.cpp
-index c73c17d1e4..314de7889b 100644
+index 8305c9ecd0..489e924b07 100644
 --- a/services/audiopolicy/enginedefault/src/Engine.cpp
 +++ b/services/audiopolicy/enginedefault/src/Engine.cpp
 @@ -52,7 +52,7 @@ static const std::vector<legacy_strategy_map>& getLegacyStrategy() {
