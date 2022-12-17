@@ -1,0 +1,116 @@
+From f147f139435a488a35a37e4c3f8663ddcc4bf48f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 10 Dec 2022 12:04:37 +0000
+Subject: [PATCH 4/5] TrebleSettings: Disable A2DP offload
+
+Change-Id: I737f49d146f83d96793f4436850529e3c528acbe
+---
+ res/values/strings.xml                        |  2 +
+ res/xml/treble_settings.xml                   |  4 ++
+ ...isableA2DPOffloadPreferenceController.java | 53 +++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  1 +
+ 4 files changed, 60 insertions(+)
+ create mode 100644 src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 0350ca6c1b..e91a4d36c8 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -8473,6 +8473,8 @@
+     <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
+     <!-- Treble settings screen, disable soundvolume effect title -->
+     <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
++    <!-- Treble settings screen, disable A2DP offload title -->
++    <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
+     <!-- Treble settings screen, screen resolution and refresh rate settings title -->
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
+     <!-- Treble settings screen, use alternative backlight scale title -->
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 09e6bc5d00..b58e7a1282 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -17,6 +17,10 @@
+             android:key="disable_soundvolume_effect"
+             android:title="@string/disable_soundvolume_effect_title" />
+ 
++        <SwitchPreference
++            android:key="disable_a2dp_offload"
++            android:title="@string/disable_a2dp_offload_title" />
++
+     </PreferenceCategory>
+ 
+     <PreferenceCategory
+diff --git a/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java b/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
+new file mode 100644
+index 0000000000..f53103160d
+--- /dev/null
++++ b/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class DisableA2DPOffloadPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String DISABLE_A2DP_OFFLOAD_KEY = "disable_a2dp_offload";
++    private static final String A2DP_OFFLOAD_DISABLED_PROPERTY = "persist.bluetooth.a2dp_offload.disabled";
++
++    private SwitchPreference mSwitchPreference;
++
++    public DisableA2DPOffloadPreferenceController(Context context) {
++        super(context, DISABLE_A2DP_OFFLOAD_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return DISABLE_A2DP_OFFLOAD_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(A2DP_OFFLOAD_DISABLED_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(A2DP_OFFLOAD_DISABLED_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index 50e3eda8c6..5e9b7f88e2 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -34,6 +34,7 @@ public class TrebleSettings extends DashboardFragment {
+         final List<AbstractPreferenceController> controllers = new ArrayList<>();
+         controllers.add(new UseAlternativeAudioPolicyPreferenceController(context));
+         controllers.add(new DisableSoundvolumeEffectPreferenceController(context));
++        controllers.add(new DisableA2DPOffloadPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
+         controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
+         controllers.add(new InstallImsApkPreferenceController(context));
+-- 
+2.25.1
+

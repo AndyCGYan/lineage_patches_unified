@@ -1,7 +1,7 @@
-From 36246a955810a443896bab2a0c41c7f4957236c7 Mon Sep 17 00:00:00 2001
+From 90ac0ab08a523dd05f8bfa5ba579f42ca9346dc1 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:10:50 +0000
-Subject: [PATCH 16/21] UI: Kill rounded corners in notification scrim
+Subject: [PATCH 15/20] UI: Kill rounded corners in notification scrim
 
 Rounded corners in S is nicely implemented, but this is one occasion where it looks out of place
 
@@ -11,12 +11,12 @@ Change-Id: I09ed59e0e658ebd512a9d02a8ef3edfe2c9888da
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 6e8130c9d7ab..2d29bc140471 100644
+index 569926a1e1a0..09dd8ed9ef9d 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -626,7 +626,7 @@
-     <!-- Burmese line spacing multiplier between hours and minutes of the keyguard clock -->
-     <item name="keyguard_clock_line_spacing_scale_burmese" type="dimen" format="float">1</item>
+@@ -672,7 +672,7 @@
+     <!-- With the large clock, move up slightly from the center -->
+     <dimen name="keyguard_large_clock_top_margin">-60dp</dimen>
  
 -    <dimen name="notification_scrim_corner_radius">32dp</dimen>
 +    <dimen name="notification_scrim_corner_radius">0dp</dimen>

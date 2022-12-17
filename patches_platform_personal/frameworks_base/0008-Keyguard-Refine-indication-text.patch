@@ -1,7 +1,7 @@
-From 200440c973f689f9dd294fb367015d21dd3c870d Mon Sep 17 00:00:00 2001
+From 0769aefc185bd933f77bdac65a4d615643ff8f69 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
-Subject: [PATCH 09/21] Keyguard: Refine indication text
+Subject: [PATCH 08/20] Keyguard: Refine indication text
 
 Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
 ---
@@ -14,7 +14,7 @@ Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
  6 files changed, 18 insertions(+), 9 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
-index 0f7d931f4fdc..19004a4c28da 100644
+index 955e24e01a9a..58c6919971a1 100644
 --- a/packages/SystemUI/res-keyguard/values/styles.xml
 +++ b/packages/SystemUI/res-keyguard/values/styles.xml
 @@ -132,8 +132,6 @@
@@ -27,7 +27,7 @@ index 0f7d931f4fdc..19004a4c28da 100644
  
      <style name="TextAppearance.Keyguard.BottomArea.Button">
 diff --git a/packages/SystemUI/res/layout/keyguard_bottom_area.xml b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
-index 8f8993f3c8d9..be49748b8fb8 100644
+index 8df8c49ee057..ff616b66790d 100644
 --- a/packages/SystemUI/res/layout/keyguard_bottom_area.xml
 +++ b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
 @@ -35,6 +35,7 @@
@@ -39,10 +39,10 @@ index 8f8993f3c8d9..be49748b8fb8 100644
              android:paddingEnd="@dimen/keyguard_indication_text_padding"
              android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index bd34e2fa80e1..bd56bf520d5b 100644
+index 9c85fbc4b391..44766f3b6a6d 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -717,11 +717,10 @@
+@@ -760,11 +760,10 @@
      <dimen name="keyguard_lock_height">42dp</dimen>
      <dimen name="keyguard_lock_padding">20dp</dimen>
  
@@ -56,10 +56,10 @@ index bd34e2fa80e1..bd56bf520d5b 100644
      <dimen name="double_tap_slop">32dp</dimen>
  
 diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
-index 5aedbdc20b31..6f4405a8329c 100644
+index f84a5e39163f..38baa611cf07 100644
 --- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
 +++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
-@@ -216,12 +216,22 @@ public class KeyguardIndicationRotateTextViewController extends
+@@ -220,12 +220,22 @@ public class KeyguardIndicationRotateTextViewController extends
      }
  
      /**
@@ -84,10 +84,10 @@ index 5aedbdc20b31..6f4405a8329c 100644
       * Clears all messages in the queue and sets the current message to an empty string.
       */
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 1fb771ef2991..10f14cd17944 100644
+index 073ab8b16864..5fb3c05c4a2a 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-@@ -240,10 +240,12 @@ public class KeyguardIndicationController {
+@@ -267,10 +267,12 @@ public class KeyguardIndicationController {
              public void handleMessage(Message msg) {
                  if (msg.what == MSG_HIDE_TRANSIENT) {
                      hideTransientIndication();
@@ -97,10 +97,10 @@ index 1fb771ef2991..10f14cd17944 100644
                  } else if (msg.what == MSG_HIDE_BIOMETRIC_MESSAGE) {
                      hideBiometricMessage();
 +                    updateLockScreenIndications(false /* animate */, KeyguardUpdateMonitor.getCurrentUser());
+                 } else if (msg.what == MSG_RESET_ERROR_MESSAGE_ON_SCREEN_ON) {
+                     mBiometricErrorMessageToShowOnScreenOn = null;
                  }
-             }
-         };
-@@ -544,12 +546,11 @@ public class KeyguardIndicationController {
+@@ -588,12 +590,11 @@ public class KeyguardIndicationController {
      }
  
      private void updateLockScreenRestingMsg() {
@@ -116,10 +116,10 @@ index 1fb771ef2991..10f14cd17944 100644
                              .build(),
                      false);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
-index 339f371c0d12..bd1432303463 100644
+index d24469e8421e..647c766aa0f0 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
-@@ -44,7 +44,7 @@ public class KeyguardIndicationTextView extends TextView {
+@@ -46,7 +46,7 @@ public class KeyguardIndicationTextView extends TextView {
      @StyleRes
      private static int sButtonStyleId = R.style.TextAppearance_Keyguard_BottomArea_Button;
  

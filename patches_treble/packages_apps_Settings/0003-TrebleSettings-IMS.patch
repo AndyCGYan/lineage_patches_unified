@@ -1,7 +1,7 @@
-From 106235d2d4f2e0540a0a73332cfecf465942e9cc Mon Sep 17 00:00:00 2001
+From fbcfc21db732fb0214bd4bb5c3f4f766c5f93156 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:29:36 +0000
-Subject: [PATCH 3/3] TrebleSettings: IMS
+Subject: [PATCH 3/5] TrebleSettings: IMS
 
 Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
 ---
@@ -16,10 +16,10 @@ Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
  create mode 100644 src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 
 diff --git a/Android.bp b/Android.bp
-index 140d4480c8..c73a774a28 100644
+index be3a85a43b..5321bd008d 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -81,6 +81,7 @@ android_library {
+@@ -92,6 +92,7 @@ android_library {
          "LineagePreferenceLib",
          "vendor.lineage.fastcharge-V1.0-java",
          "SystemUISharedLib",
@@ -28,10 +28,10 @@ index 140d4480c8..c73a774a28 100644
  
      libs: [
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 4014c53eaa..ef8ffbbf46 100644
+index 82ce16483d..0350ca6c1b 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8282,6 +8282,8 @@
+@@ -8466,6 +8466,8 @@
      <string name="treble_settings_category_name_audio">Audio</string>
      <!-- Display category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_display">Display</string>
@@ -40,7 +40,7 @@ index 4014c53eaa..ef8ffbbf46 100644
  
      <!-- Treble settings screen, use alternative audio policy title -->
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
-@@ -8291,6 +8293,13 @@
+@@ -8475,6 +8477,13 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>

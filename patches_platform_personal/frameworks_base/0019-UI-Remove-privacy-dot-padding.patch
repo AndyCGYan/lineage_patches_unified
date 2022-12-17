@@ -1,7 +1,7 @@
-From d0c1675a0e1023aaf70e5141e55ad8b00bf23203 Mon Sep 17 00:00:00 2001
+From 3753346b30c05ca391eabc86d2185e6167b1d9b5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 12:09:34 +0000
-Subject: [PATCH 20/21] UI: Remove privacy dot padding
+Subject: [PATCH 19/20] UI: Remove privacy dot padding
 
 Change-Id: I5d2e2b3e36f027b4348a83030d4b4d3c4f0209d1
 ---
@@ -9,10 +9,10 @@ Change-Id: I5d2e2b3e36f027b4348a83030d4b4d3c4f0209d1
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 2d29bc140471..6559c303d18a 100644
+index 09dd8ed9ef9d..4515539bb4b4 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -960,7 +960,7 @@
+@@ -1002,7 +1002,7 @@
      <dimen name="ongoing_appops_chip_animation_in_status_bar_translation_x">15dp</dimen>
      <dimen name="ongoing_appops_chip_animation_out_status_bar_translation_x">7dp</dimen>
      <!--  Total minimum padding to enforce to ensure that the dot can always show  -->

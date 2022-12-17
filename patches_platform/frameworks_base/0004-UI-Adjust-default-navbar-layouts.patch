@@ -1,7 +1,7 @@
-From 4dc4d1ec5be6658812b82c09d745975674707572 Mon Sep 17 00:00:00 2001
+From becd4bf809789b1d0d53956539d3d452e9f20e5a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 02:23:48 +0000
-Subject: [PATCH 03/12] UI: Adjust default navbar layouts
+Subject: [PATCH 04/14] UI: Adjust default navbar layouts
 
 - Slightly tighten nodpi layout
 - Remove sw372dp layout - looks terrible, probably meant for legacy phablets, but most modern phones qualify
@@ -45,10 +45,10 @@ index 07b797a32428..000000000000
 -    <string name="config_navBarLayout" translatable="false">left[.25W],back[.5WC];home;recent[.5WC],right[.25W]</string>
 -</resources>
 diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
-index ba31e7f1f1d1..c4625e7e784d 100644
+index d7d88cea2dbc..8a2b88d3cf9a 100644
 --- a/packages/SystemUI/res/values/config.xml
 +++ b/packages/SystemUI/res/values/config.xml
-@@ -307,7 +307,7 @@
+@@ -301,7 +301,7 @@
      </string-array>
  
      <!-- Nav bar button default ordering/layout -->
