@@ -1,7 +1,7 @@
-From 90ac0ab08a523dd05f8bfa5ba579f42ca9346dc1 Mon Sep 17 00:00:00 2001
+From b4d980d9f9421f8043edf7e4eda459f40486d09e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:10:50 +0000
-Subject: [PATCH 15/20] UI: Kill rounded corners in notification scrim
+Subject: [PATCH 16/21] UI: Kill rounded corners in notification scrim
 
 Rounded corners in S is nicely implemented, but this is one occasion where it looks out of place
 

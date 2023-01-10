@@ -1,7 +1,7 @@
-From f2255b7c8145f1d530822d2708f3a627f67d0bc7 Mon Sep 17 00:00:00 2001
+From 3e220efe0e330611011aae408c7341afb3ca6637 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 29 Jun 2021 22:57:01 +0000
-Subject: [PATCH 18/20] UI: Relax requirement for HINT_SUPPORTS_DARK_TEXT
+Subject: [PATCH 19/21] UI: Relax requirement for HINT_SUPPORTS_DARK_TEXT
 
 I decide what's good enough for a wallpaper!
 

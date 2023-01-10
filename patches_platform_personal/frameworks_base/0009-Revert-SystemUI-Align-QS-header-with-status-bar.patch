@@ -1,0 +1,128 @@
+From f6022c3e0b759dbcbe8ef750db0f83f1e244ff33 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 29 Dec 2022 02:53:16 +0000
+Subject: [PATCH 09/21] Revert "SystemUI: Align QS header with status bar"
+
+This reverts commit 8658042a3c1c662f6a14ea3bf311e1e6b07f785e.
+---
+ .../res/layout/quick_qs_status_icons.xml      |  3 +++
+ .../quick_status_bar_header_date_privacy.xml  |  4 +++-
+ .../systemui/qs/QuickStatusBarHeader.java     | 23 ++++++++-----------
+ 3 files changed, 16 insertions(+), 14 deletions(-)
+
+diff --git a/packages/SystemUI/res/layout/quick_qs_status_icons.xml b/packages/SystemUI/res/layout/quick_qs_status_icons.xml
+index 9feec09dd52a..7a370d8cbc48 100644
+--- a/packages/SystemUI/res/layout/quick_qs_status_icons.xml
++++ b/packages/SystemUI/res/layout/quick_qs_status_icons.xml
+@@ -21,6 +21,7 @@
+     android:layout_height="@*android:dimen/quick_qs_offset_height"
+     android:clipChildren="false"
+     android:clipToPadding="false"
++    android:minHeight="@dimen/qs_header_row_min_height"
+     android:clickable="false"
+     android:focusable="true"
+     android:theme="@style/QSHeaderTheme">
+@@ -38,6 +39,7 @@
+             android:id="@+id/clock"
+             android:layout_width="wrap_content"
+             android:layout_height="match_parent"
++            android:minHeight="@dimen/qs_header_row_min_height"
+             android:gravity="center_vertical|start"
+             android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
+             android:paddingEnd="@dimen/status_bar_left_clock_end_padding"
+@@ -62,6 +64,7 @@
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
+         android:layout_weight="1"
++        android:minHeight="@dimen/qs_header_row_min_height"
+         android:minWidth="48dp"
+         android:layout_marginStart="8dp"
+         android:layout_gravity="end|center_vertical"
+diff --git a/packages/SystemUI/res/layout/quick_status_bar_header_date_privacy.xml b/packages/SystemUI/res/layout/quick_status_bar_header_date_privacy.xml
+index 2220bbbb76a5..60bc3732cde0 100644
+--- a/packages/SystemUI/res/layout/quick_status_bar_header_date_privacy.xml
++++ b/packages/SystemUI/res/layout/quick_status_bar_header_date_privacy.xml
+@@ -25,12 +25,14 @@
+     android:gravity="center"
+     android:layout_gravity="top"
+     android:orientation="horizontal"
+-    android:clickable="true">
++    android:clickable="true"
++    android:minHeight="48dp">
+ 
+     <FrameLayout
+         android:id="@+id/date_container"
+         android:layout_width="0dp"
+         android:layout_height="match_parent"
++        android:minHeight="48dp"
+         android:layout_weight="1"
+         android:gravity="center_vertical|start" >
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
+index efa864f12481..b0e2f8368703 100644
+--- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
++++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
+@@ -105,7 +105,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+     private StatusBarContentInsetsProvider mInsetsProvider;
+ 
+     private int mRoundedCornerPadding = 0;
+-    private int mStatusBarPaddingTop;
+     private int mWaterfallTopInset;
+     private int mCutOutPaddingLeft;
+     private int mCutOutPaddingRight;
+@@ -267,20 +266,19 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+         mRoundedCornerPadding = resources.getDimensionPixelSize(
+                 R.dimen.rounded_corner_content_padding);
+ 
+-        int statusBarHeight = SystemBarUtils.getStatusBarHeight(mContext);
++        int qsOffsetHeight = SystemBarUtils.getQuickQsOffsetHeight(mContext);
+ 
+-        mStatusBarPaddingTop = resources.getDimensionPixelSize(
+-                R.dimen.status_bar_padding_top);
+-
+-        mDatePrivacyView.getLayoutParams().height = statusBarHeight;
++        mDatePrivacyView.getLayoutParams().height =
++                Math.max(qsOffsetHeight, mDatePrivacyView.getMinimumHeight());
+         mDatePrivacyView.setLayoutParams(mDatePrivacyView.getLayoutParams());
+ 
+-        mStatusIconsView.getLayoutParams().height = statusBarHeight;
++        mStatusIconsView.getLayoutParams().height =
++                Math.max(qsOffsetHeight, mStatusIconsView.getMinimumHeight());
+         mStatusIconsView.setLayoutParams(mStatusIconsView.getLayoutParams());
+ 
+         ViewGroup.LayoutParams lp = getLayoutParams();
+         if (mQsDisabled) {
+-            lp.height = mStatusIconsView.getLayoutParams().height - mWaterfallTopInset;
++            lp.height = mStatusIconsView.getLayoutParams().height;
+         } else {
+             lp.height = WRAP_CONTENT;
+         }
+@@ -304,9 +302,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+         }
+ 
+         MarginLayoutParams qqsLP = (MarginLayoutParams) mHeaderQsPanel.getLayoutParams();
+-        qqsLP.topMargin = largeScreenHeaderActive || !mUseCombinedQSHeader
+-                ? mContext.getResources().getDimensionPixelSize(R.dimen.qqs_layout_margin_top)
+-                : SystemBarUtils.getQuickQsOffsetHeight(mContext);
++        qqsLP.topMargin = largeScreenHeaderActive || !mUseCombinedQSHeader ? mContext.getResources()
++                .getDimensionPixelSize(R.dimen.qqs_layout_margin_top) : qsOffsetHeight;
+         mHeaderQsPanel.setLayoutParams(qqsLP);
+ 
+         updateBatteryMode();
+@@ -553,11 +550,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+         }
+ 
+         mDatePrivacyView.setPadding(paddingLeft,
+-                mStatusBarPaddingTop,
++                mWaterfallTopInset,
+                 paddingRight,
+                 0);
+         mStatusIconsView.setPadding(paddingLeft,
+-                mStatusBarPaddingTop,
++                mWaterfallTopInset,
+                 paddingRight,
+                 0);
+     }
+-- 
+2.25.1
+

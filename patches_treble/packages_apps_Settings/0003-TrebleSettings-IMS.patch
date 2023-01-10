@@ -1,17 +1,17 @@
-From fbcfc21db732fb0214bd4bb5c3f4f766c5f93156 Mon Sep 17 00:00:00 2001
+From 1ae67d0fba3acd594a161c37a6fbb8dfe9939f0f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:29:36 +0000
-Subject: [PATCH 3/5] TrebleSettings: IMS
+Subject: [PATCH 3/8] TrebleSettings: IMS
 
 Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
 ---
  Android.bp                                    |   1 +
  res/values/strings.xml                        |   9 +
- res/xml/treble_settings.xml                   |  13 ++
- .../InstallImsApkPreferenceController.java    | 198 ++++++++++++++++++
- ...VolteAvailabilityPreferenceController.java |  59 ++++++
+ res/xml/treble_settings.xml                   |  13 +
+ .../InstallImsApkPreferenceController.java    | 225 ++++++++++++++++++
+ ...VolteAvailabilityPreferenceController.java |  59 +++++
  .../settings/treble/TrebleSettings.java       |   2 +
- 6 files changed, 282 insertions(+)
+ 6 files changed, 309 insertions(+)
  create mode 100644 src/com/android/settings/treble/InstallImsApkPreferenceController.java
  create mode 100644 src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 
@@ -78,10 +78,10 @@ index 336137c95f..09e6bc5d00 100644
  </PreferenceScreen>
 diff --git a/src/com/android/settings/treble/InstallImsApkPreferenceController.java b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
 new file mode 100644
-index 0000000000..f59e5d7d9a
+index 0000000000..e5ec05a820
 --- /dev/null
 +++ b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
-@@ -0,0 +1,198 @@
+@@ -0,0 +1,225 @@
 +package com.android.settings.treble;
 +
 +import android.app.DownloadManager;
@@ -156,6 +156,33 @@ index 0000000000..f59e5d7d9a
 +            mPreference.setEnabled(false);
 +        } else {
 +            mPreference.setOnPreferenceClickListener(this);
++            String summary = "IMS type: ";
++            switch (mImsType) {
++                case "qcom_hidl_moto":
++                    summary += "Qualcomm pre-S (Motorola)";
++                    break;
++                case "qcom_hidl":
++                    summary += "Qualcomm pre-S";
++                    break;
++                case "qcom_aidl":
++                    summary += "Qualcomm S+";
++                    break;
++                case "mtk_p":
++                    summary += "MediaTek P";
++                    break;
++                case "mtk_q":
++                    summary += "MediaTek Q";
++                    break;
++                case "mtk_r":
++                    summary += "MediaTek R";
++                    break;
++                case "mtk_s":
++                    summary += "MediaTek S";
++                    break;
++                default:
++                    break;
++            }
++            mPreference.setSummary(summary);
 +        }
 +
 +        super.displayPreference(screen);

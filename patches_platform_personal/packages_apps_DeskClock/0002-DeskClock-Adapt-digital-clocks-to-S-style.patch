@@ -1,4 +1,4 @@
-From e72a06f095a0363085f32d631597611b96e6c160 Mon Sep 17 00:00:00 2001
+From 2a0ca4dab02447bb8fdabb480ed94de15107e22b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
 Subject: [PATCH 2/3] DeskClock: Adapt digital clocks to S style
@@ -447,12 +447,12 @@ index 856ef8241..3061e27f6 100644
 +    <dimen name="sc_keyguard_row_alarm_start_padding">5.5dp</dimen>
  </resources>
 diff --git a/res/values/styles.xml b/res/values/styles.xml
-index 7ae54c97c..73a800383 100644
+index f57bab2fa..28b68fd55 100644
 --- a/res/values/styles.xml
 +++ b/res/values/styles.xml
-@@ -187,4 +187,23 @@
-     <style name="TextAppearance.Title" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-         <item name="android:textSize">22.0sp</item>
+@@ -201,4 +201,23 @@
+         <item name="layout_constraintStart_toStartOf">parent</item>
+         <item name="layout_constraintTop_toBottomOf">@id/timer_setup_time</item>
      </style>
 +
 +    <style name="sc_keyguard_clock">

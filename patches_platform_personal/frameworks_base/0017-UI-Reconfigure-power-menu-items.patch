@@ -1,7 +1,7 @@
-From 93b2a1403d25ab0b1fbd240e5333e6fed916bd98 Mon Sep 17 00:00:00 2001
+From 7b78452e09b2f142c9b6ae23dfab058da7bdb03e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 26 Oct 2020 14:06:56 +0000
-Subject: [PATCH 16/20] UI: Reconfigure power menu items
+Subject: [PATCH 17/21] UI: Reconfigure power menu items
 
 Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
 ---

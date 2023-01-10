@@ -1,7 +1,7 @@
-From 3098f128184cbbc1e46f4a9990c95276593f9d4c Mon Sep 17 00:00:00 2001
+From d6798034133d378b48f226e876e679b0131c1dbd Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 03:39:32 +0000
-Subject: [PATCH 01/20] Add MiuiNavbarOverlay
+Subject: [PATCH 01/21] Add MiuiNavbarOverlay
 
 Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
 ---

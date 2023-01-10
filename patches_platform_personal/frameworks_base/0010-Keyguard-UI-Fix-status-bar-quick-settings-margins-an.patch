@@ -1,7 +1,7 @@
-From 6a83b2e20b387c42c927ad589f0cfcc25230455a Mon Sep 17 00:00:00 2001
+From 808ad70d1c92dfc1ac6b6e665b826504a760b88c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
-Subject: [PATCH 09/20] Keyguard/UI: Fix status bar / quick settings margins
+Subject: [PATCH 10/21] Keyguard/UI: Fix status bar / quick settings margins
  and paddings
 
 Last revised on 2022/09/24, targeting T

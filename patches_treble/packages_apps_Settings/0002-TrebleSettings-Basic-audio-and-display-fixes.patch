@@ -1,7 +1,7 @@
-From 9fc56ce7a1aaeac5571d0e2001f0d6ed79230882 Mon Sep 17 00:00:00 2001
+From 78583743e42884cf7f94477f08718b6dce63a36a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 03:38:41 +0000
-Subject: [PATCH 2/5] TrebleSettings: Basic audio and display fixes
+Subject: [PATCH 2/8] TrebleSettings: Basic audio and display fixes
 
 - Alternative audio policy
 - Disable soundvolume effect

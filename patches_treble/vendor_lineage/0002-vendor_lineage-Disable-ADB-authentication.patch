@@ -1,4 +1,4 @@
-From 60803f4939a1df05b7c29925a987efe7e899ba7c Mon Sep 17 00:00:00 2001
+From 5e40aa0d5977938ffcd1f788c2bbc8d2707631b5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 15:48:43 +0000
 Subject: [PATCH 2/2] vendor_lineage: Disable ADB authentication
@@ -9,7 +9,7 @@ Change-Id: I4370583ecab1c88ef6f42e29d3eaa52c24d13f09
  1 file changed, 5 deletions(-)
 
 diff --git a/config/common.mk b/config/common.mk
-index 52a4bfd4..a57536c3 100644
+index bb84f0cd..a6703855 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -13,16 +13,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
