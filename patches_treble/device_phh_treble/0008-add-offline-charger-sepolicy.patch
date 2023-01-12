@@ -1,4 +1,4 @@
-From 9f4474a181e897cafbd785e870cb3f104c94aeb5 Mon Sep 17 00:00:00 2001
+From e926e59d7745fa0baecda61fb9ff4803a44a4b22 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Tue, 15 Sep 2020 21:26:45 -0400
 Subject: [PATCH 8/8] add offline charger sepolicy

@@ -1,7 +1,7 @@
-From c4f1b9d1e0fecc819f41781aab3e5251b0bd0bb1 Mon Sep 17 00:00:00 2001
+From 86ce5c90c9ad63295c84bce4c8371585f28639a7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 17 Feb 2018 19:39:38 +0100
-Subject: [PATCH 1/7] Allow deletion of symlink
+Subject: [PATCH 1/5] Allow deletion of symlink
 
 Change-Id: I9731895f88729072297f753088583aabbe6990f4
 ---

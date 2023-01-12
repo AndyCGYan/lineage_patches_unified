@@ -1,7 +1,7 @@
-From 5d1ab82db553a7a752e7c4dade5317a26a4f70d5 Mon Sep 17 00:00:00 2001
+From c73d4efd8b693efd50ef38807bad19c3ea548754 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 3 Mar 2022 09:17:17 -0500
-Subject: [PATCH 29/34] Allow 128bits SHA1 IPSec keys. This is required to
+Subject: [PATCH 29/35] Allow 128bits SHA1 IPSec keys. This is required to
  implement VoLTE with this API
 
 ---

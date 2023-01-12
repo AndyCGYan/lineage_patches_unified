@@ -1,7 +1,7 @@
-From d9fa9b2d639b6f6889508731b3e3b51d4c45e784 Mon Sep 17 00:00:00 2001
+From 34a2141186d697e13c7085b4b194dfa23d959549 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 Mar 2019 23:05:14 +0100
-Subject: [PATCH 06/34] Support samsung Pie and Q light hal
+Subject: [PATCH 06/35] Support samsung Pie and Q light hal
 
 Change-Id: I01f94acd7d0672733e48854d80368f9ac6f861c6
 ---

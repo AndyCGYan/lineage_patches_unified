@@ -1,7 +1,7 @@
-From dcc433afc16a9835ee89ba062d3bf8ae58ff6ebb Mon Sep 17 00:00:00 2001
+From 41187ad1cdd62e7829a11a51241438025398c04b Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Sat, 16 Oct 2021 05:27:57 -0700
-Subject: [PATCH 22/34] Add support for app signature spoofing
+Subject: [PATCH 22/35] Add support for app signature spoofing
 
 This is needed by microG GmsCore to pretend to be the official Google
 Play Services package, because client apps check the package signature
@@ -105,7 +105,7 @@ index 166d6abd1809..cba87ff17600 100644
      <string name="permlab_statusBar">disable or modify status bar</string>
      <!-- Description of an application permission, listed so the user can choose whether they want to allow the application to do this. -->
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index d579f816f821..280f58c4d571 100644
+index fbe436007cd8..ccbbd72a08f5 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
 @@ -3330,6 +3330,29 @@ public class PackageManagerService extends IPackageManager.Stub
