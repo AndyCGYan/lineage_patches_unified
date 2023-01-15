@@ -1,0 +1,157 @@
+From 274dbe335d658a429bdd3b266b94d739dc77bedd Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 11 Jan 2023 11:59:35 +0000
+Subject: [PATCH 2/2] Revert "surfaceflinger: Add support for Udfps extension
+ lib"
+
+This reverts commit 76874f54f1fa7517361fd1817044a5d0bbfa9ade.
+---
+ .../CompositionEngine/Android.bp              | 14 +--------
+ .../compositionengine/UdfpsExtension.h        | 29 -------------------
+ .../CompositionEngine/src/OutputLayer.cpp     | 13 +--------
+ .../CompositionEngine/src/UdfpsExtension.cpp  | 27 -----------------
+ 4 files changed, 2 insertions(+), 81 deletions(-)
+ delete mode 100644 services/surfaceflinger/CompositionEngine/include/compositionengine/UdfpsExtension.h
+ delete mode 100644 services/surfaceflinger/CompositionEngine/src/UdfpsExtension.cpp
+
+diff --git a/services/surfaceflinger/CompositionEngine/Android.bp b/services/surfaceflinger/CompositionEngine/Android.bp
+index abc3478313..11a9e19db8 100644
+--- a/services/surfaceflinger/CompositionEngine/Android.bp
++++ b/services/surfaceflinger/CompositionEngine/Android.bp
+@@ -59,10 +59,7 @@ cc_defaults {
+ 
+ cc_library {
+     name: "libcompositionengine",
+-    defaults: [
+-        "libcompositionengine_defaults",
+-        "surfaceflinger_udfps_lib_defaults",
+-    ],
++    defaults: ["libcompositionengine_defaults"],
+     srcs: [
+         "src/planner/CachedSet.cpp",
+         "src/planner/Flattener.cpp",
+@@ -84,7 +81,6 @@ cc_library {
+         "src/OutputLayer.cpp",
+         "src/OutputLayerCompositionState.cpp",
+         "src/RenderSurface.cpp",
+-        "src/UdfpsExtension.cpp",
+     ],
+     local_include_dirs: ["include"],
+     export_include_dirs: ["include"],
+@@ -113,14 +109,6 @@ cc_library {
+     export_include_dirs: ["include"],
+ }
+ 
+-cc_library_static {
+-    name: "surfaceflinger_udfps_lib",
+-    srcs: [
+-        "src/UdfpsExtension.cpp",
+-    ],
+-    export_include_dirs: ["include"],
+-}
+-
+ cc_test {
+     name: "libcompositionengine_test",
+     test_suites: ["device-tests"],
+diff --git a/services/surfaceflinger/CompositionEngine/include/compositionengine/UdfpsExtension.h b/services/surfaceflinger/CompositionEngine/include/compositionengine/UdfpsExtension.h
+deleted file mode 100644
+index 4306cb4a02..0000000000
+--- a/services/surfaceflinger/CompositionEngine/include/compositionengine/UdfpsExtension.h
++++ /dev/null
+@@ -1,29 +0,0 @@
+-/*
+- * Copyright 2021-2022 The LineageOS Project
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *      http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#include <stdint.h>
+-
+-#ifndef __UDFPS_EXTENSION__H__
+-#define __UDFPS_EXTENSION__H__
+-
+-#define UDFPS_BIOMETRIC_PROMPT_LAYER_NAME "BiometricPrompt"
+-#define UDFPS_LAYER_NAME "UdfpsControllerOverlay"
+-#define UDFPS_TOUCHED_LAYER_NAME "SurfaceView[UdfpsControllerOverlay](BLAST)"
+-
+-extern uint32_t getUdfpsZOrder(uint32_t z, bool touched);
+-extern uint64_t getUdfpsUsageBits(uint64_t usageBits, bool touched);
+-
+-#endif /* __UDFPS_EXTENSION__H__ */
+diff --git a/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp b/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
+index 2129dfed29..1bb9d0eb63 100644
+--- a/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
++++ b/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
+@@ -19,7 +19,6 @@
+ #include <compositionengine/DisplayColorProfile.h>
+ #include <compositionengine/LayerFECompositionState.h>
+ #include <compositionengine/Output.h>
+-#include <compositionengine/UdfpsExtension.h>
+ #include <compositionengine/impl/HwcBufferCache.h>
+ #include <compositionengine/impl/OutputCompositionState.h>
+ #include <compositionengine/impl/OutputLayer.h>
+@@ -442,17 +441,7 @@ void OutputLayer::writeOutputDependentGeometryStateToHWC(HWC2::Layer* hwcLayer,
+               sourceCrop.bottom, to_string(error).c_str(), static_cast<int32_t>(error));
+     }
+ 
+-    uint32_t z_udfps = z;
+-    if ((strncmp(getLayerFE().getDebugName(), UDFPS_LAYER_NAME, strlen(UDFPS_LAYER_NAME)) == 0) ||
+-        (strncmp(getLayerFE().getDebugName(), UDFPS_BIOMETRIC_PROMPT_LAYER_NAME,
+-                 strlen(UDFPS_BIOMETRIC_PROMPT_LAYER_NAME)) == 0)) {
+-        z_udfps = getUdfpsZOrder(z, false);
+-    } else if (strncmp(getLayerFE().getDebugName(), UDFPS_TOUCHED_LAYER_NAME,
+-                       strlen(UDFPS_TOUCHED_LAYER_NAME)) == 0) {
+-        z_udfps = getUdfpsZOrder(z, true);
+-    }
+-
+-    if (auto error = hwcLayer->setZOrder(z_udfps); error != hal::Error::NONE) {
++    if (auto error = hwcLayer->setZOrder(z); error != hal::Error::NONE) {
+         ALOGE("[%s] Failed to set Z %u: %s (%d)", getLayerFE().getDebugName(), z,
+               to_string(error).c_str(), static_cast<int32_t>(error));
+     }
+diff --git a/services/surfaceflinger/CompositionEngine/src/UdfpsExtension.cpp b/services/surfaceflinger/CompositionEngine/src/UdfpsExtension.cpp
+deleted file mode 100644
+index 2d9d086dd2..0000000000
+--- a/services/surfaceflinger/CompositionEngine/src/UdfpsExtension.cpp
++++ /dev/null
+@@ -1,27 +0,0 @@
+-/*
+- * Copyright 2020 The LineageOS Project
+- *
+- * Licensed under the Apache License, Version 2.0 (the "License");
+- * you may not use this file except in compliance with the License.
+- * You may obtain a copy of the License at
+- *
+- *      http://www.apache.org/licenses/LICENSE-2.0
+- *
+- * Unless required by applicable law or agreed to in writing, software
+- * distributed under the License is distributed on an "AS IS" BASIS,
+- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+- * See the License for the specific language governing permissions and
+- * limitations under the License.
+- */
+-
+-#ifndef TARGET_PROVIDES_UDFPS_LIB
+-#include <compositionengine/UdfpsExtension.h>
+-
+-uint32_t getUdfpsZOrder(uint32_t z, __unused bool touched) {
+-    return z;
+-}
+-
+-uint64_t getUdfpsUsageBits(uint64_t usageBits, __unused bool touched) {
+-    return usageBits;
+-}
+-#endif
+-- 
+2.25.1
+

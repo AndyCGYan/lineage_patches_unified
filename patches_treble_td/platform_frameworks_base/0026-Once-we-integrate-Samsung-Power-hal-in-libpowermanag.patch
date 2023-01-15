@@ -1,7 +1,7 @@
-From 4a7e481c942057784ee61c40d50c0ae47b139440 Mon Sep 17 00:00:00 2001
+From 8e6b31e1dc663e67e5b37b3f648e9833ae5a0ed1 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 27 Dec 2021 17:57:11 -0500
-Subject: [PATCH 26/30] Once we integrate Samsung Power hal in libpowermanager,
+Subject: [PATCH 26/35] Once we integrate Samsung Power hal in libpowermanager,
  libpowermanager and its deps require linking against
  vendor.samsung.hardware.miscpower@2.0
 

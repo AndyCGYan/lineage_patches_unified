@@ -1,7 +1,7 @@
-From 1cd9026a5662a35e1b6181baf7b02cfa9f8a0570 Mon Sep 17 00:00:00 2001
+From b0bf70b947ea0a7090490f08804932efa0632ce7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 14 Aug 2019 23:37:10 +0200
-Subject: [PATCH 1/8] On Samsung, we need to send a hack-message to HAL to get
+Subject: [PATCH 1/9] On Samsung, we need to send a hack-message to HAL to get
  all Sensors
 
 Change-Id: Id6a1fa48340de61c418493668e9abd22c2599376

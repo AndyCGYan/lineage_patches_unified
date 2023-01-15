@@ -1,4 +1,4 @@
-From 849272eeabd70c3898d8d714934e7dac65aafe4e Mon Sep 17 00:00:00 2001
+From 790f729ba423a331c05ead93c0baadc0cc3a5eff Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
 Subject: [PATCH 10/21] Keyguard/UI: Fix status bar / quick settings margins
@@ -32,10 +32,10 @@ Change-Id: Ic91fa398813e1907297bb0892c444d96405950e7
  7 files changed, 35 insertions(+), 40 deletions(-)
 
 diff --git a/packages/SystemUI/res/layout/keyguard_status_bar.xml b/packages/SystemUI/res/layout/keyguard_status_bar.xml
-index fe4f0a6e1104..c8936a195a49 100644
+index 2480d0189e16..5561271d4733 100644
 --- a/packages/SystemUI/res/layout/keyguard_status_bar.xml
 +++ b/packages/SystemUI/res/layout/keyguard_status_bar.xml
-@@ -87,7 +87,7 @@
+@@ -86,7 +86,7 @@
          android:layout_width="match_parent"
          android:layout_height="match_parent"
          android:paddingTop="@dimen/status_bar_padding_top"
@@ -112,7 +112,7 @@ index 60bc3732cde0..6ba9382bea94 100644
          android:gravity="center_vertical|end" >
  
 diff --git a/packages/SystemUI/res/values-sw600dp/dimens.xml b/packages/SystemUI/res/values-sw600dp/dimens.xml
-index 008299bd9b1c..271c6d3de672 100644
+index 599bf30a5135..f9911fda7dbe 100644
 --- a/packages/SystemUI/res/values-sw600dp/dimens.xml
 +++ b/packages/SystemUI/res/values-sw600dp/dimens.xml
 @@ -27,9 +27,6 @@
@@ -126,10 +126,10 @@ index 008299bd9b1c..271c6d3de672 100644
      <dimen name="keyguard_affordance_height">80dp</dimen>
      <dimen name="keyguard_affordance_width">120dp</dimen>
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index d124bfbf8cd8..b91143e9d6bb 100644
+index 44766f3b6a6d..569926a1e1a0 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -693,7 +693,7 @@
+@@ -736,7 +736,7 @@
      <dimen name="kg_framed_avatar_size">32dp</dimen>
  
      <!-- Margin on the left side of the carrier text on Keyguard -->

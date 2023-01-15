@@ -1,7 +1,7 @@
-From 429e3b26107f94404f3e7c01a368a5ec91c0389b Mon Sep 17 00:00:00 2001
+From 5266fe30bf9b7a19220d68bd4a0998d2464fc0d2 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 8 Nov 2018 23:04:03 +0100
-Subject: [PATCH 08/30] Re-order services so that it works even without qtaguid
+Subject: [PATCH 08/35] Re-order services so that it works even without qtaguid
 
 Change-Id: I0c0f527b3ae151d45c68f7ac6c205da3f34e74df
 ---
@@ -9,7 +9,7 @@ Change-Id: I0c0f527b3ae151d45c68f7ac6c205da3f34e74df
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/services/core/java/com/android/server/net/NetworkPolicyManagerService.java b/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
-index 132dfb42e983..db95bc2ac2bb 100644
+index 8102d892c2d7..ad9a50101e11 100644
 --- a/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
 +++ b/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
 @@ -959,6 +959,10 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {

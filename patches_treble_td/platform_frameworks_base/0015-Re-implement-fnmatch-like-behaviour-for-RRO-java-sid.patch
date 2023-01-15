@@ -1,7 +1,7 @@
-From 7e0acc722c9fd061310aa48ec023e1ccb5bb58a0 Mon Sep 17 00:00:00 2001
+From 816006c568ab3008e1d7a88d4d15dd082dbcc7f7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 25 Oct 2020 23:57:26 +0100
-Subject: [PATCH 15/30] Re-implement fnmatch-like behaviour for RRO java-side
+Subject: [PATCH 15/35] Re-implement fnmatch-like behaviour for RRO java-side
 
 T: Also apply to FrameworkParsingPackageUtils (@PeterCxy)
 
@@ -12,10 +12,10 @@ Change-Id: Id38292a9a1453aa87b8401c1fdb390fa4e63c7d1
  2 files changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/core/java/android/content/pm/PackageParser.java b/core/java/android/content/pm/PackageParser.java
-index 995092117f4d..28efda00393d 100644
+index c01e30ded50e..db6a36ee1b66 100644
 --- a/core/java/android/content/pm/PackageParser.java
 +++ b/core/java/android/content/pm/PackageParser.java
-@@ -2544,8 +2544,17 @@ public class PackageParser {
+@@ -2554,8 +2554,17 @@ public class PackageParser {
          for (int i = 0; i < propNames.length; i++) {
              // Check property value: make sure it is both set and equal to expected value
              final String currValue = SystemProperties.get(propNames[i]);

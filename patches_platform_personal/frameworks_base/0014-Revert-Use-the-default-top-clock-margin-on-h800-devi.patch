@@ -1,4 +1,4 @@
-From ea9a73648e61b2ab2e35aaefae7a27e92dea210b Mon Sep 17 00:00:00 2001
+From 2760ca8d2b0c8920b60d7d4f9ee8f2ae2cabd8b6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Sep 2022 11:27:57 +0000
 Subject: [PATCH 14/21] Revert "Use the default top clock margin on h800
