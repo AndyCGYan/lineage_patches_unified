@@ -1,7 +1,7 @@
-From 03ed62fb9ce9ce4da4f666f24a9c9c65cc5b9c03 Mon Sep 17 00:00:00 2001
+From 9d7f2acaa960dd74aa0bc030c3e6d9cd5a234a74 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 6 Oct 2020 01:41:16 +0000
-Subject: [PATCH 10/14] UI: Revive navbar layout tuning via sysui_nav_bar
+Subject: [PATCH 11/15] UI: Revive navbar layout tuning via sysui_nav_bar
  tunable
 
 Google keeps fixing what ain't broken.

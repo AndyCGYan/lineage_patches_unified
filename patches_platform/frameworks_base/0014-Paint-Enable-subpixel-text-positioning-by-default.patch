@@ -1,7 +1,7 @@
-From 84e2133ee773923f221a9b9754e4b1ce6bcf5e1a Mon Sep 17 00:00:00 2001
+From feca2661444f0d615f8c050fed4d79acffb42890 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 5 Oct 2021 21:01:50 -0700
-Subject: [PATCH 13/14] Paint: Enable subpixel text positioning by default
+Subject: [PATCH 14/15] Paint: Enable subpixel text positioning by default
 
 On desktop Linux, subpixel text positioning is necessary to avoid
 kerning issues, and Android is no different. Even though most phone

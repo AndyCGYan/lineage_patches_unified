@@ -1,4 +1,4 @@
-From 93192b8e62ac4a9ac9dd8241793830ceb063a4b8 Mon Sep 17 00:00:00 2001
+From a08b8d0b89937d9ce8c50e339fd089bd2da44075 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:53:34 +0000
 Subject: [PATCH 2/2] Enable IMS overlays statically on QCOM/MTK devices
@@ -9,13 +9,11 @@ Change-Id: I851cf859328cc431e8bb163297c33837d4270f58
  CAF-IMS/res/values/config.xml           | 4 ++--
  MTK-IMS/AndroidManifest.xml             | 8 ++++----
  MTK-IMS/res/values/config.xml           | 8 +++++---
- Telephony/CAF-IMS/Android.mk            | 2 ++
  Telephony/CAF-IMS/AndroidManifest.xml   | 6 ++++--
  Telephony/CAF-IMS/res/values/config.xml | 2 +-
- Telephony/MTK-IMS/Android.mk            | 2 ++
  Telephony/MTK-IMS/AndroidManifest.xml   | 6 ++++--
  Telephony/MTK-IMS/res/values/config.xml | 3 +--
- 10 files changed, 29 insertions(+), 20 deletions(-)
+ 8 files changed, 25 insertions(+), 20 deletions(-)
 
 diff --git a/CAF-IMS/AndroidManifest.xml b/CAF-IMS/AndroidManifest.xml
 index 47236c6..5376fb8 100644
@@ -81,18 +79,6 @@ index f5e0486..2d49a11 100644
 +    <bool name="config_device_volte_available">true</bool>
 +    <bool name="config_device_wfc_ims_available">true</bool>
  </resources>
-diff --git a/Telephony/CAF-IMS/Android.mk b/Telephony/CAF-IMS/Android.mk
-index 7785cc3..416f501 100644
---- a/Telephony/CAF-IMS/Android.mk
-+++ b/Telephony/CAF-IMS/Android.mk
-@@ -2,5 +2,7 @@ LOCAL_PATH := $(call my-dir)
- include $(CLEAR_VARS)
- LOCAL_MODULE_TAGS := optional
- LOCAL_PACKAGE_NAME := treble-overlay-telephony-caf-ims
-+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/overlay
-+LOCAL_IS_RUNTIME_RESOURCE_OVERLAY := true
- LOCAL_PRIVATE_PLATFORM_APIS := true
- include $(BUILD_PACKAGE)
 diff --git a/Telephony/CAF-IMS/AndroidManifest.xml b/Telephony/CAF-IMS/AndroidManifest.xml
 index 2267406..365525c 100644
 --- a/Telephony/CAF-IMS/AndroidManifest.xml
@@ -118,18 +104,6 @@ index 565ee42..ddf685d 100644
 -	<string name="config_ims_mmtel_package">org.codeaurora.ims</string>
 +    <string name="config_ims_mmtel_package">org.codeaurora.ims</string>
  </resources>
-diff --git a/Telephony/MTK-IMS/Android.mk b/Telephony/MTK-IMS/Android.mk
-index 314b1a9..d08cb5a 100644
---- a/Telephony/MTK-IMS/Android.mk
-+++ b/Telephony/MTK-IMS/Android.mk
-@@ -2,5 +2,7 @@ LOCAL_PATH := $(call my-dir)
- include $(CLEAR_VARS)
- LOCAL_MODULE_TAGS := optional
- LOCAL_PACKAGE_NAME := treble-overlay-telephony-mtk-ims
-+LOCAL_MODULE_PATH := $(TARGET_OUT_PRODUCT)/overlay
-+LOCAL_IS_RUNTIME_RESOURCE_OVERLAY := true
- LOCAL_PRIVATE_PLATFORM_APIS := true
- include $(BUILD_PACKAGE)
 diff --git a/Telephony/MTK-IMS/AndroidManifest.xml b/Telephony/MTK-IMS/AndroidManifest.xml
 index 5afe885..644d06b 100644
 --- a/Telephony/MTK-IMS/AndroidManifest.xml
