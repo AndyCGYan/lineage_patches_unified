@@ -1,4 +1,4 @@
-From a8a6e151d39736c5e73394839e476c5b82630d3a Mon Sep 17 00:00:00 2001
+From 2f26229212e75def4f1072c5aaf05bf392007383 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 17 Apr 2022 08:48:42 +0000
 Subject: [PATCH 11/21] Replace NTP server
@@ -9,7 +9,7 @@ Change-Id: I938ab46026d841e7536d8fc02b0ef6b28ebb6ea1
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index 80fa6013ee77..9410897a24a0 100644
+index 58cd819b9404..285a72320eee 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
 @@ -2390,7 +2390,7 @@

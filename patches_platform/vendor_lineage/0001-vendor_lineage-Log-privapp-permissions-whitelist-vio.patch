@@ -1,4 +1,4 @@
-From e330d170e8e64c5c7849d0a0c288fb167ee828a8 Mon Sep 17 00:00:00 2001
+From 80d66b7f255176e7cf761ce9c62c436cb729df71 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 5 Sep 2019 02:08:22 +0000
 Subject: [PATCH 1/2] vendor_lineage: Log privapp-permissions whitelist
@@ -10,7 +10,7 @@ Change-Id: I49dba61f332253e291a65e79ca70d9a07d45bb07
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/config/common.mk b/config/common.mk
-index 43c36252..52a4bfd4 100644
+index 7048c9cb..9dc5c710 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -74,9 +74,9 @@ PRODUCT_COPY_FILES += \
@@ -23,8 +23,8 @@ index 43c36252..52a4bfd4 100644
 -    ro.control_privapp_permissions=enforce
 +    ro.control_privapp_permissions=log
  
- # Include AOSP audio files
- include vendor/lineage/config/aosp_audio.mk
+ ifneq ($(TARGET_DISABLE_LINEAGE_SDK), true)
+ # Lineage SDK
 -- 
 2.25.1
 

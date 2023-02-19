@@ -1,4 +1,4 @@
-From cccdc9392402135535e81d35bb1c8d62222f061f Mon Sep 17 00:00:00 2001
+From f6022c3e0b759dbcbe8ef750db0f83f1e244ff33 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Dec 2022 02:53:16 +0000
 Subject: [PATCH 09/21] Revert "SystemUI: Align QS header with status bar"
@@ -59,10 +59,10 @@ index 2220bbbb76a5..60bc3732cde0 100644
          android:gravity="center_vertical|start" >
  
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index 04ace4dc2f3a..614b0c03c696 100644
+index efa864f12481..b0e2f8368703 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-@@ -106,7 +106,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -105,7 +105,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private StatusBarContentInsetsProvider mInsetsProvider;
  
      private int mRoundedCornerPadding = 0;
@@ -70,9 +70,9 @@ index 04ace4dc2f3a..614b0c03c696 100644
      private int mWaterfallTopInset;
      private int mCutOutPaddingLeft;
      private int mCutOutPaddingRight;
-@@ -270,20 +269,19 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
-             mRoundedCornerPadding = resources.getDimensionPixelSize(
-                     R.dimen.rounded_corner_content_padding);
+@@ -267,20 +266,19 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+         mRoundedCornerPadding = resources.getDimensionPixelSize(
+                 R.dimen.rounded_corner_content_padding);
  
 -        int statusBarHeight = SystemBarUtils.getStatusBarHeight(mContext);
 +        int qsOffsetHeight = SystemBarUtils.getQuickQsOffsetHeight(mContext);
@@ -97,7 +97,7 @@ index 04ace4dc2f3a..614b0c03c696 100644
          } else {
              lp.height = WRAP_CONTENT;
          }
-@@ -307,9 +305,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -304,9 +302,8 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
          }
  
          MarginLayoutParams qqsLP = (MarginLayoutParams) mHeaderQsPanel.getLayoutParams();
@@ -109,7 +109,7 @@ index 04ace4dc2f3a..614b0c03c696 100644
          mHeaderQsPanel.setLayoutParams(qqsLP);
  
          updateBatteryMode();
-@@ -556,11 +553,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -553,11 +550,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
          }
  
          mDatePrivacyView.setPadding(paddingLeft,

@@ -1,4 +1,4 @@
-From 77bae190086a8c75bd80800487955bb7577cd374 Mon Sep 17 00:00:00 2001
+From 9218670153d5aa40fd05f51d89240fc7859293a2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 14 Mar 2022 03:44:59 +0000
 Subject: [PATCH 2/2] Revert "overlay: Default to night mode"
@@ -11,7 +11,7 @@ Change-Id: I036bdd576e536392cf41e3c536d5ca2eb04e5a0f
  1 file changed, 8 deletions(-)
 
 diff --git a/overlay/common/frameworks/base/core/res/res/values/config.xml b/overlay/common/frameworks/base/core/res/res/values/config.xml
-index 3b6eedce..fccecf90 100644
+index 94687fe1..579b98f7 100644
 --- a/overlay/common/frameworks/base/core/res/res/values/config.xml
 +++ b/overlay/common/frameworks/base/core/res/res/values/config.xml
 @@ -146,14 +146,6 @@

@@ -1,4 +1,4 @@
-From 790f729ba423a331c05ead93c0baadc0cc3a5eff Mon Sep 17 00:00:00 2001
+From 808ad70d1c92dfc1ac6b6e665b826504a760b88c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
 Subject: [PATCH 10/21] Keyguard/UI: Fix status bar / quick settings margins
@@ -139,10 +139,10 @@ index 44766f3b6a6d..569926a1e1a0 100644
      <!-- Additional translation (downwards) for appearing notifications when going to the full shade
           from Keyguard. -->
 diff --git a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-index 614b0c03c696..55d7336e5c39 100644
+index b0e2f8368703..4ff7e5753a1d 100644
 --- a/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
 +++ b/packages/SystemUI/src/com/android/systemui/qs/QuickStatusBarHeader.java
-@@ -106,6 +106,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -105,6 +105,10 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private StatusBarContentInsetsProvider mInsetsProvider;
  
      private int mRoundedCornerPadding = 0;
@@ -153,9 +153,9 @@ index 614b0c03c696..55d7336e5c39 100644
      private int mWaterfallTopInset;
      private int mCutOutPaddingLeft;
      private int mCutOutPaddingRight;
-@@ -269,6 +273,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
-             mRoundedCornerPadding = resources.getDimensionPixelSize(
-                     R.dimen.rounded_corner_content_padding);
+@@ -266,6 +270,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+         mRoundedCornerPadding = resources.getDimensionPixelSize(
+                 R.dimen.rounded_corner_content_padding);
  
 +        mStatusBarPaddingStart = resources.getDimensionPixelSize(
 +                R.dimen.status_bar_padding_start);
@@ -165,7 +165,7 @@ index 614b0c03c696..55d7336e5c39 100644
          int qsOffsetHeight = SystemBarUtils.getQuickQsOffsetHeight(mContext);
  
          mDatePrivacyView.getLayoutParams().height =
-@@ -359,6 +368,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -356,6 +365,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  .addFloat(mDateView, "alpha", 0, 0, 1)
                  .addFloat(mClockDateView, "alpha", 1, 0, 0)
                  .addFloat(mQSCarriers, "alpha", 0, 1)
@@ -175,7 +175,7 @@ index 614b0c03c696..55d7336e5c39 100644
                  .setListener(new TouchAnimator.ListenerAdapter() {
                      @Override
                      public void onAnimationAtEnd() {
-@@ -466,8 +478,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -463,8 +475,6 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                  .getStatusBarContentInsetsForCurrentRotation();
          boolean hasCornerCutout = mInsetsProvider.currentRotationHasCornerCutout();
  
@@ -184,7 +184,7 @@ index 614b0c03c696..55d7336e5c39 100644
          LinearLayout.LayoutParams datePrivacySeparatorLayoutParams =
                  (LinearLayout.LayoutParams) mDatePrivacySeparator.getLayoutParams();
          LinearLayout.LayoutParams mClockIconsSeparatorLayoutParams =
-@@ -531,34 +541,38 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
+@@ -528,34 +538,38 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
      private void updateHeadersPadding() {
          setContentMargins(mDatePrivacyView, 0, 0);
          setContentMargins(mStatusIconsView, 0, 0);
@@ -240,10 +240,10 @@ index 614b0c03c696..55d7336e5c39 100644
      }
  
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-index cc8b2d5c0913..f829fb421fc7 100644
+index 5119b8f95aa8..090fa7aac340 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-@@ -157,14 +157,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
+@@ -156,14 +156,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
          mCarrierLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                  getResources().getDimensionPixelSize(
                          com.android.internal.R.dimen.text_size_small_material));

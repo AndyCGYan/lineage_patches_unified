@@ -1,4 +1,4 @@
-From 3eb0073c25efb72c691cf8058385ebb74259ccac Mon Sep 17 00:00:00 2001
+From 2288c34ff8bf06a7be040815ff4d6496eb36062a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
 Subject: [PATCH 05/21] Keyguard: Adjust clock style

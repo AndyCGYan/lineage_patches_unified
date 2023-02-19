@@ -1,17 +1,17 @@
-From 02bc17bb2554380d7f7d76e3adffce05a2ba2444 Mon Sep 17 00:00:00 2001
+From 093cc22ff7034256909c702288c94f99fb377671 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 5 Sep 2021 00:30:33 +0000
 Subject: [PATCH 1/3] DeskClock: Remove night mode
 
 Change-Id: I885f39027e78fcda397f1be59d17bc24bc66671a
 ---
- res/xml/screensaver_settings.xml                   | 8 +-------
+ res/xml/screensaver_settings.xml                   | 6 ------
  src/com/android/deskclock/Screensaver.java         | 5 ++---
  src/com/android/deskclock/ScreensaverActivity.java | 2 +-
- 3 files changed, 4 insertions(+), 11 deletions(-)
+ 3 files changed, 3 insertions(+), 10 deletions(-)
 
 diff --git a/res/xml/screensaver_settings.xml b/res/xml/screensaver_settings.xml
-index 1680aab83..73375dcfa 100644
+index 49a7f1d89..73375dcfa 100644
 --- a/res/xml/screensaver_settings.xml
 +++ b/res/xml/screensaver_settings.xml
 @@ -24,10 +24,4 @@
@@ -24,14 +24,12 @@ index 1680aab83..73375dcfa 100644
 -        android:summary="@string/night_mode_summary"
 -        android:title="@string/night_mode_title" />
 -
--</PreferenceScreen>
-\ No newline at end of file
-+</PreferenceScreen>
+ </PreferenceScreen>
 diff --git a/src/com/android/deskclock/Screensaver.java b/src/com/android/deskclock/Screensaver.java
-index 29cc13ff9..8def22b30 100644
+index ad92b1149..f6c03ed0a 100644
 --- a/src/com/android/deskclock/Screensaver.java
 +++ b/src/com/android/deskclock/Screensaver.java
-@@ -141,9 +141,8 @@ public final class Screensaver extends DreamService {
+@@ -136,9 +136,8 @@ public final class Screensaver extends DreamService {
  
      private void setClockStyle() {
          Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
@@ -44,10 +42,10 @@ index 29cc13ff9..8def22b30 100644
  
      /**
 diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
-index cf770086b..7a756df7d 100644
+index b30f82ee7..90235351f 100644
 --- a/src/com/android/deskclock/ScreensaverActivity.java
 +++ b/src/com/android/deskclock/ScreensaverActivity.java
-@@ -107,7 +107,7 @@ public class ScreensaverActivity extends BaseActivity {
+@@ -101,7 +101,7 @@ public class ScreensaverActivity extends BaseActivity {
          Utils.setClockIconTypeface(mMainClockView);
          Utils.setTimeFormat((TextClock) digitalClock, false);
          Utils.setClockStyle(digitalClock, analogClock);

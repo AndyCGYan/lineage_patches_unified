@@ -1,4 +1,4 @@
-From 06472eb420c14153266aca7dc2487f33c32f2f44 Mon Sep 17 00:00:00 2001
+From b4d980d9f9421f8043edf7e4eda459f40486d09e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:10:50 +0000
 Subject: [PATCH 16/21] UI: Kill rounded corners in notification scrim

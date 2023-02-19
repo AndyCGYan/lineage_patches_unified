@@ -1,4 +1,4 @@
-From 8fd984bf1c1a79ed4f7d97ace689f0b6718968bb Mon Sep 17 00:00:00 2001
+From 6b1e1b06f33f3fe3d0f5a5f6aaa8b9d6bdfbbe01 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
 Subject: [PATCH 15/21] UI: Always render windows into cutouts

@@ -1,4 +1,4 @@
-From d329a8c0310ece234f68f1bf271e27b6a3ef948c Mon Sep 17 00:00:00 2001
+From a0b674ba56fd96ec0f732f587fb5b0b975d01a1a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 12:09:34 +0000
 Subject: [PATCH 20/21] UI: Remove privacy dot padding
