@@ -1,4 +1,4 @@
-From d5776b7e2edf66e2a03d79863c20c82da8a98bd5 Mon Sep 17 00:00:00 2001
+From 0d6bfed52c387c47ce3165766771d3f899bc0ca8 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 14 Mar 2022 03:44:59 +0000
 Subject: [PATCH 2/2] Revert "overlay: Default to night mode"
