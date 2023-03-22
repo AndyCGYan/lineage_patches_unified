@@ -1,4 +1,4 @@
-From 2288c34ff8bf06a7be040815ff4d6496eb36062a Mon Sep 17 00:00:00 2001
+From 2362d29a436aa9483f6913e022567d6f9fd90332 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
 Subject: [PATCH 05/21] Keyguard: Adjust clock style
@@ -7,19 +7,84 @@ Thinner font, less padding and unintrusive colors
 
 Change-Id: I21e5d5bf37d724e75ebce4cd89349e0cc4dfc910
 ---
+ .../customization/res/layout/clock_default_large.xml        | 1 +
+ .../customization/res/layout/clock_default_small.xml        | 2 +-
+ packages/SystemUI/customization/res/values/colors.xml       | 5 +++++
+ .../android/systemui/shared/clocks/AnimatableClockView.kt   | 2 +-
+ .../systemui/shared/clocks/DefaultClockController.kt        | 4 ++--
  .../SystemUI/res-keyguard/layout/keyguard_slice_view.xml    | 2 +-
  packages/SystemUI/res-keyguard/values/dimens.xml            | 6 +++---
  packages/SystemUI/res-keyguard/values/styles.xml            | 2 --
  packages/SystemUI/res/layout/keyguard_status_bar.xml        | 2 +-
  packages/SystemUI/res/values/styles.xml                     | 4 ++--
- packages/SystemUI/shared/res/layout/clock_default_large.xml | 1 +
- packages/SystemUI/shared/res/layout/clock_default_small.xml | 2 +-
- packages/SystemUI/shared/res/values/colors.xml              | 5 +++++
- .../android/systemui/shared/clocks/AnimatableClockView.kt   | 2 +-
- .../android/systemui/shared/clocks/DefaultClockProvider.kt  | 4 ++--
  10 files changed, 17 insertions(+), 13 deletions(-)
- create mode 100644 packages/SystemUI/shared/res/values/colors.xml
+ create mode 100644 packages/SystemUI/customization/res/values/colors.xml
 
+diff --git a/packages/SystemUI/customization/res/layout/clock_default_large.xml b/packages/SystemUI/customization/res/layout/clock_default_large.xml
+index 0139d50dcfba..9f5ca7b89213 100644
+--- a/packages/SystemUI/customization/res/layout/clock_default_large.xml
++++ b/packages/SystemUI/customization/res/layout/clock_default_large.xml
+@@ -26,6 +26,7 @@
+     android:fontFamily="@*android:string/config_clockFontFamily"
+     android:typeface="monospace"
+     android:elegantTextHeight="false"
++    android:fontFeatureSettings="tnum"
+     chargeAnimationDelay="200"
+     dozeWeight="200"
+     lockScreenWeight="400" />
+diff --git a/packages/SystemUI/customization/res/layout/clock_default_small.xml b/packages/SystemUI/customization/res/layout/clock_default_small.xml
+index ff6d7f9e2240..b63ffce20671 100644
+--- a/packages/SystemUI/customization/res/layout/clock_default_small.xml
++++ b/packages/SystemUI/customization/res/layout/clock_default_small.xml
+@@ -27,7 +27,7 @@
+     android:elegantTextHeight="false"
+     android:ellipsize="none"
+     android:singleLine="true"
+-    android:fontFeatureSettings="pnum"
++    android:fontFeatureSettings="tnum"
+     chargeAnimationDelay="350"
+     dozeWeight="200"
+     lockScreenWeight="400" />
+diff --git a/packages/SystemUI/customization/res/values/colors.xml b/packages/SystemUI/customization/res/values/colors.xml
+new file mode 100644
+index 000000000000..f80af4376ff1
+--- /dev/null
++++ b/packages/SystemUI/customization/res/values/colors.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="clock_default_color_dark">@*android:color/primary_text_material_dark</color>
++    <color name="clock_default_color_light">@*android:color/primary_text_material_light</color>
++</resources>
+diff --git a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
+index 462b90a10aee..d5fdb185d042 100644
+--- a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
++++ b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
+@@ -147,7 +147,7 @@ class AnimatableClockView @JvmOverloads constructor(
+     fun refreshTime() {
+         time.timeInMillis = timeOverrideInMillis ?: System.currentTimeMillis()
+         contentDescription = DateFormat.format(descFormat, time)
+-        val formattedText = DateFormat.format(format, time)
++        val formattedText = DateFormat.format(format, time).toString() + ' '
+         logBuffer?.log(tag, DEBUG,
+                 { str1 = formattedText?.toString() },
+                 { "refreshTime: new formattedText=$str1" }
+diff --git a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
+index e138ef8a1ea8..fa7979a0b598 100644
+--- a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
++++ b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
+@@ -131,9 +131,9 @@ class DefaultClockController(
+         fun updateColor() {
+             val color =
+                 if (isRegionDark) {
+-                    resources.getColor(android.R.color.system_accent1_100)
++                    resources.getColor(R.color.clock_default_color_dark)
+                 } else {
+-                    resources.getColor(android.R.color.system_accent2_600)
++                    resources.getColor(R.color.clock_default_color_light)
+                 }
+ 
+             if (currentColor == color) {
 diff --git a/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml b/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml
 index 7c5dbc247428..64657547621f 100644
 --- a/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml
@@ -34,10 +99,10 @@ index 7c5dbc247428..64657547621f 100644
      />
  </com.android.keyguard.KeyguardSliceView>
 diff --git a/packages/SystemUI/res-keyguard/values/dimens.xml b/packages/SystemUI/res-keyguard/values/dimens.xml
-index 46f6ab2399d1..6fce16ced94f 100644
+index c5ffdc0051da..b3f3d46c5dcd 100644
 --- a/packages/SystemUI/res-keyguard/values/dimens.xml
 +++ b/packages/SystemUI/res-keyguard/values/dimens.xml
-@@ -91,10 +91,10 @@
+@@ -94,10 +94,10 @@
      <dimen name="num_pad_key_margin_end">12dp</dimen>
  
      <!-- additional offset for clock switch area items -->
@@ -52,7 +117,7 @@ index 46f6ab2399d1..6fce16ced94f 100644
      <!-- Proportion of the screen height to use to set the maximum height of the bouncer to when
           the device is in the DEVICE_POSTURE_HALF_OPENED posture, for the PIN/pattern entry. 0 will
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
-index a1d12668d27a..955e24e01a9a 100644
+index 04dffb6e8c52..c81e018702bb 100644
 --- a/packages/SystemUI/res-keyguard/values/styles.xml
 +++ b/packages/SystemUI/res-keyguard/values/styles.xml
 @@ -117,8 +117,6 @@
@@ -65,10 +130,10 @@ index a1d12668d27a..955e24e01a9a 100644
  
      <style name="TextAppearance.Keyguard.Secondary">
 diff --git a/packages/SystemUI/res/layout/keyguard_status_bar.xml b/packages/SystemUI/res/layout/keyguard_status_bar.xml
-index d27fa192e741..2480d0189e16 100644
+index 8b8594032816..9135e78f3e4c 100644
 --- a/packages/SystemUI/res/layout/keyguard_status_bar.xml
 +++ b/packages/SystemUI/res/layout/keyguard_status_bar.xml
-@@ -91,7 +91,7 @@
+@@ -74,7 +74,7 @@
          android:gravity="center_vertical"
          android:ellipsize="marquee"
          android:textDirection="locale"
@@ -78,19 +143,19 @@ index d27fa192e741..2480d0189e16 100644
          android:singleLine="true"
          systemui:showMissingSim="true"
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index a10878709364..78fd8ab3b324 100644
+index dfc6ba4720f2..6c5e6d73feb7 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
-@@ -276,7 +276,7 @@
+@@ -301,7 +301,7 @@
          <item name="darkIconTheme">@style/DualToneDarkTheme</item>
          <item name="wallpaperTextColor">@*android:color/primary_text_material_dark</item>
          <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_dark</item>
 -        <item name="wallpaperTextColorAccent">@color/material_dynamic_primary90</item>
 +        <item name="wallpaperTextColorAccent">@*android:color/primary_text_material_dark</item>
          <item name="android:colorError">@*android:color/error_color_material_dark</item>
-         <item name="*android:lockPatternStyle">@style/LockPatternStyle</item>
-         <item name="passwordStyle">@style/PasswordTheme</item>
-@@ -292,7 +292,7 @@
+         <item name="*android:lockPatternStyle">@style/LockPatternViewStyle</item>
+         <item name="lockPatternStyle">@style/LockPatternContainerStyle</item>
+@@ -323,7 +323,7 @@
      <style name="Theme.SystemUI.LightWallpaper">
          <item name="wallpaperTextColor">@*android:color/primary_text_material_light</item>
          <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_light</item>
@@ -99,71 +164,6 @@ index a10878709364..78fd8ab3b324 100644
          <item name="android:colorError">@*android:color/error_color_material_light</item>
          <item name="shadowRadius">0</item>
  
-diff --git a/packages/SystemUI/shared/res/layout/clock_default_large.xml b/packages/SystemUI/shared/res/layout/clock_default_large.xml
-index 0139d50dcfba..9f5ca7b89213 100644
---- a/packages/SystemUI/shared/res/layout/clock_default_large.xml
-+++ b/packages/SystemUI/shared/res/layout/clock_default_large.xml
-@@ -26,6 +26,7 @@
-     android:fontFamily="@*android:string/config_clockFontFamily"
-     android:typeface="monospace"
-     android:elegantTextHeight="false"
-+    android:fontFeatureSettings="tnum"
-     chargeAnimationDelay="200"
-     dozeWeight="200"
-     lockScreenWeight="400" />
-diff --git a/packages/SystemUI/shared/res/layout/clock_default_small.xml b/packages/SystemUI/shared/res/layout/clock_default_small.xml
-index ff6d7f9e2240..b63ffce20671 100644
---- a/packages/SystemUI/shared/res/layout/clock_default_small.xml
-+++ b/packages/SystemUI/shared/res/layout/clock_default_small.xml
-@@ -27,7 +27,7 @@
-     android:elegantTextHeight="false"
-     android:ellipsize="none"
-     android:singleLine="true"
--    android:fontFeatureSettings="pnum"
-+    android:fontFeatureSettings="tnum"
-     chargeAnimationDelay="350"
-     dozeWeight="200"
-     lockScreenWeight="400" />
-diff --git a/packages/SystemUI/shared/res/values/colors.xml b/packages/SystemUI/shared/res/values/colors.xml
-new file mode 100644
-index 000000000000..f80af4376ff1
---- /dev/null
-+++ b/packages/SystemUI/shared/res/values/colors.xml
-@@ -0,0 +1,5 @@
-+<?xml version="1.0" encoding="utf-8"?>
-+<resources>
-+    <color name="clock_default_color_dark">@*android:color/primary_text_material_dark</color>
-+    <color name="clock_default_color_light">@*android:color/primary_text_material_light</color>
-+</resources>
-diff --git a/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/AnimatableClockView.kt b/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
-index c2e74456c032..555c20bfed9c 100644
---- a/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
-+++ b/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
-@@ -148,7 +148,7 @@ class AnimatableClockView @JvmOverloads constructor(
-     fun refreshTime() {
-         time.timeInMillis = timeOverrideInMillis ?: System.currentTimeMillis()
-         contentDescription = DateFormat.format(descFormat, time)
--        val formattedText = DateFormat.format(format, time)
-+        val formattedText = DateFormat.format(format, time).toString() + ' '
-         // Setting text actually triggers a layout pass (because the text view is set to
-         // wrap_content width and TextView always relayouts for this). Avoid needless
-         // relayout if the text didn't actually change.
-diff --git a/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/DefaultClockProvider.kt b/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/DefaultClockProvider.kt
-index 19ac2e479bcb..92a05c540f94 100644
---- a/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/DefaultClockProvider.kt
-+++ b/packages/SystemUI/shared/src/com/android/systemui/shared/clocks/DefaultClockProvider.kt
-@@ -230,9 +230,9 @@ class DefaultClock(
- 
-     private fun updateClockColor(clock: AnimatableClockView, isRegionDark: Boolean) {
-         val color = if (isRegionDark) {
--            resources.getColor(android.R.color.system_accent1_100)
-+            resources.getColor(R.color.clock_default_color_dark)
-         } else {
--            resources.getColor(android.R.color.system_accent2_600)
-+            resources.getColor(R.color.clock_default_color_light)
-         }
-         clock.setColors(DOZE_COLOR, color)
-         clock.animateAppearOnLockscreen()
 -- 
-2.25.1
+2.34.1
 

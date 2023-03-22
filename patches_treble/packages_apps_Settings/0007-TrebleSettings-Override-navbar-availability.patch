@@ -1,4 +1,4 @@
-From ce30fb743f306ecacc3515f382b41999591aa3df Mon Sep 17 00:00:00 2001
+From a6a87bfde5a552ac56f4e0a9c5fc4d20651bcb1a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 11:00:38 +0000
 Subject: [PATCH 7/8] TrebleSettings: Override navbar availability
@@ -13,10 +13,10 @@ Change-Id: I7c771caf6274543fed23a8cc47411bf8c369ac2c
  create mode 100644 src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 649182030e..bad4ed1ca7 100644
+index 6db51f1f44..6230aae707 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8468,6 +8468,8 @@
+@@ -8508,6 +8508,8 @@
      <string name="treble_settings_category_name_display">Display</string>
      <!-- IMS category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ims">IMS</string>
@@ -25,7 +25,7 @@ index 649182030e..bad4ed1ca7 100644
  
      <!-- Treble settings screen, use alternative audio policy title -->
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
-@@ -8490,6 +8492,8 @@
+@@ -8530,6 +8532,8 @@
      <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
      <!-- Treble settings screen, override VoLTE availability title -->
      <string name="override_volte_availability_title">Override VoLTE availability</string>
@@ -124,5 +124,5 @@ index 39a0e19972..634b7ce3ce 100644
      }
  
 -- 
-2.25.1
+2.34.1
 

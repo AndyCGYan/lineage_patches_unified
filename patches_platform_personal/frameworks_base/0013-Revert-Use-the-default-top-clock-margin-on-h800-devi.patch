@@ -1,7 +1,7 @@
-From b96671ae18db307e2f4323132967544ff66d97ce Mon Sep 17 00:00:00 2001
+From 0e336e834bf43aec2c3d627140e6b6f9a5466580 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Sep 2022 11:27:57 +0000
-Subject: [PATCH 14/21] Revert "Use the default top clock margin on h800
+Subject: [PATCH 13/21] Revert "Use the default top clock margin on h800
  devices"
 
 This reverts commits 50ba380f4d8d1c2523e0f76295ca556038796bfd
@@ -11,7 +11,7 @@ and 2a254b4d479029aec46f79a0ed14ffab6d0424bc.
  1 file changed, 3 insertions(+)
 
 diff --git a/packages/SystemUI/res/values-h800dp/dimens.xml b/packages/SystemUI/res/values-h800dp/dimens.xml
-index 94fe20955ce6..1d6f279afc66 100644
+index 3a71994e07e2..4b9bce0eda99 100644
 --- a/packages/SystemUI/res/values-h800dp/dimens.xml
 +++ b/packages/SystemUI/res/values-h800dp/dimens.xml
 @@ -15,6 +15,9 @@
@@ -21,9 +21,9 @@ index 94fe20955ce6..1d6f279afc66 100644
 +    <!-- Minimum margin between clock and top of screen or ambient indication -->
 +    <dimen name="keyguard_clock_top_margin">38dp</dimen>
 +
-     <!-- Large clock maximum font size (dp is intentional, to prevent any further scaling) -->
-     <dimen name="large_clock_text_size">200dp</dimen>
+     <!-- With the large clock, move up slightly from the center -->
+     <dimen name="keyguard_large_clock_top_margin">-112dp</dimen>
  
 -- 
-2.25.1
+2.34.1
 

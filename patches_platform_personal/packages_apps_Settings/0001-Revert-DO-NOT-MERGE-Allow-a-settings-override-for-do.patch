@@ -1,4 +1,4 @@
-From d94a28d2f9f88d3fee4f2a71b2364bca23f4be8b Mon Sep 17 00:00:00 2001
+From 4c3fbe18f838dce0c06342016ca4c933cf077a05 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Mar 2022 11:22:48 +0000
 Subject: [PATCH] Revert "[DO NOT MERGE] Allow a settings override for
@@ -19,10 +19,10 @@ Change-Id: I8b4b1354f23981f6edbe7f3c81ec4f511da3cc1a
  delete mode 100644 tests/robotests/src/com/android/settings/display/LockscreenClockPreferenceControllerTest.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 09d80c8814..8e55b8a4b8 100644
+index 62062b5fe8..35a8a39689 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -13520,10 +13520,6 @@
+@@ -13812,10 +13812,6 @@
      <string name="lockscreen_trivial_controls_summary">Control external devices without unlocking your phone or tablet if allowed by the device controls app</string>
      <!-- Trivial Device disabled controls summary [CHAR LIMIT=NONE] -->
      <string name="lockscreen_trivial_disabled_controls_summary">To use, first turn on \u0022Show device controls\u0022</string>
@@ -30,17 +30,17 @@ index 09d80c8814..8e55b8a4b8 100644
 -    <string name="lockscreen_double_line_clock_summary">Show double-line clock when available</string>
 -    <!-- Lockscreen double-line clock toggle [CHAR LIMIT=60] -->
 -    <string name="lockscreen_double_line_clock_setting_toggle">Double-line clock</string>
- 
-     <!-- Title for RTT setting. [CHAR LIMIT=NONE] -->
-     <string name="rtt_settings_title"></string>
+     <!-- Lock screen shortcuts preference [CHAR LIMIT=60] -->
+     <string name="lockscreen_quick_affordances_title">Shortcuts</string>
+     <!-- Summary for the lock screen button preference [CHAR LIMIT=60] -->
 diff --git a/res/xml/security_lockscreen_settings.xml b/res/xml/security_lockscreen_settings.xml
-index cb3c69172e..3b3635ac45 100644
+index 77a32122ee..b71839fe23 100644
 --- a/res/xml/security_lockscreen_settings.xml
 +++ b/res/xml/security_lockscreen_settings.xml
 @@ -78,12 +78,6 @@
-             android:title="@string/lockscreen_trivial_controls_setting_toggle"
-             android:summary="@string/lockscreen_trivial_controls_summary"
-             settings:controller="com.android.settings.display.ControlsTrivialPrivacyPreferenceController"/>
+             android:key="customizable_lock_screen_quick_affordances"
+             android:title="@string/lockscreen_quick_affordances_title"
+             settings:controller="com.android.settings.display.CustomizableLockScreenQuickAffordancesPreferenceController" />
 -
 -        <SwitchPreference
 -            android:key="lockscreen_double_line_clock_switch"
@@ -223,5 +223,5 @@ index 94f2dc6655..0000000000
 -    }
 -}
 -- 
-2.25.1
+2.34.1
 

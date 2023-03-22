@@ -1,4 +1,4 @@
-From d8f9f479012d522aed7377e5996cf7a5265ea268 Mon Sep 17 00:00:00 2001
+From 316e6779dde5db01258fcf5139e1d4a33933b114 Mon Sep 17 00:00:00 2001
 From: Vachounet <vachounet@live.fr>
 Date: Mon, 26 Oct 2020 17:05:18 +0100
 Subject: [PATCH] Trebuchet: Move clear all button to actions view
@@ -73,10 +73,10 @@ index 0fda0bf8d4..9a6f5ae062 100644
 \ No newline at end of file
 +</com.android.quickstep.views.OverviewActionsView>
 diff --git a/quickstep/src/com/android/quickstep/fallback/RecentsState.java b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
-index 223eba5b95..75f8baed6b 100644
+index 8b5f091e11..601021b5bf 100644
 --- a/quickstep/src/com/android/quickstep/fallback/RecentsState.java
 +++ b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
-@@ -105,7 +105,7 @@ public class RecentsState implements BaseState<RecentsState> {
+@@ -106,7 +106,7 @@ public class RecentsState implements BaseState<RecentsState> {
       * For this state, whether clear all button should be shown.
       */
      public boolean hasClearAllButton() {
@@ -86,7 +86,7 @@ index 223eba5b95..75f8baed6b 100644
  
      /**
 diff --git a/quickstep/src/com/android/quickstep/views/LauncherRecentsView.java b/quickstep/src/com/android/quickstep/views/LauncherRecentsView.java
-index bb8506d26f..e8c18f1d45 100644
+index 6c27587058..dbaf180e68 100644
 --- a/quickstep/src/com/android/quickstep/views/LauncherRecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/LauncherRecentsView.java
 @@ -143,8 +143,7 @@ public class LauncherRecentsView extends RecentsView<QuickstepLauncher, Launcher
@@ -98,12 +98,12 @@ index bb8506d26f..e8c18f1d45 100644
 +            boolean hasClearAllButton = false;
              setDisallowScrollToClearAll(!hasClearAllButton);
          }
-     }
+         if (mActivity.getDesktopVisibilityController() != null) {
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index 7ad0e48ccb..e888aa2c74 100644
+index 5e645ea917..0dc0b3b62e 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -110,6 +110,7 @@ import android.view.ViewTreeObserver.OnScrollChangedListener;
+@@ -117,6 +117,7 @@ import android.view.ViewTreeObserver.OnScrollChangedListener;
  import android.view.accessibility.AccessibilityEvent;
  import android.view.accessibility.AccessibilityNodeInfo;
  import android.view.animation.Interpolator;
@@ -111,7 +111,7 @@ index 7ad0e48ccb..e888aa2c74 100644
  import android.widget.ListView;
  import android.widget.OverScroller;
  import android.widget.Toast;
-@@ -464,6 +465,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -472,6 +473,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
      private final RecentsModel mModel;
      private final int mSplitPlaceholderSize;
      private final int mSplitPlaceholderInset;
@@ -119,7 +119,7 @@ index 7ad0e48ccb..e888aa2c74 100644
      private final ClearAllButton mClearAllButton;
      private final Rect mClearAllButtonDeadZoneRect = new Rect();
      private final Rect mTaskViewDeadZoneRect = new Rect();
-@@ -911,6 +913,8 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -976,6 +978,8 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
          mActionsView = actionsView;
          mActionsView.updateHiddenFlags(HIDDEN_NO_TASKS, getTaskViewCount() == 0);
          mSplitSelectStateController = splitController;
@@ -128,7 +128,7 @@ index 7ad0e48ccb..e888aa2c74 100644
      }
  
      public SplitSelectStateController getSplitSelectController() {
-@@ -1230,7 +1234,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -1342,7 +1346,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
       * button fully visible, center page is Clear All button.
       */
      public boolean isClearAllHidden() {
@@ -138,5 +138,5 @@ index 7ad0e48ccb..e888aa2c74 100644
  
      @Override
 -- 
-2.25.1
+2.34.1
 

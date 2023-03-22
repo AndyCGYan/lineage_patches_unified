@@ -1,4 +1,4 @@
-From 78583743e42884cf7f94477f08718b6dce63a36a Mon Sep 17 00:00:00 2001
+From 7f38cb8576433a221970b5dc3947c7a2bb99595a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 03:38:41 +0000
 Subject: [PATCH 2/8] TrebleSettings: Basic audio and display fixes
@@ -21,10 +21,10 @@ Change-Id: I4f22dcd9c59c40b3fd70ba642db35b9466467b7d
  create mode 100644 src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 07ee32662e..82ce16483d 100644
+index ae520f9c64..df16c68eab 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8462,11 +8462,19 @@
+@@ -8502,11 +8502,19 @@
      <string name="treble_settings">Treble settings</string>
      <!-- Summary for Treble settings [CHAR LIMIT=NONE]-->
      <string name="treble_settings_summary">Fixes &amp; tweaks for GSIs</string>
@@ -284,5 +284,5 @@ index 0000000000..bd9de82d90
 +
 +}
 -- 
-2.25.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From 2f26229212e75def4f1072c5aaf05bf392007383 Mon Sep 17 00:00:00 2001
+From a893877e865d6c39bf6f7976efe5618787a1a15f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 17 Apr 2022 08:48:42 +0000
-Subject: [PATCH 11/21] Replace NTP server
+Subject: [PATCH 10/21] Replace NTP server
 
 Change-Id: I938ab46026d841e7536d8fc02b0ef6b28ebb6ea1
 ---
@@ -9,10 +9,10 @@ Change-Id: I938ab46026d841e7536d8fc02b0ef6b28ebb6ea1
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index 58cd819b9404..285a72320eee 100644
+index 8f81427cbe67..8bd2f7aaad07 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
-@@ -2390,7 +2390,7 @@
+@@ -2416,7 +2416,7 @@
      <bool name="config_actionMenuItemAllCaps">true</bool>
  
      <!-- Remote server that can provide NTP responses. -->
@@ -22,5 +22,5 @@ index 58cd819b9404..285a72320eee 100644
      <integer name="config_ntpPollingInterval">64800000</integer>
      <!-- Try-again polling interval in milliseconds, in case the network request failed -->
 -- 
-2.25.1
+2.34.1
 

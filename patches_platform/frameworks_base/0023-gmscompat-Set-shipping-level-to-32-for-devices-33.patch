@@ -1,0 +1,57 @@
+From b4b83ed885d8c3751220ab7270ff0819ea37fb5e Mon Sep 17 00:00:00 2001
+From: Anirudh Gupta <anirudhgupta109@aosip.dev>
+Date: Wed, 4 Jan 2023 18:20:56 +0000
+Subject: [PATCH 23/24] gmscompat: Set shipping level to 32 for devices >=33
+
+If ro.product.first_api_level is 33, its forced to use HW attestation even though the safteynet checker app shows BASIC
+setting it to 32 allows for software attestation and passing CTS
+
+Change-Id: Ie7326eaac48424cdea3d9633ebe13c65053ef6c1
+Signed-off-by: Dyneteve <dyneteve@hentaios.com>
+---
+ .../internal/gmscompat/AttestationHooks.java   | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
+
+diff --git a/core/java/com/android/internal/gmscompat/AttestationHooks.java b/core/java/com/android/internal/gmscompat/AttestationHooks.java
+index 7649bb6533da..d2b1d2879c9c 100644
+--- a/core/java/com/android/internal/gmscompat/AttestationHooks.java
++++ b/core/java/com/android/internal/gmscompat/AttestationHooks.java
+@@ -18,6 +18,7 @@ package com.android.internal.gmscompat;
+ 
+ import android.app.Application;
+ import android.os.Build;
++import android.os.Build.VERSION;
+ import android.os.SystemProperties;
+ import android.util.Log;
+ 
+@@ -53,10 +54,27 @@ public final class AttestationHooks {
+         }
+     }
+ 
++    private static void setVersionField(String key, Integer value) {
++        try {
++            // Unlock
++            Field field = Build.VERSION.class.getDeclaredField(key);
++            field.setAccessible(true);
++
++            // Edit
++            field.set(null, value);
++
++            // Lock
++            field.setAccessible(false);
++        } catch (NoSuchFieldException | IllegalAccessException e) {
++            Log.e(TAG, "Failed to spoof Build." + key, e);
++        }
++    }
++
+     private static void spoofBuildGms() {
+         // Alter model name and fingerprint to avoid hardware attestation enforcement
+         setBuildField("FINGERPRINT", "google/angler/angler:6.0/MDB08L/2343525:user/release-keys");
+         setBuildField("MODEL", Build.MODEL + "\u200b");
++        setVersionField("DEVICE_INITIAL_SDK_INT", Build.VERSION_CODES.S);
+     }
+ 
+     public static void initApplicationBeforeOnCreate(Application app) {
+-- 
+2.34.1
+

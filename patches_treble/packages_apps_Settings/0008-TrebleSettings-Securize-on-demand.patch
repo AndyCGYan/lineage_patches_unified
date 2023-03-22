@@ -1,4 +1,4 @@
-From 9b1a3e0cc42698946fd9453fdadfe0bcf2be3c15 Mon Sep 17 00:00:00 2001
+From 4d81eae95fe9b0265faee7fffafdc9487c856569 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 14:30:52 +0000
 Subject: [PATCH 8/8] TrebleSettings: Securize on-demand
@@ -13,10 +13,10 @@ Change-Id: I76f54620277ccdc41636d74d1afa6330c382ce6a
  create mode 100644 src/com/android/settings/treble/SecurizePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index bad4ed1ca7..a6860abcea 100644
+index 6230aae707..62062b5fe8 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8468,6 +8468,8 @@
+@@ -8508,6 +8508,8 @@
      <string name="treble_settings_category_name_display">Display</string>
      <!-- IMS category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ims">IMS</string>
@@ -25,7 +25,7 @@ index bad4ed1ca7..a6860abcea 100644
      <!-- UI category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ui">UI</string>
  
-@@ -8492,6 +8494,10 @@
+@@ -8532,6 +8534,10 @@
      <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
      <!-- Treble settings screen, override VoLTE availability title -->
      <string name="override_volte_availability_title">Override VoLTE availability</string>
@@ -129,5 +129,5 @@ index 634b7ce3ce..149c18f231 100644
          return controllers;
      }
 -- 
-2.25.1
+2.34.1
 

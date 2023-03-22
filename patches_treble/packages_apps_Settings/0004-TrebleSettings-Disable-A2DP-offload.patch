@@ -1,4 +1,4 @@
-From 0786b6b9b2bda23a4a775ce1afdcc6ae58b20a88 Mon Sep 17 00:00:00 2001
+From dd2d72d6b43693ea5c67eef3ab49aae29b63ae8d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 12:04:37 +0000
 Subject: [PATCH 4/8] TrebleSettings: Disable A2DP offload
@@ -13,10 +13,10 @@ Change-Id: I737f49d146f83d96793f4436850529e3c528acbe
  create mode 100644 src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 0350ca6c1b..e91a4d36c8 100644
+index eef415cc89..bfa28394c7 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8473,6 +8473,8 @@
+@@ -8513,6 +8513,8 @@
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
      <!-- Treble settings screen, disable soundvolume effect title -->
      <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
@@ -112,5 +112,5 @@ index 50e3eda8c6..5e9b7f88e2 100644
          controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
          controllers.add(new InstallImsApkPreferenceController(context));
 -- 
-2.25.1
+2.34.1
 

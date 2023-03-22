@@ -1,7 +1,7 @@
-From 6b1e1b06f33f3fe3d0f5a5f6aaa8b9d6bdfbbe01 Mon Sep 17 00:00:00 2001
+From d4aeaae7ab4d7c2e51b86afd6fa12888a47be51a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
-Subject: [PATCH 15/21] UI: Always render windows into cutouts
+Subject: [PATCH 14/21] UI: Always render windows into cutouts
 
 Eliminates black/white letterboxing
 Quick and dirty way to do the latter - wait for proper fix from Google
@@ -52,10 +52,10 @@ index 33641f72b2ff..6e201970ac03 100644
      }
  
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index f4cb23d5f369..a4cd2fbcc89f 100644
+index ebeb189000a3..5c4cde643e82 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
-@@ -1639,6 +1639,7 @@ public class DisplayPolicy {
+@@ -1550,6 +1550,7 @@ public class DisplayPolicy {
          displayFrames = win.getDisplayFrames(displayFrames);
  
          final WindowManager.LayoutParams attrs = win.mAttrs.forRotation(displayFrames.mRotation);
@@ -64,5 +64,5 @@ index f4cb23d5f369..a4cd2fbcc89f 100644
  
          // If this window has different LayoutParams for rotations, we cannot trust its requested
 -- 
-2.25.1
+2.34.1
 

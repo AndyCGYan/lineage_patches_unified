@@ -1,20 +1,20 @@
-From c7579711632d2fc79e9775bb79e3f56126accbc3 Mon Sep 17 00:00:00 2001
+From 5b078c1242e2d69a887b56130b0f12609269ad89 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 08/21] Keyguard: Refine indication text
 
 Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
 ---
- packages/SystemUI/res-keyguard/values/styles.xml     |  2 --
- .../SystemUI/res/layout/keyguard_bottom_area.xml     |  1 +
- packages/SystemUI/res/values/dimens.xml              |  3 +--
- .../KeyguardIndicationRotateTextViewController.java  | 12 +++++++++++-
- .../statusbar/KeyguardIndicationController.java      |  7 ++++---
- .../statusbar/phone/KeyguardIndicationTextView.java  |  2 +-
- 6 files changed, 18 insertions(+), 9 deletions(-)
+ .../SystemUI/res-keyguard/values/styles.xml   |  2 --
+ .../res/layout/keyguard_bottom_area.xml       |  1 +
+ packages/SystemUI/res/values/dimens.xml       |  3 +--
+ ...ardIndicationRotateTextViewController.java | 12 +++++++++-
+ .../KeyguardIndicationController.java         | 23 ++++---------------
+ .../phone/KeyguardIndicationTextView.java     |  2 +-
+ 6 files changed, 18 insertions(+), 25 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
-index 955e24e01a9a..58c6919971a1 100644
+index c81e018702bb..cc87f9f3d7cf 100644
 --- a/packages/SystemUI/res-keyguard/values/styles.xml
 +++ b/packages/SystemUI/res-keyguard/values/styles.xml
 @@ -132,8 +132,6 @@
@@ -27,7 +27,7 @@ index 955e24e01a9a..58c6919971a1 100644
  
      <style name="TextAppearance.Keyguard.BottomArea.Button">
 diff --git a/packages/SystemUI/res/layout/keyguard_bottom_area.xml b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
-index 8df8c49ee057..ff616b66790d 100644
+index 6120863f23ab..5fd81bad8226 100644
 --- a/packages/SystemUI/res/layout/keyguard_bottom_area.xml
 +++ b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
 @@ -35,6 +35,7 @@
@@ -39,16 +39,16 @@ index 8df8c49ee057..ff616b66790d 100644
              android:paddingEnd="@dimen/keyguard_indication_text_padding"
              android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 9c85fbc4b391..44766f3b6a6d 100644
+index 1165c0d1eda1..750fb574c30c 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -760,11 +760,10 @@
+@@ -774,11 +774,10 @@
      <dimen name="keyguard_lock_height">42dp</dimen>
      <dimen name="keyguard_lock_padding">20dp</dimen>
  
 -    <dimen name="keyguard_indication_margin_bottom">32dp</dimen>
 +    <dimen name="keyguard_indication_margin_bottom">16dp</dimen>
-     <dimen name="lock_icon_margin_bottom">110dp</dimen>
+     <dimen name="lock_icon_margin_bottom">74dp</dimen>
      <dimen name="ambient_indication_margin_bottom">71dp</dimen>
  
 -
@@ -56,7 +56,7 @@ index 9c85fbc4b391..44766f3b6a6d 100644
      <dimen name="double_tap_slop">32dp</dimen>
  
 diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
-index f84a5e39163f..38baa611cf07 100644
+index 9235e10209d4..42e710d9c9a3 100644
 --- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
 +++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardIndicationRotateTextViewController.java
 @@ -220,12 +220,22 @@ public class KeyguardIndicationRotateTextViewController extends
@@ -67,7 +67,7 @@ index f84a5e39163f..38baa611cf07 100644
 +     * @return true if there are available non-resting indications to show.
       */
      public boolean hasIndications() {
-+        if (hasIndication(INDICATION_TYPE_RESTING)) {
++        if (hasIndication(INDICATION_TYPE_PERSISTENT_UNLOCK_MESSAGE)) {
 +            return mIndicationMessages.keySet().size() > 1;
 +        }
          return mIndicationMessages.keySet().size() > 0;
@@ -84,10 +84,10 @@ index f84a5e39163f..38baa611cf07 100644
       * Clears all messages in the queue and sets the current message to an empty string.
       */
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 073ab8b16864..5fb3c05c4a2a 100644
+index 6a658b6ee047..632d186ac4f4 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-@@ -267,10 +267,12 @@ public class KeyguardIndicationController {
+@@ -270,10 +270,12 @@ public class KeyguardIndicationController {
              public void handleMessage(Message msg) {
                  if (msg.what == MSG_HIDE_TRANSIENT) {
                      hideTransientIndication();
@@ -100,21 +100,51 @@ index 073ab8b16864..5fb3c05c4a2a 100644
                  } else if (msg.what == MSG_RESET_ERROR_MESSAGE_ON_SCREEN_ON) {
                      mBiometricErrorMessageToShowOnScreenOn = null;
                  }
-@@ -588,12 +590,11 @@ public class KeyguardIndicationController {
+@@ -375,7 +377,6 @@ public class KeyguardIndicationController {
+         updateLockScreenDisclosureMsg();
+         updateLockScreenOwnerInfo();
+         updateLockScreenBatteryMsg(animate);
+-        updateLockScreenUserLockedMsg(userId);
+         updateLockScreenTrustMsg(userId, getTrustGrantedIndication(), getTrustManagedIndication());
+         updateLockScreenAlignmentMsg();
+         updateLockScreenLogoutView();
+@@ -484,22 +485,6 @@ public class KeyguardIndicationController {
+         }
      }
  
-     private void updateLockScreenRestingMsg() {
--        if (!TextUtils.isEmpty(mRestingIndication)
--                && !mRotateTextViewController.hasIndications()) {
+-    private void updateLockScreenUserLockedMsg(int userId) {
+-        if (!mKeyguardUpdateMonitor.isUserUnlocked(userId)
+-                || mKeyguardUpdateMonitor.isEncryptedOrLockdown(userId)) {
+-            mRotateTextViewController.updateIndication(
+-                    INDICATION_TYPE_USER_LOCKED,
+-                    new KeyguardIndication.Builder()
+-                            .setMessage(mContext.getResources().getText(
+-                                    com.android.internal.R.string.lockscreen_storage_locked))
+-                            .setTextColor(mInitialTextColorState)
+-                            .build(),
+-                    false);
+-        } else {
+-            mRotateTextViewController.hideIndication(INDICATION_TYPE_USER_LOCKED);
+-        }
+-    }
+-
+     private void updateBiometricMessage() {
+         if (mDozing) {
+             updateDeviceEntryIndication(false);
+@@ -592,11 +577,11 @@ public class KeyguardIndicationController {
+     }
+ 
+     private void updateLockScreenPersistentUnlockMsg() {
+-        if (!TextUtils.isEmpty(mPersistentUnlockMessage)) {
 +        if (!mRotateTextViewController.hasIndications()) {
              mRotateTextViewController.updateIndication(
-                     INDICATION_TYPE_RESTING,
+                     INDICATION_TYPE_PERSISTENT_UNLOCK_MESSAGE,
                      new KeyguardIndication.Builder()
--                            .setMessage(mRestingIndication)
+-                            .setMessage(mPersistentUnlockMessage)
 +                            .setMessage(mContext.getResources().getString(R.string.keyguard_unlock))
                              .setTextColor(mInitialTextColorState)
                              .build(),
-                     false);
+                     true);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
 index d24469e8421e..647c766aa0f0 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
@@ -129,5 +159,5 @@ index d24469e8421e..647c766aa0f0 100644
      private KeyguardIndication mKeyguardIndicationInfo;
  
 -- 
-2.25.1
+2.34.1
 

@@ -1,16 +1,16 @@
-From f37c5b2151383a120c728d02439692f55c90334e Mon Sep 17 00:00:00 2001
+From 289c535bf6f0decf2c1ce58650ec7dd6721880a8 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
-Subject: [PATCH 10/15] UI: Restore split-screen divider to pre-Sv2 looks
+Subject: [PATCH 10/24] UI: Restore split-screen divider to pre-Sv2 looks
 
 - Kill rounded corners - where two rectangles collide should be perfectly straight
 - Make it black again - taskbar should mind its own business
 
 Change-Id: I240b627793b615c82bd07ebd77638cde180ef80f
 ---
- .../Shell/res/color/split_divider_background.xml  |  4 ++--
- .../wm/shell/common/split/SplitLayout.java        | 15 +--------------
- 2 files changed, 3 insertions(+), 16 deletions(-)
+ .../res/color/split_divider_background.xml    |  4 ++--
+ .../wm/shell/common/split/SplitLayout.java    | 19 ++-----------------
+ 2 files changed, 4 insertions(+), 19 deletions(-)
 
 diff --git a/libs/WindowManager/Shell/res/color/split_divider_background.xml b/libs/WindowManager/Shell/res/color/split_divider_background.xml
 index 049980803ee3..cd54ac26a7fd 100644
@@ -26,16 +26,17 @@ index 049980803ee3..cd54ac26a7fd 100644
 +    <item android:color="@android:color/black" />
 +</selector>
 diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-index 419e62daf586..229844e42a49 100644
+index 45b234a6398a..f0b1ff3999bc 100644
 --- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
 +++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-@@ -152,20 +152,7 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+@@ -153,23 +153,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
      }
  
-     private int getDividerInsets(Resources resources, Display display) {
+     private void updateDividerConfig(Context context) {
+-        final Resources resources = context.getResources();
+-        final Display display = context.getDisplay();
 -        final int dividerInset = resources.getDimensionPixelSize(
 -                com.android.internal.R.dimen.docked_stack_divider_insets);
--
 -        int radius = 0;
 -        RoundedCorner corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_LEFT);
 -        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
@@ -46,11 +47,14 @@ index 419e62daf586..229844e42a49 100644
 -        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_LEFT);
 -        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
 -
--        return Math.max(dividerInset, radius);
-+        return 0;
+-        mDividerInsets = Math.max(dividerInset, radius);
+-        mDividerSize = resources.getDimensionPixelSize(R.dimen.split_divider_bar_width);
+-        mDividerWindowWidth = mDividerSize + 2 * mDividerInsets;
++        mDividerWindowWidth = context.getResources().getDimensionPixelSize(
++                R.dimen.split_divider_bar_width);
      }
  
      /** Gets bounds of the primary split with screen based coordinate. */
 -- 
-2.25.1
+2.34.1
 

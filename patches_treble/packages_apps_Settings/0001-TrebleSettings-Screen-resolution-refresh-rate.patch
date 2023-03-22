@@ -1,4 +1,4 @@
-From 16a004393cddb96e473b86dd891c2e1561813c5d Mon Sep 17 00:00:00 2001
+From 3ba16df7f4274056ce2d453ff5064cfdb71b77f6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 22 Sep 2022 12:37:50 +0000
 Subject: [PATCH 1/8] TrebleSettings: Screen resolution & refresh rate
@@ -20,10 +20,10 @@ Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
  create mode 100644 src/com/android/settings/treble/TrebleSettings.java
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index c4fba3defc..92203f3dab 100644
+index 80e0f4b61b..6b138b1f60 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
-@@ -221,6 +221,14 @@
+@@ -223,6 +223,14 @@
                  android:value="com.android.settings.shortcut.CreateShortcut" />
          </activity>
  
@@ -55,7 +55,7 @@ index 0000000000..3c56ed7032
 +        android:pathData="M10.82 12.49c.02-.16.04-.32.04-.49 0-.17-.02-.33-.04-.49l1.08-.82c.1-.07.12-.21.06-.32l-1.03-1.73c-.06-.11-.2-.15-.31-.11l-1.28.5c-.27-.2-.56-.36-.87-.49l-.2-1.33c0-.12-.11-.21-.24-.21H5.98c-.13 0-.24.09-.26.21l-.2 1.32c-.31.12-.6.3-.87.49l-1.28-.5c-.12-.05-.25 0-.31.11l-1.03 1.73c-.06.12-.03.25.07.33l1.08.82c-.02.16-.03.33-.03.49 0 .17.02.33.04.49l-1.09.83c-.1.07-.12.21-.06.32l1.03 1.73c.06.11.2.15.31.11l1.28-.5c.27.2.56.36.87.49l.2 1.32c.01.12.12.21.25.21h2.06c.13 0 .24-.09.25-.21l.2-1.32c.31-.12.6-.3.87-.49l1.28.5c.12.05.25 0 .31-.11l1.03-1.73c.06-.11.04-.24-.06-.32l-1.1-.83zM7 13.75c-.99 0-1.8-.78-1.8-1.75s.81-1.75 1.8-1.75 1.8.78 1.8 1.75S8 13.75 7 13.75zM18 1.01L8 1c-1.1 0-2 .9-2 2v3h2V5h10v14H8v-1H6v3c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99z"/>
 +</vector>
 diff --git a/res/values/menu_keys.xml b/res/values/menu_keys.xml
-index 2841b699c9..c30d6392e9 100755
+index 27e9639122..ef25f9971c 100755
 --- a/res/values/menu_keys.xml
 +++ b/res/values/menu_keys.xml
 @@ -16,6 +16,7 @@
@@ -64,13 +64,13 @@ index 2841b699c9..c30d6392e9 100755
  
 +    <string name="menu_key_treble" translatable="false">top_level_treble</string>
      <string name="menu_key_network" translatable="false">top_level_network</string>
+     <string name="menu_key_communal" translatable="false">top_level_communal</string>
      <string name="menu_key_connected_devices" translatable="false">top_level_connected_devices</string>
-     <string name="menu_key_apps" translatable="false">top_level_apps</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index bbdefd1427..07ee32662e 100644
+index d8a2c3b41c..ae520f9c64 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8458,6 +8458,16 @@
+@@ -8498,6 +8498,16 @@
          <item quantity="other">Show %d hidden items</item>
      </plurals>
  
@@ -88,7 +88,7 @@ index bbdefd1427..07ee32662e 100644
      <string name="network_dashboard_title">Network &amp; internet</string>
      <!-- Summary for Network and Internet settings, explaining it contains mobile, wifi setting and data usage settings [CHAR LIMIT=NONE]-->
 diff --git a/res/xml/top_level_settings.xml b/res/xml/top_level_settings.xml
-index 5fbc7350b8..c63b2114ec 100644
+index 8c82b67168..04f763514e 100644
 --- a/res/xml/top_level_settings.xml
 +++ b/res/xml/top_level_settings.xml
 @@ -20,6 +20,15 @@
@@ -352,5 +352,5 @@ index 0000000000..e581539229
 +
 +}
 -- 
-2.25.1
+2.34.1
 

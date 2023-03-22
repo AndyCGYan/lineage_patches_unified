@@ -1,7 +1,7 @@
-From f0314afe5afcd4bf19188c8688a35e322a7bcf44 Mon Sep 17 00:00:00 2001
+From 107b0eaf96413e3faac0bcbe7e761d98d3595d76 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 13 Jan 2022 14:22:24 +0000
-Subject: [PATCH 01/15] Add SPenPointerOverlay
+Subject: [PATCH 01/24] Add SPenPointerOverlay
 
 Toggle this overlay with property "persist.ui.spen.pointer"
 
@@ -122,5 +122,5 @@ index 000000000000..f35255c5f961
 +    android:hotSpotX="5dp"
 +    android:hotSpotY="5dp" />
 -- 
-2.25.1
+2.34.1
 

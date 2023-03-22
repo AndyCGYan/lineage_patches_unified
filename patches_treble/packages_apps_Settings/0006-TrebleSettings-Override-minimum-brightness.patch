@@ -1,4 +1,4 @@
-From c37241c9ac2caa23576f9f40ebbe73d9db3467b8 Mon Sep 17 00:00:00 2001
+From ed12a1c194aaf80b4c466fbca43bd846fc03137b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 10:29:05 +0000
 Subject: [PATCH 6/8] TrebleSettings: Override minimum brightness
@@ -13,10 +13,10 @@ Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
  create mode 100644 src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 4f8eb839f3..649182030e 100644
+index be942eb6d9..6db51f1f44 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -8481,6 +8481,8 @@
+@@ -8521,6 +8521,8 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
@@ -112,5 +112,5 @@ index 09aa001e82..39a0e19972 100644
          controllers.add(new OverrideVolteAvailabilityPreferenceController(context));
          return controllers;
 -- 
-2.25.1
+2.34.1
 
