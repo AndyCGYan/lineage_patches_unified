@@ -1,7 +1,7 @@
-From e926e59d7745fa0baecda61fb9ff4803a44a4b22 Mon Sep 17 00:00:00 2001
+From 273e01312171fa003667343330ce08d6d127597f Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Tue, 15 Sep 2020 21:26:45 -0400
-Subject: [PATCH 8/8] add offline charger sepolicy
+Subject: [PATCH 9/9] add offline charger sepolicy
 
 ---
  sepolicy/gsicharger.te | 1 +
@@ -16,5 +16,5 @@ index 0000000..91cfb5c
 @@ -0,0 +1 @@
 +permissive charger;
 -- 
-2.25.1
+2.34.1
 

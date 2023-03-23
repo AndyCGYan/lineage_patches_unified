@@ -1,0 +1,46 @@
+From 5301dd1c023179e5db95be2e7eed56a64b947da2 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 22 Mar 2023 23:37:05 +0000
+Subject: [PATCH 8/9] treble: Also use /data/adb for securize status
+
+Change-Id: I778f2be5407ae0a548a098c72031cce9be83cf96
+---
+ phh-prop-handler.sh | 5 ++++-
+ rw-system.sh        | 2 +-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/phh-prop-handler.sh b/phh-prop-handler.sh
+index a8cea3f..3739eb4 100644
+--- a/phh-prop-handler.sh
++++ b/phh-prop-handler.sh
+@@ -217,10 +217,13 @@ if [ "$1" == "persist.sys.phh.securize" ];then
+     fi
+ 
+     if [[ "$prop_value" == "true" ]]; then
+-        mkdir /metadata/phh
++        mkdir -p /metadata/phh
+         touch /metadata/phh/secure
++        mkdir -p /data/adb/phh
++        touch /data/adb/phh/secure
+     else
+         rm /metadata/phh/secure
++        rm /data/adb/phh/secure
+     fi
+     exit
+ fi
+diff --git a/rw-system.sh b/rw-system.sh
+index 33b3591..3812b12 100644
+--- a/rw-system.sh
++++ b/rw-system.sh
+@@ -727,7 +727,7 @@ copyprop() {
+         resetprop_phh "$1" "$(getprop "$2")"
+     fi
+ }
+-if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
++if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ] || [ -f /data/adb/phh/secure ];then
+     copyprop ro.build.device ro.vendor.build.device
+     copyprop ro.system.build.fingerprint ro.vendor.build.fingerprint
+     copyprop ro.bootimage.build.fingerprint ro.vendor.build.fingerprint
+-- 
+2.34.1
+

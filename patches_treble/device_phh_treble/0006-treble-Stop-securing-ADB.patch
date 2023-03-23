@@ -1,7 +1,7 @@
-From 25a86e882e057f248966784b0348db5eb82935eb Mon Sep 17 00:00:00 2001
+From 878d2b2112f37bfca6da9cee0b5b4d17ae1ee9ab Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 22 Nov 2022 00:36:15 +0000
-Subject: [PATCH 6/8] treble: Stop securing ADB
+Subject: [PATCH 6/9] treble: Stop securing ADB
 
 Seems to kill USB Debugging altogether on certain devices,
 and unrelated to SN anyway
@@ -32,5 +32,5 @@ index 5f324b3..33b3591 100644
      mount /mnt/phh/empty_dir /system/xbin
      mount /mnt/phh/empty_dir /system/app/me.phh.superuser
 -- 
-2.25.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From 0efbc3a793daf2e5c5caaf38958561de0c4dc276 Mon Sep 17 00:00:00 2001
+From aae7db89b8e8c2898a9c34adc6dde18bd8a61445 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 11:29:02 +0000
-Subject: [PATCH 5/8] treble: Enable call recording
+Subject: [PATCH 5/9] treble: Enable call recording
 
 Change-Id: I57ca3604363547419a566b37b5151b6b30c46d28
 ---
@@ -36,5 +36,5 @@ index 0000000..4cacde5
 +    <integer name="call_recording_audio_source">4</integer>
 +</resources>
 -- 
-2.25.1
+2.34.1
 
