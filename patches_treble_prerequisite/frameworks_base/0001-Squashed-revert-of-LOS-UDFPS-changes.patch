@@ -1,45 +1,26 @@
-From 6ebe8ddd00f9b7bd7aa32e79f7f36e97f60acfa5 Mon Sep 17 00:00:00 2001
+From feb3f559b2157de9ca06438038114aedb2cc604e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
-Date: Wed, 11 Jan 2023 11:56:05 +0000
+Date: Thu, 23 Mar 2023 15:28:42 +0000
 Subject: [PATCH 1/2] Squashed revert of LOS UDFPS changes
 
 Way less than FOD, but reverting them nonetheless to keep in line with PHH AOSP
 
+- Revert "fixup! udfps: Restore illumination dot for global hbm"
 - Revert "udfps: Make pressed udfp view configurable"
 - Revert "udfps: Restore illumination dot for global hbm"
-- Revert "udfps: Implement default udfps display mode provider"
 - Revert "udfps: Change window type to TYPE_DISPLAY_OVERLAY"
 ---
- packages/SystemUI/proguard.flags              |   3 -
  .../res/drawable-nodpi/udfps_icon_pressed.png | Bin 108 -> 0 bytes
  packages/SystemUI/res/layout/udfps_view.xml   |   6 -
- .../SystemUI/res/values/lineage_config.xml    |   6 -
+ .../SystemUI/res/values/lineage_config.xml    |   3 -
  .../biometrics/AuthContainerView.java         |   2 +-
- .../DummyUdfpsDisplayModeProvider.kt          |  32 ----
- .../systemui/biometrics/UdfpsController.java  |   4 +-
  .../biometrics/UdfpsControllerOverlay.kt      |   2 +-
  .../systemui/biometrics/UdfpsSurfaceView.java | 159 ------------------
  .../android/systemui/biometrics/UdfpsView.kt  |  31 +---
- .../systemui/dagger/SystemUIModule.java       |  14 +-
- 11 files changed, 7 insertions(+), 252 deletions(-)
+ 7 files changed, 3 insertions(+), 200 deletions(-)
  delete mode 100644 packages/SystemUI/res/drawable-nodpi/udfps_icon_pressed.png
- delete mode 100644 packages/SystemUI/src/com/android/systemui/biometrics/DummyUdfpsDisplayModeProvider.kt
  delete mode 100644 packages/SystemUI/src/com/android/systemui/biometrics/UdfpsSurfaceView.java
 
-diff --git a/packages/SystemUI/proguard.flags b/packages/SystemUI/proguard.flags
-index b41952b7306b..7538555e1bcd 100644
---- a/packages/SystemUI/proguard.flags
-+++ b/packages/SystemUI/proguard.flags
-@@ -10,9 +10,6 @@
- }
- -keep class * extends com.android.systemui.CoreStartable
- -keep class * implements com.android.systemui.CoreStartable$Injector
---keep class * implements com.android.systemui.biometrics.UdfpsDisplayModeProvider {
--    public <init>(...);
--}
- 
- # Needed for builds to properly initialize KeyFrames from xml scene
- -keepclassmembers class * extends androidx.constraintlayout.motion.widget.Key {
 diff --git a/packages/SystemUI/res/drawable-nodpi/udfps_icon_pressed.png b/packages/SystemUI/res/drawable-nodpi/udfps_icon_pressed.png
 deleted file mode 100644
 index 4102e28c1300b49323b50625d8cfaa73b006561f..0000000000000000000000000000000000000000
@@ -68,16 +49,13 @@ index 0fcbfa161ddf..257d238f5c54 100644
 -
  </com.android.systemui.biometrics.UdfpsView>
 diff --git a/packages/SystemUI/res/values/lineage_config.xml b/packages/SystemUI/res/values/lineage_config.xml
-index 7509dfd2dcba..d08c6f19b9a3 100644
+index 3b61502f551c..c7a73b79a5ec 100644
 --- a/packages/SystemUI/res/values/lineage_config.xml
 +++ b/packages/SystemUI/res/values/lineage_config.xml
-@@ -25,12 +25,6 @@
-          causes a poor experience. -->
-     <bool name="config_fingerprintWakeAndUnlock">true</bool>
+@@ -19,9 +19,6 @@
+     <integer name="config_maxVisibleNotificationIcons">4</integer>
+     <integer name="config_maxVisibleNotificationIconsOnLock">3</integer>
  
--    <!-- Udfps display mode provider class name -->
--    <string name="config_udfpsDisplayModeProviderComponent">com.android.systemui.biometrics.DummyUdfpsDisplayModeProvider</string>
--
 -    <!-- Color of the UDFPS pressed view -->
 -    <color name="config_udfpsColor">#ffffffff</color>
 -
@@ -85,10 +63,10 @@ index 7509dfd2dcba..d08c6f19b9a3 100644
      <bool name="doze_double_tap_proximity_check">false</bool>
  
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java b/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java
-index 2d87da8c2112..8f5cbb76222f 100644
+index 699be662dd54..68e1f72d042a 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/AuthContainerView.java
-@@ -879,7 +879,7 @@ public class AuthContainerView extends LinearLayout
+@@ -847,7 +847,7 @@ public class AuthContainerView extends LinearLayout
          final WindowManager.LayoutParams lp = new WindowManager.LayoutParams(
                  ViewGroup.LayoutParams.MATCH_PARENT,
                  ViewGroup.LayoutParams.MATCH_PARENT,
@@ -97,71 +75,11 @@ index 2d87da8c2112..8f5cbb76222f 100644
                  windowFlags,
                  PixelFormat.TRANSLUCENT);
          lp.privateFlags |= WindowManager.LayoutParams.SYSTEM_FLAG_SHOW_FOR_ALL_USERS;
-diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/DummyUdfpsDisplayModeProvider.kt b/packages/SystemUI/src/com/android/systemui/biometrics/DummyUdfpsDisplayModeProvider.kt
-deleted file mode 100644
-index 380200983114..000000000000
---- a/packages/SystemUI/src/com/android/systemui/biometrics/DummyUdfpsDisplayModeProvider.kt
-+++ /dev/null
-@@ -1,32 +0,0 @@
--/*
-- * Copyright (C) 2022 The LineageOS Project
-- *
-- * Licensed under the Apache License, Version 2.0 (the "License");
-- * you may not use this file except in compliance with the License.
-- * You may obtain a copy of the License at
-- *
-- *      http://www.apache.org/licenses/LICENSE-2.0
-- *
-- * Unless required by applicable law or agreed to in writing, software
-- * distributed under the License is distributed on an "AS IS" BASIS,
-- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-- * See the License for the specific language governing permissions and
-- * limitations under the License.
-- */
--
--package com.android.systemui.biometrics
--
--import android.content.Context
--import android.view.Surface
--
--class DummyUdfpsDisplayModeProvider constructor(
--    private val context: Context
--): UdfpsDisplayModeProvider {
--    override fun enable(onEnabled: Runnable?) {
--        onEnabled?.run()
--    }
--
--    override fun disable(onDisabled: Runnable?) {
--        onDisabled?.run()
--    }
--}
-diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
-index 70aa6a3aa06e..412dc0577876 100644
---- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
-+++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsController.java
-@@ -594,7 +594,7 @@ public class UdfpsController implements DozeReceiver {
-             @NonNull VibratorHelper vibrator,
-             @NonNull UdfpsHapticsSimulator udfpsHapticsSimulator,
-             @NonNull UdfpsShell udfpsShell,
--            @NonNull UdfpsDisplayModeProvider udfpsDisplayMode,
-+            @NonNull Optional<UdfpsDisplayModeProvider> udfpsDisplayMode,
-             @NonNull KeyguardStateController keyguardStateController,
-             @NonNull DisplayManager displayManager,
-             @Main Handler mainHandler,
-@@ -626,7 +626,7 @@ public class UdfpsController implements DozeReceiver {
-         mPowerManager = powerManager;
-         mAccessibilityManager = accessibilityManager;
-         mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
--        mUdfpsDisplayMode = udfpsDisplayMode;
-+        mUdfpsDisplayMode = udfpsDisplayMode.orElse(null);
-         screenLifecycle.addObserver(mScreenObserver);
-         mScreenOn = screenLifecycle.getScreenState() == ScreenLifecycle.SCREEN_ON;
-         mConfigurationController = configurationController;
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-index 09a7fb338553..1c62f8a4e508 100644
+index 6d1e958e21ad..8db4927ee059 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-@@ -93,7 +93,7 @@ class UdfpsControllerOverlay(
+@@ -109,7 +109,7 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
      private var overlayTouchListener: TouchExplorationStateChangeListener? = null
  
      private val coreLayoutParams = WindowManager.LayoutParams(
@@ -336,10 +254,10 @@ index 2488132b508b..000000000000
 -    }
 -}
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-index 9dcd2db4d3b4..a15456d46897 100644
+index 97590822a3fb..4a8877edfa53 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-@@ -24,7 +24,6 @@ import android.graphics.RectF
+@@ -25,7 +25,6 @@ import android.graphics.RectF
  import android.util.AttributeSet
  import android.util.Log
  import android.view.MotionEvent
@@ -347,7 +265,7 @@ index 9dcd2db4d3b4..a15456d46897 100644
  import android.widget.FrameLayout
  import com.android.systemui.R
  import com.android.systemui.doze.DozeReceiver
-@@ -57,8 +56,6 @@ class UdfpsView(
+@@ -61,8 +60,6 @@ class UdfpsView(
              a.getFloat(R.styleable.UdfpsView_sensorTouchAreaCoefficient, 0f)
          }
  
@@ -356,7 +274,7 @@ index 9dcd2db4d3b4..a15456d46897 100644
      /** View controller (can be different for enrollment, BiometricPrompt, Keyguard, etc.). */
      var animationViewController: UdfpsAnimationViewController<*>? = null
  
-@@ -85,10 +82,6 @@ class UdfpsView(
+@@ -89,10 +86,6 @@ class UdfpsView(
          return (animationViewController == null || !animationViewController!!.shouldPauseAuth())
      }
  
@@ -367,7 +285,7 @@ index 9dcd2db4d3b4..a15456d46897 100644
      override fun dozeTimeTick() {
          animationViewController?.dozeTimeTick()
      }
-@@ -150,34 +143,12 @@ class UdfpsView(
+@@ -160,34 +153,12 @@ class UdfpsView(
      fun configureDisplay(onDisplayConfigured: Runnable) {
          isDisplayConfigured = true
          animationViewController?.onDisplayConfiguring()
@@ -388,7 +306,7 @@ index 9dcd2db4d3b4..a15456d46897 100644
 -
 -        mUdfpsDisplayMode?.enable {
 -            onDisplayConfigured?.run()
--            ghbmView?.drawIlluminationDot(sensorRect)
+-            ghbmView?.drawIlluminationDot(RectF(sensorRect))
 -        }
 +        mUdfpsDisplayMode?.enable(onDisplayConfigured)
      }
@@ -403,38 +321,6 @@ index 9dcd2db4d3b4..a15456d46897 100644
          mUdfpsDisplayMode?.disable(null /* onDisabled */)
      }
  }
-diff --git a/packages/SystemUI/src/com/android/systemui/dagger/SystemUIModule.java b/packages/SystemUI/src/com/android/systemui/dagger/SystemUIModule.java
-index bc130894ced1..443d2774f0e0 100644
---- a/packages/SystemUI/src/com/android/systemui/dagger/SystemUIModule.java
-+++ b/packages/SystemUI/src/com/android/systemui/dagger/SystemUIModule.java
-@@ -93,7 +93,6 @@ import com.android.systemui.util.time.SystemClock;
- import com.android.systemui.util.time.SystemClockImpl;
- import com.android.systemui.wallet.dagger.WalletModule;
- import com.android.systemui.wmshell.BubblesManager;
--import com.android.systemui.R;
- import com.android.wm.shell.bubbles.Bubbles;
- 
- import java.util.Optional;
-@@ -199,17 +198,8 @@ public abstract class SystemUIModule {
-     @BindsOptionalOf
-     abstract CentralSurfaces optionalCentralSurfaces();
- 
--    @Provides
--    static UdfpsDisplayModeProvider getUdfpsDisplayModeProvider(Context context) {
--        String className = context.getString(R.string.config_udfpsDisplayModeProviderComponent);
--        try {
--            Class<?> clazz = context.getClassLoader().loadClass(className);
--            return (UdfpsDisplayModeProvider) clazz.getDeclaredConstructor(
--                    new Class[] { Context.class }).newInstance(context);
--        } catch (Throwable t) {
--            throw new RuntimeException("Error loading UdfpsDisplayModeProvider " + className, t);
--        }
--    }
-+    @BindsOptionalOf
-+    abstract UdfpsDisplayModeProvider optionalUdfpsDisplayModeProvider();
- 
-     @BindsOptionalOf
-     abstract AlternateUdfpsTouchProvider optionalUdfpsTouchProvider();
 -- 
-2.25.1
+2.34.1
 

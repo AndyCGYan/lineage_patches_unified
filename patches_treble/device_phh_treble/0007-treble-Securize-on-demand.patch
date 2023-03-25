@@ -1,7 +1,7 @@
-From f57a44efd56ca41a593e6d1ebb948f486960f714 Mon Sep 17 00:00:00 2001
+From 4a2ed5f6bf414ac6d493f78c0ad89572b1aef5f2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Dec 2022 15:12:03 +0000
-Subject: [PATCH 7/7] treble: Securize on-demand
+Subject: [PATCH 7/9] treble: Securize on-demand
 
 Status is stored in /metadata and controlled by persist prop
 
@@ -44,5 +44,5 @@ index d1fffde..7db62b7 100644
 +on property:persist.sys.phh.securize=*
 +    exec u:r:phhsu_daemon:s0 root -- /system/bin/phh-prop-handler.sh "persist.sys.phh.securize"
 -- 
-2.25.1
+2.34.1
 

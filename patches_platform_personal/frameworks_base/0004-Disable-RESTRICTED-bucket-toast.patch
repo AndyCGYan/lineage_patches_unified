@@ -1,4 +1,4 @@
-From 57b4bdcc55b85a0c92a348c23e31e6d7d373ba83 Mon Sep 17 00:00:00 2001
+From 4706b07fb66ea1a0f10a5bb84cda6780cb10f4a3 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 3 Jul 2022 00:08:42 +0000
 Subject: [PATCH 04/21] Disable "RESTRICTED bucket" toast
@@ -9,10 +9,10 @@ Change-Id: I20a328d3c77962f3a6095bfca42d0b165a093ce8
  1 file changed, 1 insertion(+), 19 deletions(-)
 
 diff --git a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
-index 5d9f3357125a..49d3c8de7b80 100644
+index a6f47d4e4908..ac7cabba3ddc 100644
 --- a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
 +++ b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
-@@ -1759,25 +1759,7 @@ public class AppStandbyController
+@@ -1781,25 +1781,7 @@ public class AppStandbyController
                          .noteRestrictionAttempt(packageName, userId, elapsedRealtime, reason);
  
                  if (isForcedByUser) {
@@ -40,5 +40,5 @@ index 5d9f3357125a..49d3c8de7b80 100644
                      final long timeUntilRestrictPossibleMs = app.lastUsedByUserElapsedTime
                              + mInjector.getAutoRestrictedBucketDelayMs() - elapsedRealtime;
 -- 
-2.25.1
+2.34.1
 

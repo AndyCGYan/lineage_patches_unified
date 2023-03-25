@@ -1,4 +1,4 @@
-From 4caae29b750758de788974e6d2e315123624af1c Mon Sep 17 00:00:00 2001
+From 5a0f4b6007c2c7573618fde34b8b6d878b4054d8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 17 Oct 2021 17:17:13 -0400
 Subject: [PATCH 3/4] Don't abort when failing to get real-time priority
@@ -81,5 +81,5 @@ index 5f3260763f..2f937cd3ee 100644
      LOG(ERROR) << __func__ << ": unable to enable real time scheduling";
  #endif
 -- 
-2.25.1
+2.34.1
 

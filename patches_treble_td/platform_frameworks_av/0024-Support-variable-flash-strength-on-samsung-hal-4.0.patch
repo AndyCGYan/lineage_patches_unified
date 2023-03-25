@@ -1,4 +1,4 @@
-From 9c5799a9da1fa402dd113b104f129217b1eb7f41 Mon Sep 17 00:00:00 2001
+From a1d34d9638e76d772793f936278a2980b07db22c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 2 May 2022 17:37:09 -0400
 Subject: [PATCH 24/26] Support variable flash strength on samsung hal 4.0
@@ -21,7 +21,7 @@ index 8c588065cf..769862aaa2 100644
      ],
  
 diff --git a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
-index fd7615a446..2fa7dcef7f 100644
+index 41830f2c82..a84b58201c 100644
 --- a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
 +++ b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
 @@ -30,6 +30,7 @@
@@ -48,5 +48,5 @@ index fd7615a446..2fa7dcef7f 100644
          s = interface->setTorchMode(enabled ? TorchMode::ON : TorchMode::OFF);
      }
 -- 
-2.25.1
+2.34.1
 

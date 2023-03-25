@@ -1,4 +1,4 @@
-From 9524ee57bd44eba56aa592164544f623a010614a Mon Sep 17 00:00:00 2001
+From f3928474b86986827588d05535cc045156becbde Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 06:41:03 +0000
 Subject: [PATCH 06/21] Keyguard: Hide padlock unless UDFPS is in use
@@ -11,10 +11,10 @@ Change-Id: Ie91e80ca5c6637a51a8acc72fb28cd6ac2a7abb6
  1 file changed, 3 insertions(+), 9 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
-index 2a3667610f9c..12905c70fc21 100644
+index 1322f16a5a59..3df030b50ed5 100644
 --- a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
 +++ b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
-@@ -254,20 +254,14 @@ public class LockIconViewController extends ViewController<LockIconView> impleme
+@@ -295,20 +295,14 @@ public class LockIconViewController extends ViewController<LockIconView> impleme
              return;
          }
  
@@ -39,5 +39,5 @@ index 2a3667610f9c..12905c70fc21 100644
                  // fp icon was shown by UdfpsView, and now we still want to animate the transition
                  // in this drawable
 -- 
-2.25.1
+2.34.1
 

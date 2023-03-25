@@ -1,4 +1,4 @@
-From 92661ad5a047752ce253d12bf5bf40fad7771bea Mon Sep 17 00:00:00 2001
+From b1832829214487e75c378ecc88aab36ecc0f218e Mon Sep 17 00:00:00 2001
 From: ponces <ponces26@gmail.com>
 Date: Mon, 24 Oct 2022 09:38:34 +0100
 Subject: [PATCH 25/26] voip: Fix high pitched voice on Qualcomm devices
@@ -42,5 +42,5 @@ index 95d2463230..ef310977b2 100644
          ALOGE("%s: No %s found", __func__, Attributes::name);
          return BAD_VALUE;
 -- 
-2.25.1
+2.34.1
 

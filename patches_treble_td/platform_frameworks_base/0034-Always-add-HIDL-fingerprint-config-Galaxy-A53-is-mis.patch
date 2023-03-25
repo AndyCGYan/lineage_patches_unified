@@ -1,4 +1,4 @@
-From e7b80f4e36a6bcd7d09e87c3a1dd8e8a66369f15 Mon Sep 17 00:00:00 2001
+From 628db9ac97006a1dbb5e216fcc0b374ddd4bb4bd Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 3 Jan 2023 17:59:00 -0500
 Subject: [PATCH 34/35] Always add HIDL fingerprint config (Galaxy A53 is
@@ -43,5 +43,5 @@ index 94b67cedf86c..9468f5f91c24 100644
                  final IBiometricService biometricService = IBiometricService.Stub.asInterface(
                          ServiceManager.getService(Context.BIOMETRIC_SERVICE));
 -- 
-2.25.1
+2.34.1
 

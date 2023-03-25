@@ -1,4 +1,4 @@
-From 5cb358f01b28245377a8f00b5ed670eec3817024 Mon Sep 17 00:00:00 2001
+From 5ceaeac2773c51308899e7e9aac4bfed4180082c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 Dec 2021 15:01:41 -0500
 Subject: [PATCH 28/35] Dynamically resize boot animation to match screen size
@@ -9,7 +9,7 @@ Change-Id: I54e49fc6b8c670103852e212d1416e27ff976205
  1 file changed, 20 insertions(+)
 
 diff --git a/cmds/bootanimation/BootAnimation.cpp b/cmds/bootanimation/BootAnimation.cpp
-index 9fb8b696b978..ab662611b64d 100644
+index 53fe0ba84387..73c2276a032f 100644
 --- a/cmds/bootanimation/BootAnimation.cpp
 +++ b/cmds/bootanimation/BootAnimation.cpp
 @@ -600,6 +600,26 @@ status_t BootAnimation::readyToRun() {
@@ -36,9 +36,9 @@ index 9fb8b696b978..ab662611b64d 100644
 +	    }
 +    }
 +
-     projectSceneToWindow();
- 
-     // Register a display event receiver
+     // Rotate the boot animation according to the value specified in the sysprop
+     // ro.bootanim.set_orientation_<display_id>. Four values are supported: ORIENTATION_0,
+     // ORIENTATION_90, ORIENTATION_180 and ORIENTATION_270.
 -- 
-2.25.1
+2.34.1
 

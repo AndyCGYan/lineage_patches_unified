@@ -1,4 +1,4 @@
-From a5cddb1ec7a5b8bb8a6b141fe56d9364d222eaa6 Mon Sep 17 00:00:00 2001
+From 1401a96f282827700760cd3aaba946fd4365d351 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 21 Dec 2020 20:19:11 +0100
 Subject: [PATCH 14/26] Make camera IDs filter-out optional
@@ -11,10 +11,10 @@ Add a property for that.
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/services/camera/libcameraservice/common/CameraProviderManager.cpp b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-index 3dd15d9fe9..93af10a0e7 100644
+index 5e1ba965b7..2cb27f4ee5 100644
 --- a/services/camera/libcameraservice/common/CameraProviderManager.cpp
 +++ b/services/camera/libcameraservice/common/CameraProviderManager.cpp
-@@ -255,7 +255,9 @@ std::vector<std::string> CameraProviderManager::getAPI1CompatibleCameraDeviceIds
+@@ -260,7 +260,9 @@ std::vector<std::string> CameraProviderManager::getAPI1CompatibleCameraDeviceIds
          // API1 app doesn't handle logical and physical camera devices well. So
          // for each camera facing, only take the first id advertised by HAL in
          // all [logical, physical1, physical2, ...] id combos, and filter out the rest.
@@ -26,5 +26,5 @@ index 3dd15d9fe9..93af10a0e7 100644
      }
      auto sortFunc =
 -- 
-2.25.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From 2a9382e9a122f3a34adfed4da687e2bf23383d58 Mon Sep 17 00:00:00 2001
+From 4901e97f452afa7eccffa22d50d6ccaa7eae8ffe Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 22 Nov 2022 00:36:15 +0000
-Subject: [PATCH 6/7] treble: Stop securing ADB
+Subject: [PATCH 6/9] treble: Stop securing ADB
 
 Seems to kill USB Debugging altogether on certain devices,
 and unrelated to SN anyway
@@ -13,10 +13,10 @@ Change-Id: I0215b3ed970dd53a124f48e30ca2cf4b0c6d2899
  1 file changed, 4 deletions(-)
 
 diff --git a/rw-system.sh b/rw-system.sh
-index 42d315f..798e5e3 100644
+index e1ad994..d78655e 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -764,14 +764,10 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
+@@ -772,14 +772,10 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
      resetprop_phh ro.boot.veritymode enforcing
      resetprop_phh ro.boot.warranty_bit 0
      resetprop_phh ro.warranty_bit 0
@@ -32,5 +32,5 @@ index 42d315f..798e5e3 100644
      mount /mnt/phh/empty_dir /system/xbin
      mount /mnt/phh/empty_dir /system/app/me.phh.superuser
 -- 
-2.25.1
+2.34.1
 

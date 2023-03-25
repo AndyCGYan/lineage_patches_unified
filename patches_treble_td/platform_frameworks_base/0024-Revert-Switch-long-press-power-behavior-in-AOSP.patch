@@ -1,4 +1,4 @@
-From 2a123e2e0dbd76d9c39c9990de8bc94bcbde0007 Mon Sep 17 00:00:00 2001
+From 36ccebb5338549275d96a4369b50a74b8155934f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 4 Sep 2021 08:26:30 +0000
 Subject: [PATCH 24/35] Revert "Switch long-press power behavior in AOSP."
@@ -9,10 +9,10 @@ This reverts commit 803c77a0a24624111944832098c6f65158051dc4.
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index 659d0f37bf05..80fa6013ee77 100644
+index 987426f56463..a5e687da1155 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
-@@ -1007,7 +1007,7 @@
+@@ -1029,7 +1029,7 @@
              5 - Go to assistant (Settings.Secure.ASSISTANT)
              6 - Toggle torch on / off (if screen is off)
      -->
@@ -21,7 +21,7 @@ index 659d0f37bf05..80fa6013ee77 100644
  
      <!-- The time in milliseconds after which a press on power button is considered "long". -->
      <integer name="config_longPressOnPowerDurationMs">500</integer>
-@@ -1039,7 +1039,7 @@
+@@ -1061,7 +1061,7 @@
              1 - Mute toggle
              2 - Global actions menu
      -->
@@ -31,5 +31,5 @@ index 659d0f37bf05..80fa6013ee77 100644
      <!-- Control the behavior when the user long presses the back button.  Non-zero values are only
           valid for watches as part of CDD/CTS.
 -- 
-2.25.1
+2.34.1
 

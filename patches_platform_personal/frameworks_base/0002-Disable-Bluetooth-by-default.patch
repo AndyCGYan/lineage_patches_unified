@@ -1,4 +1,4 @@
-From 3d733c87e62d1b84124e5a2c1172bb94df3501d2 Mon Sep 17 00:00:00 2001
+From df749c8f69ea955f7ce2894ef73f0b395b6aa86d Mon Sep 17 00:00:00 2001
 From: Hikari-no-Tenshi <kyryljan.serhij@gmail.com>
 Date: Thu, 30 Jan 2020 22:20:54 +0200
 Subject: [PATCH 02/21] Disable Bluetooth by default
@@ -9,7 +9,7 @@ Change-Id: Iea5d24f977928bf01cd7a46b98c75c0a4bd6a23c
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
-index 7732da40aac2..1d2c343a4514 100644
+index 99b15db780dc..cff3e668f053 100644
 --- a/packages/SettingsProvider/res/values/defaults.xml
 +++ b/packages/SettingsProvider/res/values/defaults.xml
 @@ -36,7 +36,7 @@
@@ -22,5 +22,5 @@ index 7732da40aac2..1d2c343a4514 100644
      <bool name="def_install_non_market_apps">false</bool>
      <!-- 0 == off, 3 == on -->
 -- 
-2.25.1
+2.34.1
 

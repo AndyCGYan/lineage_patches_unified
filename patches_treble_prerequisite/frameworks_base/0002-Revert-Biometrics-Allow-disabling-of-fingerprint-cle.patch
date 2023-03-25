@@ -1,4 +1,4 @@
-From 435be186e085fa16091e2574ac01f07197e8faf5 Mon Sep 17 00:00:00 2001
+From f0b54d18cd3c7382f230bedb198177c68e2bb3b2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 10 Jun 2022 21:33:47 +0800
 Subject: [PATCH 2/2] Revert "Biometrics: Allow disabling of fingerprint
@@ -45,5 +45,5 @@ index 02353bc01c79..c1a86386dfd4 100644
              scheduleUpdateActiveUserWithoutHandler(userId);
  
 -- 
-2.25.1
+2.34.1
 

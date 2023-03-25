@@ -1,32 +1,25 @@
-From 29b987ef4e37748102b41aeabf6a6fb810e6c37e Mon Sep 17 00:00:00 2001
+From b85e925a3accec749a28d5edd6bff3ce20f68924 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 25 Sep 2022 02:20:20 +0000
-Subject: [PATCH 09/15] UI: Remove QS footer background
+Subject: [PATCH 09/24] UI: Remove QS footer background
 
 Change-Id: I68e82e0c5e3eddb2d3f767fe792b1436eae506ef
 ---
- packages/SystemUI/res-keyguard/layout/footer_actions.xml | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ packages/SystemUI/res-keyguard/layout/footer_actions.xml | 1 -
+ 1 file changed, 1 deletion(-)
 
 diff --git a/packages/SystemUI/res-keyguard/layout/footer_actions.xml b/packages/SystemUI/res-keyguard/layout/footer_actions.xml
-index a101c64a48e0..028ab29b8643 100644
+index 544d0299060d..d45744961f59 100644
 --- a/packages/SystemUI/res-keyguard/layout/footer_actions.xml
 +++ b/packages/SystemUI/res-keyguard/layout/footer_actions.xml
-@@ -25,7 +25,6 @@
+@@ -23,7 +23,6 @@
      android:elevation="@dimen/qs_panel_elevation"
      android:paddingTop="@dimen/qs_footer_actions_top_padding"
      android:paddingBottom="@dimen/qs_footer_actions_bottom_padding"
 -    android:background="@drawable/qs_footer_actions_background"
      android:gravity="center_vertical|end"
      android:layout_gravity="bottom"
- >
-@@ -98,4 +97,4 @@
-             android:tint="?androidprv:attr/textColorPrimaryInverse" />
- 
-     </LinearLayout>
--</com.android.systemui.qs.FooterActionsView>
-\ No newline at end of file
-+</com.android.systemui.qs.FooterActionsView>
+ />
 -- 
-2.25.1
+2.34.1
 

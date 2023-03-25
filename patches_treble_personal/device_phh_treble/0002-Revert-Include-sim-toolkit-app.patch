@@ -1,4 +1,4 @@
-From e7a31e6a0a55d45b56de3d6d99aae143bd20a4a2 Mon Sep 17 00:00:00 2001
+From cfc2fd859fb445535d9de131697c56f21d1cee48 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 28 Oct 2021 01:51:27 +0000
 Subject: [PATCH 2/3] Revert "Include sim toolkit app"
@@ -11,10 +11,10 @@ Change-Id: I1eb7f4bb070eea649b4cea6280299e629d1edb3d
  1 file changed, 3 deletions(-)
 
 diff --git a/base.mk b/base.mk
-index 82cae16..225fc0f 100644
+index 3a99248..877a408 100644
 --- a/base.mk
 +++ b/base.mk
-@@ -171,9 +171,6 @@ PRODUCT_PACKAGES += \
+@@ -172,9 +172,6 @@ PRODUCT_PACKAGES += \
  	xiaomi-motor \
  	oneplus-motor
  
@@ -25,5 +25,5 @@ index 82cae16..225fc0f 100644
  	resetprop_phh
  
 -- 
-2.25.1
+2.34.1
 

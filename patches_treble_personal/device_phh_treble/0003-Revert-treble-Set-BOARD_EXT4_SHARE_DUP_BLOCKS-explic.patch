@@ -1,4 +1,4 @@
-From b4a2306f04fa26d24c6f5b6dd4f66a967c62974f Mon Sep 17 00:00:00 2001
+From 719b8e8406f6dbb72aac8029c37cdef445339292 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 09:31:01 +0000
 Subject: [PATCH 3/3] Revert "treble: Set BOARD_EXT4_SHARE_DUP_BLOCKS
@@ -23,5 +23,5 @@ index 9d1d45e..8cde64f 100644
 -
  TARGET_NO_KERNEL_OVERRIDE := true
 -- 
-2.25.1
+2.34.1
 

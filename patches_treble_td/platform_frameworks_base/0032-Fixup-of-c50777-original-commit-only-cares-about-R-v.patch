@@ -1,4 +1,4 @@
-From 10f0cde830ba4ed97a7a486ee03bd64b4671432e Mon Sep 17 00:00:00 2001
+From efbde1bfc3f4566490494e634814cf4b66058e41 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 15 Dec 2022 15:54:50 -0500
 Subject: [PATCH 32/35] Fixup of c50777 -- original commit only cares about R
@@ -22,5 +22,5 @@ index c39f80822b8c..7e6f35acc398 100644
                  // configured in config_biometric_sensors. In the absence of a vendor provided
                  // configuration, we assume the weakest biometric strength (i.e. convenience).
 -- 
-2.25.1
+2.34.1
 

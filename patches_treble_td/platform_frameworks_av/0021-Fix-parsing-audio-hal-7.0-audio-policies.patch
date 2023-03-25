@@ -1,4 +1,4 @@
-From ee6534d8bfbcdd264117a7b532df594187a5e4b2 Mon Sep 17 00:00:00 2001
+From 47f94008bf4a0f98f7ef307b45bc38f88823e4ad Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 30 Jan 2022 07:40:19 -0500
 Subject: [PATCH 21/26] Fix parsing audio hal 7.0 audio policies
@@ -25,5 +25,5 @@ index 9addf7dbdc..9d3d9fd169 100644
      //Some Foxconn devices have wrong earpiece channel mask, leading to no channel mask
      if(channelsMask.size() == 1 && *channelsMask.begin() == AUDIO_CHANNEL_IN_MONO && isOutput) {
 -- 
-2.25.1
+2.34.1
 

@@ -1,4 +1,4 @@
-From c884f4408bfa11bb74c4e45be03ad779fc1fc367 Mon Sep 17 00:00:00 2001
+From 62fdde809e3ac3bb3dbfa22e64d84ffb6180d7a1 Mon Sep 17 00:00:00 2001
 From: Raphael Mounier <mounierr07@gmail.com>
 Date: Sat, 6 Aug 2022 18:08:36 +0200
 Subject: [PATCH 02/35] Fix env empty string - ANDROID_STORAGE
@@ -22,5 +22,5 @@ index 5177cb4f8549..f593dc38bc1c 100644
  
      @NonNull
 -- 
-2.25.1
+2.34.1
 

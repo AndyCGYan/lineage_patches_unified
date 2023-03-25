@@ -1,4 +1,4 @@
-From a56d88a596e6419fd180c9c12a8e5d02633618ea Mon Sep 17 00:00:00 2001
+From e4930b4d867d872a0e4c1a28b274dca7e2d84d5e Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 18 Dec 2022 18:20:40 -0500
 Subject: [PATCH 33/35] FOD support for Asus ZF8 and Samsung devices
@@ -18,22 +18,22 @@ Change-Id: Ib328f39217c3f9b42e13e186496b3f6391643637
  6 files changed, 388 insertions(+), 5 deletions(-)
 
 diff --git a/packages/SystemUI/Android.bp b/packages/SystemUI/Android.bp
-index 13372e8c284a..f6bb05fce8a9 100644
+index 2438af19317c..60baf02c4aca 100644
 --- a/packages/SystemUI/Android.bp
 +++ b/packages/SystemUI/Android.bp
-@@ -126,6 +126,7 @@ android_library {
-         "lottie",
+@@ -178,6 +178,7 @@ android_library {
          "LowLightDreamLib",
+         "motion_tool_lib",
          "vendor.lineage.powershare-V1.0-java",
 +        "vendor.goodix.hardware.biometrics.fingerprint-V2.1-java",
      ],
      manifest: "AndroidManifest.xml",
      additional_manifests: ["LineageManifest.xml"],
 diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
-index da7a597883eb..d7d6fa34cce8 100644
+index d3e22e610fc7..ea4075b75e00 100644
 --- a/packages/SystemUI/res/values/config.xml
 +++ b/packages/SystemUI/res/values/config.xml
-@@ -577,7 +577,7 @@
+@@ -580,7 +580,7 @@
  
      <!-- The radius of the enrollment progress bar, in dp -->
      <integer name="config_udfpsEnrollProgressBar" translatable="false">
@@ -43,23 +43,23 @@ index da7a597883eb..d7d6fa34cce8 100644
  
      <!-- The time (in ms) needed to trigger the lock icon view's long-press affordance -->
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-index 1c62f8a4e508..7b2713bf3419 100644
+index 8db4927ee059..b14e2ebb56ca 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsControllerOverlay.kt
-@@ -102,7 +102,9 @@ class UdfpsControllerOverlay(
+@@ -118,7 +118,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
          gravity = android.view.Gravity.TOP or android.view.Gravity.LEFT
          layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
          flags = (Utils.FINGERPRINT_OVERLAY_LAYOUT_PARAM_FLAGS or
--          WindowManager.LayoutParams.FLAG_SPLIT_TOUCH)
-+          WindowManager.LayoutParams.FLAG_SPLIT_TOUCH) or
-+          WindowManager.LayoutParams.FLAG_DIM_BEHIND
+-                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH)
++                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH) or
++                WindowManager.LayoutParams.FLAG_DIM_BEHIND
 +        dimAmount = 0.0f
          privateFlags = WindowManager.LayoutParams.PRIVATE_FLAG_TRUSTED_OVERLAY
          // Avoid announcing window title.
          accessibilityTitle = " "
-@@ -153,6 +155,9 @@ class UdfpsControllerOverlay(
- 
+@@ -187,6 +189,9 @@ class UdfpsControllerOverlay @JvmOverloads constructor(
                      windowManager.addView(this, coreLayoutParams.updateDimensions(animation))
+                     sensorRect = sensorBounds
                      touchExplorationEnabled = accessibilityManager.isTouchExplorationEnabled
 +                    dimUpdate = {
 +                        windowManager.updateViewLayout(this, coreLayoutParams.updateDimensions(animation).apply { dimAmount = it })
@@ -68,15 +68,16 @@ index 1c62f8a4e508..7b2713bf3419 100644
                          if (accessibilityManager.isTouchExplorationEnabled) {
                              setOnHoverListener { v, event -> onTouch(v, event, true) }
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-index a15456d46897..d591cc809129 100644
+index 4a8877edfa53..c8c17b56cd92 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-@@ -19,17 +19,26 @@ import android.content.Context
+@@ -19,18 +19,27 @@ import android.content.Context
  import android.graphics.Canvas
  import android.graphics.Color
  import android.graphics.Paint
 +import android.graphics.PixelFormat
  import android.graphics.PointF
+ import android.graphics.Rect
  import android.graphics.RectF
 +import android.os.FileObserver
  import android.util.AttributeSet
@@ -98,7 +99,7 @@ index a15456d46897..d591cc809129 100644
  /**
   * The main view group containing all UDFPS animations.
   */
-@@ -37,6 +46,54 @@ class UdfpsView(
+@@ -38,6 +47,54 @@ class UdfpsView(
      context: Context,
      attrs: AttributeSet?
  ) : FrameLayout(context, attrs), DozeReceiver {
@@ -151,9 +152,9 @@ index a15456d46897..d591cc809129 100644
 +
 +    }
  
-     // sensorRect may be bigger than the sensor. True sensor dimensions are defined in
-     // overlayParams.sensorBounds
-@@ -62,6 +119,8 @@ class UdfpsView(
+     // Use expanded overlay when feature flag is true, set by UdfpsViewController
+     var useExpandedOverlay: Boolean = false
+@@ -66,6 +123,8 @@ class UdfpsView(
      /** Parameters that affect the position and size of the overlay. */
      var overlayParams = UdfpsOverlayParams()
  
@@ -162,7 +163,7 @@ index a15456d46897..d591cc809129 100644
      /** Debug message. */
      var debugMessage: String? = null
          set(value) {
-@@ -140,15 +199,94 @@ class UdfpsView(
+@@ -150,15 +209,94 @@ class UdfpsView(
              !(animationViewController?.shouldPauseAuth() ?: false)
      }
  
@@ -561,5 +562,5 @@ index 7e6f35acc398..063e3599d6cd 100644
 +    }
  }
 -- 
-2.25.1
+2.34.1
 

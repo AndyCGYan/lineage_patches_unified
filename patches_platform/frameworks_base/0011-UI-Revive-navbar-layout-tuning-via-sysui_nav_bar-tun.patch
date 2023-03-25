@@ -1,7 +1,7 @@
-From 9d7f2acaa960dd74aa0bc030c3e6d9cd5a234a74 Mon Sep 17 00:00:00 2001
+From 0697f6baa9ffb4f69b90e9c4f8469e7bd130d6bc Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 6 Oct 2020 01:41:16 +0000
-Subject: [PATCH 11/15] UI: Revive navbar layout tuning via sysui_nav_bar
+Subject: [PATCH 11/24] UI: Revive navbar layout tuning via sysui_nav_bar
  tunable
 
 Google keeps fixing what ain't broken.
@@ -60,5 +60,5 @@ index 51feed875337..5f0f9a220c31 100644
          final String newValue = getDefaultLayout();
          if (!Objects.equals(mCurrentLayout, newValue)) {
 -- 
-2.25.1
+2.34.1
 

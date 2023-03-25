@@ -1,26 +1,46 @@
-From b77fda8daa3632ef92f3299180506bcbd7c53189 Mon Sep 17 00:00:00 2001
+From be808ccab89637aa591c6ec13ab6187848e2c55c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 5 Nov 2022 23:49:11 +0000
-Subject: [PATCH 5/7] treble: Switch to MindTheGapps
+Subject: [PATCH 5/9] treble: Switch to MindTheGapps
 
 Change-Id: I1b80d4c5176cbf4af21d147c71b0abce6027c7c7
 ---
- generate.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ generate.sh | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
 diff --git a/generate.sh b/generate.sh
-index 89fa88b..d847430 100644
+index 89fa88b..8654eeb 100644
 --- a/generate.sh
 +++ b/generate.sh
-@@ -26,7 +26,7 @@ for part in a ab;do
+@@ -24,9 +24,15 @@ for part in a ab;do
+ 				extra_packages=""
+                 vndk="vndk.mk"
  		optional_base=""
++
++				baseArch="$arch"
++				if [ "$arch" = "a64" ];then
++					baseArch="arm"
++				fi
++
  				if [ "$apps" == "gapps" ];then
  					apps_suffix="g"
 -					apps_script='$(call inherit-product, device/phh/treble/gapps.mk)'
-+					apps_script='$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)'
++					apps_script='$(call inherit-product, vendor/gapps/'$baseArch'/'$baseArch'-vendor.mk)'
  					apps_name="with GApps"
  				fi
  				if [ "$apps" == "gapps-go" ];then
+@@ -66,11 +72,6 @@ for part in a ab;do
+ 
+ 				target="lineage_${arch}_${part_suffix}${apps_suffix}${su_suffix}"
+ 
+-				baseArch="$arch"
+-				if [ "$arch" = "a64" ];then
+-					baseArch="arm"
+-				fi
+-
+ 				zygote=32
+ 				if [ "$arch" = "arm64" ];then
+ 					zygote=64_32
 -- 
-2.25.1
+2.34.1
 

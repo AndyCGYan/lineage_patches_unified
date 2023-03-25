@@ -1,17 +1,18 @@
-From 6f1f5fffb19c27bbbc3ca1498a4c3a001a2839af Mon Sep 17 00:00:00 2001
+From 1688bfdd53c2d2967264f4a1fba92a8dbc7e1b8e Mon Sep 17 00:00:00 2001
 From: ItsLynix <71310187+ItsLynix@users.noreply.github.com>
 Date: Sat, 28 Jan 2023 10:25:16 +0100
 Subject: [PATCH 35/35] SystemUI: Implement alternate brightness path for FOD
 
+Change-Id: I0d9d7352c507529a3aa66e7a7d78220887a5a532
 ---
  .../com/android/systemui/biometrics/UdfpsView.kt  | 15 +++++++++++++--
  1 file changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-index d591cc809129..d2e98c181260 100644
+index c8c17b56cd92..b3df894fe625 100644
 --- a/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
 +++ b/packages/SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt
-@@ -222,8 +222,19 @@ Log.d("PHH", "Surface destroyed!")
+@@ -232,8 +232,19 @@ Log.d("PHH", "Surface destroyed!")
          mySurfaceView.setVisibility(VISIBLE)
          Log.d("PHH", "setting surface visible!")
  
@@ -19,10 +20,10 @@ index d591cc809129..d2e98c181260 100644
 -        val maxBrightness = File("/sys/class/backlight/panel0-backlight/max_brightness").readText().toDouble()
 +        val brightnessFile = File("/sys/class/backlight/panel/brightness")
 +        val maxBrightnessFile = File("/sys/class/backlight/panel/max_brightness")
-+        
++
 +        var brightness: Double = 0.0
 +        var maxBrightness: Double = 0.0
-+        
++
 +        if (brightnessFile.exists() && maxBrightnessFile.exists()) {
 +            brightness = brightnessFile.readText().toDouble()
 +            maxBrightness = maxBrightnessFile.readText().toDouble()
@@ -34,5 +35,5 @@ index d591cc809129..d2e98c181260 100644
          // Assume HBM is max brightness
          val dim = 1.0 - Math.pow( (brightness / maxBrightness), 1/2.3);
 -- 
-2.25.1
+2.34.1
 

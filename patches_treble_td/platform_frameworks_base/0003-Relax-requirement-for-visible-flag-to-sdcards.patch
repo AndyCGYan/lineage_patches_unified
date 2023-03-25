@@ -1,4 +1,4 @@
-From 1c5e8be3e95808111d4dcd609ecbdc87cafdb21a Mon Sep 17 00:00:00 2001
+From 1e432153ed75c31abe94df1250ade6b3db515cfb Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 28 Nov 2017 18:28:04 +0100
 Subject: [PATCH 03/35] Relax requirement for visible flag to sdcards
@@ -13,7 +13,7 @@ Change-Id: Ia616671c03562d1eadaff5531a5c708a62d7ad3a
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/StorageManagerService.java b/services/core/java/com/android/server/StorageManagerService.java
-index 7f3676d0c52b..dc1083879b6e 100644
+index c367dcec1b08..3680221b7f52 100644
 --- a/services/core/java/com/android/server/StorageManagerService.java
 +++ b/services/core/java/com/android/server/StorageManagerService.java
 @@ -1616,7 +1616,8 @@ class StorageManagerService extends IStorageManager.Stub
@@ -27,5 +27,5 @@ index 7f3676d0c52b..dc1083879b6e 100644
              } else if (vol.disk.isSd()) {
                  vol.mountFlags |= VolumeInfo.MOUNT_FLAG_VISIBLE_FOR_WRITE;
 -- 
-2.25.1
+2.34.1
 

@@ -1,4 +1,4 @@
-From 81a9631cd24aeb44d261f7f862db7e30b058e690 Mon Sep 17 00:00:00 2001
+From 22ad6e21e9330b89e7af8ac4cbd44f6627c688a2 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 14 Dec 2022 17:21:00 -0500
 Subject: [PATCH 31/35] Call Samsung's ISehSysInputDev to report screen state
@@ -23,7 +23,7 @@ index f6ba92a94cde..39161ba0df68 100644
      javac_shard_size: 50,
  }
 diff --git a/services/core/java/com/android/server/display/LocalDisplayAdapter.java b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
-index 2a219289cf10..29f653f0edd4 100644
+index efb2cb7a3283..2807f3e7fbf4 100644
 --- a/services/core/java/com/android/server/display/LocalDisplayAdapter.java
 +++ b/services/core/java/com/android/server/display/LocalDisplayAdapter.java
 @@ -33,6 +33,7 @@ import android.os.Trace;
@@ -52,7 +52,7 @@ index 2a219289cf10..29f653f0edd4 100644
  
          LocalDisplayDevice(IBinder displayToken, long physicalDisplayId,
                  SurfaceControl.StaticDisplayInfo staticDisplayInfo,
-@@ -815,16 +820,42 @@ final class LocalDisplayAdapter extends DisplayAdapter {
+@@ -812,16 +817,42 @@ final class LocalDisplayAdapter extends DisplayAdapter {
                              }
                              mSidekickActive = false;
                          }
@@ -96,5 +96,5 @@ index 2a219289cf10..29f653f0edd4 100644
                          // have a sidekick available, tell it now that it can take control.
                          if (Display.isSuspendedState(state) && state != Display.STATE_OFF
 -- 
-2.25.1
+2.34.1
 

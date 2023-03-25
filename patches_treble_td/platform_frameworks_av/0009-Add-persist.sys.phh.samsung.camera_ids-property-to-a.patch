@@ -1,4 +1,4 @@
-From 0a037727edf7f2fed2aab9ae61a4d09a8addd226 Mon Sep 17 00:00:00 2001
+From baee6d7460ccddc83f5e98a1af03b39784672802 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 14 May 2020 19:54:55 +0200
 Subject: [PATCH 09/26] Add persist.sys.phh.samsung.camera_ids property to
@@ -23,7 +23,7 @@ index 981c56942c..7c4e4d9bcd 100644
      ],
  
 diff --git a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
-index d60565fb68..b02cf26445 100644
+index 1df6ec4449..ac579b4f7d 100644
 --- a/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
 +++ b/services/camera/libcameraservice/common/hidl/HidlProviderInfo.cpp
 @@ -27,6 +27,7 @@
@@ -76,5 +76,5 @@ index d60565fb68..b02cf26445 100644
          ALOGE("%s: Transaction error in getting camera ID list from provider '%s': %s",
                  __FUNCTION__, mProviderName.c_str(), linked.description().c_str());
 -- 
-2.25.1
+2.34.1
 

@@ -1,4 +1,4 @@
-From fc7659b79e984f11d276f068792325b79c98be91 Mon Sep 17 00:00:00 2001
+From f960e230476cf36078619e632f28c886ba5a723c Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Wed, 1 Jun 2022 16:56:20 -0400
 Subject: [PATCH 05/35] Implement a persistent property to override the default
@@ -11,10 +11,10 @@ Change-Id: I49b45d00bf71d7932591b3516d49a680e1b6568b
  2 files changed, 14 insertions(+)
 
 diff --git a/core/java/android/hardware/Camera.java b/core/java/android/hardware/Camera.java
-index 7193b93dba7f..aaa2887d7c5b 100644
+index 2fbcf5bfaf52..df9c13edf337 100644
 --- a/core/java/android/hardware/Camera.java
 +++ b/core/java/android/hardware/Camera.java
-@@ -452,6 +452,11 @@ public class Camera {
+@@ -465,6 +465,11 @@ public class Camera {
       * @see #open(int)
       */
      public static Camera open() {
@@ -27,10 +27,10 @@ index 7193b93dba7f..aaa2887d7c5b 100644
          CameraInfo cameraInfo = new CameraInfo();
          for (int i = 0; i < numberOfCameras; i++) {
 diff --git a/core/java/android/hardware/camera2/CameraManager.java b/core/java/android/hardware/camera2/CameraManager.java
-index 028b1afd9765..a6c318822d7e 100644
+index db19394c16e4..c2f7ecf94580 100644
 --- a/core/java/android/hardware/camera2/CameraManager.java
 +++ b/core/java/android/hardware/camera2/CameraManager.java
-@@ -1754,6 +1754,15 @@ public final class CameraManager {
+@@ -1789,6 +1789,15 @@ public final class CameraManager {
                          }
                      }});
  
@@ -47,5 +47,5 @@ index 028b1afd9765..a6c318822d7e 100644
  
          public static boolean cameraStatusesContains(CameraStatus[] cameraStatuses, String id) {
 -- 
-2.25.1
+2.34.1
 

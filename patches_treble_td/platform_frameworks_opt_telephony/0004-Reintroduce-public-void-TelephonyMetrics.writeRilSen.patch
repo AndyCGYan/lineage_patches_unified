@@ -1,4 +1,4 @@
-From d7a177e583b4b1680b09ff87bbe262bff8590cdb Mon Sep 17 00:00:00 2001
+From 95a58ef03af0c974050e338f36b25aa4ac535a38 Mon Sep 17 00:00:00 2001
 From: ironydelerium <42721860+ironydelerium@users.noreply.github.com>
 Date: Fri, 31 Dec 2021 02:20:28 -0800
 Subject: [PATCH 4/7] Reintroduce 'public void
@@ -43,5 +43,5 @@ index 3fdbfe0ed7..fb8011c3df 100644
       * Write Send SMS event using ImsService. Expecting response from
       * {@link #writeOnSmsSolicitedResponse}.
 -- 
-2.25.1
+2.34.1
 

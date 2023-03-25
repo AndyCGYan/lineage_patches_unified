@@ -1,4 +1,4 @@
-From a588cdbf51f8086b17b860227232ef49659439b2 Mon Sep 17 00:00:00 2001
+From 592b55b29ed9a65fb60497f1267d983d04e695e3 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 20 Mar 2021 14:31:01 +0100
 Subject: [PATCH 21/35] Automatically detect pick up sensor, so that an overlay
@@ -9,7 +9,7 @@ Subject: [PATCH 21/35] Automatically detect pick up sensor, so that an overlay
  1 file changed, 17 insertions(+), 2 deletions(-)
 
 diff --git a/core/java/android/hardware/display/AmbientDisplayConfiguration.java b/core/java/android/hardware/display/AmbientDisplayConfiguration.java
-index 8c71b363eb7b..ff57d445bbc0 100644
+index 47541ca16cda..28168b9208f5 100644
 --- a/core/java/android/hardware/display/AmbientDisplayConfiguration.java
 +++ b/core/java/android/hardware/display/AmbientDisplayConfiguration.java
 @@ -25,6 +25,9 @@ import android.text.TextUtils;
@@ -22,7 +22,7 @@ index 8c71b363eb7b..ff57d445bbc0 100644
  import com.android.internal.R;
  import com.android.internal.util.ArrayUtils;
  
-@@ -101,8 +104,20 @@ public class AmbientDisplayConfiguration {
+@@ -105,8 +108,20 @@ public class AmbientDisplayConfiguration {
  
      /** @hide */
      public boolean dozePickupSensorAvailable() {
@@ -46,5 +46,5 @@ index 8c71b363eb7b..ff57d445bbc0 100644
      /** @hide */
      public boolean tapGestureEnabled(int user) {
 -- 
-2.25.1
+2.34.1
 

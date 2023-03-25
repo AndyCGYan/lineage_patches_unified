@@ -1,7 +1,7 @@
-From 953d205e2408dcd0f7fe25e7c2801512fad196fd Mon Sep 17 00:00:00 2001
+From 9999d9887ec0fc9f3227bac752126d98b2adc07e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 3 Jun 2020 01:31:34 +0000
-Subject: [PATCH 08/15] UI: Increase default status bar height
+Subject: [PATCH 08/24] UI: Increase default status bar height
 
 Change-Id: Ibbcf63159e19bb2bb2b1094ea07ab85917630b07
 ---
@@ -31,5 +31,5 @@ index 2542268a153a..099a6badc034 100644
           Do not read this dimen directly. Use {@link SystemBarUtils#getStatusBarHeight} instead.
           -->
 -- 
-2.25.1
+2.34.1
 
