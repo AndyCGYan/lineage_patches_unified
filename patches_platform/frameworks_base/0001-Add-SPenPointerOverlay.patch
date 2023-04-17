@@ -1,7 +1,7 @@
-From 107b0eaf96413e3faac0bcbe7e761d98d3595d76 Mon Sep 17 00:00:00 2001
+From d2d9150fee51378f34efff4ba7f50a194bb85064 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 13 Jan 2022 14:22:24 +0000
-Subject: [PATCH 01/24] Add SPenPointerOverlay
+Subject: [PATCH 01/23] Add SPenPointerOverlay
 
 Toggle this overlay with property "persist.ui.spen.pointer"
 

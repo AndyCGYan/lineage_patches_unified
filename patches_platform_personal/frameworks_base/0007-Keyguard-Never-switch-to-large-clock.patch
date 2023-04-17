@@ -1,7 +1,7 @@
-From 67e73c9aa252581a81f0dabcc6b8a7067da040ac Mon Sep 17 00:00:00 2001
+From 86a90de31bc9c05b3124d573dcd93eb5a3ddf5ec Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:41:53 +0000
-Subject: [PATCH 07/21] Keyguard: Never switch to large clock
+Subject: [PATCH 07/20] Keyguard: Never switch to large clock
 
 It looks alright actually, but as always breaks under landscape
 

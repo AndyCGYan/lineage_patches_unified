@@ -1,7 +1,7 @@
-From 839d9d8e213a15c823aa218539993b2c23f3bd65 Mon Sep 17 00:00:00 2001
+From 3e127f227f91e2cda68ae28c531c7f7034693b9e Mon Sep 17 00:00:00 2001
 From: Dyneteve <dyneteve@hentaios.com>
 Date: Tue, 23 Aug 2022 18:57:05 +0200
-Subject: [PATCH 20/24] gmscompat: Apply the SafetyNet workaround to Play Store
+Subject: [PATCH 19/23] gmscompat: Apply the SafetyNet workaround to Play Store
  aswell
 
 Play Store is used for the new Play Integrity API, extend the hack

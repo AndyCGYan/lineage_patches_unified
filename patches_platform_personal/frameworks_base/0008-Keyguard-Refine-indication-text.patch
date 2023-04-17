@@ -1,7 +1,7 @@
-From 5b078c1242e2d69a887b56130b0f12609269ad89 Mon Sep 17 00:00:00 2001
+From 6254335e8e470501a24b678aa006536fadd0f7c0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
-Subject: [PATCH 08/21] Keyguard: Refine indication text
+Subject: [PATCH 08/20] Keyguard: Refine indication text
 
 Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
 ---
@@ -84,7 +84,7 @@ index 9235e10209d4..42e710d9c9a3 100644
       * Clears all messages in the queue and sets the current message to an empty string.
       */
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 6a658b6ee047..632d186ac4f4 100644
+index 3301d6907a25..15a7555e1381 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 @@ -270,10 +270,12 @@ public class KeyguardIndicationController {
@@ -100,7 +100,7 @@ index 6a658b6ee047..632d186ac4f4 100644
                  } else if (msg.what == MSG_RESET_ERROR_MESSAGE_ON_SCREEN_ON) {
                      mBiometricErrorMessageToShowOnScreenOn = null;
                  }
-@@ -375,7 +377,6 @@ public class KeyguardIndicationController {
+@@ -377,7 +379,6 @@ public class KeyguardIndicationController {
          updateLockScreenDisclosureMsg();
          updateLockScreenOwnerInfo();
          updateLockScreenBatteryMsg(animate);
@@ -108,7 +108,7 @@ index 6a658b6ee047..632d186ac4f4 100644
          updateLockScreenTrustMsg(userId, getTrustGrantedIndication(), getTrustManagedIndication());
          updateLockScreenAlignmentMsg();
          updateLockScreenLogoutView();
-@@ -484,22 +485,6 @@ public class KeyguardIndicationController {
+@@ -486,22 +487,6 @@ public class KeyguardIndicationController {
          }
      }
  
@@ -131,7 +131,7 @@ index 6a658b6ee047..632d186ac4f4 100644
      private void updateBiometricMessage() {
          if (mDozing) {
              updateDeviceEntryIndication(false);
-@@ -592,11 +577,11 @@ public class KeyguardIndicationController {
+@@ -594,11 +579,11 @@ public class KeyguardIndicationController {
      }
  
      private void updateLockScreenPersistentUnlockMsg() {

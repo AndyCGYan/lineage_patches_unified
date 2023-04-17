@@ -1,7 +1,7 @@
-From 9f0fb3f042124da5731232dffa1bda623c395a22 Mon Sep 17 00:00:00 2001
+From ae22c5903fb6bd176d1df8de0292df0c386f1f80 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 Apr 2020 08:56:13 +0000
-Subject: [PATCH 12/24] UI: Use SNAP_FIXED_RATIO for multi-window globally
+Subject: [PATCH 12/23] UI: Use SNAP_FIXED_RATIO for multi-window globally
 
 Enables multiple snap targets under landscape for phone UI
 

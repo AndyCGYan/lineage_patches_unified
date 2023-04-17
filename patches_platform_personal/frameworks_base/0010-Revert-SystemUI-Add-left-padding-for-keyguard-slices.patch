@@ -1,7 +1,7 @@
-From ce6bd2ce984f6647b673640dc4bbd07315fb128b Mon Sep 17 00:00:00 2001
+From 29973bff7d5cad945ec8cb4b378d4d099b2ccf6e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 31 May 2022 00:00:08 +0000
-Subject: [PATCH 11/21] Revert "SystemUI: Add left padding for keyguard slices"
+Subject: [PATCH 10/20] Revert "SystemUI: Add left padding for keyguard slices"
 
 This reverts commit 4a7a4426944e28e70a3eca6a696ff6c7599fb896.
 ---
