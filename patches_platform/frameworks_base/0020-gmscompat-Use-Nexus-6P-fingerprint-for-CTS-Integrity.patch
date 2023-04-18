@@ -1,7 +1,7 @@
-From 030dc8f051ca98594cc037b1fe6b79d417d3a8a3 Mon Sep 17 00:00:00 2001
+From 408d79cb171d9d9d4e78c068601c8e08047b18d0 Mon Sep 17 00:00:00 2001
 From: Dyneteve <dyneteve@hentaios.com>
 Date: Thu, 8 Sep 2022 14:39:52 +0200
-Subject: [PATCH 21/24] gmscompat: Use Nexus 6P fingerprint for CTS/Integrity
+Subject: [PATCH 20/23] gmscompat: Use Nexus 6P fingerprint for CTS/Integrity
 
 Google seems to have patched the KM block to Play Store in record time,
 but is still not enforced for anything under android N.

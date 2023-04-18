@@ -1,7 +1,7 @@
-From b4b83ed885d8c3751220ab7270ff0819ea37fb5e Mon Sep 17 00:00:00 2001
+From f7ac5b583424583d440b7f2ce6bdce96fce2e209 Mon Sep 17 00:00:00 2001
 From: Anirudh Gupta <anirudhgupta109@aosip.dev>
 Date: Wed, 4 Jan 2023 18:20:56 +0000
-Subject: [PATCH 23/24] gmscompat: Set shipping level to 32 for devices >=33
+Subject: [PATCH 22/23] gmscompat: Set shipping level to 32 for devices >=33
 
 If ro.product.first_api_level is 33, its forced to use HW attestation even though the safteynet checker app shows BASIC
 setting it to 32 allows for software attestation and passing CTS

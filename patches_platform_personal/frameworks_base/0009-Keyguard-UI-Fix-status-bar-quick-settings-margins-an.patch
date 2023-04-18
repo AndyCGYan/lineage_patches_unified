@@ -1,7 +1,7 @@
-From 146d8cbf38f17136e1aed47d634ff833f5a5fc8d Mon Sep 17 00:00:00 2001
+From 4eebadc9bacc35b94ac2fec83e68b4fd0a6eab21 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 20 Mar 2021 10:35:14 +0000
-Subject: [PATCH 09/21] Keyguard/UI: Fix status bar / quick settings margins
+Subject: [PATCH 09/20] Keyguard/UI: Fix status bar / quick settings margins
  and paddings
 
 Last revised on 2023/03/22, targeting T QPR2
@@ -101,10 +101,10 @@ index e56e5d557c2f..6378705f9db4 100644
 \ No newline at end of file
 +</ConstraintSet>
 diff --git a/packages/SystemUI/src/com/android/systemui/shade/LargeScreenShadeHeaderController.kt b/packages/SystemUI/src/com/android/systemui/shade/LargeScreenShadeHeaderController.kt
-index 9795434a6545..cc8e3f48131d 100644
+index a3dffa2ec4d8..dca955008ad3 100644
 --- a/packages/SystemUI/src/com/android/systemui/shade/LargeScreenShadeHeaderController.kt
 +++ b/packages/SystemUI/src/com/android/systemui/shade/LargeScreenShadeHeaderController.kt
-@@ -136,6 +136,8 @@ class LargeScreenShadeHeaderController @Inject constructor(
+@@ -140,6 +140,8 @@ class LargeScreenShadeHeaderController @Inject constructor(
      private var cutoutLeft = 0
      private var cutoutRight = 0
      private var roundedCorners = 0
@@ -113,7 +113,7 @@ index 9795434a6545..cc8e3f48131d 100644
      private var lastInsets: WindowInsets? = null
      private var textColorPrimary = Color.TRANSPARENT
  
-@@ -360,14 +362,17 @@ class LargeScreenShadeHeaderController @Inject constructor(
+@@ -376,14 +378,17 @@ class LargeScreenShadeHeaderController @Inject constructor(
          cutoutLeft = sbInsets.first
          cutoutRight = sbInsets.second
          val hasCornerCutout: Boolean = insetsProvider.currentRotationHasCornerCutout()
@@ -133,7 +133,7 @@ index 9795434a6545..cc8e3f48131d 100644
                  header.paddingEnd
              )
  
-@@ -486,7 +491,6 @@ class LargeScreenShadeHeaderController @Inject constructor(
+@@ -502,7 +507,6 @@ class LargeScreenShadeHeaderController @Inject constructor(
      }
  
      private fun updateResources() {

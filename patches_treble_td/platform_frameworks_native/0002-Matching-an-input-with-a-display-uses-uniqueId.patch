@@ -1,7 +1,7 @@
-From 9ef33b3c1b2fbd9049e232de2e2b9b66d83bdef9 Mon Sep 17 00:00:00 2001
+From 8401967290b4c359ad06555cf728b9430ea62db0 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 22 Oct 2020 23:22:46 +0200
-Subject: [PATCH 2/9] Matching an input with a display uses uniqueId
+Subject: [PATCH 02/10] Matching an input with a display uses uniqueId
 
 Not all devices have a `location`, notably bluetooth devices.
 However, we might still want to associate them with a screen,
@@ -31,5 +31,5 @@ index 989700f6cf..e45222103b 100644
                  const std::unordered_map<std::string, uint8_t>& ports = config->portAssociations;
                  const auto& displayPort = ports.find(inputPort);
 -- 
-2.25.1
+2.34.1
 

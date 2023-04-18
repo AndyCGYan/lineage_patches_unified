@@ -1,7 +1,7 @@
-From 53944713b59f662f2a19ea3ccd3cfdcec9f3593a Mon Sep 17 00:00:00 2001
+From e08d2afd0c6663e9d439b9371d9aba20f3e566e5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 17 Jan 2023 17:19:19 +0000
-Subject: [PATCH 04/24] Keyguard: Fix colors of slices not updating on doze
+Subject: [PATCH 04/23] Keyguard: Fix colors of slices not updating on doze
 
 Slices were invisible (black) in doze when using light wallpapers
 Introduced in https://github.com/LineageOS/android_frameworks_base/commit/a19e59d717ec6d573c11c7e8277bba3c4de189c2

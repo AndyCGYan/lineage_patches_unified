@@ -1,7 +1,7 @@
-From 2362d29a436aa9483f6913e022567d6f9fd90332 Mon Sep 17 00:00:00 2001
+From 64d1e22f654f996d3cc46334f4a75b6c37c16268 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
-Subject: [PATCH 05/21] Keyguard: Adjust clock style
+Subject: [PATCH 05/20] Keyguard: Adjust clock style
 
 Thinner font, less padding and unintrusive colors
 
