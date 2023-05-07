@@ -1,4 +1,4 @@
-From 6819a636e91927acd6c72586f21fcdd749330ad8 Mon Sep 17 00:00:00 2001
+From 84b5b23519166701423a324cac955e9110e36eae Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Mon, 1 Jul 2019 07:03:04 +0000
 Subject: [PATCH 3/4] vendor_lineage: Ignore neverallows... again
@@ -26,5 +26,5 @@ index f2e595ff..d6d036a9 100644
  # Rules for QCOM targets
  include $(TOPDIR)vendor/lineage/build/core/qcom_target.mk
 -- 
-2.25.1
+2.34.1
 

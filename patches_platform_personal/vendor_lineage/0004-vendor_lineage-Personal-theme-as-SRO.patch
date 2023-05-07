@@ -1,4 +1,4 @@
-From 91e15e1471b936462709906efaba8f53fef899f8 Mon Sep 17 00:00:00 2001
+From 05700475543c1dece33a8f49bcb84d5b709a3164 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 9 Apr 2022 02:48:55 +0000
 Subject: [PATCH 4/4] vendor_lineage: Personal theme as SRO
@@ -159,7 +159,7 @@ Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
  create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
 
 diff --git a/config/common.mk b/config/common.mk
-index f5c6ce06..dcf8b79f 100644
+index 70e0cbaf..4da11943 100644
 --- a/config/common.mk
 +++ b/config/common.mk
 @@ -189,10 +189,13 @@ PRODUCT_DEXPREOPT_SPEED_APPS += \
@@ -177,7 +177,7 @@ index f5c6ce06..dcf8b79f 100644
 +    vendor/lineage/overlay/personal
  
  PRODUCT_PACKAGES += \
-     NetworkStackOverlay \
+     DocumentsUIOverlay \
 diff --git a/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml
 new file mode 100644
 index 00000000..db946c4e
@@ -2238,5 +2238,5 @@ index 00000000..4e86fe3d
 +  </group>
 +</vector>
 -- 
-2.25.1
+2.34.1
 

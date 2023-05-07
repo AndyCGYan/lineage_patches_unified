@@ -1,7 +1,7 @@
-From 2ba8c53774310e3b80fa1f2d3d008c14d8033354 Mon Sep 17 00:00:00 2001
+From 558b30744fda7ce35699525bb5e674acdfc66a49 Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Mon, 3 Oct 2022 13:50:36 +0100
-Subject: [PATCH 11/15] fs_mgr: Keep allowing encryptable fstab flag
+Subject: [PATCH 11/16] fs_mgr: Keep allowing encryptable fstab flag
 
 Some users still use "encryptable" flag while being unencrypted. Let them still boot their devices.
 
@@ -33,5 +33,5 @@ index 2933b61f8..5bed8e954 100644
  }
  
 -- 
-2.25.1
+2.34.1
 

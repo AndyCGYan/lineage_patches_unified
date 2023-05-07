@@ -1,7 +1,7 @@
-From d6a1685452a436dac8e29290977fe4d6f31a12e5 Mon Sep 17 00:00:00 2001
+From 985fd14abf275700574cd8b0a296658dbae3aee5 Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Wed, 28 Sep 2022 17:04:03 +0100
-Subject: [PATCH 03/15] Revert "Remove support for AVB 1.0."
+Subject: [PATCH 03/16] Revert "Remove support for AVB 1.0."
 
 This reverts commit 21ef2310eb1ef4e61117b8a63741f3a9577a20c9.
 
@@ -789,7 +789,7 @@ index 6c881c0bf..d029fd441 100644
      }
  
 diff --git a/init/first_stage_mount.cpp b/init/first_stage_mount.cpp
-index 6dfa275e4..a25516bb6 100644
+index ba9fbea82..5c039a6a4 100644
 --- a/init/first_stage_mount.cpp
 +++ b/init/first_stage_mount.cpp
 @@ -81,7 +81,8 @@ class FirstStageMount {
@@ -841,7 +841,7 @@ index 6dfa275e4..a25516bb6 100644
  }
  
  bool FirstStageMount::DoCreateDevices() {
-@@ -662,6 +679,56 @@ void FirstStageMount::UseDsuIfPresent() {
+@@ -667,6 +684,56 @@ void FirstStageMount::UseDsuIfPresent() {
      TransformFstabForDsu(&fstab_, active_dsu, dsu_partitions);
  }
  
@@ -929,5 +929,5 @@ index 52a7f7473..0a26abaa2 100644
    if (!any_changed) any_changed = overlayfs_setup(enable);
  
 -- 
-2.25.1
+2.34.1
 
