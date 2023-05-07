@@ -1,7 +1,7 @@
-From c14821c4defd8da1f49ddc1a64875967166a277b Mon Sep 17 00:00:00 2001
+From acb86d43b61a02dbad16bd56a2a0bc3f770b46f9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
-Subject: [PATCH 2/3] DeskClock: Adapt digital clocks to S style
+Subject: [PATCH 4/5] DeskClock: Adapt digital clocks to S style
 
 Lollipop is so yesterday...
 Bring the layouts of various digital clocks (app, widget, daydream)
@@ -568,7 +568,7 @@ index bf53584e4..7a0e3ae0b 100644
          }
      }
 diff --git a/src/com/android/deskclock/Utils.java b/src/com/android/deskclock/Utils.java
-index 7da7b15f4..48ea85041 100644
+index 4eea6beba..4a5ad5a0a 100644
 --- a/src/com/android/deskclock/Utils.java
 +++ b/src/com/android/deskclock/Utils.java
 @@ -52,9 +52,7 @@ import android.text.style.RelativeSizeSpan;
@@ -581,7 +581,7 @@ index 7da7b15f4..48ea85041 100644
  import android.widget.TextClock;
  import android.widget.TextView;
  
-@@ -300,23 +298,6 @@ public class Utils {
+@@ -302,23 +300,6 @@ public class Utils {
          dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
      }
  
@@ -606,5 +606,5 @@ index 7da7b15f4..48ea85041 100644
       * Formats the time in the TextClock according to the Locale with a special
       * formatting treatment for the am/pm label.
 -- 
-2.25.1
+2.34.1
 

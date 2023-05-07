@@ -1,0 +1,156 @@
+From 7ee7d93a6596567c0b799ba00091db3950b83fe0 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 7 May 2023 14:24:32 +0000
+Subject: [PATCH 2/5] Revert "DeskClock: update digital widget"
+
+This reverts commit a9e6a18d1abd5f3ee2ec816d031f2a69ea1f6028.
+---
+ res/layout/digital_widget.xml       | 5 +++--
+ res/layout/digital_widget_sizer.xml | 5 +++--
+ res/values-h560dp/dimens.xml        | 2 +-
+ res/values-h650dp/dimens.xml        | 2 +-
+ res/values-sw600dp-land/dimens.xml  | 2 +-
+ res/values-sw600dp/dimens.xml       | 2 +-
+ res/values-sw720dp/dimens.xml       | 2 +-
+ res/values/dimens.xml               | 2 +-
+ res/values/styles.xml               | 6 ++----
+ 9 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/res/layout/digital_widget.xml b/res/layout/digital_widget.xml
+index d09cba64c..5cf896a84 100644
+--- a/res/layout/digital_widget.xml
++++ b/res/layout/digital_widget.xml
+@@ -24,7 +24,7 @@
+ 
+     <TextClock
+         android:id="@+id/clock"
+-        style="@style/widget_big"
++        style="@style/widget_big_thin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal|top"
+@@ -32,7 +32,8 @@
+         android:format12Hour="@string/lock_screen_12_hour_format"
+         android:format24Hour="@string/lock_screen_24_hour_format"
+         android:includeFontPadding="false"
+-        android:singleLine="true" />
++        android:singleLine="true"
++        android:textColor="@color/white" />
+ 
+     <LinearLayout
+         android:layout_width="wrap_content"
+diff --git a/res/layout/digital_widget_sizer.xml b/res/layout/digital_widget_sizer.xml
+index be7677ba7..f524cf536 100644
+--- a/res/layout/digital_widget_sizer.xml
++++ b/res/layout/digital_widget_sizer.xml
+@@ -21,7 +21,7 @@
+ 
+     <TextClock
+         android:id="@+id/clock"
+-        style="@style/widget_big"
++        style="@style/widget_big_thin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal|top"
+@@ -29,7 +29,8 @@
+         android:ellipsize="none"
+         android:format12Hour="@string/lock_screen_12_hour_format"
+         android:format24Hour="@string/lock_screen_24_hour_format"
+-        android:singleLine="true" />
++        android:singleLine="true"
++        android:textColor="@color/white" />
+ 
+     <LinearLayout
+         android:layout_width="wrap_content"
+diff --git a/res/values-h560dp/dimens.xml b/res/values-h560dp/dimens.xml
+index 403e19f93..7bf0909b1 100644
+--- a/res/values-h560dp/dimens.xml
++++ b/res/values-h560dp/dimens.xml
+@@ -16,5 +16,5 @@
+ 
+ <resources>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">86dp</dimen>
++    <dimen name="widget_max_clock_font_size">96dp</dimen>
+ </resources>
+diff --git a/res/values-h650dp/dimens.xml b/res/values-h650dp/dimens.xml
+index de043fd26..7c52196c0 100644
+--- a/res/values-h650dp/dimens.xml
++++ b/res/values-h650dp/dimens.xml
+@@ -16,5 +16,5 @@
+ 
+ <resources>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">90dp</dimen>
++    <dimen name="widget_max_clock_font_size">100dp</dimen>
+ </resources>
+diff --git a/res/values-sw600dp-land/dimens.xml b/res/values-sw600dp-land/dimens.xml
+index f647ef5b4..157e8b4ba 100644
+--- a/res/values-sw600dp-land/dimens.xml
++++ b/res/values-sw600dp-land/dimens.xml
+@@ -24,5 +24,5 @@
+     <dimen name="analog_clock_margin">48dp</dimen>
+ 
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">90dp</dimen>
++    <dimen name="widget_max_clock_font_size">100dp</dimen>
+ </resources>
+diff --git a/res/values-sw600dp/dimens.xml b/res/values-sw600dp/dimens.xml
+index bde6b225c..2c3a50de6 100644
+--- a/res/values-sw600dp/dimens.xml
++++ b/res/values-sw600dp/dimens.xml
+@@ -63,5 +63,5 @@
+     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
+     <dimen name="city_widget_name_font_size">20dp</dimen>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">112dp</dimen>
++    <dimen name="widget_max_clock_font_size">125dp</dimen>
+ </resources>
+diff --git a/res/values-sw720dp/dimens.xml b/res/values-sw720dp/dimens.xml
+index 8b786f0e9..92f495a76 100644
+--- a/res/values-sw720dp/dimens.xml
++++ b/res/values-sw720dp/dimens.xml
+@@ -22,5 +22,5 @@
+     <dimen name="analog_clock_size">312dp</dimen>
+ 
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">124dp</dimen>
++    <dimen name="widget_max_clock_font_size">138dp</dimen>
+ </resources>
+diff --git a/res/values/dimens.xml b/res/values/dimens.xml
+index c26d93ddd..c136fe25a 100644
+--- a/res/values/dimens.xml
++++ b/res/values/dimens.xml
+@@ -95,7 +95,7 @@
+     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
+     <dimen name="city_widget_name_font_size">10dp</dimen>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">80dp</dimen>
++    <dimen name="widget_max_clock_font_size">88dp</dimen>
+     <dimen name="widget_min_world_city_list_size">80dp</dimen>
+ 
+     <!-- shadow styles for widget text with drop shadows -->
+diff --git a/res/values/styles.xml b/res/values/styles.xml
+index 683df4ee5..8c6364344 100644
+--- a/res/values/styles.xml
++++ b/res/values/styles.xml
+@@ -72,14 +72,12 @@
+         <item name="android:fontFamily">sans-serif-thin</item>
+     </style>
+ 
+-    <style name="widget_big" parent="big_thin">
++    <style name="widget_big_thin" parent="big_thin">
+         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+         <item name="android:shadowColor">@color/widget_shadow_color</item>
+         <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
+         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
+-        <item name="android:fontFamily">sans-serif-condensed</item>
+-        <item name="android:textColor">@*android:color/system_accent2_100</item>
+-        <item name="android:scaleY">0.9</item>
++        <item name="android:fontFamily">sans-serif-thin</item>
+     </style>
+ 
+     <style name="PrimaryLabelTextParentAppearance">
+-- 
+2.34.1
+
