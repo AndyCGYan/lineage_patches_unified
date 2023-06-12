@@ -1,0 +1,25 @@
+From 85f51abaf87a40a77fbb653bfed1be8da9dec39e Mon Sep 17 00:00:00 2001
+From: Damien Merenne <dam@cosinux.org>
+Date: Mon, 12 Jun 2023 11:27:37 +0200
+Subject: [PATCH 10/10] treble: Fix duplicate battery_scale error
+
+Change-Id: Ie1e61215b46bfb218665743b1f74b969c6d4353b
+---
+ board-base.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/board-base.mk b/board-base.mk
+index 9d1d45e..f383ba5 100644
+--- a/board-base.mk
++++ b/board-base.mk
+@@ -8,6 +8,7 @@ DEVICE_FRAMEWORK_MANIFEST_FILE := device/phh/treble/framework_manifest.xml
+ 
+ BOARD_ROOT_EXTRA_FOLDERS += bt_firmware sec_storage efs persist
+ BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
++BUILD_BROKEN_DUP_RULES := true
+ 
+ BOARD_ROOT_EXTRA_SYMLINKS := $(filter-out $(BOARD_ROOT_EXTRA_SYMLINKS),/mnt/vendor/persist:/persist)
+ 
+-- 
+2.34.1
+

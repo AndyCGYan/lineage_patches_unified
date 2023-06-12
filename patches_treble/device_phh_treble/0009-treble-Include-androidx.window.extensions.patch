@@ -1,7 +1,7 @@
-From 267d881c8ad8a6626ea64768b20e0a86897091a8 Mon Sep 17 00:00:00 2001
+From 46d6ba0f5283270bec6e0d69391d91752b08d718 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 24 Mar 2023 00:13:01 +0000
-Subject: [PATCH 9/9] treble: Include androidx.window.extensions
+Subject: [PATCH 09/10] treble: Include androidx.window.extensions
 
 This enables two-pane layout in Settings for tablets
 
@@ -11,10 +11,10 @@ Change-Id: I2503c1c510151ea8463c86521a9164727467c551
  1 file changed, 4 insertions(+)
 
 diff --git a/base.mk b/base.mk
-index 17bfdc3..49c4da6 100644
+index c1b8ef4..cfbf288 100644
 --- a/base.mk
 +++ b/base.mk
-@@ -255,3 +255,7 @@ PRODUCT_COPY_FILES += \
+@@ -258,3 +258,7 @@ PRODUCT_COPY_FILES += \
  # QCOM in-call audio fix as a standalone app
  PRODUCT_PACKAGES += \
      QcRilAm
