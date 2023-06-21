@@ -1,7 +1,7 @@
-From fe9ef4702e81d02d75fb9e6df73fcf013fb955af Mon Sep 17 00:00:00 2001
+From 2e9df83d63b2c316a6cec6fcbc253ef0919cf5d3 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 03:39:32 +0000
-Subject: [PATCH 01/20] Add MiuiNavbarOverlay
+Subject: [PATCH 02/21] Add MiuiNavbarOverlay
 
 Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
 ---
@@ -29,7 +29,7 @@ Change-Id: I0e6791abc3c9521d7dc612df2fec2b041affe7e9
  create mode 100644 packages/overlays/MiuiNavbarOverlay/res/drawable-440dpi-v4/ic_sysbar_recent_darkmode.png
 
 diff --git a/packages/overlays/Android.mk b/packages/overlays/Android.mk
-index 36ec11af3068..c5ee8556b75a 100644
+index 69641e69a9f2..1efc296d9689 100644
 --- a/packages/overlays/Android.mk
 +++ b/packages/overlays/Android.mk
 @@ -26,6 +26,7 @@ LOCAL_REQUIRED_MODULES := \

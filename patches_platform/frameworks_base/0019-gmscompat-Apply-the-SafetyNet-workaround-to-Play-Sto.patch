@@ -1,4 +1,4 @@
-From 3e127f227f91e2cda68ae28c531c7f7034693b9e Mon Sep 17 00:00:00 2001
+From 502ad20c8b29c937821a70f26be83f481b941e4f Mon Sep 17 00:00:00 2001
 From: Dyneteve <dyneteve@hentaios.com>
 Date: Tue, 23 Aug 2022 18:57:05 +0200
 Subject: [PATCH 19/23] gmscompat: Apply the SafetyNet workaround to Play Store

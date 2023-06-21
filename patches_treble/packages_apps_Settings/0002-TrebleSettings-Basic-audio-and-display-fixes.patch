@@ -1,4 +1,4 @@
-From 7f38cb8576433a221970b5dc3947c7a2bb99595a Mon Sep 17 00:00:00 2001
+From 5e8b0836fb7eff4ea034ce5b9981ce9e9971ec4b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 03:38:41 +0000
 Subject: [PATCH 2/8] TrebleSettings: Basic audio and display fixes

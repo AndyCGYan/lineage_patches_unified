@@ -1,4 +1,4 @@
-From 4d81eae95fe9b0265faee7fffafdc9487c856569 Mon Sep 17 00:00:00 2001
+From 382deaccfef1178077cd9c697e42d5bdcbe8c743 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 14:30:52 +0000
 Subject: [PATCH 8/8] TrebleSettings: Securize on-demand

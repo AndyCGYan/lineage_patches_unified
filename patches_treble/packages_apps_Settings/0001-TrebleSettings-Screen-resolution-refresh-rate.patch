@@ -1,4 +1,4 @@
-From 3ba16df7f4274056ce2d453ff5064cfdb71b77f6 Mon Sep 17 00:00:00 2001
+From 67b3720b1972d7290e93a9369b9a319583bba482 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 22 Sep 2022 12:37:50 +0000
 Subject: [PATCH 1/8] TrebleSettings: Screen resolution & refresh rate
@@ -6,14 +6,14 @@ Subject: [PATCH 1/8] TrebleSettings: Screen resolution & refresh rate
 Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
 ---
  AndroidManifest.xml                           |   8 +
- res/drawable/ic_settings_treble.xml           |  10 ++
+ res/drawable/ic_settings_treble.xml           |  10 +
  res/values/menu_keys.xml                      |   1 +
- res/values/strings.xml                        |  10 ++
+ res/values/strings.xml                        |  10 +
  res/xml/top_level_settings.xml                |   9 +
  res/xml/treble_settings.xml                   |  18 ++
- ...lutionRefreshRatePreferenceController.java | 169 ++++++++++++++++++
+ ...lutionRefreshRatePreferenceController.java | 173 ++++++++++++++++++
  .../settings/treble/TrebleSettings.java       |  39 ++++
- 8 files changed, 264 insertions(+)
+ 8 files changed, 268 insertions(+)
  create mode 100644 res/drawable/ic_settings_treble.xml
  create mode 100644 res/xml/treble_settings.xml
  create mode 100644 src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
@@ -133,10 +133,10 @@ index 0000000000..1a82c468a2
 +</PreferenceScreen>
 diff --git a/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java b/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
 new file mode 100644
-index 0000000000..5d14f13209
+index 0000000000..35d67f2da1
 --- /dev/null
 +++ b/src/com/android/settings/treble/ScreenResolutionRefreshRatePreferenceController.java
-@@ -0,0 +1,169 @@
+@@ -0,0 +1,173 @@
 +package com.android.settings.treble;
 +
 +import static android.content.Intent.ACTION_BOOT_COMPLETED;
@@ -235,8 +235,12 @@ index 0000000000..5d14f13209
 +    public void updateState(Preference preference) {
 +        int id = SurfaceControl.getDynamicDisplayInfo(SurfaceControl.getInternalDisplayToken()).activeDisplayModeId;
 +        int index = mListPreference.findIndexOfValue(String.valueOf(id));
-+        mListPreference.setValueIndex(index);
-+        mListPreference.setSummary(mListPreference.getEntries()[index]);
++        try {
++            mListPreference.setValueIndex(index);
++            mListPreference.setSummary(mListPreference.getEntries()[index]);
++        } catch (ArrayIndexOutOfBoundsException e) {
++            e.printStackTrace();
++        }
 +    }
 +
 +    @Override

@@ -1,4 +1,4 @@
-From 519ee96fabf6d29ed22641f3a587012d92cc6846 Mon Sep 17 00:00:00 2001
+From 37a4d23386f038939c42819f050d22bd23627292 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 3 Nov 2020 22:43:12 -0800
 Subject: [PATCH 13/23] core: Remove old app target SDK dialog

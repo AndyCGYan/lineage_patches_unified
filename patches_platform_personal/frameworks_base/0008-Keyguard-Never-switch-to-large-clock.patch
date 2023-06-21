@@ -1,7 +1,7 @@
-From 86a90de31bc9c05b3124d573dcd93eb5a3ddf5ec Mon Sep 17 00:00:00 2001
+From ff1164da64003d5a6d6e57fd75ba1d8684167dd7 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:41:53 +0000
-Subject: [PATCH 07/20] Keyguard: Never switch to large clock
+Subject: [PATCH 08/21] Keyguard: Never switch to large clock
 
 It looks alright actually, but as always breaks under landscape
 
@@ -11,10 +11,10 @@ Change-Id: I434d033ecae597ed2a7b2ed71e96ba1a963e9cc3
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/src/com/android/keyguard/KeyguardClockSwitchController.java b/packages/SystemUI/src/com/android/keyguard/KeyguardClockSwitchController.java
-index 788f1200d603..45d045785e2d 100644
+index ba217804c96e..ab3391372e2c 100644
 --- a/packages/SystemUI/src/com/android/keyguard/KeyguardClockSwitchController.java
 +++ b/packages/SystemUI/src/com/android/keyguard/KeyguardClockSwitchController.java
-@@ -392,7 +392,7 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
+@@ -470,7 +470,7 @@ public class KeyguardClockSwitchController extends ViewController<KeyguardClockS
  
      private void updateDoubleLineClock() {
          mCanShowDoubleLineClock = mSecureSettings.getIntForUser(

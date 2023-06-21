@@ -1,28 +1,29 @@
-From 8ffb863199ed6e09068a41aa8e701732bed271e6 Mon Sep 17 00:00:00 2001
+From ef3810b1d55f079278f3ac3ef83f7b5b2eaaa7c1 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 5 Sep 2021 00:30:33 +0000
-Subject: [PATCH 3/5] DeskClock: Remove night mode
+Subject: [PATCH 2/4] DeskClock: Remove night mode
 
 Change-Id: I885f39027e78fcda397f1be59d17bc24bc66671a
 ---
- res/xml/screensaver_settings.xml                   | 6 ------
+ res/xml/screensaver_settings.xml                   | 7 -------
  src/com/android/deskclock/Screensaver.java         | 5 ++---
  src/com/android/deskclock/ScreensaverActivity.java | 2 +-
- 3 files changed, 3 insertions(+), 10 deletions(-)
+ 3 files changed, 3 insertions(+), 11 deletions(-)
 
 diff --git a/res/xml/screensaver_settings.xml b/res/xml/screensaver_settings.xml
-index 49a7f1d89..73375dcfa 100644
+index 7b8c9764a..908f76fef 100644
 --- a/res/xml/screensaver_settings.xml
 +++ b/res/xml/screensaver_settings.xml
-@@ -24,10 +24,4 @@
-         android:key="screensaver_clock_style"
-         android:title="@string/clock_style" />
+@@ -26,11 +26,4 @@
+         android:title="@string/clock_style"
+         app:iconSpaceReserved="false" />
  
 -    <CheckBoxPreference
 -        android:defaultValue="true"
 -        android:key="screensaver_night_mode"
 -        android:summary="@string/night_mode_summary"
--        android:title="@string/night_mode_title" />
+-        android:title="@string/night_mode_title"
+-        app:iconSpaceReserved="false" />
 -
  </PreferenceScreen>
 diff --git a/src/com/android/deskclock/Screensaver.java b/src/com/android/deskclock/Screensaver.java

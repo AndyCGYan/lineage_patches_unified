@@ -1,4 +1,4 @@
-From ac0bdd1f060115d00762a4d29c214fce2e41e960 Mon Sep 17 00:00:00 2001
+From 08b78bde66809487d882ebb101d379d5de808af4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 14:16:50 +0000
 Subject: [PATCH 5/8] TrebleSettings: Alternative audio jack detection

@@ -1,7 +1,7 @@
-From 6a0d86399b5d61301d2184a6b10152462380dc10 Mon Sep 17 00:00:00 2001
+From 0dba3680960846702881fed2b3e716825af92d58 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 3 Jul 2022 00:08:42 +0000
-Subject: [PATCH 04/20] Disable "RESTRICTED bucket" toast
+Subject: [PATCH 05/21] Disable "RESTRICTED bucket" toast
 
 Change-Id: I20a328d3c77962f3a6095bfca42d0b165a093ce8
 ---
@@ -9,10 +9,10 @@ Change-Id: I20a328d3c77962f3a6095bfca42d0b165a093ce8
  1 file changed, 1 insertion(+), 19 deletions(-)
 
 diff --git a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
-index a6f47d4e4908..ac7cabba3ddc 100644
+index b27ff411dd58..5ce49bd98c5c 100644
 --- a/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
 +++ b/apex/jobscheduler/service/java/com/android/server/usage/AppStandbyController.java
-@@ -1781,25 +1781,7 @@ public class AppStandbyController
+@@ -1792,25 +1792,7 @@ public class AppStandbyController
                          .noteRestrictionAttempt(packageName, userId, elapsedRealtime, reason);
  
                  if (isForcedByUser) {

@@ -1,4 +1,4 @@
-From 3b51af674b9aa916e86fcfe0034ba3dfc0359ae1 Mon Sep 17 00:00:00 2001
+From c04fae6b45b624a39d684c4b6cf02440a3fe83b5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 18 Mar 2022 08:42:18 +0000
 Subject: [PATCH 2/2] Trebuchet: Kill haptics in recents
@@ -13,14 +13,14 @@ Change-Id: Ie3b0eabe8cc0421e696720740edc492cae2f5153
  3 files changed, 32 deletions(-)
 
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-index 53dc9dd873..c8d89edb97 100644
+index 847114a960..eef4be2964 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-@@ -429,14 +429,6 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
+@@ -419,14 +419,6 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
              nonOverviewAnim.setFloatValues(startProgress, endProgress);
              mNonOverviewAnim.dispatchOnStart();
          }
--        if (targetState == QUICK_SWITCH) {
+-        if (targetState == QUICK_SWITCH_FROM_HOME) {
 -            // Navigating to quick switch, add scroll feedback since the first time is not
 -            // considered a scroll by the RecentsView.
 -            VibratorWrapper.INSTANCE.get(mLauncher).vibrate(
@@ -32,10 +32,10 @@ index 53dc9dd873..c8d89edb97 100644
          nonOverviewAnim.setDuration(Math.max(xDuration, yDuration));
          mNonOverviewAnim.setEndAction(() -> onAnimationToStateCompleted(targetState));
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-index ca7f633bbc..61ee609535 100644
+index eddc50c64f..09f253b08d 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-@@ -367,11 +367,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
+@@ -369,11 +369,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
          mCurrentAnimation.startWithVelocity(mActivity, goingToEnd,
                  velocity * orientationHandler.getSecondaryTranslationDirectionFactor(),
                  mEndDisplacement, animationDuration);
@@ -48,10 +48,10 @@ index ca7f633bbc..61ee609535 100644
  
      private void clearState() {
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index 58e8c2508a..786db49be5 100644
+index 678c0dfd80..8e75a7c18d 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -1339,25 +1339,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -1466,25 +1466,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
          }
      }
  
@@ -78,5 +78,5 @@ index 58e8c2508a..786db49be5 100644
      protected void determineScrollingStart(MotionEvent ev, float touchSlopScale) {
          // Enables swiping to the left or right only if the task overlay is not modal.
 -- 
-2.25.1
+2.34.1
 

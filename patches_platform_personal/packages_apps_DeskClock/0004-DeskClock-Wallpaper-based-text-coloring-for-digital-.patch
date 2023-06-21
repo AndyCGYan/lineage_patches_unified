@@ -1,7 +1,7 @@
-From cb345f3431711b6df77eadfe88cee2101d34bea3 Mon Sep 17 00:00:00 2001
+From 169570068c3a78f7294d581b2df864ccd3057579 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 20 Jan 2022 04:42:03 +0000
-Subject: [PATCH 5/5] DeskClock: Wallpaper-based text coloring for digital
+Subject: [PATCH 4/4] DeskClock: Wallpaper-based text coloring for digital
  clock widget
 
 RemoteViews is such a restrictive PITA

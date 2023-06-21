@@ -1,7 +1,7 @@
-From 64d1e22f654f996d3cc46334f4a75b6c37c16268 Mon Sep 17 00:00:00 2001
+From c16a1a66b9e311a2dfbf1925d8f17783933571e5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
-Subject: [PATCH 05/20] Keyguard: Adjust clock style
+Subject: [PATCH 06/21] Keyguard: Adjust clock style
 
 Thinner font, less padding and unintrusive colors
 
@@ -57,26 +57,26 @@ index 000000000000..f80af4376ff1
 +    <color name="clock_default_color_light">@*android:color/primary_text_material_light</color>
 +</resources>
 diff --git a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
-index 462b90a10aee..d5fdb185d042 100644
+index 86bd5f2bff5a..b99a8ba487cb 100644
 --- a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
 +++ b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/AnimatableClockView.kt
-@@ -147,7 +147,7 @@ class AnimatableClockView @JvmOverloads constructor(
+@@ -146,7 +146,7 @@ class AnimatableClockView @JvmOverloads constructor(
      fun refreshTime() {
          time.timeInMillis = timeOverrideInMillis ?: System.currentTimeMillis()
          contentDescription = DateFormat.format(descFormat, time)
 -        val formattedText = DateFormat.format(format, time)
 +        val formattedText = DateFormat.format(format, time).toString() + ' '
-         logBuffer?.log(tag, DEBUG,
+         logBuffer?.log(TAG, DEBUG,
                  { str1 = formattedText?.toString() },
                  { "refreshTime: new formattedText=$str1" }
 diff --git a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
-index e138ef8a1ea8..fa7979a0b598 100644
+index 4df7a44d3e1d..447160a8cb63 100644
 --- a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
 +++ b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
-@@ -131,9 +131,9 @@ class DefaultClockController(
-         fun updateColor() {
-             val color =
-                 if (isRegionDark) {
+@@ -143,9 +143,9 @@ class DefaultClockController(
+                 if (seedColor != null) {
+                     seedColor!!
+                 } else if (isRegionDark) {
 -                    resources.getColor(android.R.color.system_accent1_100)
 +                    resources.getColor(R.color.clock_default_color_dark)
                  } else {
@@ -99,10 +99,10 @@ index 7c5dbc247428..64657547621f 100644
      />
  </com.android.keyguard.KeyguardSliceView>
 diff --git a/packages/SystemUI/res-keyguard/values/dimens.xml b/packages/SystemUI/res-keyguard/values/dimens.xml
-index c5ffdc0051da..b3f3d46c5dcd 100644
+index edd6eff92c1c..14df77dc4a4e 100644
 --- a/packages/SystemUI/res-keyguard/values/dimens.xml
 +++ b/packages/SystemUI/res-keyguard/values/dimens.xml
-@@ -94,10 +94,10 @@
+@@ -91,10 +91,10 @@
      <dimen name="num_pad_key_margin_end">12dp</dimen>
  
      <!-- additional offset for clock switch area items -->
@@ -143,10 +143,10 @@ index 8b8594032816..9135e78f3e4c 100644
          android:singleLine="true"
          systemui:showMissingSim="true"
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index dfc6ba4720f2..6c5e6d73feb7 100644
+index 892c2f4caa39..6996e41e08da 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
-@@ -301,7 +301,7 @@
+@@ -302,7 +302,7 @@
          <item name="darkIconTheme">@style/DualToneDarkTheme</item>
          <item name="wallpaperTextColor">@*android:color/primary_text_material_dark</item>
          <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_dark</item>
@@ -155,7 +155,7 @@ index dfc6ba4720f2..6c5e6d73feb7 100644
          <item name="android:colorError">@*android:color/error_color_material_dark</item>
          <item name="*android:lockPatternStyle">@style/LockPatternViewStyle</item>
          <item name="lockPatternStyle">@style/LockPatternContainerStyle</item>
-@@ -323,7 +323,7 @@
+@@ -324,7 +324,7 @@
      <style name="Theme.SystemUI.LightWallpaper">
          <item name="wallpaperTextColor">@*android:color/primary_text_material_light</item>
          <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_light</item>

@@ -1,4 +1,4 @@
-From e08d2afd0c6663e9d439b9371d9aba20f3e566e5 Mon Sep 17 00:00:00 2001
+From 5be23474b8d72aa5111e78718272f23a31422295 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 17 Jan 2023 17:19:19 +0000
 Subject: [PATCH 04/23] Keyguard: Fix colors of slices not updating on doze
@@ -13,10 +13,10 @@ Change-Id: I06abd8bf2e28655cc9e6d81366fd82a13454ec5a
  2 files changed, 8 insertions(+)
 
 diff --git a/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java b/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
-index aec30632c41e..7ef624a6f184 100644
+index f4c581552bc4..c0f983551877 100644
 --- a/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
 +++ b/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
-@@ -99,6 +99,13 @@ public class KeyguardStatusViewController extends ViewController<KeyguardStatusV
+@@ -97,6 +97,13 @@ public class KeyguardStatusViewController extends ViewController<KeyguardStatusV
          mKeyguardSliceViewController.refresh();
      }
  
@@ -31,10 +31,10 @@ index aec30632c41e..7ef624a6f184 100644
       * Set which clock should be displayed on the keyguard. The other one will be automatically
       * hidden.
 diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
-index 731ce92099e8..3e748a0f2722 100644
+index 3dbb6e0ccedb..778261ef6d1f 100644
 --- a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
 +++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
-@@ -5718,6 +5718,7 @@ public final class NotificationPanelViewController implements Dumpable {
+@@ -4421,6 +4421,7 @@ public final class NotificationPanelViewController implements Dumpable {
          public void onDozeAmountChanged(float linearAmount, float amount) {
              mInterpolatedDarkAmount = amount;
              mLinearDarkAmount = linearAmount;

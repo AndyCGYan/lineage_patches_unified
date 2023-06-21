@@ -1,7 +1,7 @@
-From acb86d43b61a02dbad16bd56a2a0bc3f770b46f9 Mon Sep 17 00:00:00 2001
+From 3430de2c592c9d9b4a08c16477fff4ad1a4ca775 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
-Subject: [PATCH 4/5] DeskClock: Adapt digital clocks to S style
+Subject: [PATCH 3/4] DeskClock: Adapt digital clocks to S style
 
 Lollipop is so yesterday...
 Bring the layouts of various digital clocks (app, widget, daydream)

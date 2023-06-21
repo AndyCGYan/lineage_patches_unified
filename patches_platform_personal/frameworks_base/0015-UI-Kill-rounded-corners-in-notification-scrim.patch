@@ -1,7 +1,7 @@
-From b780aa348b0807a89c393330d2727b5d69c59238 Mon Sep 17 00:00:00 2001
+From 89c565bf1a9ce56a64191059424bf9f5fe04f1d9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:10:50 +0000
-Subject: [PATCH 14/20] UI: Kill rounded corners in notification scrim
+Subject: [PATCH 15/21] UI: Kill rounded corners in notification scrim
 
 Rounded corners in S is nicely implemented, but this is one occasion where it looks out of place
 
@@ -11,10 +11,10 @@ Change-Id: I09ed59e0e658ebd512a9d02a8ef3edfe2c9888da
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index b5854568c117..1d6a7dd284a5 100644
+index d0a9055e1905..30881992795d 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -684,7 +684,7 @@
+@@ -726,7 +726,7 @@
      <!-- With the large clock, move up slightly from the center -->
      <dimen name="keyguard_large_clock_top_margin">-60dp</dimen>
  
