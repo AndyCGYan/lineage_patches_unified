@@ -1,4 +1,4 @@
-From 3f7f3f9546f9f23d66381f7dff887cd562285ce6 Mon Sep 17 00:00:00 2001
+From c93f729acb568f290085cea4014fbe384ec40289 Mon Sep 17 00:00:00 2001
 From: Paul Keith <javelinanddart@gmail.com>
 Date: Tue, 30 Oct 2018 15:46:18 +0100
 Subject: [PATCH] Messaging: Add "Mark as read" quick action for message
@@ -7,6 +7,7 @@ Subject: [PATCH] Messaging: Add "Mark as read" quick action for message
 Change-Id: I7194dca022e5062926fa35709de282721ca64320
 ---
  res/drawable/ic_wear_read.xml                      |  9 +++++++++
+ res/values-zh-rCN/cm_strings.xml                   |  1 +
  res/values/cm_strings.xml                          |  3 +++
  .../messaging/datamodel/BugleNotifications.java    | 14 ++++++++++++++
  .../datamodel/MessageNotificationState.java        |  8 ++++++++
@@ -14,7 +15,7 @@ Change-Id: I7194dca022e5062926fa35709de282721ca64320
  .../messaging/receiver/NotificationReceiver.java   | 12 +++++++++++-
  src/com/android/messaging/ui/UIIntents.java        | 11 +++++++++++
  src/com/android/messaging/ui/UIIntentsImpl.java    | 14 ++++++++++++++
- 8 files changed, 81 insertions(+), 2 deletions(-)
+ 9 files changed, 82 insertions(+), 2 deletions(-)
  create mode 100644 res/drawable/ic_wear_read.xml
 
 diff --git a/res/drawable/ic_wear_read.xml b/res/drawable/ic_wear_read.xml
@@ -32,6 +33,17 @@ index 0000000..9d017e6
 +        android:fillColor="#ffffff"
 +        android:pathData="M0.41,13.41L6,19L7.41,17.58L1.83,12M22.24,5.58L11.66,16.17L7.5,12L6.07,13.41L11.66,19L23.66,7M18,7L16.59,5.58L10.24,11.93L11.66,13.34L18,7Z" />
 +</vector>
+diff --git a/res/values-zh-rCN/cm_strings.xml b/res/values-zh-rCN/cm_strings.xml
+index 3cfebff..f1ffeab 100644
+--- a/res/values-zh-rCN/cm_strings.xml
++++ b/res/values-zh-rCN/cm_strings.xml
+@@ -19,5 +19,6 @@
+     <string name="swipe_to_delete_conversation_pref_summary">向右滑动以删除会话</string>
+     <string name="show_emoticons_pref_title">访问表情符号</string>
+     <string name="show_emoticons_pref_summary">在键盘上显示表情符号键</string>
++    <string name="notification_mark_as_read">标记为已读</string>
+     <string name="notification_channel_messages_title">短信</string>
+ </resources>
 diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
 index f285555..858f093 100644
 --- a/res/values/cm_strings.xml
@@ -219,5 +231,5 @@ index d64082d..9281899 100644
       * Gets a PendingIntent associated with an Intent to start an Activity. All notifications
       * that starts an Activity must use this method to get a PendingIntent, which achieves two
 -- 
-2.25.1
+2.34.1
 

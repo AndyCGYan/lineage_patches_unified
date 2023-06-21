@@ -1,4 +1,4 @@
-From f439b01c40e9c9af40b40dfb80f7422775c587d6 Mon Sep 17 00:00:00 2001
+From 4766c45fdd4cf28209445a209fab52b4d09f057d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 25 Sep 2022 02:20:52 +0000
 Subject: [PATCH 07/23] UI: Follow Monet and light/dark theme in user 1 icon
@@ -22,10 +22,10 @@ index ffaccd3ddc57..e2a955b89c77 100644
      <color name="user_icon_6">#ff4ecde6</color><!-- cyan -->
      <color name="user_icon_7">#fffbbc04</color><!-- yellow -->
 diff --git a/core/res/res/values/colors.xml b/core/res/res/values/colors.xml
-index d5875f547e91..c7711ed3e493 100644
+index b83d3b4ea298..7586684ea936 100644
 --- a/core/res/res/values/colors.xml
 +++ b/core/res/res/values/colors.xml
-@@ -174,7 +174,7 @@
+@@ -176,7 +176,7 @@
      <color name="system_notification_accent_color">#00000000</color>
  
      <!-- Default user icon colors -->

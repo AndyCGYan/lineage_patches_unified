@@ -1,7 +1,7 @@
-From dd0a14fbd41d80fc3a2abdf0e09d9ef88900b327 Mon Sep 17 00:00:00 2001
+From d8562da99ed769e3bdadacb95e9bb5d0d47607cb Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Thu, 25 Aug 2022 13:30:29 -0400
-Subject: [PATCH 05/27] APM: Remove A2DP audio ports from the primary HAL
+Subject: [PATCH 05/26] APM: Remove A2DP audio ports from the primary HAL
 
 These ports defined in the primary HAL are intended for A2DP offloading,
 however they do not work in general on GSIs, and will interfere with

@@ -1,0 +1,35 @@
+From 7cacf0df0092432cd2347e0cbae0c1c3d0f5dcf9 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 22 Mar 2023 00:29:13 +0000
+Subject: [PATCH 20/21] UI: Restore quick settings fonts to pre-T-QPR2
+
+TODO: Large header clock looks better in Regular - perhaps figure out how to transition smoothly?
+Change-Id: If2e57fee61b6bd4b6b7fedc7e3011164cd2cb56f
+---
+ packages/SystemUI/res/values/styles.xml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index 6996e41e08da..5e6d45ac9305 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -134,7 +134,7 @@
+     <!-- This is hard coded to be sans-serif-condensed to match the icons -->
+ 
+     <style name="TextAppearance.QS.Status">
+-        <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
++        <item name="android:fontFamily">@*android:string/config_headlineFontFamilyMedium</item>
+         <item name="android:textColor">?android:attr/textColorPrimary</item>
+         <item name="android:textSize">14sp</item>
+         <item name="android:letterSpacing">0.01</item>
+@@ -152,6 +152,7 @@
+     </style>
+ 
+     <style name="TextAppearance.QS.Status.Build">
++        <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
+         <item name="android:textColor">?android:attr/textColorSecondary</item>
+     </style>
+ 
+-- 
+2.34.1
+

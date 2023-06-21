@@ -1,0 +1,28 @@
+From 9fb18df98c435af869b08b4796e45b9b8fe8c7cf Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 18 Jun 2023 19:56:36 +0800
+Subject: [PATCH 01/23] Check null FingerprintManager first in
+ onStartedWakingUp
+
+Fixes crashing when unlocking from AOD
+
+Change-Id: I80423b14bbe54989fb9a561271e84988e7427209
+---
+ .../android/systemui/statusbar/phone/CentralSurfacesImpl.java    | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/CentralSurfacesImpl.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/CentralSurfacesImpl.java
+index ec8a7a4ffdd3..5462cfdebef4 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/CentralSurfacesImpl.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/CentralSurfacesImpl.java
+@@ -3587,6 +3587,7 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
+                                     && mStatusBarStateController.getDozeAmount() == 1f
+                                     && mWakefulnessLifecycle.getLastWakeReason()
+                                     == PowerManager.WAKE_REASON_POWER_BUTTON
++                                    && mFingerprintManager.get() != null
+                                     && mFingerprintManager.get().isPowerbuttonFps()
+                                     && mFingerprintManager.get().hasEnrolledFingerprints()
+                                     && !touchToUnlockAnytime;
+-- 
+2.34.1
+

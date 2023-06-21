@@ -1,7 +1,7 @@
-From 86e0672d6cac30d38a9f0a7260e6a6f265dcc866 Mon Sep 17 00:00:00 2001
+From 3cc1f7f548906eaac5f7347c897494fc10ad6aa9 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 19 Feb 2022 08:20:25 -0500
-Subject: [PATCH 2/3] Add new mechanism to fake vendor props on a per-process
+Subject: [PATCH 2/4] Add new mechanism to fake vendor props on a per-process
  basis
 
 This reads debug.phh.props.<process name>. If its value is "vendor",
@@ -74,5 +74,5 @@ index 1cb15c3df..d6e7e3e68 100644
  
    if (pi != nullptr) {
 -- 
-2.25.1
+2.34.1
 

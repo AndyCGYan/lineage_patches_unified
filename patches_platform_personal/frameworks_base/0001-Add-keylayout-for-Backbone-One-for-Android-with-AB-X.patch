@@ -1,0 +1,52 @@
+From 64c0e12dc7a4eb6add7631a84dda17e2012f687c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 18 Jun 2023 19:33:27 +0800
+Subject: [PATCH 01/21] Add keylayout for Backbone One for Android, with AB/XY
+ keys swapped
+
+Change-Id: Ia057c084099015b544c926cd57c37b4ac314867a
+---
+ data/keyboards/Vendor_358a_Product_0201.kl | 31 ++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+ create mode 100644 data/keyboards/Vendor_358a_Product_0201.kl
+
+diff --git a/data/keyboards/Vendor_358a_Product_0201.kl b/data/keyboards/Vendor_358a_Product_0201.kl
+new file mode 100644
+index 000000000000..e15907f9c6f2
+--- /dev/null
++++ b/data/keyboards/Vendor_358a_Product_0201.kl
+@@ -0,0 +1,31 @@
++#
++# Backbone One for Android
++#
++
++# AB/XY swapped
++key 305 BUTTON_A
++key 304 BUTTON_B
++key 308 BUTTON_X
++key 307 BUTTON_Y
++
++key 310 BUTTON_L1
++key 311 BUTTON_R1
++key 312 BUTTON_L2
++key 313 BUTTON_R2
++
++key 317 BUTTON_THUMBL
++key 318 BUTTON_THUMBR
++
++axis 0x00 X flat 4096
++axis 0x01 Y flat 4096
++axis 0x02 Z flat 4096
++axis 0x05 RZ flat 4096
++
++axis 0x0a LTRIGGER
++axis 0x09 RTRIGGER
++
++axis 0x10 HAT_X
++axis 0x11 HAT_Y
++
++key 315 BUTTON_START
++key 314 BUTTON_SELECT
+-- 
+2.34.1
+

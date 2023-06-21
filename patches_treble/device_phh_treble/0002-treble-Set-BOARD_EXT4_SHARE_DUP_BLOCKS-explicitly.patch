@@ -1,4 +1,4 @@
-From cdc58cf7521058bf50f6835fa41a2cedc6dab008 Mon Sep 17 00:00:00 2001
+From 563e108c7b4ed5328da2b7e679a32f895143a7b9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 09:29:32 +0000
 Subject: [PATCH 2/9] treble: Set BOARD_EXT4_SHARE_DUP_BLOCKS explicitly

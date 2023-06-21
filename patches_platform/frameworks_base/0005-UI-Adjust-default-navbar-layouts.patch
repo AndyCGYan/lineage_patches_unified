@@ -1,4 +1,4 @@
-From ef9cee9e51e0c3a3020a83b1e18f229c4e45498a Mon Sep 17 00:00:00 2001
+From 56a81a819bb62e59f41552ff21d4e98133049b7f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 02:23:48 +0000
 Subject: [PATCH 05/23] UI: Adjust default navbar layouts
@@ -45,7 +45,7 @@ index 07b797a32428..000000000000
 -    <string name="config_navBarLayout" translatable="false">left[.25W],back[.5WC];home;recent[.5WC],right[.25W]</string>
 -</resources>
 diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
-index 48c35ae8789d..70269b18a573 100644
+index 374cff002d29..418bbc7c7932 100644
 --- a/packages/SystemUI/res/values/config.xml
 +++ b/packages/SystemUI/res/values/config.xml
 @@ -301,7 +301,7 @@
