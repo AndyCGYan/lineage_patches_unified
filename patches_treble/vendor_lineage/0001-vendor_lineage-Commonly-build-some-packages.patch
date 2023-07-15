@@ -1,4 +1,4 @@
-From d20969f3b2cbc3e913bdc7e0dffaa5ed344f218a Mon Sep 17 00:00:00 2001
+From b83d78fc23a42ae844062ae3a953ae7426f2cf58 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 11:40:52 +0000
 Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
@@ -8,32 +8,41 @@ Contacts, DeskClock, Gallery2, SettingsIntelligence, fwb overlays
 
 Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
 ---
- config/common_mobile.mk | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ config/common_full.mk   | 3 +++
+ config/common_mobile.mk | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/config/common_mobile.mk b/config/common_mobile.mk
-index 547804ce..6487e727 100644
---- a/config/common_mobile.mk
-+++ b/config/common_mobile.mk
-@@ -10,12 +10,17 @@ PRODUCT_PRODUCT_PROPERTIES += \
+diff --git a/config/common_full.mk b/config/common_full.mk
+index 029ea068..a30b2523 100644
+--- a/config/common_full.mk
++++ b/config/common_full.mk
+@@ -10,8 +10,11 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
+ # Apps
  PRODUCT_PACKAGES += \
      Aperture \
-     Backgrounds \
 +    Contacts \
 +    DeskClock \
      Eleven \
      Etar \
-     ExactCalculator \
 +    Gallery2 \
-     Jelly \
      Profiles \
--    Seedvault
-+    Seedvault \
+     Recorder \
+     Seedvault
+diff --git a/config/common_mobile.mk b/config/common_mobile.mk
+index fc5a864b..e2f2ada2 100644
+--- a/config/common_mobile.mk
++++ b/config/common_mobile.mk
+@@ -16,7 +16,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
+ PRODUCT_PACKAGES += \
+     Backgrounds \
+     ExactCalculator \
+-    Jelly
++    Jelly \
 +    SettingsIntelligence \
 +    frameworks-base-overlays
  
- ifneq ($(TARGET_EXCLUDES_AUDIOFX),true)
+ ifeq ($(PRODUCT_TYPE), go)
  PRODUCT_PACKAGES += \
 -- 
-2.25.1
+2.34.1
 

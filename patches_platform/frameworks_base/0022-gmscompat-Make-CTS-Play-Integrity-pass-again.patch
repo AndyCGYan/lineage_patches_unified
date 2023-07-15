@@ -1,7 +1,7 @@
-From 69908af269c76085862d4034abf615e5416838a1 Mon Sep 17 00:00:00 2001
+From eefc48647852fc2ced0ff413c9a40fa14b00e92c Mon Sep 17 00:00:00 2001
 From: Dyneteve <dyneteve@hentaios.com>
 Date: Wed, 8 Feb 2023 15:21:01 +0000
-Subject: [PATCH 23/23] gmscompat: Make CTS/Play Integrity pass again
+Subject: [PATCH 22/22] gmscompat: Make CTS/Play Integrity pass again
 
 The logic behind CTS and Play Integrity has been updated today it now
 checks the product and model names against the fingerprint and if
