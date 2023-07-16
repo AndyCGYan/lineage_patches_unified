@@ -1,7 +1,7 @@
-From 5809e5b3935b98d46a81e3e4fe684d878668d400 Mon Sep 17 00:00:00 2001
+From 1e5b723ba89f94976124da664d5524325f84c029 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 7 Aug 2021 11:11:39 +0200
-Subject: [PATCH 18/26] When aux cameras are enabled, ignore "system only"
+Subject: [PATCH 18/27] When aux cameras are enabled, ignore "system only"
  camera flag (it shouldnt be q security issue since secure cameras are listed
  otherwise)
 

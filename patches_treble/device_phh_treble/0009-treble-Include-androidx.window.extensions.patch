@@ -1,7 +1,7 @@
-From ada7dfd43781e97480001f24365a76d55548928f Mon Sep 17 00:00:00 2001
+From dd2922cc2edf2130e13117383208bfd96f59ea68 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 24 Mar 2023 00:13:01 +0000
-Subject: [PATCH 9/9] treble: Include androidx.window.extensions
+Subject: [PATCH 09/10] treble: Include androidx.window.extensions
 
 This enables two-pane layout in Settings for tablets
 

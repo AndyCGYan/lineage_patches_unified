@@ -1,7 +1,7 @@
-From adbae267d33896e4904b95d0960e6f118c91e265 Mon Sep 17 00:00:00 2001
+From d4a0510c935ba76e83c93bb3bb500ded1df2ca0e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 22 Mar 2023 23:37:05 +0000
-Subject: [PATCH 8/9] treble: Also use /data/adb for securize status
+Subject: [PATCH 08/10] treble: Also use /data/adb for securize status
 
 Change-Id: I778f2be5407ae0a548a098c72031cce9be83cf96
 ---
@@ -10,10 +10,10 @@ Change-Id: I778f2be5407ae0a548a098c72031cce9be83cf96
  2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/phh-prop-handler.sh b/phh-prop-handler.sh
-index a6ddab8..0ad7a1f 100644
+index 390b76f..c976b49 100644
 --- a/phh-prop-handler.sh
 +++ b/phh-prop-handler.sh
-@@ -225,10 +225,13 @@ if [ "$1" == "persist.sys.phh.securize" ];then
+@@ -240,10 +240,13 @@ if [ "$1" == "persist.sys.phh.securize" ];then
      fi
  
      if [[ "$prop_value" == "true" ]]; then
@@ -29,10 +29,10 @@ index a6ddab8..0ad7a1f 100644
      exit
  fi
 diff --git a/rw-system.sh b/rw-system.sh
-index 9c7cc42..8a188f7 100644
+index 07e1d96..709fa1b 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -739,7 +739,7 @@ copyprop() {
+@@ -741,7 +741,7 @@ copyprop() {
          resetprop_phh "$1" "$(getprop "$2")"
      fi
  }

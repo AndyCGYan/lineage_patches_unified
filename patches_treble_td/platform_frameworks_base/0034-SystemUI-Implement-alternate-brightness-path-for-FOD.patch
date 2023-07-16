@@ -1,7 +1,7 @@
-From 21d904e94229f5854e41d3b4a55960422a956347 Mon Sep 17 00:00:00 2001
+From c98e60ff94928572e628c925b4b237efb756c78a Mon Sep 17 00:00:00 2001
 From: ItsLynix <71310187+ItsLynix@users.noreply.github.com>
 Date: Sat, 28 Jan 2023 10:25:16 +0100
-Subject: [PATCH 34/36] SystemUI: Implement alternate brightness path for FOD
+Subject: [PATCH 34/38] SystemUI: Implement alternate brightness path for FOD
 
 Change-Id: I0d9d7352c507529a3aa66e7a7d78220887a5a532
 ---

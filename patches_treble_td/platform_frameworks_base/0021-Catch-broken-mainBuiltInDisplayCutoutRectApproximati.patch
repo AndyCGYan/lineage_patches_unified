@@ -1,7 +1,7 @@
-From 41fd41f8738b4af84b3dbbd83db160a548ca9705 Mon Sep 17 00:00:00 2001
+From ef0f6464f2e2ebc2b7feb77a7c1cec70796f00a8 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 23 Mar 2021 19:43:26 +0100
-Subject: [PATCH 21/36] Catch broken mainBuiltInDisplayCutoutRectApproximation
+Subject: [PATCH 21/38] Catch broken mainBuiltInDisplayCutoutRectApproximation
 
 Some devices (Redmi Note 9T) have:
 mainBuiltInDisplayCutoutRectApproximation = @android:mainBuiltInDisplayCutout

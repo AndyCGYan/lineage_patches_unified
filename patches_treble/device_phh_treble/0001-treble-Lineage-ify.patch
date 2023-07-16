@@ -1,7 +1,7 @@
-From ddbc5deb0aac58b6a9c9d21b43c5e5e4dea08b0c Mon Sep 17 00:00:00 2001
+From 598c7139b69f6af6337c3c8829c4b3292ae7cc7c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 01:43:40 +0000
-Subject: [PATCH 1/9] treble: Lineage-ify
+Subject: [PATCH 01/10] treble: Lineage-ify
 
 Squash of:
 - Proper target names

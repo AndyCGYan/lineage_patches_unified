@@ -1,7 +1,7 @@
-From e3df20ed1f82e8cefe0914bdf7a6cb0b34736c25 Mon Sep 17 00:00:00 2001
+From 67159b9dacdd2271e18926ebc6955261f3a5ac3f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Dec 2022 15:12:03 +0000
-Subject: [PATCH 7/9] treble: Securize on-demand
+Subject: [PATCH 07/10] treble: Securize on-demand
 
 Status is stored in /metadata and controlled by persist prop
 
@@ -12,10 +12,10 @@ Change-Id: I8069b6f471ad87ab34c18b743689ab3584cee35b
  2 files changed, 17 insertions(+)
 
 diff --git a/phh-prop-handler.sh b/phh-prop-handler.sh
-index 32a1f19..a6ddab8 100644
+index b01c0cc..390b76f 100644
 --- a/phh-prop-handler.sh
 +++ b/phh-prop-handler.sh
-@@ -218,3 +218,17 @@ if [ "$1" == "persist.bluetooth.system_audio_hal.enabled" ]; then
+@@ -233,3 +233,17 @@ if [ "$1" == "persist.bluetooth.system_audio_hal.enabled" ]; then
      restartAudio
      exit
  fi
@@ -34,10 +34,10 @@ index 32a1f19..a6ddab8 100644
 +    exit
 +fi
 diff --git a/vndk.rc b/vndk.rc
-index 478bc37..674977d 100644
+index d319c9e..08bc1aa 100644
 --- a/vndk.rc
 +++ b/vndk.rc
-@@ -81,3 +81,6 @@ service watchdogd-gsi /system/bin/watchdogd 10 20
+@@ -87,3 +87,6 @@ service watchdogd-gsi /system/bin/watchdogd 10 20
      class core
      oneshot
      seclabel u:r:watchdogd:s0

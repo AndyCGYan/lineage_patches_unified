@@ -1,0 +1,27 @@
+From 651f1b866834ee07ee6560469fcbd5e59a105c8a Mon Sep 17 00:00:00 2001
+From: Dyneteve <dyneteve@hentaios.com>
+Date: Tue, 6 Dec 2022 15:59:08 +0100
+Subject: [PATCH 20/22] gmscompat: Use actual device model name
+
+Signed-off-by: Dyneteve <dyneteve@hentaios.com>
+Change-Id: I454654d87b3ea6286e12e9a9f5ed120f06cb2aa6
+---
+ core/java/com/android/internal/gmscompat/AttestationHooks.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/com/android/internal/gmscompat/AttestationHooks.java b/core/java/com/android/internal/gmscompat/AttestationHooks.java
+index 328d9777b2a2..7649bb6533da 100644
+--- a/core/java/com/android/internal/gmscompat/AttestationHooks.java
++++ b/core/java/com/android/internal/gmscompat/AttestationHooks.java
+@@ -56,7 +56,7 @@ public final class AttestationHooks {
+     private static void spoofBuildGms() {
+         // Alter model name and fingerprint to avoid hardware attestation enforcement
+         setBuildField("FINGERPRINT", "google/angler/angler:6.0/MDB08L/2343525:user/release-keys");
+-        setBuildField("MODEL", "Nexus 6P");
++        setBuildField("MODEL", Build.MODEL + "\u200b");
+     }
+ 
+     public static void initApplicationBeforeOnCreate(Application app) {
+-- 
+2.34.1
+

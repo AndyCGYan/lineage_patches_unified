@@ -1,0 +1,76 @@
+From 932755113e20c93742e347b7d3908325e69e566e Mon Sep 17 00:00:00 2001
+From: AndyCGYan <GeForce8800Ultra@gmail.com>
+Date: Fri, 22 Mar 2019 00:41:20 +0800
+Subject: [PATCH 01/22] Disable FP lockouts optionally
+
+Both timed and permanent lockouts - GET THE FUCK OUT
+Now targeting LockoutFramework, introduced in Android 12
+Now controlled by property "persist.sys.fp.lockouts.disable"
+
+Change-Id: I2d4b091f3546d4d7903bfb4d5585629212dc9915
+---
+ .../hidl/LockoutFrameworkImpl.java            | 28 +++++++++++--------
+ 1 file changed, 17 insertions(+), 11 deletions(-)
+
+diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
+index a0befea8e085..48c4ded9f5ca 100644
+--- a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
++++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
+@@ -25,6 +25,7 @@ import android.content.Context;
+ import android.content.Intent;
+ import android.content.IntentFilter;
+ import android.os.SystemClock;
++import android.os.SystemProperties;
+ import android.util.Slog;
+ import android.util.SparseBooleanArray;
+ import android.util.SparseIntArray;
+@@ -44,6 +45,7 @@ public class LockoutFrameworkImpl implements LockoutTracker {
+     private static final int MAX_FAILED_ATTEMPTS_LOCKOUT_PERMANENT = 20;
+     private static final long FAIL_LOCKOUT_TIMEOUT_MS = 30 * 1000;
+     private static final String KEY_LOCKOUT_RESET_USER = "lockout_reset_user";
++    private static final String DISABLE_FP_LOCKOUTS_PROPERTY = "persist.sys.fp.lockouts.disable";
+ 
+     private final class LockoutReceiver extends BroadcastReceiver {
+         @Override
+@@ -101,23 +103,27 @@ public class LockoutFrameworkImpl implements LockoutTracker {
+     }
+ 
+     void addFailedAttemptForUser(int userId) {
+-        mFailedAttempts.put(userId, mFailedAttempts.get(userId, 0) + 1);
+-        mTimedLockoutCleared.put(userId, false);
++        if (!SystemProperties.getBoolean(DISABLE_FP_LOCKOUTS_PROPERTY, false)) {
++            mFailedAttempts.put(userId, mFailedAttempts.get(userId, 0) + 1);
++            mTimedLockoutCleared.put(userId, false);
+ 
+-        if (getLockoutModeForUser(userId) != LOCKOUT_NONE) {
+-            scheduleLockoutResetForUser(userId);
++            if (getLockoutModeForUser(userId) != LOCKOUT_NONE) {
++                scheduleLockoutResetForUser(userId);
++            }
+         }
+     }
+ 
+     @Override
+     public @LockoutMode int getLockoutModeForUser(int userId) {
+-        final int failedAttempts = mFailedAttempts.get(userId, 0);
+-        if (failedAttempts >= MAX_FAILED_ATTEMPTS_LOCKOUT_PERMANENT) {
+-            return LOCKOUT_PERMANENT;
+-        } else if (failedAttempts > 0
+-                && !mTimedLockoutCleared.get(userId, false)
+-                && (failedAttempts % MAX_FAILED_ATTEMPTS_LOCKOUT_TIMED == 0)) {
+-            return LOCKOUT_TIMED;
++        if (!SystemProperties.getBoolean(DISABLE_FP_LOCKOUTS_PROPERTY, false)) {
++            final int failedAttempts = mFailedAttempts.get(userId, 0);
++            if (failedAttempts >= MAX_FAILED_ATTEMPTS_LOCKOUT_PERMANENT) {
++                return LOCKOUT_PERMANENT;
++            } else if (failedAttempts > 0
++                    && !mTimedLockoutCleared.get(userId, false)
++                    && (failedAttempts % MAX_FAILED_ATTEMPTS_LOCKOUT_TIMED == 0)) {
++                return LOCKOUT_TIMED;
++            }
+         }
+         return LOCKOUT_NONE;
+     }
+-- 
+2.34.1
+

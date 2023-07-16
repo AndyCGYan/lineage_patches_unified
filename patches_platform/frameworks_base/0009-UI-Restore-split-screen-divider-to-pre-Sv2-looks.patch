@@ -1,0 +1,89 @@
+From d2185c0d7ed8a388f3ec6a0d9b02dbbd02578b0b Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 19 Mar 2022 09:22:24 +0000
+Subject: [PATCH 09/22] UI: Restore split-screen divider to pre-Sv2 looks
+
+- Kill rounded corners - where two rectangles collide should be perfectly straight
+- Make it black again - taskbar should mind its own business
+
+Change-Id: I240b627793b615c82bd07ebd77638cde180ef80f
+---
+ .../Shell/res/values-sw600dp/colors.xml       | 21 +++++++++++++++++++
+ .../WindowManager/Shell/res/values/colors.xml |  2 +-
+ .../wm/shell/common/split/SplitLayout.java    | 19 ++---------------
+ 3 files changed, 24 insertions(+), 18 deletions(-)
+ create mode 100644 libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+
+diff --git a/libs/WindowManager/Shell/res/values-sw600dp/colors.xml b/libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+new file mode 100644
+index 000000000000..79db59cad3c2
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+@@ -0,0 +1,21 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++/*
++ * Copyright 2020, The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *     http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++-->
++<resources>
++    <color name="split_divider_background">@color/taskbar_background</color>
++</resources>
+diff --git a/libs/WindowManager/Shell/res/values/colors.xml b/libs/WindowManager/Shell/res/values/colors.xml
+index 6fb70006e67f..906dc71d623a 100644
+--- a/libs/WindowManager/Shell/res/values/colors.xml
++++ b/libs/WindowManager/Shell/res/values/colors.xml
+@@ -18,7 +18,7 @@
+ -->
+ <resources>
+     <color name="docked_divider_handle">#000000</color>
+-    <color name="split_divider_background">@color/taskbar_background</color>
++    <color name="split_divider_background">@android:color/black</color>
+     <drawable name="forced_resizable_background">#59000000</drawable>
+     <color name="minimize_dock_shadow_start">#60000000</color>
+     <color name="minimize_dock_shadow_end">#00000000</color>
+diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+index ffc56b6f6106..fa7d70e34dd1 100644
+--- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
++++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+@@ -154,23 +154,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+     }
+ 
+     private void updateDividerConfig(Context context) {
+-        final Resources resources = context.getResources();
+-        final Display display = context.getDisplay();
+-        final int dividerInset = resources.getDimensionPixelSize(
+-                com.android.internal.R.dimen.docked_stack_divider_insets);
+-        int radius = 0;
+-        RoundedCorner corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-
+-        mDividerInsets = Math.max(dividerInset, radius);
+-        mDividerSize = resources.getDimensionPixelSize(R.dimen.split_divider_bar_width);
+-        mDividerWindowWidth = mDividerSize + 2 * mDividerInsets;
++        mDividerWindowWidth = context.getResources().getDimensionPixelSize(
++                R.dimen.split_divider_bar_width);
+     }
+ 
+     /** Gets bounds of the primary split with screen based coordinate. */
+-- 
+2.34.1
+
