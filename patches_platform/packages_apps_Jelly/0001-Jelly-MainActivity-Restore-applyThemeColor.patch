@@ -7,28 +7,21 @@ Fixes black statusbar on start
 
 Change-Id: I6816f5b1dcb3c7bcaee2736a9e2a3ecd63217bc6
 ---
- app/src/main/java/org/lineageos/jelly/MainActivity.kt | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ app/src/main/java/org/lineageos/jelly/MainActivity.kt | 1 +
+ 1 file changed, 1 insertions(+)
 
 diff --git a/app/src/main/java/org/lineageos/jelly/MainActivity.kt b/app/src/main/java/org/lineageos/jelly/MainActivity.kt
-index 0143957..af7191c 100644
+index 5c5068a..558accc 100644
 --- a/app/src/main/java/org/lineageos/jelly/MainActivity.kt
 +++ b/app/src/main/java/org/lineageos/jelly/MainActivity.kt
-@@ -192,6 +192,7 @@ class MainActivity : WebViewExtActivity(), SearchBarController.OnCancelListener,
-                 findViewById(R.id.search_menu_cancel),
-                 this)
+@@ -217,6 +217,7 @@ class MainActivity : WebViewExtActivity(), SharedPreferences.OnSharedPreferenceC
+         webView.isDesktopMode = desktopMode
+         webView.loadUrl(url ?: sharedPreferencesExt.homePage)
          setUiMode()
 +        applyThemeColor(mThemeColor)
          try {
              val httpCacheDir = File(cacheDir, "suggestion_responses")
              val httpCacheSize = 1024 * 1024.toLong() // 1 MiB
-@@ -726,4 +727,4 @@ class MainActivity : WebViewExtActivity(), SearchBarController.OnCancelListener,
-         private const val STATE_KEY_THEME_COLOR = "theme_color"
-         private const val LOCATION_PERM_REQ = 424
-     }
--}
-\ No newline at end of file
-+}
 -- 
 2.25.1
 
