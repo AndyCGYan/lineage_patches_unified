@@ -1,7 +1,7 @@
-From f5fcbdc17020ddd6163f4b28a79a6be52afeed87 Mon Sep 17 00:00:00 2001
+From 31b01259f381831bb13108c4d59780908cf7cb23 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 27 May 2023 06:41:32 -0400
-Subject: [PATCH 4/5] Add properties to disable some features/commands/states
+Subject: [PATCH 5/6] Add properties to disable some features/commands/states
  that the ble chip declared but doesnt actually support
 
 ---
