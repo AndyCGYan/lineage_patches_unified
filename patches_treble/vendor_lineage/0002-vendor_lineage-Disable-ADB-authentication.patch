@@ -1,4 +1,4 @@
-From eb4abffdd8e4cd692ebd0edef1a874fca6b46357 Mon Sep 17 00:00:00 2001
+From 53612ea872c8a87c058a3d97de45952a54a92be4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 15:48:43 +0000
 Subject: [PATCH 2/2] vendor_lineage: Disable ADB authentication

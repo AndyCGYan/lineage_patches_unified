@@ -1,4 +1,4 @@
-From b83d78fc23a42ae844062ae3a953ae7426f2cf58 Mon Sep 17 00:00:00 2001
+From 2ca5e1edd3f512c4ba1341148da811e9f7449a1f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 11:40:52 +0000
 Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
@@ -13,13 +13,13 @@ Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/config/common_full.mk b/config/common_full.mk
-index 029ea068..a30b2523 100644
+index f7eecd84..51e1e022 100644
 --- a/config/common_full.mk
 +++ b/config/common_full.mk
-@@ -10,8 +10,11 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
+@@ -9,8 +9,11 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
+ 
  # Apps
  PRODUCT_PACKAGES += \
-     Aperture \
 +    Contacts \
 +    DeskClock \
      Eleven \
@@ -29,7 +29,7 @@ index 029ea068..a30b2523 100644
      Recorder \
      Seedvault
 diff --git a/config/common_mobile.mk b/config/common_mobile.mk
-index fc5a864b..e2f2ada2 100644
+index 6edeb2b1..7ecc198b 100644
 --- a/config/common_mobile.mk
 +++ b/config/common_mobile.mk
 @@ -16,7 +16,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
