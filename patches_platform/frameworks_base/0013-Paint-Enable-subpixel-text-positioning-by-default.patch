@@ -1,4 +1,4 @@
-From 64d61661bba53aec63b25038b66dc930f0059f8a Mon Sep 17 00:00:00 2001
+From 8b17b1dc3b1f373a0ae8a44d16a8adec599915b3 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 5 Oct 2021 21:01:50 -0700
 Subject: [PATCH 13/22] Paint: Enable subpixel text positioning by default

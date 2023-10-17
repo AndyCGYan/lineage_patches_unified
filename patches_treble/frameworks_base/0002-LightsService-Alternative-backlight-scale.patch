@@ -1,4 +1,4 @@
-From b0333760d4370e63470fc61bece55e29f16a9eaf Mon Sep 17 00:00:00 2001
+From eca6f07922f3804f6f1844f067941fc8097459c5 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
 Subject: [PATCH 2/3] LightsService: Alternative backlight scale
@@ -42,5 +42,5 @@ index fea6b29d9260..2a9a3b63ea2e 100644
                  color = 0xff000000 | (color << 16) | (color << 8) | color;
                  setLightLocked(color, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
 -- 
-2.25.1
+2.34.1
 

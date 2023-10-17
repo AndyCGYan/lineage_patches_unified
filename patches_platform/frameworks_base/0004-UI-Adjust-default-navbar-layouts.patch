@@ -1,4 +1,4 @@
-From 9ac6b32beddae19e4fd85b888f7fe8fa7ebf76c2 Mon Sep 17 00:00:00 2001
+From b92f1ca708133033601f8f0e70a872c5a30052df Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 02:23:48 +0000
 Subject: [PATCH 04/22] UI: Adjust default navbar layouts
@@ -45,7 +45,7 @@ index 07b797a32428..000000000000
 -    <string name="config_navBarLayout" translatable="false">left[.25W],back[.5WC];home;recent[.5WC],right[.25W]</string>
 -</resources>
 diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
-index 374cff002d29..418bbc7c7932 100644
+index 99f21ed21d15..4c386f78a27a 100644
 --- a/packages/SystemUI/res/values/config.xml
 +++ b/packages/SystemUI/res/values/config.xml
 @@ -301,7 +301,7 @@
@@ -54,7 +54,7 @@ index 374cff002d29..418bbc7c7932 100644
      <!-- Nav bar button default ordering/layout -->
 -    <string name="config_navBarLayout" translatable="false">left[.5W],back[1WC];home;recent[1WC],right[.5W]</string>
 +    <string name="config_navBarLayout" translatable="false">left[.6W],back[1WC];home;recent[1WC],right[.6W]</string>
-     <string name="config_navBarLayoutQuickstep" translatable="false">back[1.7WC];home;contextual[1.7WC]</string>
+     <string name="config_navBarLayoutQuickstep" translatable="false">back[1.7WC];home;menu_ime[1.7WC]</string>
      <string name="config_navBarLayoutHandle" translatable="false">back[70AC];home_handle;ime_switcher[70AC]</string>
  
 -- 
