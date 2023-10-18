@@ -1,7 +1,7 @@
-From fe68855c138e99a23d08aebd01d93bd74aeac24d Mon Sep 17 00:00:00 2001
+From 8288ac5438093913d4d10a06016686658493509d Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 10 May 2023 11:28:27 -0400
-Subject: [PATCH 35/38] bootanimation: Fix bootanimation when using mask+shine
+Subject: [PATCH 35/40] bootanimation: Fix bootanimation when using mask+shine
  rather than animation
 
 This was broken by the commit that automatically resizes animations

@@ -1,4 +1,4 @@
-From 2010137112b9a768bf766e3eb7bc4f084a4b7b28 Mon Sep 17 00:00:00 2001
+From dd5e4484df6868958941773ac310396b281e5ceb Mon Sep 17 00:00:00 2001
 From: Anirudh Gupta <anirudhgupta109@aosip.dev>
 Date: Wed, 4 Jan 2023 18:20:56 +0000
 Subject: [PATCH 21/22] gmscompat: Set shipping level to 32 for devices >=33

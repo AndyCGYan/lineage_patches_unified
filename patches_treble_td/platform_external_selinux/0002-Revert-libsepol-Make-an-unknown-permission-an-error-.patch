@@ -1,8 +1,8 @@
-From 0deb03a6694729e084e8e81d7e840a851d130476 Mon Sep 17 00:00:00 2001
+From 440307f9bb3e44d9c4eb8f6fcae4e495e1336d0b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 9 Sep 2020 22:36:42 +0200
-Subject: [PATCH 2/9] Revert "libsepol: Make an unknown permission an error in
- CIL"
+Subject: [PATCH 02/10] Revert "libsepol: Make an unknown permission an error
+ in CIL"
 
 This reverts commit dc4e54126bf25dea4d51820922ccd1959be68fbc.
 
@@ -41,5 +41,5 @@ index 69a8a2ed..b63c1359 100644
  			cil_list_append(*perm_datums, curr->flavor, curr->data);
  		}
 -- 
-2.25.1
+2.34.1
 

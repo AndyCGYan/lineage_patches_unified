@@ -1,4 +1,4 @@
-From ee786ac20d6586bd64839809ea16785758a5e2bf Mon Sep 17 00:00:00 2001
+From d8dea7b3e03976fa4ab292f3d6fdcae84e039196 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 17 Jan 2023 17:19:19 +0000
 Subject: [PATCH 03/22] Keyguard: Fix colors of slices not updating on doze

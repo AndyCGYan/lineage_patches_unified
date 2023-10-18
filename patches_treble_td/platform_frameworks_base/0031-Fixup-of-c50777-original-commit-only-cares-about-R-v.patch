@@ -1,7 +1,7 @@
-From 6f98ebb5e650c8dd36668c05dddf8a7af95789f6 Mon Sep 17 00:00:00 2001
+From 8a5a72ffd10bad83e070515549b81ff7be81c207 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 15 Dec 2022 15:54:50 -0500
-Subject: [PATCH 31/38] Fixup of c50777 -- original commit only cares about R
+Subject: [PATCH 31/40] Fixup of c50777 -- original commit only cares about R
  vendors, but not about older ones. Apply that on older ones as well
 
 ---

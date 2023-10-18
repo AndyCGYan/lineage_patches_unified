@@ -1,7 +1,7 @@
-From e7ad6162412fa8400868a585fee042ad6fe00cc4 Mon Sep 17 00:00:00 2001
+From 95ad80b9f81a9f4941e0fac8794d7120f5b997e6 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 25 Oct 2020 23:57:26 +0100
-Subject: [PATCH 14/38] Re-implement fnmatch-like behaviour for RRO java-side
+Subject: [PATCH 14/40] Re-implement fnmatch-like behaviour for RRO java-side
 
 T: Also apply to FrameworkParsingPackageUtils (@PeterCxy)
 
@@ -36,14 +36,14 @@ index c01e30ded50e..db6a36ee1b66 100644
          }
          return true;
 diff --git a/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java b/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
-index 3e1c5bb3d7ec..8182e9e0c771 100644
+index b75ba82ad091..b344f7232190 100644
 --- a/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
 +++ b/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
-@@ -215,8 +215,17 @@ public class FrameworkParsingPackageUtils {
-         for (int i = 0; i < propNames.length; i++) {
-             // Check property value: make sure it is both set and equal to expected value
-             final String currValue = SystemProperties.get(propNames[i]);
--            if (!TextUtils.equals(currValue, propValues[i])) {
+@@ -223,8 +223,17 @@ public class FrameworkParsingPackageUtils {
+                 continue;
+             }
+             // 3. Check if prop is equal to expected value.
+-            if (!currValue.equals(propValues[i])) {
 -                return false;
 +            final String value = propValues[i];
 +            if(value.startsWith("+")) {

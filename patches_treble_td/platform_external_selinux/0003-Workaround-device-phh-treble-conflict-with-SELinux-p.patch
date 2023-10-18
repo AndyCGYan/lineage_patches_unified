@@ -1,7 +1,8 @@
-From fad09461b0c7ab877b32c5ab402c053335f19f18 Mon Sep 17 00:00:00 2001
+From c9a0c6be08c1c5ada6a4b83beefd66946fe4a06c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 31 Mar 2021 23:32:37 +0200
-Subject: [PATCH 3/9] Workaround device/phh/treble conflict with SELinux policy
+Subject: [PATCH 03/10] Workaround device/phh/treble conflict with SELinux
+ policy
 
 device/phh/treble defines the following three types (hostapd,
 sysfs_usb_supply, rpmb_device)
@@ -111,5 +112,5 @@ index b63c1359..87db4f81 100644
  	}
  
 -- 
-2.25.1
+2.34.1
 

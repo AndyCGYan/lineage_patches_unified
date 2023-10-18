@@ -1,7 +1,7 @@
-From d0ebcd15cbdec953bc7bd74f05eac0a42a67586e Mon Sep 17 00:00:00 2001
+From 9608e159585b0fad82cede7fd9dca5e50a71672b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 18 Dec 2022 18:20:40 -0500
-Subject: [PATCH 32/38] FOD support for Asus ZF8 and Samsung devices
+Subject: [PATCH 32/40] FOD support for Asus ZF8 and Samsung devices
 
 Thanks Asus for providing a free device to make this support
 And thanks @davigamer987 for donating enough to get a Samsung FOD device
@@ -30,7 +30,7 @@ index b4027197344d..0637dd4b4471 100644
      manifest: "AndroidManifest.xml",
      additional_manifests: ["LineageManifest.xml"],
 diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
-index 6bfbe512c72c..4c0db53799d4 100644
+index 0743bcdde621..99f21ed21d15 100644
 --- a/packages/SystemUI/res/values/config.xml
 +++ b/packages/SystemUI/res/values/config.xml
 @@ -585,7 +585,7 @@

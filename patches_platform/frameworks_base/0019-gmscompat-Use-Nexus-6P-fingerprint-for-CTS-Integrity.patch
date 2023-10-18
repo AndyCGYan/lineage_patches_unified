@@ -1,4 +1,4 @@
-From 786a25e8bceba2a165945905b102b2d883e2c63b Mon Sep 17 00:00:00 2001
+From d67897a23c6e182294d6a6d137d7ccc430a1abe0 Mon Sep 17 00:00:00 2001
 From: Dyneteve <dyneteve@hentaios.com>
 Date: Thu, 8 Sep 2022 14:39:52 +0200
 Subject: [PATCH 19/22] gmscompat: Use Nexus 6P fingerprint for CTS/Integrity

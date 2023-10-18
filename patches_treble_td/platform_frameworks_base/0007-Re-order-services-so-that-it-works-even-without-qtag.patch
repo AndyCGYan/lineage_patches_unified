@@ -1,7 +1,7 @@
-From 7896ffbf9b94a6eb30567b615c9e1f8928ece263 Mon Sep 17 00:00:00 2001
+From 11cc7ea34461e8e10314c23740b3e66f815a390a Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 8 Nov 2018 23:04:03 +0100
-Subject: [PATCH 07/38] Re-order services so that it works even without qtaguid
+Subject: [PATCH 07/40] Re-order services so that it works even without qtaguid
 
 Change-Id: I0c0f527b3ae151d45c68f7ac6c205da3f34e74df
 ---
@@ -9,10 +9,10 @@ Change-Id: I0c0f527b3ae151d45c68f7ac6c205da3f34e74df
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/services/core/java/com/android/server/net/NetworkPolicyManagerService.java b/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
-index 89dac2160d6b..3e2374f0648c 100644
+index ad81208b66bc..fedbfe655a89 100644
 --- a/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
 +++ b/services/core/java/com/android/server/net/NetworkPolicyManagerService.java
-@@ -960,6 +960,10 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
+@@ -969,6 +969,10 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
          Trace.traceBegin(Trace.TRACE_TAG_NETWORK, "systemReady");
          final int oldPriority = Process.getThreadPriority(Process.myTid());
          try {
@@ -23,7 +23,7 @@ index 89dac2160d6b..3e2374f0648c 100644
              // Boost thread's priority during system server init
              Process.setThreadPriority(Process.THREAD_PRIORITY_FOREGROUND);
              if (!isBandwidthControlEnabled()) {
-@@ -967,10 +971,6 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
+@@ -976,10 +980,6 @@ public class NetworkPolicyManagerService extends INetworkPolicyManager.Stub {
                  return;
              }
  

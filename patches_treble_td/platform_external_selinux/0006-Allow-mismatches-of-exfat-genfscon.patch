@@ -1,7 +1,7 @@
-From 1bb417ece7c1709906499a9cdd73c5b37ddd8c71 Mon Sep 17 00:00:00 2001
+From c46994a1a9fad0a76e41f0a5efe5238ca3f6b582 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 May 2020 17:22:22 +0200
-Subject: [PATCH 6/9] Allow mismatches of exfat genfscon
+Subject: [PATCH 06/10] Allow mismatches of exfat genfscon
 
 ---
  libsepol/cil/src/cil_post.c | 4 ++++
@@ -23,5 +23,5 @@ index 5c0e99c3..97bf54f8 100644
  			fprintf(stderr, "Received conflicting %s vs %s but ignore\n", a_genfscon->path_str, b_genfscon->path_str);
  			return 0;
 -- 
-2.25.1
+2.34.1
 
