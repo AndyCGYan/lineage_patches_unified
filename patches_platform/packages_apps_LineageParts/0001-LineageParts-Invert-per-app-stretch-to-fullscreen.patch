@@ -1,4 +1,4 @@
-From 9ee8209308b775f6cd4a104fe1cd89c9645e4742 Mon Sep 17 00:00:00 2001
+From 3dda22bc6cad9da7d937218f157fe762dafb5d7d Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Jan 2019 21:44:48 +0800
 Subject: [PATCH] LineageParts: Invert per-app stretch-to-fullscreen
@@ -14,10 +14,10 @@ Change-Id: Icb02c8dfd84882f736e37d6cd92c35e5eb288faa
  6 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/res/layout/long_screen_layout.xml b/res/layout/long_screen_layout.xml
-index 40d0938..1119cef 100644
+index 3252c10..ed4efd9 100644
 --- a/res/layout/long_screen_layout.xml
 +++ b/res/layout/long_screen_layout.xml
-@@ -36,7 +36,7 @@
+@@ -25,7 +25,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_centerInParent="true"
@@ -27,10 +27,10 @@ index 40d0938..1119cef 100644
          android:visibility="gone" />
  
 diff --git a/res/values-zh-rCN/strings.xml b/res/values-zh-rCN/strings.xml
-index 9340e57..63a4b71 100644
+index 9823209..a15a439 100644
 --- a/res/values-zh-rCN/strings.xml
 +++ b/res/values-zh-rCN/strings.xml
-@@ -434,9 +434,9 @@
+@@ -456,9 +456,9 @@
      <string name="display_rotation_90_title">90 度</string>
      <string name="display_rotation_180_title">180 度</string>
      <string name="display_rotation_270_title">270 度</string>
@@ -44,10 +44,10 @@ index 9340e57..63a4b71 100644
      <string name="charging_sounds_enable_title">启用充电提示音</string>
      <string name="charging_sounds_summary">连接或断开电源时发出声音</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 9fe4181..998a5f6 100644
+index 0358a7e..5996a8f 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -567,9 +567,9 @@
+@@ -579,9 +579,9 @@
      <string name="display_rotation_270_title">270 degrees</string>
  
      <!-- Applications: Long screen -->
@@ -61,22 +61,22 @@ index 9fe4181..998a5f6 100644
      <!-- Sounds: Charging sounds -->
      <string name="charging_sounds_settings_title">Charging sounds</string>
 diff --git a/res/xml/long_screen_prefs.xml b/res/xml/long_screen_prefs.xml
-index ec947fa..20da90a 100644
+index 9a4f7bb..ece52c9 100644
 --- a/res/xml/long_screen_prefs.xml
 +++ b/res/xml/long_screen_prefs.xml
-@@ -18,6 +18,6 @@
+@@ -6,6 +6,6 @@
+ <PreferenceScreen
      xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:lineage="http://schemas.android.com/apk/res/org.lineageos.lineageparts"
      android:key="long_screen_settings"
 -    android:title="@string/long_screen_settings_title">
 +    android:title="@string/inverse_long_screen_settings_title">
  
  </PreferenceScreen>
 diff --git a/res/xml/parts_catalog.xml b/res/xml/parts_catalog.xml
-index 803b214..6f61e9d 100644
+index d6b19c0..6e65a31 100644
 --- a/res/xml/parts_catalog.xml
 +++ b/res/xml/parts_catalog.xml
-@@ -81,8 +81,8 @@
+@@ -75,8 +75,8 @@
            lineage:xmlRes="@xml/power_menu_settings" />
  
      <part android:key="long_screen_settings"
@@ -88,10 +88,10 @@ index 803b214..6f61e9d 100644
            lineage:xmlRes="@xml/long_screen_prefs" />
  
 diff --git a/src/org/lineageos/lineageparts/applications/LongScreenSettings.java b/src/org/lineageos/lineageparts/applications/LongScreenSettings.java
-index ac04058..50ff8f6 100644
+index 7155e12..4b89260 100644
 --- a/src/org/lineageos/lineageparts/applications/LongScreenSettings.java
 +++ b/src/org/lineageos/lineageparts/applications/LongScreenSettings.java
-@@ -246,7 +246,7 @@ public class LongScreenSettings extends SettingsPreferenceFragment
+@@ -222,7 +222,7 @@ public class LongScreenSettings extends SettingsPreferenceFragment
              mApplicationsState.ensureIcon(entry);
              holder.icon.setImageDrawable(entry.icon);
              holder.state.setTag(entry);
@@ -101,5 +101,5 @@ index ac04058..50ff8f6 100644
          }
  
 -- 
-2.25.1
+2.34.1
 
