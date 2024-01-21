@@ -1,7 +1,7 @@
-From 5296cec29b201ca7c4ededf348d16a57a18220f4 Mon Sep 17 00:00:00 2001
+From ed3f66b30f26a4988f107d263da3a50bbcd4be8b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 6 Mar 2021 18:39:15 -0500
-Subject: [PATCH 36/41] Make secondary displays' lock screen black. Useful for
+Subject: [PATCH 36/42] Make secondary displays' lock screen black. Useful for
  Moto Razr AOD
 
 ---
@@ -23,5 +23,5 @@ index f4d34f4ca14..58650b26cea 100644
      <com.android.keyguard.KeyguardStatusView
          android:id="@+id/clock"
 -- 
-2.25.1
+2.34.1
 

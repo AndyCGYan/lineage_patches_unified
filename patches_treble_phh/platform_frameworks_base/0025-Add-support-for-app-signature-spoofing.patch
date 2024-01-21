@@ -1,7 +1,7 @@
-From e580b18a7166a3d9fe2753816a9efee9c8a006e0 Mon Sep 17 00:00:00 2001
+From 3363f301ba2793ec04f28dba8a10a3d880e96ca4 Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 5 Oct 2020 12:36:35 -0700
-Subject: [PATCH 25/41] Add support for app signature spoofing
+Subject: [PATCH 25/42] Add support for app signature spoofing
 
 This is needed by microG GmsCore to pretend to be the official Google
 Play Services package, because client apps check the package signature
@@ -46,10 +46,10 @@ index 952ccdad992..73fb59fedab 100644
      field public static final String GET_ACCOUNTS = "android.permission.GET_ACCOUNTS";
      field public static final String GET_ACCOUNTS_PRIVILEGED = "android.permission.GET_ACCOUNTS_PRIVILEGED";
 diff --git a/core/res/AndroidManifest.xml b/core/res/AndroidManifest.xml
-index ee428371a01..542b11a65ed 100644
+index eb64db7493c..74176d8be84 100644
 --- a/core/res/AndroidManifest.xml
 +++ b/core/res/AndroidManifest.xml
-@@ -2852,6 +2852,13 @@
+@@ -2857,6 +2857,13 @@
          android:description="@string/permdesc_getPackageSize"
          android:protectionLevel="normal" />
  
@@ -77,7 +77,7 @@ index f4efcc7e4ee..51b461e7949 100644
  
      <!-- This string array can be overriden to enable test location providers initially. -->
 diff --git a/core/res/res/values/strings.xml b/core/res/res/values/strings.xml
-index d6ee28b93f9..d5b3f54afc5 100644
+index 5c659123b02..4ea996c492c 100644
 --- a/core/res/res/values/strings.xml
 +++ b/core/res/res/values/strings.xml
 @@ -847,6 +847,18 @@
@@ -112,10 +112,10 @@ index 5f15216e840..c29feb9cd7b 100644
      field public static final String GET_ACCOUNTS = "android.permission.GET_ACCOUNTS";
      field public static final String GET_ACCOUNTS_PRIVILEGED = "android.permission.GET_ACCOUNTS_PRIVILEGED";
 diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
-index 70b869e594d..af619aa6bd2 100644
+index 9611b381942..1a8a23856d8 100644
 --- a/services/core/java/com/android/server/pm/PackageManagerService.java
 +++ b/services/core/java/com/android/server/pm/PackageManagerService.java
-@@ -4454,8 +4454,9 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -4465,8 +4465,9 @@ public class PackageManagerService extends IPackageManager.Stub
                  });
              }
  
@@ -127,7 +127,7 @@ index 70b869e594d..af619aa6bd2 100644
  
              if (packageInfo == null) {
                  return null;
-@@ -4491,6 +4492,24 @@ public class PackageManagerService extends IPackageManager.Stub
+@@ -4502,6 +4503,24 @@ public class PackageManagerService extends IPackageManager.Stub
          }
      }
  
@@ -153,5 +153,5 @@ index 70b869e594d..af619aa6bd2 100644
      public void checkPackageStartable(String packageName, int userId) {
          final int callingUid = Binder.getCallingUid();
 -- 
-2.25.1
+2.34.1
 

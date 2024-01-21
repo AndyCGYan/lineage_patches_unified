@@ -1,7 +1,7 @@
-From c80e63a38195f4a3f45c76f4b583b68e09f8b2ac Mon Sep 17 00:00:00 2001
+From 09954283a10a0184588e5acc463a97fe1f5fe50b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 18 Dec 2020 16:38:58 -0500
-Subject: [PATCH 32/41] Fix Samsung Power HAL (switch/case was filled with
+Subject: [PATCH 32/42] Fix Samsung Power HAL (switch/case was filled with
  mines/returns), and cleanup code and add logs
 
 ---
@@ -68,5 +68,5 @@ index dcd33366a35..298cd8c7171 100644
  
  static void nativeSetAutoSuspend(JNIEnv* /* env */, jclass /* clazz */, jboolean enable) {
 -- 
-2.25.1
+2.34.1
 

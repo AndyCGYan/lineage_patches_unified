@@ -1,7 +1,7 @@
-From 6b85e4a7d4f31df6f3be30d3d10907fe6f2edccf Mon Sep 17 00:00:00 2001
+From fa950c454841873c9a4bb4ce56ad27af31178c09 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 10 Aug 2021 19:09:56 -0400
-Subject: [PATCH 41/41] Import back FacolaView for under-display fingerprint
+Subject: [PATCH 41/42] Import back FacolaView for under-display fingerprint
 
 Tested, working-ish on OnePlus Nord2
 ---
@@ -819,5 +819,5 @@ index def1a873590..7143655d5da 100644
  
      @Override
 -- 
-2.25.1
+2.34.1
 

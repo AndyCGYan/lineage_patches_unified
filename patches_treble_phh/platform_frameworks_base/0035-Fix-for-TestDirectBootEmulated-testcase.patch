@@ -1,7 +1,7 @@
-From f298ce644fa19ee8b43b776a24119bcc006aa7ac Mon Sep 17 00:00:00 2001
+From 5b7dbb4dc20d6026a45b725cc011ec085ec81d60 Mon Sep 17 00:00:00 2001
 From: N Harish <kqn736@zebra.com>
 Date: Mon, 25 Jan 2021 17:22:33 +0530
-Subject: [PATCH 35/41] Fix for TestDirectBootEmulated testcase
+Subject: [PATCH 35/42] Fix for TestDirectBootEmulated testcase
 
 In case of emulated FBE the secrets are empty hence add this
 exception to prevent from unlocking userkey.
@@ -16,10 +16,10 @@ Change-Id: I5be2ceb61d9ef47219862e75cc8ec03ab5513426
  1 file changed, 6 insertions(+)
 
 diff --git a/services/core/java/com/android/server/StorageManagerService.java b/services/core/java/com/android/server/StorageManagerService.java
-index b0ceaee8977..676dab2fa4c 100644
+index a2891430069..a70ea724765 100644
 --- a/services/core/java/com/android/server/StorageManagerService.java
 +++ b/services/core/java/com/android/server/StorageManagerService.java
-@@ -3321,6 +3321,12 @@ class StorageManagerService extends IStorageManager.Stub
+@@ -3322,6 +3322,12 @@ class StorageManagerService extends IStorageManager.Stub
          enforcePermission(android.Manifest.permission.STORAGE_INTERNAL);
  
          if (isFsEncrypted) {
@@ -33,5 +33,5 @@ index b0ceaee8977..676dab2fa4c 100644
                  mVold.unlockUserKey(userId, serialNumber, encodeBytes(token),
                          encodeBytes(secret));
 -- 
-2.25.1
+2.34.1
 

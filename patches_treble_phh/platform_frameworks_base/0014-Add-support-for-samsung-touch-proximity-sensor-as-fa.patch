@@ -1,7 +1,7 @@
-From 1034f1287025b834b7fb264ff720cfc06926efcc Mon Sep 17 00:00:00 2001
+From 0e91f331403f91280f6f9d0f06e43c9bbfa4a9e7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 12 Aug 2019 23:08:26 +0200
-Subject: [PATCH 14/41] Add support for samsung touch proximity sensor as
+Subject: [PATCH 14/42] Add support for samsung touch proximity sensor as
  fallback to real proximity sensor
 
 ---
@@ -41,5 +41,5 @@ index f77f0e302aa..4b8d65d00c3 100644
                  boolean positive = distance >= 0.0f && distance < mProximityThreshold;
                  handleProximitySensorEvent(time, positive);
 -- 
-2.25.1
+2.34.1
 

@@ -1,7 +1,7 @@
-From 7d5c3b0bc59848c5bac63d8410431c2d70862ca4 Mon Sep 17 00:00:00 2001
+From 141a3a62fec398d1eca1ef25a520754adfc1fd97 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 20 Mar 2021 14:30:17 +0100
-Subject: [PATCH 38/41] Handle another type of Samsung proximity sensor: Hover
+Subject: [PATCH 38/42] Handle another type of Samsung proximity sensor: Hover
  Proximity Sensor, with yet another behavior (seen on S20 FE)
 
 ---
@@ -41,5 +41,5 @@ index f9f9e581ecc..733d245e1a9 100644
                  boolean positive = distance >= 0.0f && distance < mProximityThreshold;
                  handleProximitySensorEvent(time, positive);
 -- 
-2.25.1
+2.34.1
 

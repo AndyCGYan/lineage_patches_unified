@@ -1,4 +1,4 @@
-From cfc6cf10b64ef3ecba6586ed87dcf90d32918b4e Mon Sep 17 00:00:00 2001
+From 0a4b57f5217bdc225fbeda515ebeb0296f5ea501 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 13 Jul 2021 16:01:31 +0000
 Subject: [PATCH] Squashed revert of LOS FOD implementation
@@ -175,10 +175,10 @@ index c78630c05f0..84870f83ad2 100644
      ],
      libs: [
 diff --git a/packages/SystemUI/AndroidManifest.xml b/packages/SystemUI/AndroidManifest.xml
-index 6bee19745c8..541a9cf7722 100644
+index c536b6cb94d..9999bbe2d5b 100644
 --- a/packages/SystemUI/AndroidManifest.xml
 +++ b/packages/SystemUI/AndroidManifest.xml
-@@ -137,7 +137,6 @@
+@@ -138,7 +138,6 @@
      <uses-permission android:name="android.permission.USE_FINGERPRINT" />
      <uses-permission android:name="android.permission.RESET_FINGERPRINT_LOCKOUT" />
      <uses-permission android:name="android.permission.MANAGE_BIOMETRIC" />
@@ -283,7 +283,7 @@ index b17044b1bcc..6554fd54f11 100644
      <integer name="config_maxVisibleNotificationIcons">4</integer>
      <integer name="config_maxVisibleNotificationIconsOnLock">5</integer>
 diff --git a/packages/SystemUI/src/com/android/keyguard/KeyguardSecurityContainer.java b/packages/SystemUI/src/com/android/keyguard/KeyguardSecurityContainer.java
-index bace9324ac9..1db2e32b8cd 100644
+index 27aef8089a8..52cc4bd481a 100644
 --- a/packages/SystemUI/src/com/android/keyguard/KeyguardSecurityContainer.java
 +++ b/packages/SystemUI/src/com/android/keyguard/KeyguardSecurityContainer.java
 @@ -33,7 +33,6 @@ import android.app.AlertDialog;
@@ -294,7 +294,7 @@ index bace9324ac9..1db2e32b8cd 100644
  import android.content.res.ColorStateList;
  import android.graphics.Insets;
  import android.graphics.Rect;
-@@ -80,8 +79,6 @@ import com.android.systemui.shared.system.SysUiStatsLog;
+@@ -81,8 +80,6 @@ import com.android.systemui.statusbar.policy.DeviceProvisionedController;
  import com.android.systemui.statusbar.policy.KeyguardStateController;
  import com.android.systemui.util.InjectionInflationController;
  
@@ -303,7 +303,7 @@ index bace9324ac9..1db2e32b8cd 100644
  import java.util.List;
  
  public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSecurityView {
-@@ -127,7 +124,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
+@@ -128,7 +125,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
      private InjectionInflationController mInjectionInflationController;
      private boolean mSwipeUpToRetry;
      private AdminSecondaryLockScreenController mSecondaryLockScreenController;
@@ -311,10 +311,10 @@ index bace9324ac9..1db2e32b8cd 100644
  
      private final ViewConfiguration mViewConfiguration;
      private final SpringAnimation mSpringAnimation;
-@@ -265,10 +261,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
-         mKeyguardStateController = Dependency.get(KeyguardStateController.class);
+@@ -268,10 +264,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
          mSecondaryLockScreenController = new AdminSecondaryLockScreenController(context, this,
                  mUpdateMonitor, mCallback, new Handler(Looper.myLooper()));
+         mDeviceProvisionedController = Dependency.get(DeviceProvisionedController.class);
 -
 -        PackageManager packageManager = mContext.getPackageManager();
 -        mHasFod = packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT) &&
@@ -322,7 +322,7 @@ index bace9324ac9..1db2e32b8cd 100644
      }
  
      public void setSecurityCallback(SecurityCallback callback) {
-@@ -525,10 +517,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
+@@ -528,10 +520,6 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
  
          // Consume bottom insets because we're setting the padding locally (for IME and navbar.)
          int inset;
@@ -333,7 +333,7 @@ index bace9324ac9..1db2e32b8cd 100644
          if (sNewInsetsMode == NEW_INSETS_MODE_FULL) {
              int bottomInset = insets.getInsetsIgnoringVisibility(systemBars()).bottom;
              int imeInset = insets.getInsets(ime()).bottom;
-@@ -536,8 +524,7 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
+@@ -539,8 +527,7 @@ public class KeyguardSecurityContainer extends FrameLayout implements KeyguardSe
          } else {
              inset = insets.getSystemWindowInsetBottom();
          }
@@ -1242,7 +1242,7 @@ index a0a2e6f0dd6..413a522bccd 100644
      @Binds
      @IntoMap
 diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
-index 3eb5de9289e..0c939020780 100644
+index d60721bfdf8..8e97804934c 100644
 --- a/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
 +++ b/packages/SystemUI/src/com/android/systemui/keyguard/KeyguardViewMediator.java
 @@ -38,7 +38,6 @@ import android.content.ContentResolver;
@@ -1270,7 +1270,7 @@ index 3eb5de9289e..0c939020780 100644
      private final DeviceConfig.OnPropertiesChangedListener mOnPropertiesChangedListener =
              new DeviceConfig.OnPropertiesChangedListener() {
              @Override
-@@ -757,8 +753,6 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable {
+@@ -764,8 +760,6 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable {
                  QuickStepContract.isGesturalMode(navigationModeController.addListener(mode -> {
                      mInGestureNavigationMode = QuickStepContract.isGesturalMode(mode);
                  }));
@@ -1279,7 +1279,7 @@ index 3eb5de9289e..0c939020780 100644
      }
  
      public void userActivity() {
-@@ -891,9 +885,7 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable {
+@@ -898,9 +892,7 @@ public class KeyguardViewMediator extends SystemUI implements Dumpable {
              // explicitly DO NOT want to call
              // mKeyguardViewControllerLazy.get().setKeyguardGoingAwayState(false)
              // here, since that will mess with the device lock state.
@@ -1421,7 +1421,7 @@ index 1e1655256b1..382715a3fb7 100644
                  mCallback.onExpandAnimationFinished(mIsFullScreenLaunch);
                  applyParamsToNotification(null);
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java
-index 8aca0846a67..b55d6a55bca 100644
+index ebbefbe4524..fbe75f13e50 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBar.java
 @@ -76,7 +76,6 @@ import android.content.res.Configuration;
@@ -1571,7 +1571,7 @@ index 8aca0846a67..b55d6a55bca 100644
      }
  
      protected BarTransitions getStatusBarTransitions() {
-@@ -4680,22 +4628,4 @@ public class StatusBar extends SystemUI implements DemoMode,
+@@ -4685,22 +4633,4 @@ public class StatusBar extends SystemUI implements DemoMode,
      public void suppressAmbientDisplay(boolean suppressed) {
          mDozeServiceHost.setDozeSuppressed(suppressed);
      }
@@ -1707,7 +1707,7 @@ index 3e5454d84d0..2fa6cf02d8b 100644
  
      @Test
 diff --git a/packages/SystemUI/tests/src/com/android/systemui/statusbar/phone/StatusBarTest.java b/packages/SystemUI/tests/src/com/android/systemui/statusbar/phone/StatusBarTest.java
-index c6dba6b8b80..474e9d7446f 100644
+index 2cc4ceea3f9..a2a2d77177d 100644
 --- a/packages/SystemUI/tests/src/com/android/systemui/statusbar/phone/StatusBarTest.java
 +++ b/packages/SystemUI/tests/src/com/android/systemui/statusbar/phone/StatusBarTest.java
 @@ -79,7 +79,6 @@ import com.android.systemui.InitController;
@@ -2007,5 +2007,5 @@ index 2412209452b..13b9508a9c8 100644
      public void setBlockedGesturalNavigation(boolean blocked) {
          if (mBar != null) {
 -- 
-2.25.1
+2.34.1
 

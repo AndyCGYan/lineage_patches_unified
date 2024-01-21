@@ -1,7 +1,7 @@
-From 7cb9e3ee13d036156ac48d84c9220d2b2270d044 Mon Sep 17 00:00:00 2001
+From ca6e0d82211a9ce13aeb7efdcbd8b5d7a6646d46 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 13 Mar 2021 13:21:46 -0500
-Subject: [PATCH 37/41] On Samsung R vendor, there is still the ISehMiscPower
+Subject: [PATCH 37/42] On Samsung R vendor, there is still the ISehMiscPower
  HIDL HAL, but there is also the AOSP's AIDL HAL. It was previously assumed
  this wouldn't happen, fix this assumption.
 
@@ -42,5 +42,5 @@ index 298cd8c7171..a5812379f86 100644
          gPowerHalHidlV1_0_ = IPowerV1_0::getService();
          if (gPowerHalHidlV1_0_) {
 -- 
-2.25.1
+2.34.1
 

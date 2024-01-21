@@ -1,7 +1,7 @@
-From 2f71f5fb95dcaf1933e66e17c3c257c0d9e90efb Mon Sep 17 00:00:00 2001
+From 2f1fdbf2c7bcc6c6e5c6680d604f561919e25080 Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Wed, 16 Dec 2020 13:46:15 +0800
-Subject: [PATCH 30/41] TelephonyManager: bring back getNetworkClass()
+Subject: [PATCH 30/42] TelephonyManager: bring back getNetworkClass()
 
 This partially reverts commit c058cac051ab083dc7fb7ea6aa85699110b2e9bf.
 
@@ -80,5 +80,5 @@ index 79c11feb7f4..130d872b985 100644
       * Returns a string representation of the radio technology (network type)
       * currently in use on the device.
 -- 
-2.25.1
+2.34.1
 
