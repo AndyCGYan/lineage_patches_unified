@@ -1,0 +1,26 @@
+From 4dad46e31da483f2b0818e81791cac4a4a674385 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 20 Nov 2023 10:42:58 +0800
+Subject: [PATCH] Keyguard: Default to small clock (2/3)
+
+Change-Id: Ieb39c323e99fd2795f683a8a2930bb3a27212a6d
+---
+ .../settings/display/LockscreenClockPreferenceController.java   | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/com/android/settings/display/LockscreenClockPreferenceController.java b/src/com/android/settings/display/LockscreenClockPreferenceController.java
+index 70ae55eaf9..fd6e0fe248 100644
+--- a/src/com/android/settings/display/LockscreenClockPreferenceController.java
++++ b/src/com/android/settings/display/LockscreenClockPreferenceController.java
+@@ -37,7 +37,7 @@ public class LockscreenClockPreferenceController extends TogglePreferenceControl
+ 
+     @Override
+     public boolean isChecked() {
+-        return Settings.Secure.getInt(mContext.getContentResolver(), SETTING_KEY, 1) != 0;
++        return Settings.Secure.getInt(mContext.getContentResolver(), SETTING_KEY, 0) != 0;
+     }
+ 
+     @Override
+-- 
+2.34.1
+

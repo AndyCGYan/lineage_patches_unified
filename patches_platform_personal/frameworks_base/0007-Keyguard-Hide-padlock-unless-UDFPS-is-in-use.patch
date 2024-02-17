@@ -1,0 +1,48 @@
+From 3bf2d7ef087a2f458ba67ab2adfdfea5ae58f8da Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 2 Nov 2019 06:41:03 +0000
+Subject: [PATCH 07/21] Keyguard: Hide padlock unless UDFPS is in use
+
+Fair enough Google, but don't give me that otherwise
+
+Change-Id: Ie91e80ca5c6637a51a8acc72fb28cd6ac2a7abb6
+---
+ .../keyguard/LockIconViewController.java        | 17 +++--------------
+ 1 file changed, 3 insertions(+), 14 deletions(-)
+
+diff --git a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
+index 951a6aeef11b..269c72d75e8f 100644
+--- a/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
++++ b/packages/SystemUI/src/com/android/keyguard/LockIconViewController.java
+@@ -310,25 +310,14 @@ public class LockIconViewController extends ViewController<LockIconView> impleme
+             return;
+         }
+ 
+-        boolean wasShowingFpIcon = mUdfpsEnrolled && !mShowUnlockIcon && !mShowLockIcon
++        boolean wasShowingFpIcon = mUdfpsEnrolled && !mShowUnlockIcon
+                 && !mShowAodUnlockedIcon && !mShowAodLockIcon;
+-        mShowLockIcon = !mCanDismissLockScreen && isLockScreen()
+-                && (!mUdfpsEnrolled || !mRunningFPS);
+-        mShowUnlockIcon = mCanDismissLockScreen && isLockScreen();
++        mShowUnlockIcon = mCanDismissLockScreen && isLockScreen() && mUdfpsEnrolled;
+         mShowAodUnlockedIcon = mIsDozing && mUdfpsEnrolled && !mRunningFPS && mCanDismissLockScreen;
+         mShowAodLockIcon = mIsDozing && mUdfpsEnrolled && !mRunningFPS && !mCanDismissLockScreen;
+ 
+         final CharSequence prevContentDescription = mView.getContentDescription();
+-        if (mShowLockIcon) {
+-            if (wasShowingFpIcon) {
+-                // fp icon was shown by UdfpsView, and now we still want to animate the transition
+-                // in this drawable
+-                mView.updateIcon(ICON_FINGERPRINT, false);
+-            }
+-            mView.updateIcon(ICON_LOCK, false);
+-            mView.setContentDescription(mLockedLabel);
+-            mView.setVisibility(View.VISIBLE);
+-        } else if (mShowUnlockIcon) {
++        if (mShowUnlockIcon) {
+             if (wasShowingFpIcon) {
+                 // fp icon was shown by UdfpsView, and now we still want to animate the transition
+                 // in this drawable
+-- 
+2.34.1
+

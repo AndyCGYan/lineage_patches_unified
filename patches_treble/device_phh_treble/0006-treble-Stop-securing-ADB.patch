@@ -1,0 +1,35 @@
+From 86cd9fa8131d6a7534b7ee7944e7ac177d032442 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 22 Nov 2022 00:36:15 +0000
+Subject: [PATCH 6/9] treble: Stop securing ADB
+
+Seems to kill USB Debugging altogether on certain devices,
+and unrelated to SN anyway
+Build-time macro coupled with vendor/lineage might do better...
+
+Change-Id: I0215b3ed970dd53a124f48e30ca2cf4b0c6d2899
+---
+ rw-system.sh | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/rw-system.sh b/rw-system.sh
+index 358f232..e631b64 100644
+--- a/rw-system.sh
++++ b/rw-system.sh
+@@ -793,13 +793,10 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
+     resetprop_phh ro.boot.veritymode enforcing
+     resetprop_phh ro.boot.warranty_bit 0
+     resetprop_phh ro.warranty_bit 0
+-    resetprop_phh ro.debuggable 0
+     resetprop_phh ro.secure 1
+     resetprop_phh ro.build.type user
+     resetprop_phh ro.build.selinux 0
+ 
+-    resetprop_phh ro.adb.secure 1
+-
+     # Hide system/xbin/su
+     mount /mnt/phh/empty_dir /system/xbin
+     mount /mnt/phh/empty_dir /system/app/me.phh.superuser
+-- 
+2.34.1
+

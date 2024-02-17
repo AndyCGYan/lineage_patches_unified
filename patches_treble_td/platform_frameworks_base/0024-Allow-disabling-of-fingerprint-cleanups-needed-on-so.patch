@@ -1,0 +1,26 @@
+From 58bdf9405c40873bbc54d90269dd1a98bd895b22 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 2 Apr 2022 18:04:01 -0400
+Subject: [PATCH 24/50] Allow disabling of fingerprint cleanups, needed on some
+ Realme devices that cant enumerate
+
+---
+ .../biometrics/sensors/fingerprint/hidl/Fingerprint21.java      | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
+index d0b71fcf2dbb..d5978a531dc5 100644
+--- a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
++++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/Fingerprint21.java
+@@ -746,6 +746,8 @@ public class Fingerprint21 implements IHwBinder.DeathRecipient, ServiceProvider
+ 
+     private void scheduleInternalCleanup(int userId,
+             @Nullable ClientMonitorCallback callback) {
++	final boolean mNocleanup = android.os.SystemProperties.getBoolean("persist.sys.phh.fingerprint.nocleanup", false);
++	if(mNocleanup) return;
+         mHandler.post(() -> {
+             scheduleUpdateActiveUserWithoutHandler(userId);
+ 
+-- 
+2.34.1
+

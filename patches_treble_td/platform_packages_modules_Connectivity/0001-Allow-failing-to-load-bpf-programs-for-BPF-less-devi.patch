@@ -1,0 +1,34 @@
+From de1f17d9c94ecb56f2f0e6c59ee6f3fb8d4c45b5 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 26 Oct 2022 18:10:04 -0400
+Subject: [PATCH 1/5] Allow failing to load bpf programs, for BPF-less devices
+
+Change-Id: I68ba3be2e15c188e56e32a6ecf844e1ca64d560f
+---
+ netd/BpfHandler.cpp | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/netd/BpfHandler.cpp b/netd/BpfHandler.cpp
+index 64093743f8..3eb7419a02 100644
+--- a/netd/BpfHandler.cpp
++++ b/netd/BpfHandler.cpp
+@@ -87,8 +87,14 @@ static Status initPrograms(const char* cg2_path) {
+     RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_DENYLIST_PROG_PATH));
+     RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_EGRESS_PROG_PATH));
+     RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_INGRESS_PROG_PATH));
+-    RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_EGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_EGRESS));
+-    RETURN_IF_NOT_OK(attachProgramToCgroup(BPF_INGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_INGRESS));
++    auto ret = attachProgramToCgroup(BPF_EGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_EGRESS);
++    if (!isOk(ret)) {
++        ALOGE("Failed loading egress program");
++    }
++    auto ret2 = attachProgramToCgroup(BPF_INGRESS_PROG_PATH, cg_fd, BPF_CGROUP_INET_INGRESS);
++    if (!isOk(ret)) {
++        ALOGE("Failed loading ingress program");
++    }
+ 
+     // For the devices that support cgroup socket filter, the socket filter
+     // should be loaded successfully by bpfloader. So we attach the filter to
+-- 
+2.34.1
+

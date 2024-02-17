@@ -1,0 +1,100 @@
+From f9ca27932587c1c3f3ae9b26908eb35540e30f33 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 20 Nov 2023 22:48:28 +0800
+Subject: [PATCH] Revert "compat: Provide libprotobuf-cpp vendorcompat
+ prebuilts from v29 VNDK"
+
+This reverts commit 770258c025fcd689895cac9d172a18609bf96d09.
+---
+ Android.bp                             | 38 --------------------------
+ vndk/v29/arm/libprotobuf-cpp-full.so   |  1 -
+ vndk/v29/arm/libprotobuf-cpp-lite.so   |  1 -
+ vndk/v29/arm64/libprotobuf-cpp-full.so |  1 -
+ vndk/v29/arm64/libprotobuf-cpp-lite.so |  1 -
+ 5 files changed, 42 deletions(-)
+ delete mode 120000 vndk/v29/arm/libprotobuf-cpp-full.so
+ delete mode 120000 vndk/v29/arm/libprotobuf-cpp-lite.so
+ delete mode 120000 vndk/v29/arm64/libprotobuf-cpp-full.so
+ delete mode 120000 vndk/v29/arm64/libprotobuf-cpp-lite.so
+
+diff --git a/Android.bp b/Android.bp
+index f1fd0de..374fd33 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -429,41 +429,3 @@ cc_library_shared {
+     compile_multilib: "64",
+     vendor: true,
+ }
+-
+-cc_prebuilt_library_shared {
+-    name: "libprotobuf-cpp-full-vendorcompat",
+-    stem: "libprotobuf-cpp-full",
+-    vendor: true,
+-    strip: {
+-        none: true,
+-    },
+-    target: {
+-        android_arm: {
+-            srcs: ["vndk/v29/arm/libprotobuf-cpp-full.so"],
+-        },
+-        android_arm64: {
+-            srcs: ["vndk/v29/arm64/libprotobuf-cpp-full.so"],
+-        },
+-    },
+-    compile_multilib: "both",
+-    check_elf_files: false,
+-}
+-
+-cc_prebuilt_library_shared {
+-    name: "libprotobuf-cpp-lite-vendorcompat",
+-    stem: "libprotobuf-cpp-lite",
+-    vendor: true,
+-    strip: {
+-        none: true,
+-    },
+-    target: {
+-        android_arm: {
+-            srcs: ["vndk/v29/arm/libprotobuf-cpp-lite.so"],
+-        },
+-        android_arm64: {
+-            srcs: ["vndk/v29/arm64/libprotobuf-cpp-lite.so"],
+-        },
+-    },
+-    compile_multilib: "both",
+-    check_elf_files: false,
+-}
+diff --git a/vndk/v29/arm/libprotobuf-cpp-full.so b/vndk/v29/arm/libprotobuf-cpp-full.so
+deleted file mode 120000
+index 2c8c152..0000000
+--- a/vndk/v29/arm/libprotobuf-cpp-full.so
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../../../prebuilts/vndk/v29/arm64/arch-arm-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so
+\ No newline at end of file
+diff --git a/vndk/v29/arm/libprotobuf-cpp-lite.so b/vndk/v29/arm/libprotobuf-cpp-lite.so
+deleted file mode 120000
+index 4b3896e..0000000
+--- a/vndk/v29/arm/libprotobuf-cpp-lite.so
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../../../prebuilts/vndk/v29/arm64/arch-arm-armv8-a/shared/vndk-core/libprotobuf-cpp-lite.so
+\ No newline at end of file
+diff --git a/vndk/v29/arm64/libprotobuf-cpp-full.so b/vndk/v29/arm64/libprotobuf-cpp-full.so
+deleted file mode 120000
+index caba7cb..0000000
+--- a/vndk/v29/arm64/libprotobuf-cpp-full.so
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../../../prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-core/libprotobuf-cpp-full.so
+\ No newline at end of file
+diff --git a/vndk/v29/arm64/libprotobuf-cpp-lite.so b/vndk/v29/arm64/libprotobuf-cpp-lite.so
+deleted file mode 120000
+index a4bac2e..0000000
+--- a/vndk/v29/arm64/libprotobuf-cpp-lite.so
++++ /dev/null
+@@ -1 +0,0 @@
+-../../../../../../prebuilts/vndk/v29/arm64/arch-arm64-armv8-a/shared/vndk-core/libprotobuf-cpp-lite.so
+\ No newline at end of file
+-- 
+2.34.1
+

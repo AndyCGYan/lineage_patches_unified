@@ -1,0 +1,47 @@
+From 966dbb52453bb6bd3d301a23c6ab4101951a2489 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 17 Jan 2023 17:19:19 +0000
+Subject: [PATCH 04/31] Keyguard: Fix colors of slices not updating on doze
+
+Slices were invisible (black) in doze when using light wallpapers
+Introduced in https://github.com/LineageOS/android_frameworks_base/commit/a19e59d717ec6d573c11c7e8277bba3c4de189c2
+
+Change-Id: I06abd8bf2e28655cc9e6d81366fd82a13454ec5a
+---
+ .../com/android/keyguard/KeyguardStatusViewController.java | 7 +++++++
+ .../systemui/shade/NotificationPanelViewController.java    | 1 +
+ 2 files changed, 8 insertions(+)
+
+diff --git a/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java b/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
+index c314586e4a21..5262a2c04c00 100644
+--- a/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
++++ b/packages/SystemUI/src/com/android/keyguard/KeyguardStatusViewController.java
+@@ -207,6 +207,13 @@ public class KeyguardStatusViewController extends ViewController<KeyguardStatusV
+         mKeyguardSliceViewController.refresh();
+     }
+ 
++    /**
++     * The amount we're in doze.
++     */
++    public void setDarkAmount(float darkAmount) {
++        mView.setDarkAmount(darkAmount);
++    }
++
+     /**
+      * Set which clock should be displayed on the keyguard. The other one will be automatically
+      * hidden.
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
+index 87eeff2c3157..8d531913b3c0 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
++++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
+@@ -4637,6 +4637,7 @@ public final class NotificationPanelViewController implements ShadeSurface, Dump
+         public void onDozeAmountChanged(float linearAmount, float amount) {
+             mInterpolatedDarkAmount = amount;
+             mLinearDarkAmount = linearAmount;
++            mKeyguardStatusViewController.setDarkAmount(mInterpolatedDarkAmount);
+             positionClockAndNotifications();
+         }
+     }
+-- 
+2.34.1
+

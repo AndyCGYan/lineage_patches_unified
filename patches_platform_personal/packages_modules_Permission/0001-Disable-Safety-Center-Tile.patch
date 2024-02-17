@@ -1,0 +1,36 @@
+From 0b0220f3ae8d67817ea1a602d73f5349bbff365d Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 20 Nov 2023 17:53:44 +0800
+Subject: [PATCH] Disable Safety Center Tile
+
+Change-Id: I0f642f486d1c53ee38195eb10aee3fec5992a323
+---
+ PermissionController/AndroidManifest.xml | 12 ------------
+ 1 file changed, 12 deletions(-)
+
+diff --git a/PermissionController/AndroidManifest.xml b/PermissionController/AndroidManifest.xml
+index 817dd0881..9c2a67f78 100644
+--- a/PermissionController/AndroidManifest.xml
++++ b/PermissionController/AndroidManifest.xml
+@@ -528,18 +528,6 @@
+             </intent-filter>
+         </service>
+ 
+-        <service
+-            android:name="com.android.permissioncontroller.permission.service.v33.SafetyCenterQsTileService"
+-            android:enabled="@bool/is_at_least_t"
+-            android:exported="true"
+-            android:label="@string/safety_privacy_qs_tile_title"
+-            android:icon ="@drawable/ic_safety_center_shield"
+-            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+-            <intent-filter>
+-                <action android:name="android.service.quicksettings.action.QS_TILE" />
+-            </intent-filter>
+-        </service>
+-
+         <service android:name="com.android.permissioncontroller.auto.DrivingDecisionReminderService" />
+ 
+         <receiver android:name="com.android.permissioncontroller.role.service.ClearUserDeniedReceiver"
+-- 
+2.34.1
+

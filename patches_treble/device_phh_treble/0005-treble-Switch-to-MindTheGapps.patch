@@ -1,0 +1,46 @@
+From 7295a2f4cd712111205bcbc356e468f2a8ad01fd Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 5 Nov 2022 23:49:11 +0000
+Subject: [PATCH 5/9] treble: Switch to MindTheGapps
+
+Change-Id: I1b80d4c5176cbf4af21d147c71b0abce6027c7c7
+---
+ generate.sh | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/generate.sh b/generate.sh
+index 3527159..0bd6556 100644
+--- a/generate.sh
++++ b/generate.sh
+@@ -24,9 +24,15 @@ for part in a ab;do
+ 				extra_packages=""
+                 vndk="vndk.mk"
+ 		optional_base=""
++
++				baseArch="$arch"
++				if [ "$arch" = "a64" ];then
++					baseArch="arm"
++				fi
++
+ 				if [ "$apps" == "gapps" ];then
+ 					apps_suffix="g"
+-					apps_script='$(call inherit-product, device/phh/treble/gapps.mk)'
++					apps_script='$(call inherit-product, vendor/gapps/'$baseArch'/'$baseArch'-vendor.mk)'
+ 					apps_name="with GApps"
+ 				fi
+ 				if [ "$apps" == "gapps-go" ];then
+@@ -66,11 +72,6 @@ for part in a ab;do
+ 
+ 				target="lineage_${arch}_${part_suffix}${apps_suffix}${su_suffix}"
+ 
+-				baseArch="$arch"
+-				if [ "$arch" = "a64" ];then
+-					baseArch="arm"
+-				fi
+-
+ 				zygote=32
+ 				if [ "$arch" = "arm64" ];then
+ 					zygote=64_32
+-- 
+2.34.1
+

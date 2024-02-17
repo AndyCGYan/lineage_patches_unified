@@ -1,0 +1,194 @@
+From 13b848a8b08c6e99086ab3af9e526c698920ebaa Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 28 Oct 2021 02:30:59 +0000
+Subject: [PATCH 1/3] Trebuchet: Make overview scrim transparent again
+
+Also revert texts/buttons to workspace color
+
+Change-Id: I78c84865eb06b8e59c9c271cd2e267ae4cd7cc08
+---
+ quickstep/res/values/styles.xml               |  2 +-
+ .../android/quickstep/views/RecentsView.java  |  2 +-
+ res/color-v31/overview_scrim.xml              | 18 -----------------
+ res/color-v31/overview_scrim_dark.xml         | 18 -----------------
+ res/color-v33/overview_scrim.xml              | 20 -------------------
+ res/color-v33/overview_scrim_dark.xml         | 20 -------------------
+ res/color/overview_button.xml                 |  6 +++---
+ res/color/overview_scrim.xml                  |  2 +-
+ res/color/overview_scrim_dark.xml             |  2 +-
+ 9 files changed, 7 insertions(+), 83 deletions(-)
+ delete mode 100644 res/color-v31/overview_scrim.xml
+ delete mode 100644 res/color-v31/overview_scrim_dark.xml
+ delete mode 100644 res/color-v33/overview_scrim.xml
+ delete mode 100644 res/color-v33/overview_scrim_dark.xml
+
+diff --git a/quickstep/res/values/styles.xml b/quickstep/res/values/styles.xml
+index fc0370421d..61ca1e05d6 100644
+--- a/quickstep/res/values/styles.xml
++++ b/quickstep/res/values/styles.xml
+@@ -227,7 +227,7 @@
+         <item name="android:paddingBottom">4dp</item>
+         <item name="android:textColor">@color/overview_button</item>
+         <item name="android:drawableTint">@color/overview_button</item>
+-        <item name="android:tint">?android:attr/textColorPrimary</item>
++        <item name="android:tint">?attr/workspaceTextColor</item>
+         <item name="android:drawablePadding">8dp</item>
+         <item name="android:textAllCaps">false</item>
+     </style>
+diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
+index 23fcbea42f..9b151394fa 100644
+--- a/quickstep/src/com/android/quickstep/views/RecentsView.java
++++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
+@@ -793,7 +793,7 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         mEmptyIcon.setCallback(this);
+         mEmptyMessage = context.getText(R.string.recents_empty_message);
+         mEmptyMessagePaint = new TextPaint();
+-        mEmptyMessagePaint.setColor(Themes.getAttrColor(context, android.R.attr.textColorPrimary));
++        mEmptyMessagePaint.setColor(Themes.getAttrColor(context, R.attr.workspaceTextColor));
+         mEmptyMessagePaint.setTextSize(getResources()
+                 .getDimension(R.dimen.recents_empty_message_text_size));
+         mEmptyMessagePaint.setTypeface(Typeface.create(Themes.getDefaultBodyFont(context),
+diff --git a/res/color-v31/overview_scrim.xml b/res/color-v31/overview_scrim.xml
+deleted file mode 100644
+index 212518ff65..0000000000
+--- a/res/color-v31/overview_scrim.xml
++++ /dev/null
+@@ -1,18 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!-- Copyright (C) 2021 The Android Open Source Project
+-
+-     Licensed under the Apache License, Version 2.0 (the "License");
+-     you may not use this file except in compliance with the License.
+-     You may obtain a copy of the License at
+-
+-          http://www.apache.org/licenses/LICENSE-2.0
+-
+-     Unless required by applicable law or agreed to in writing, software
+-     distributed under the License is distributed on an "AS IS" BASIS,
+-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-     See the License for the specific language governing permissions and
+-     limitations under the License.
+--->
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="@android:color/system_neutral2_200" />
+-</selector>
+diff --git a/res/color-v31/overview_scrim_dark.xml b/res/color-v31/overview_scrim_dark.xml
+deleted file mode 100644
+index 2ab8ecdec9..0000000000
+--- a/res/color-v31/overview_scrim_dark.xml
++++ /dev/null
+@@ -1,18 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!-- Copyright (C) 2021 The Android Open Source Project
+-
+-     Licensed under the Apache License, Version 2.0 (the "License");
+-     you may not use this file except in compliance with the License.
+-     You may obtain a copy of the License at
+-
+-          http://www.apache.org/licenses/LICENSE-2.0
+-
+-     Unless required by applicable law or agreed to in writing, software
+-     distributed under the License is distributed on an "AS IS" BASIS,
+-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-     See the License for the specific language governing permissions and
+-     limitations under the License.
+--->
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="@android:color/system_neutral1_500" android:lStar="35" />
+-</selector>
+diff --git a/res/color-v33/overview_scrim.xml b/res/color-v33/overview_scrim.xml
+deleted file mode 100644
+index b9cda980b7..0000000000
+--- a/res/color-v33/overview_scrim.xml
++++ /dev/null
+@@ -1,20 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!-- Copyright (C) 2023 The Android Open Source Project
+-
+-     Licensed under the Apache License, Version 2.0 (the "License");
+-     you may not use this file except in compliance with the License.
+-     You may obtain a copy of the License at
+-
+-          http://www.apache.org/licenses/LICENSE-2.0
+-
+-     Unless required by applicable law or agreed to in writing, software
+-     distributed under the License is distributed on an "AS IS" BASIS,
+-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-     See the License for the specific language governing permissions and
+-     limitations under the License.
+--->
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item
+-        android:color="@android:color/system_neutral2_500"
+-        android:lStar="80"/>
+-</selector>
+diff --git a/res/color-v33/overview_scrim_dark.xml b/res/color-v33/overview_scrim_dark.xml
+deleted file mode 100644
+index 84d22e6515..0000000000
+--- a/res/color-v33/overview_scrim_dark.xml
++++ /dev/null
+@@ -1,20 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!-- Copyright (C) 2023 The Android Open Source Project
+-
+-     Licensed under the Apache License, Version 2.0 (the "License");
+-     you may not use this file except in compliance with the License.
+-     You may obtain a copy of the License at
+-
+-          http://www.apache.org/licenses/LICENSE-2.0
+-
+-     Unless required by applicable law or agreed to in writing, software
+-     distributed under the License is distributed on an "AS IS" BASIS,
+-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-     See the License for the specific language governing permissions and
+-     limitations under the License.
+--->
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item
+-        android:color="@android:color/system_neutral2_500"
+-        android:lStar="35"/>
+-</selector>
+diff --git a/res/color/overview_button.xml b/res/color/overview_button.xml
+index 1dd8da60c7..8868ad7349 100644
+--- a/res/color/overview_button.xml
++++ b/res/color/overview_button.xml
+@@ -3,10 +3,10 @@
+     xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+     <item
+         android:alpha="1"
+-        android:color="?androidprv:attr/materialColorOnSurface"
++        android:color="?attr/workspaceTextColor"
+         android:state_enabled="true" />
+     <item
+         android:alpha="?android:disabledAlpha"
+-        android:color="?androidprv:attr/materialColorOnSurface"
++        android:color="?attr/workspaceTextColor"
+         android:state_enabled="false" />
+-</selector>
+\ No newline at end of file
++</selector>
+diff --git a/res/color/overview_scrim.xml b/res/color/overview_scrim.xml
+index 48cf5763a1..894997c59a 100644
+--- a/res/color/overview_scrim.xml
++++ b/res/color/overview_scrim.xml
+@@ -14,5 +14,5 @@
+      limitations under the License.
+ -->
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="#30000000" />
++  <item android:color="@android:color/transparent" />
+ </selector>
+diff --git a/res/color/overview_scrim_dark.xml b/res/color/overview_scrim_dark.xml
+index 48cf5763a1..894997c59a 100644
+--- a/res/color/overview_scrim_dark.xml
++++ b/res/color/overview_scrim_dark.xml
+@@ -14,5 +14,5 @@
+      limitations under the License.
+ -->
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-  <item android:color="#30000000" />
++  <item android:color="@android:color/transparent" />
+ </selector>
+-- 
+2.34.1
+

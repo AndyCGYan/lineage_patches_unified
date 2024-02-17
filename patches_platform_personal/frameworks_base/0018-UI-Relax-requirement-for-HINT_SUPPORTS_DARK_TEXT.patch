@@ -1,0 +1,28 @@
+From 55c864cf004f63aa0475a76be4537bb26589ae4f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 29 Jun 2021 22:57:01 +0000
+Subject: [PATCH 18/21] UI: Relax requirement for HINT_SUPPORTS_DARK_TEXT
+
+I decide what's good enough for a wallpaper!
+
+Change-Id: I5ccd85b3df12e53746a4ac6cbc37ba8d11f6c336
+---
+ core/java/android/app/WallpaperColors.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/app/WallpaperColors.java b/core/java/android/app/WallpaperColors.java
+index 5f5a7dfe24c6..1adce321012b 100644
+--- a/core/java/android/app/WallpaperColors.java
++++ b/core/java/android/app/WallpaperColors.java
+@@ -593,7 +593,7 @@ public final class WallpaperColors implements Parcelable {
+ 
+         int hints = 0;
+         double meanLuminance = totalLuminance / pixels.length;
+-        if (meanLuminance > BRIGHT_IMAGE_MEAN_LUMINANCE && darkPixels <= maxDarkPixels) {
++        if (meanLuminance > BRIGHT_IMAGE_MEAN_LUMINANCE) {
+             hints |= HINT_SUPPORTS_DARK_TEXT;
+         }
+         if (meanLuminance < DARK_THEME_MEAN_LUMINANCE) {
+-- 
+2.34.1
+

@@ -1,0 +1,197 @@
+From 78487f8b35969298a76f61ae71651f537fe8e90e Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 19 Mar 2022 09:22:24 +0000
+Subject: [PATCH 06/31] UI: Adjust split-screen divider
+
+- Kill rounded corners - where two rectangles collide should be perfectly straight
+- Make it black (pre-Sv2) for phones
+- Follow taskbar theme for tablets
+
+Change-Id: I240b627793b615c82bd07ebd77638cde180ef80f
+---
+ .../color-night-v31/taskbar_background.xml    | 20 +++++++++++++++++
+ .../taskbar_nav_icon_color.xml                | 18 +++++++++++++++
+ .../res/color-v31/taskbar_background.xml      | 18 +++++++++++++++
+ .../res/color-v31/taskbar_nav_icon_color.xml  | 18 +++++++++++++++
+ .../Shell/res/values-sw600dp/colors.xml       | 22 +++++++++++++++++++
+ .../WindowManager/Shell/res/values/colors.xml |  2 +-
+ .../wm/shell/common/split/SplitLayout.java    | 19 ++--------------
+ 7 files changed, 99 insertions(+), 18 deletions(-)
+ create mode 100644 libs/WindowManager/Shell/res/color-night-v31/taskbar_background.xml
+ create mode 100644 libs/WindowManager/Shell/res/color-night-v31/taskbar_nav_icon_color.xml
+ create mode 100644 libs/WindowManager/Shell/res/color-v31/taskbar_background.xml
+ create mode 100644 libs/WindowManager/Shell/res/color-v31/taskbar_nav_icon_color.xml
+ create mode 100644 libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+
+diff --git a/libs/WindowManager/Shell/res/color-night-v31/taskbar_background.xml b/libs/WindowManager/Shell/res/color-night-v31/taskbar_background.xml
+new file mode 100644
+index 000000000000..ec7a6823d34d
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/color-night-v31/taskbar_background.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2023 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<!-- Make sure to align any changes to
++     frameworks/base/libs/WindowManager/Shell/res/color/taskbar_background_dark.xml -->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++  <item android:color="@android:color/system_neutral1_500" android:lStar="6" />
++</selector>
+diff --git a/libs/WindowManager/Shell/res/color-night-v31/taskbar_nav_icon_color.xml b/libs/WindowManager/Shell/res/color-night-v31/taskbar_nav_icon_color.xml
+new file mode 100644
+index 000000000000..cc8e3b30b1b5
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/color-night-v31/taskbar_nav_icon_color.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2023 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="@android:color/system_neutral2_200"/>
++</selector>
+diff --git a/libs/WindowManager/Shell/res/color-v31/taskbar_background.xml b/libs/WindowManager/Shell/res/color-v31/taskbar_background.xml
+new file mode 100644
+index 000000000000..5c53e4a0c9c6
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/color-v31/taskbar_background.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2022 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++  <item android:color="@android:color/system_neutral1_500" android:lStar="98" />
++</selector>
+diff --git a/libs/WindowManager/Shell/res/color-v31/taskbar_nav_icon_color.xml b/libs/WindowManager/Shell/res/color-v31/taskbar_nav_icon_color.xml
+new file mode 100644
+index 000000000000..7951e123afc4
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/color-v31/taskbar_nav_icon_color.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2023 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="@android:color/system_neutral2_700"/>
++</selector>
+diff --git a/libs/WindowManager/Shell/res/values-sw600dp/colors.xml b/libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+new file mode 100644
+index 000000000000..8a1907da76e5
+--- /dev/null
++++ b/libs/WindowManager/Shell/res/values-sw600dp/colors.xml
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++/*
++ * Copyright 2020, The Android Open Source Project
++ *
++ * Licensed under the Apache License, Version 2.0 (the "License");
++ * you may not use this file except in compliance with the License.
++ * You may obtain a copy of the License at
++ *
++ *     http://www.apache.org/licenses/LICENSE-2.0
++ *
++ * Unless required by applicable law or agreed to in writing, software
++ * distributed under the License is distributed on an "AS IS" BASIS,
++ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++ * See the License for the specific language governing permissions and
++ * limitations under the License.
++ */
++-->
++<resources>
++    <color name="docked_divider_handle">@color/taskbar_nav_icon_color</color>
++    <color name="split_divider_background">@color/taskbar_background</color>
++</resources>
+diff --git a/libs/WindowManager/Shell/res/values/colors.xml b/libs/WindowManager/Shell/res/values/colors.xml
+index b2ec98bc1b15..b21a6f50c9ab 100644
+--- a/libs/WindowManager/Shell/res/values/colors.xml
++++ b/libs/WindowManager/Shell/res/values/colors.xml
+@@ -18,7 +18,7 @@
+ -->
+ <resources>
+     <color name="docked_divider_handle">#ffffff</color>
+-    <color name="split_divider_background">@color/taskbar_background_dark</color>
++    <color name="split_divider_background">@android:color/black</color>
+     <drawable name="forced_resizable_background">#59000000</drawable>
+     <color name="minimize_dock_shadow_start">#60000000</color>
+     <color name="minimize_dock_shadow_end">#00000000</color>
+diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+index 755dba0c895f..9a2c9bfdab5d 100644
+--- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
++++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
+@@ -157,23 +157,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+     }
+ 
+     private void updateDividerConfig(Context context) {
+-        final Resources resources = context.getResources();
+-        final Display display = context.getDisplay();
+-        final int dividerInset = resources.getDimensionPixelSize(
+-                com.android.internal.R.dimen.docked_stack_divider_insets);
+-        int radius = 0;
+-        RoundedCorner corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_TOP_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_RIGHT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-        corner = display.getRoundedCorner(RoundedCorner.POSITION_BOTTOM_LEFT);
+-        radius = corner != null ? Math.max(radius, corner.getRadius()) : radius;
+-
+-        mDividerInsets = Math.max(dividerInset, radius);
+-        mDividerSize = resources.getDimensionPixelSize(R.dimen.split_divider_bar_width);
+-        mDividerWindowWidth = mDividerSize + 2 * mDividerInsets;
++        mDividerWindowWidth = context.getResources().getDimensionPixelSize(
++                R.dimen.split_divider_bar_width);
+     }
+ 
+     /** Gets bounds of the primary split with screen based coordinate. */
+-- 
+2.34.1
+
