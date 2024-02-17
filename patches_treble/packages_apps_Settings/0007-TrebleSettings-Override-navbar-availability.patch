@@ -1,0 +1,128 @@
+From 47061bc2ff7442d892e488a0a369d61d7ecdfc0c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 17 Dec 2022 11:00:38 +0000
+Subject: [PATCH 7/8] TrebleSettings: Override navbar availability
+
+Change-Id: I7c771caf6274543fed23a8cc47411bf8c369ac2c
+---
+ res/values/strings.xml                        |  4 ++
+ res/xml/treble_settings.xml                   |  9 ++++
+ ...avbarAvailabilityPreferenceController.java | 53 +++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  1 +
+ 4 files changed, 67 insertions(+)
+ create mode 100644 src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 865a9c4f5f..67d944d9bf 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -6885,6 +6885,8 @@
+     <string name="treble_settings_category_name_display">Display</string>
+     <!-- IMS category name [CHAR LIMIT=none] -->
+     <string name="treble_settings_category_name_ims">IMS</string>
++    <!-- UI category name [CHAR LIMIT=none] -->
++    <string name="treble_settings_category_name_ui">UI</string>
+ 
+     <!-- Treble settings screen, use alternative audio policy title -->
+     <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
+@@ -6907,6 +6909,8 @@
+     <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
+     <!-- Treble settings screen, override VoLTE availability title -->
+     <string name="override_volte_availability_title">Override VoLTE availability</string>
++    <!-- Treble settings screen, override navbar availability title -->
++    <string name="override_navbar_availability_title">Override navigation bar availability</string>
+ 
+     <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
+     <string name="network_dashboard_title">Network &amp; internet</string>
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 5c18461b69..250a8ee75a 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -57,4 +57,13 @@
+ 
+     </PreferenceCategory>
+ 
++    <PreferenceCategory
++        android:title="@string/treble_settings_category_name_ui">
++
++        <SwitchPreference
++            android:key="override_navbar_availability"
++            android:title="@string/override_navbar_availability_title" />
++
++    </PreferenceCategory>
++
+ </PreferenceScreen>
+diff --git a/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java b/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
+new file mode 100644
+index 0000000000..d6baa33739
+--- /dev/null
++++ b/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class OverrideNavbarAvailabilityPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String OVERRIDE_NAVBAR_AVAILABILITY_KEY = "override_navbar_availability";
++    private static final String TREBLE_MAINKEYS_PROPERTY = "persist.sys.treble.mainkeys";
++
++    private SwitchPreference mSwitchPreference;
++
++    public OverrideNavbarAvailabilityPreferenceController(Context context) {
++        super(context, OVERRIDE_NAVBAR_AVAILABILITY_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return OVERRIDE_NAVBAR_AVAILABILITY_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = (SystemProperties.getInt(TREBLE_MAINKEYS_PROPERTY, 0) == 0);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(TREBLE_MAINKEYS_PROPERTY, ((boolean) newValue) ? "0" : "1");
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index 39a0e19972..634b7ce3ce 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -41,6 +41,7 @@ public class TrebleSettings extends DashboardFragment {
+         controllers.add(new OverrideMinimumBrightnessPreferenceController(context));
+         controllers.add(new InstallImsApkPreferenceController(context));
+         controllers.add(new OverrideVolteAvailabilityPreferenceController(context));
++        controllers.add(new OverrideNavbarAvailabilityPreferenceController(context));
+         return controllers;
+     }
+ 
+-- 
+2.34.1
+

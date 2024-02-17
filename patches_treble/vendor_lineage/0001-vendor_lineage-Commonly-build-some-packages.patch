@@ -1,0 +1,48 @@
+From f3ffdeec910a9d36e92c88071c95016c3ecf2e1c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 24 Sep 2022 11:40:52 +0000
+Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
+
+These were in handheld_product.mk and thus weren't included in GSI targets:
+Contacts, DeskClock, Gallery2, SettingsIntelligence, fwb overlays
+
+Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
+---
+ config/common_full.mk   | 3 +++
+ config/common_mobile.mk | 4 +++-
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/config/common_full.mk b/config/common_full.mk
+index f7eecd84..51e1e022 100644
+--- a/config/common_full.mk
++++ b/config/common_full.mk
+@@ -9,8 +9,11 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
+ 
+ # Apps
+ PRODUCT_PACKAGES += \
++    Contacts \
++    DeskClock \
+     Eleven \
+     Etar \
++    Gallery2 \
+     Profiles \
+     Recorder \
+     Seedvault
+diff --git a/config/common_mobile.mk b/config/common_mobile.mk
+index 560074e4..9f3ae002 100644
+--- a/config/common_mobile.mk
++++ b/config/common_mobile.mk
+@@ -15,7 +15,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
+ # Apps
+ PRODUCT_PACKAGES += \
+     Backgrounds \
+-    Glimpse
++    Glimpse \
++    SettingsIntelligence \
++    frameworks-base-overlays
+ 
+ ifeq ($(PRODUCT_TYPE), go)
+ PRODUCT_PACKAGES += \
+-- 
+2.34.1
+

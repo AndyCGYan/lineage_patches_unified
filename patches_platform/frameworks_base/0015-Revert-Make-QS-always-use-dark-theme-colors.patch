@@ -1,0 +1,31 @@
+From 15d6e574126494d166fda1bdfaa22568e0c4aa1c Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Wed, 6 Oct 2021 18:40:30 -0700
+Subject: [PATCH 15/31] Revert "Make QS always use dark theme colors"
+
+This reverts commit d62f7249f9e3222da95ecf6816601c408aac6be5.
+
+This is a prerequisite for making the QS panel follow the light system
+theme setting.
+
+Change-Id: Iac4c96ccb3845812ca3df820bf27dc533816f72e
+---
+ packages/SystemUI/res/values/styles.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index d520670ec012..bd38548dbc65 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -370,7 +370,7 @@
+         <item name="containerStyle">@style/AuthCredentialPinPasswordContainerStyle</item>
+     </style>
+ 
+-    <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault">
++    <style name="Theme.SystemUI.QuickSettings" parent="@*android:style/Theme.DeviceDefault.SystemUI">
+         <item name="isQsTheme">true</item>
+         <item name="lightIconTheme">@style/QSIconTheme</item>
+         <item name="darkIconTheme">@style/QSIconTheme</item>
+-- 
+2.34.1
+

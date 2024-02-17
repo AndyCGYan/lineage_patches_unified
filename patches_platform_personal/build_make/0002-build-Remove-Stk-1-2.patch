@@ -1,0 +1,25 @@
+From 614df52d701e164b0da9586209e4a45e404df52b Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 16 Oct 2021 00:39:15 +0000
+Subject: [PATCH 2/2] build: Remove Stk (1/2)
+
+Change-Id: I24ef17c74c3137a11b463cde96c74d0edc853edd
+---
+ target/product/generic_system.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/target/product/generic_system.mk b/target/product/generic_system.mk
+index 98d6046854..da9adc3af5 100644
+--- a/target/product/generic_system.mk
++++ b/target/product/generic_system.mk
+@@ -33,7 +33,6 @@ PRODUCT_PACKAGES += \
+     LiveWallpapersPicker \
+     PartnerBookmarksProvider \
+     preinstalled-packages-platform-generic-system.xml \
+-    Stk \
+     Tag \
+ 
+ # OTA support
+-- 
+2.34.1
+

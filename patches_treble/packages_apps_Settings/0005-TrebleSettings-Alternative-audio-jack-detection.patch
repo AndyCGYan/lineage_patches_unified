@@ -1,0 +1,116 @@
+From 51821d58357b577cbc62ce5a2e9d0b4f19e686b3 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 10 Dec 2022 14:16:50 +0000
+Subject: [PATCH 5/8] TrebleSettings: Alternative audio jack detection
+
+Change-Id: I5d6d48f26a4a2134fd6edf996eca89a1fc42e6de
+---
+ res/values/strings.xml                        |  2 +
+ res/xml/treble_settings.xml                   |  4 ++
+ .../settings/treble/TrebleSettings.java       |  1 +
+ ...udioJackDetectionPreferenceController.java | 53 +++++++++++++++++++
+ 4 files changed, 60 insertions(+)
+ create mode 100644 src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 8f1056da77..deb2cf9d77 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -6892,6 +6892,8 @@
+     <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
+     <!-- Treble settings screen, disable A2DP offload title -->
+     <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
++    <!-- Treble settings screen, use alternative audio jack detection title -->
++    <string name="use_alternative_audio_jack_detection_title">Use alternative audio jack detection</string>
+     <!-- Treble settings screen, screen resolution and refresh rate settings title -->
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
+     <!-- Treble settings screen, use alternative backlight scale title -->
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index b58e7a1282..47097a14c7 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -21,6 +21,10 @@
+             android:key="disable_a2dp_offload"
+             android:title="@string/disable_a2dp_offload_title" />
+ 
++        <SwitchPreference
++            android:key="use_alternative_audio_jack_detection"
++            android:title="@string/use_alternative_audio_jack_detection_title" />
++
+     </PreferenceCategory>
+ 
+     <PreferenceCategory
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index 5e9b7f88e2..09aa001e82 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -35,6 +35,7 @@ public class TrebleSettings extends DashboardFragment {
+         controllers.add(new UseAlternativeAudioPolicyPreferenceController(context));
+         controllers.add(new DisableSoundvolumeEffectPreferenceController(context));
+         controllers.add(new DisableA2DPOffloadPreferenceController(context));
++        controllers.add(new UseAlternativeAudioJackDetectionPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
+         controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
+         controllers.add(new InstallImsApkPreferenceController(context));
+diff --git a/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java b/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
+new file mode 100644
+index 0000000000..0d60b72db1
+--- /dev/null
++++ b/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class UseAlternativeAudioJackDetectionPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String USE_ALTERNATIVE_AUDIO_JACK_DETECTION_KEY = "use_alternative_audio_jack_detection";
++    private static final String DEVINPUT_JACK_PROPERTY = "persist.sys.overlay.devinputjack";
++
++    private SwitchPreference mSwitchPreference;
++
++    public UseAlternativeAudioJackDetectionPreferenceController(Context context) {
++        super(context, USE_ALTERNATIVE_AUDIO_JACK_DETECTION_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return USE_ALTERNATIVE_AUDIO_JACK_DETECTION_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(DEVINPUT_JACK_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(DEVINPUT_JACK_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+-- 
+2.34.1
+

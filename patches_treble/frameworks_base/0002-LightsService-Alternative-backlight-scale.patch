@@ -1,0 +1,46 @@
+From 69fbb22f3d265d9baf7ba87c2e0d42671a898037 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sat, 24 Mar 2018 08:01:48 +0100
+Subject: [PATCH 2/5] LightsService: Alternative backlight scale
+
+Reserved a manual override just in case
+
+Change-Id: I46ae69c758d1a4609d89cf1c293488ea5fc76787
+---
+ .../com/android/server/lights/LightsService.java    | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
+index fea6b29d9260..2a9a3b63ea2e 100644
+--- a/services/core/java/com/android/server/lights/LightsService.java
++++ b/services/core/java/com/android/server/lights/LightsService.java
+@@ -32,6 +32,7 @@ import android.os.IBinder;
+ import android.os.Looper;
+ import android.os.RemoteException;
+ import android.os.ServiceManager;
++import android.os.SystemProperties;
+ import android.os.Trace;
+ import android.provider.Settings;
+ import android.util.Slog;
+@@ -295,6 +296,18 @@ public class LightsService extends SystemService {
+                     return;
+                 }
+                 int brightnessInt = BrightnessSynchronizer.brightnessFloatToInt(brightness);
++                if (mHwLight.id == 0) {
++                    int scaleOverrideValue = SystemProperties.getInt("persist.sys.treble.backlight_scale.override_value", -1);
++                    if (scaleOverrideValue != -1) {
++                        setLightLocked(brightnessInt * scaleOverrideValue / 255, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
++                        return;
++                    }
++                    int scaleValue = SystemProperties.getInt("persist.sys.treble.backlight_scale.value", -1);
++                    if (scaleValue != -1) {
++                        setLightLocked(brightnessInt * scaleValue / 255, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
++                        return;
++                    }
++                }
+                 int color = brightnessInt & 0x000000ff;
+                 color = 0xff000000 | (color << 16) | (color << 8) | color;
+                 setLightLocked(color, LIGHT_FLASH_NONE, 0, 0, brightnessMode);
+-- 
+2.34.1
+

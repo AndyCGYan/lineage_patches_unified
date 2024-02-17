@@ -1,0 +1,83 @@
+From 471be03743d96834bea2007e1beccd858149b8f6 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 18 Mar 2022 08:42:18 +0000
+Subject: [PATCH 2/3] Trebuchet: Kill haptics in recents
+
+This partially reverts commit cc5c8843dfebfa92057b6ce8904ac58cd05ffaef.
+
+Change-Id: Ie3b0eabe8cc0421e696720740edc492cae2f5153
+---
+ .../NoButtonQuickSwitchTouchController.java   |  9 +--------
+ .../TaskViewTouchController.java              |  5 -----
+ .../android/quickstep/views/RecentsView.java  | 19 -------------------
+ 3 files changed, 1 insertion(+), 32 deletions(-)
+
+diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
+index 6f421eb14a..655797da62 100644
+--- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
++++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
+@@ -438,14 +438,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
+             nonOverviewAnim.setFloatValues(startProgress, endProgress);
+             mNonOverviewAnim.dispatchOnStart();
+         }
+-        if (targetState == QUICK_SWITCH_FROM_HOME) {
+-            // Navigating to quick switch, add scroll feedback since the first time is not
+-            // considered a scroll by the RecentsView.
+-            VibratorWrapper.INSTANCE.get(mLauncher).vibrate(
+-                    RecentsView.SCROLL_VIBRATION_PRIMITIVE,
+-                    RecentsView.SCROLL_VIBRATION_PRIMITIVE_SCALE,
+-                    RecentsView.SCROLL_VIBRATION_FALLBACK);
+-        } else {
++        if (targetState != QUICK_SWITCH_FROM_HOME) {
+             InteractionJankMonitorWrapper.cancel(InteractionJankMonitorWrapper.CUJ_QUICK_SWITCH);
+         }
+ 
+diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
+index 3d94857848..849b9fd2d1 100644
+--- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
++++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
+@@ -369,11 +369,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
+         mCurrentAnimation.startWithVelocity(mActivity, goingToEnd,
+                 velocity * orientationHandler.getSecondaryTranslationDirectionFactor(),
+                 mEndDisplacement, animationDuration);
+-        if (goingUp && goingToEnd && !mIsDismissHapticRunning) {
+-            VibratorWrapper.INSTANCE.get(mActivity).vibrate(TASK_DISMISS_VIBRATION_PRIMITIVE,
+-                    TASK_DISMISS_VIBRATION_PRIMITIVE_SCALE, TASK_DISMISS_VIBRATION_FALLBACK);
+-            mIsDismissHapticRunning = true;
+-        }
+     }
+ 
+     private void clearState() {
+diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
+index 9b151394fa..0ce5537d2e 100644
+--- a/quickstep/src/com/android/quickstep/views/RecentsView.java
++++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
+@@ -1558,25 +1558,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         }
+     }
+ 
+-    @Override
+-    protected void onEdgeAbsorbingScroll() {
+-        vibrateForScroll();
+-    }
+-
+-    @Override
+-    protected void onScrollOverPageChanged() {
+-        vibrateForScroll();
+-    }
+-
+-    private void vibrateForScroll() {
+-        long now = SystemClock.uptimeMillis();
+-        if (now - mScrollLastHapticTimestamp > mScrollHapticMinGapMillis) {
+-            mScrollLastHapticTimestamp = now;
+-            VibratorWrapper.INSTANCE.get(mContext).vibrate(SCROLL_VIBRATION_PRIMITIVE,
+-                    SCROLL_VIBRATION_PRIMITIVE_SCALE, SCROLL_VIBRATION_FALLBACK);
+-        }
+-    }
+-
+     @Override
+     protected void determineScrollingStart(MotionEvent ev, float touchSlopScale) {
+         // Enables swiping to the left or right only if the task overlay is not modal.
+-- 
+2.34.1
+

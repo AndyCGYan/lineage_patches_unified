@@ -1,0 +1,178 @@
+From 47391e102c2ab15bdf913a9856e20dba82668472 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 2 Sep 2021 16:15:19 +0000
+Subject: [PATCH 06/21] Keyguard: Adjust clock style
+
+Thinner font, less padding and unintrusive colors
+
+Change-Id: I21e5d5bf37d724e75ebce4cd89349e0cc4dfc910
+---
+ .../customization/res/layout/clock_default_large.xml         | 1 +
+ .../customization/res/layout/clock_default_small.xml         | 2 +-
+ packages/SystemUI/customization/res/values/colors.xml        | 5 +++++
+ packages/SystemUI/customization/res/values/dimens.xml        | 4 ++--
+ .../android/systemui/shared/clocks/DefaultClockController.kt | 4 ++--
+ .../SystemUI/res-keyguard/layout/keyguard_clock_switch.xml   | 2 +-
+ .../SystemUI/res-keyguard/layout/keyguard_slice_view.xml     | 2 +-
+ packages/SystemUI/res-keyguard/values/dimens.xml             | 2 +-
+ packages/SystemUI/res-keyguard/values/styles.xml             | 2 --
+ packages/SystemUI/res/layout/keyguard_status_bar.xml         | 2 +-
+ packages/SystemUI/res/values/styles.xml                      | 4 ++--
+ 11 files changed, 17 insertions(+), 13 deletions(-)
+ create mode 100644 packages/SystemUI/customization/res/values/colors.xml
+
+diff --git a/packages/SystemUI/customization/res/layout/clock_default_large.xml b/packages/SystemUI/customization/res/layout/clock_default_large.xml
+index 0139d50dcfba..9f5ca7b89213 100644
+--- a/packages/SystemUI/customization/res/layout/clock_default_large.xml
++++ b/packages/SystemUI/customization/res/layout/clock_default_large.xml
+@@ -26,6 +26,7 @@
+     android:fontFamily="@*android:string/config_clockFontFamily"
+     android:typeface="monospace"
+     android:elegantTextHeight="false"
++    android:fontFeatureSettings="tnum"
+     chargeAnimationDelay="200"
+     dozeWeight="200"
+     lockScreenWeight="400" />
+diff --git a/packages/SystemUI/customization/res/layout/clock_default_small.xml b/packages/SystemUI/customization/res/layout/clock_default_small.xml
+index ff6d7f9e2240..b63ffce20671 100644
+--- a/packages/SystemUI/customization/res/layout/clock_default_small.xml
++++ b/packages/SystemUI/customization/res/layout/clock_default_small.xml
+@@ -27,7 +27,7 @@
+     android:elegantTextHeight="false"
+     android:ellipsize="none"
+     android:singleLine="true"
+-    android:fontFeatureSettings="pnum"
++    android:fontFeatureSettings="tnum"
+     chargeAnimationDelay="350"
+     dozeWeight="200"
+     lockScreenWeight="400" />
+diff --git a/packages/SystemUI/customization/res/values/colors.xml b/packages/SystemUI/customization/res/values/colors.xml
+new file mode 100644
+index 000000000000..f80af4376ff1
+--- /dev/null
++++ b/packages/SystemUI/customization/res/values/colors.xml
+@@ -0,0 +1,5 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="clock_default_color_dark">@*android:color/primary_text_material_dark</color>
++    <color name="clock_default_color_light">@*android:color/primary_text_material_light</color>
++</resources>
+diff --git a/packages/SystemUI/customization/res/values/dimens.xml b/packages/SystemUI/customization/res/values/dimens.xml
+index 8eb8132b07b9..02688e5b1329 100644
+--- a/packages/SystemUI/customization/res/values/dimens.xml
++++ b/packages/SystemUI/customization/res/values/dimens.xml
+@@ -31,5 +31,5 @@
+     <!-- additional offset for clock switch area items -->
+     <dimen name="small_clock_height">114dp</dimen>
+     <dimen name="small_clock_padding_top">28dp</dimen>
+-    <dimen name="clock_padding_start">28dp</dimen>
+-</resources>
+\ No newline at end of file
++    <dimen name="clock_padding_start">22dp</dimen>
++</resources>
+diff --git a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
+index b28920c590c5..a786adad32e5 100644
+--- a/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
++++ b/packages/SystemUI/customization/src/com/android/systemui/shared/clocks/DefaultClockController.kt
+@@ -157,9 +157,9 @@ class DefaultClockController(
+                 if (seedColor != null) {
+                     seedColor!!
+                 } else if (isRegionDark) {
+-                    resources.getColor(android.R.color.system_accent1_100)
++                    resources.getColor(R.color.clock_default_color_dark)
+                 } else {
+-                    resources.getColor(android.R.color.system_accent2_600)
++                    resources.getColor(R.color.clock_default_color_light)
+                 }
+ 
+             if (currentColor == color) {
+diff --git a/packages/SystemUI/res-keyguard/layout/keyguard_clock_switch.xml b/packages/SystemUI/res-keyguard/layout/keyguard_clock_switch.xml
+index fc9c917c152b..6a5ed0daef4a 100644
+--- a/packages/SystemUI/res-keyguard/layout/keyguard_clock_switch.xml
++++ b/packages/SystemUI/res-keyguard/layout/keyguard_clock_switch.xml
+@@ -27,7 +27,7 @@
+     android:layout_gravity="center_horizontal|top">
+     <com.android.keyguard.KeyguardClockFrame
+         android:id="@+id/lockscreen_clock_view"
+-        android:layout_width="wrap_content"
++        android:layout_width="match_parent"
+         android:layout_height="@dimen/small_clock_height"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentTop="true"
+diff --git a/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml b/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml
+index 7c5dbc247428..64657547621f 100644
+--- a/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml
++++ b/packages/SystemUI/res-keyguard/layout/keyguard_slice_view.xml
+@@ -38,7 +38,7 @@
+               android:id="@+id/row"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+-              android:orientation="horizontal"
++              android:orientation="vertical"
+               android:gravity="start"
+     />
+ </com.android.keyguard.KeyguardSliceView>
+diff --git a/packages/SystemUI/res-keyguard/values/dimens.xml b/packages/SystemUI/res-keyguard/values/dimens.xml
+index 8c817330953c..cfbc3b96da7c 100644
+--- a/packages/SystemUI/res-keyguard/values/dimens.xml
++++ b/packages/SystemUI/res-keyguard/values/dimens.xml
+@@ -97,7 +97,7 @@
+     <!-- additional offset for clock switch area items -->
+     <dimen name="below_clock_padding_start">32dp</dimen>
+     <dimen name="below_clock_padding_end">16dp</dimen>
+-    <dimen name="below_clock_padding_start_icons">28dp</dimen>
++    <dimen name="below_clock_padding_start_icons">22dp</dimen>
+ 
+     <!-- Proportion of the screen height to use to set the maximum height of the bouncer to when
+          the device is in the DEVICE_POSTURE_HALF_OPENED posture, for the PIN/pattern entry. 0 will
+diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
+index 88f7bcd5d907..f0cff767b74d 100644
+--- a/packages/SystemUI/res-keyguard/values/styles.xml
++++ b/packages/SystemUI/res-keyguard/values/styles.xml
+@@ -138,8 +138,6 @@
+         <item name="android:ellipsize">end</item>
+         <item name="android:maxLines">2</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
+-        <item name="android:shadowColor">@color/keyguard_shadow_color</item>
+-        <item name="android:shadowRadius">?attr/shadowRadius</item>
+     </style>
+ 
+     <style name="TextAppearance.Keyguard.Secondary">
+diff --git a/packages/SystemUI/res/layout/keyguard_status_bar.xml b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+index fc0bf242dc1e..388ab51a6245 100644
+--- a/packages/SystemUI/res/layout/keyguard_status_bar.xml
++++ b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+@@ -77,7 +77,7 @@
+         android:gravity="center_vertical"
+         android:ellipsize="marquee"
+         android:textDirection="locale"
+-        android:textAppearance="@style/TextAppearance.StatusBar.Clock"
++        android:textAppearance="?android:attr/textAppearanceSmall"
+         android:textColor="?attr/wallpaperTextColorSecondary"
+         android:singleLine="true"
+         systemui:showMissingSim="true"
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index af92c021ec62..847b8a961322 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -311,7 +311,7 @@
+         <item name="darkIconTheme">@style/DualToneDarkTheme</item>
+         <item name="wallpaperTextColor">@*android:color/primary_text_material_dark</item>
+         <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_dark</item>
+-        <item name="wallpaperTextColorAccent">@color/material_dynamic_primary90</item>
++        <item name="wallpaperTextColorAccent">@*android:color/primary_text_material_dark</item>
+         <item name="android:colorError">@*android:color/error_color_material_dark</item>
+         <item name="*android:lockPatternStyle">@style/LockPatternViewStyle</item>
+         <item name="lockPatternStyle">@style/LockPatternContainerStyle</item>
+@@ -329,7 +329,7 @@
+     <style name="Theme.SystemUI.LightWallpaper">
+         <item name="wallpaperTextColor">@*android:color/primary_text_material_light</item>
+         <item name="wallpaperTextColorSecondary">@*android:color/secondary_text_material_light</item>
+-        <item name="wallpaperTextColorAccent">@color/material_dynamic_secondary40</item>
++        <item name="wallpaperTextColorAccent">@*android:color/primary_text_material_light</item>
+         <item name="android:colorError">@*android:color/error_color_material_light</item>
+         <item name="shadowRadius">0</item>
+ 
+-- 
+2.34.1
+

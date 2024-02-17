@@ -1,0 +1,150 @@
+From cbb3174a2aca29c815b00c840cba3771defa8298 Mon Sep 17 00:00:00 2001
+From: ReallySnow <reallysnow233@gmail.com>
+Date: Thu, 15 Sep 2022 13:38:48 +0800
+Subject: [PATCH 26/31] SystemUI: Follow light/dark theme in SplitShade Header
+
+* Google's default implementation is dark, which means
+  it doesn't need to follow the light/dark color change,
+  but we broke it, so add it to complete the SplitShade
+  Header color change
+
+Co-authored-by: Col_or <col_or@qq.com>
+Change-Id: I5464039885197eeb43bd31b822bfcba7a1b08776
+---
+ .../systemui/shade/ShadeHeaderController.kt   | 27 +++++++++++++++++++
+ .../systemui/shade/carrier/ShadeCarrier.java  |  8 ++++++
+ .../shade/carrier/ShadeCarrierGroup.java      | 16 +++++++++++
+ 3 files changed, 51 insertions(+)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt b/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
+index 3c08389a7ca2..5cdd6f44d4a0 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
++++ b/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
+@@ -22,7 +22,10 @@ import android.annotation.IdRes
+ import android.app.PendingIntent
+ import android.app.StatusBarManager
+ import android.content.Intent
++import android.content.Context
++import android.content.res.ColorStateList
+ import android.content.res.Configuration
++import android.graphics.Color
+ import android.os.Bundle
+ import android.os.Trace
+ import android.os.Trace.TRACE_TAG_APP
+@@ -91,6 +94,7 @@ constructor(
+     private val privacyIconsController: HeaderPrivacyIconsController,
+     private val insetsProvider: StatusBarContentInsetsProvider,
+     private val configurationController: ConfigurationController,
++    private val context: Context,
+     private val variableDateViewControllerFactory: VariableDateViewController.Factory,
+     @Named(SHADE_HEADER) private val batteryMeterViewController: BatteryMeterViewController,
+     private val dumpManager: DumpManager,
+@@ -141,6 +145,7 @@ constructor(
+     private var cutout: DisplayCutout? = null
+     private var lastInsets: WindowInsets? = null
+     private var nextAlarmIntent: PendingIntent? = null
++    private var textColorPrimary = Color.TRANSPARENT
+ 
+     private var qsDisabled = false
+     private var visible = false
+@@ -283,6 +288,10 @@ constructor(
+                 updateCarrierGroupPadding()
+                 clock.onDensityOrFontScaleChanged()
+             }
++
++            override fun onUiModeChanged() {
++                updateResources()
++            }
+         }
+ 
+     private val nextAlarmCallback =
+@@ -335,6 +344,7 @@ constructor(
+         demoModeController.addCallback(demoModeReceiver)
+         statusBarIconController.addIconGroup(iconManager)
+         nextAlarmController.addCallback(nextAlarmCallback)
++        updateResources()
+         systemIcons.setOnHoverListener(
+             statusOverlayHoverListenerFactory.createListener(systemIcons)
+         )
+@@ -538,6 +548,23 @@ constructor(
+         header.setPadding(padding, header.paddingTop, padding, header.paddingBottom)
+         updateQQSPaddings()
+         qsBatteryModeController.updateResources()
++
++        val fillColor = Utils.getColorAttrDefaultColor(context, android.R.attr.textColorPrimary)
++        iconManager.setTint(fillColor)
++        val textColor = Utils.getColorAttrDefaultColor(context, android.R.attr.textColorPrimary)
++        val colorStateList = Utils.getColorAttr(context, android.R.attr.textColorPrimary)
++        if (textColor != textColorPrimary) {
++            val textColorSecondary = Utils.getColorAttrDefaultColor(context,
++                    android.R.attr.textColorSecondary)
++            textColorPrimary = textColor
++            if (iconManager != null) {
++                iconManager.setTint(textColor)
++            }
++            clock.setTextColor(textColorPrimary)
++            date.setTextColor(textColorPrimary)
++            mShadeCarrierGroup.updateColors(textColorPrimary, colorStateList)
++            batteryIcon.updateColors(textColorPrimary, textColorSecondary, textColorPrimary)
++        }
+     }
+ 
+     private fun updateQQSPaddings() {
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrier.java b/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrier.java
+index 8612cdf12c6e..5940677c4842 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrier.java
++++ b/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrier.java
+@@ -152,6 +152,14 @@ public class ShadeCarrier extends LinearLayout {
+                         com.android.settingslib.R.string.not_default_data_content_description));
+     }
+ 
++    public void updateColors(ColorStateList colorStateList) {
++        final boolean visible = !mIsSingleCarrier;
++        if (visible) {
++            mMobileRoaming.setImageTintList(colorStateList);
++            mMobileSignal.setImageTintList(colorStateList);
++        }
++    }
++
+     @VisibleForTesting
+     View getRSSIView() {
+         return mMobileGroup;
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrierGroup.java b/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrierGroup.java
+index 68561d1cfd0f..97964c38a92f 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrierGroup.java
++++ b/packages/SystemUI/src/com/android/systemui/shade/carrier/ShadeCarrierGroup.java
+@@ -18,8 +18,11 @@ package com.android.systemui.shade.carrier;
+ 
+ import android.annotation.StyleRes;
+ import android.content.Context;
++import android.content.res.ColorStateList;
++import android.graphics.PorterDuff;
+ import android.util.AttributeSet;
+ import android.view.View;
++import android.widget.ImageView;
+ import android.widget.LinearLayout;
+ import android.widget.TextView;
+ 
+@@ -58,6 +61,19 @@ public class ShadeCarrierGroup extends LinearLayout {
+         return findViewById(R.id.shade_carrier_divider2);
+     }
+ 
++    public void updateColors(int color, ColorStateList colorStateList) {
++        getNoSimTextView().setTextColor(color);
++        ShadeCarrier[] shadeCarriers = { getCarrier1View(), getCarrier2View(), getCarrier3View() };
++        for (ShadeCarrier shadeCarrier : shadeCarriers) {
++            for (int i = 0; i < shadeCarrier.getChildCount(); i++) {
++                shadeCarrier.updateColors(colorStateList);
++                if (shadeCarrier.getChildAt(i) instanceof TextView) {
++                    ((TextView) shadeCarrier.getChildAt(i)).setTextColor(color);
++                }
++            }
++        }
++    }
++
+     public void updateTextAppearance(@StyleRes int resId) {
+         FontSizeUtils.updateFontSizeFromStyle(getNoSimTextView(), resId);
+         getCarrier1View().updateTextAppearance(resId);
+-- 
+2.34.1
+

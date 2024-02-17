@@ -1,0 +1,3040 @@
+From f0f5e3f2db8aad94329c6354da8dbca17b8cef81 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 8 Jun 2023 00:46:00 +0800
+Subject: [PATCH 1/4] Squashed revert of LOS widget redesign
+
+Until it no longer works...
+
+- Revert "DeskClock: Another round of cleanups"
+- Revert "DeskClock: Digital widget: Redesign"
+- Revert "DeskClock: update digital widget"
+---
+ AndroidManifest.xml                           |   9 -
+ .../appwidget_digital_clock_preview.png       | Bin 0 -> 10832 bytes
+ res/drawable/ic_checkmark.xml                 |  27 +++
+ res/drawable/widget_background.xml            |  11 --
+ .../widget_configuration_background.xml       |  14 --
+ res/layout-night/digital_widget_preview.xml   |  59 -------
+ res/layout/alarm_time_collapsed.xml           |   2 +-
+ res/layout/day_button.xml                     |  30 ++++
+ res/layout/digital_widget.xml                 |  52 ++----
+ res/layout/digital_widget_configuration.xml   | 132 ---------------
+ .../digital_widget_configuration_preview.xml  |  60 -------
+ ...idget_configuration_preview_solid_root.xml |  17 --
+ ...configuration_preview_transparent_root.xml |  17 --
+ ...digital_widget_darkbg_solid_theme_root.xml |  14 --
+ .../digital_widget_darkbg_theme_root.xml      |  14 --
+ ...igital_widget_lightbg_solid_theme_root.xml |  14 --
+ .../digital_widget_lightbg_theme_root.xml     |  14 --
+ res/layout/digital_widget_preview.xml         |  60 -------
+ res/layout/digital_widget_sizer.xml           |  34 ++--
+ res/layout/world_clock_remote_list_item.xml   |  45 +++--
+ res/values-h560dp/dimens.xml                  |   2 +-
+ res/values-h650dp/dimens.xml                  |   2 +-
+ res/values-land/dimens.xml                    |   1 +
+ res/values-land/fractions.xml                 |   6 +
+ res/values-night/styles.xml                   |  15 --
+ res/values-sw600dp-land/dimens.xml            |   3 +-
+ res/values-sw600dp/dimens.xml                 |  15 +-
+ res/values-sw720dp/dimens.xml                 |   2 +-
+ res/values-w360dp-h420dp/bools.xml            |  19 +++
+ res/values-w470dp-land/bools.xml              |  20 +++
+ res/values/attrs.xml                          |  13 --
+ res/values/bools.xml                          |   2 +
+ res/values/cm_strings.xml                     |   7 -
+ res/values/colors.xml                         |  20 ++-
+ res/values/dimens.xml                         |  33 +++-
+ res/values/donottranslate.xml                 |   6 +-
+ res/values/fractions.xml                      |   6 +
+ res/values/strings.xml                        |  12 ++
+ res/values/styles.xml                         | 159 +++---------------
+ res/values/themes.xml                         |   2 +-
+ res/xml/digital_appwidget.xml                 |  13 +-
+ .../DigitalAppWidgetCityViewsFactory.java     |  10 +-
+ ...DigitalAppWidgetConfigurationActivity.java |  50 ------
+ .../alarmclock/DigitalAppWidgetProvider.java  |  60 ++-----
+ src/com/android/alarmclock/WidgetUtils.java   |  28 ---
+ src/com/android/deskclock/ClockFragment.java  |   1 +
+ .../deskclock/DropShadowController.java       |   2 -
+ src/com/android/deskclock/FabContainer.java   |   2 +-
+ src/com/android/deskclock/FabController.java  |   2 -
+ src/com/android/deskclock/FragmentUtils.java  |   5 +-
+ .../deskclock/ScreensaverActivity.java        |  24 +--
+ src/com/android/deskclock/Utils.java          |  19 ++-
+ .../actionbarmenu/MenuItemController.java     |   4 +-
+ src/com/android/deskclock/data/DataModel.java |  11 +-
+ .../android/deskclock/data/RingtoneModel.java |   5 +-
+ .../deskclock/data/SilentSettingsModel.java   |   4 +-
+ .../deskclock/data/StopwatchListener.java     |   4 +-
+ .../deskclock/data/StopwatchModel.java        |   4 +-
+ .../data/StopwatchNotificationBuilder.java    |   3 +-
+ src/com/android/deskclock/data/Timer.java     |   2 +-
+ .../android/deskclock/data/TimerModel.java    |   4 +-
+ src/com/android/deskclock/provider/Alarm.java |   2 +-
+ .../ringtone/AddCustomRingtoneViewHolder.java |   1 +
+ .../ringtone/RingtonePickerActivity.java      |  18 +-
+ .../settings/AlarmVolumePreference.java       |   3 +-
+ .../deskclock/settings/SettingsActivity.java  |   2 +-
+ .../deskclock/stopwatch/StopwatchService.java |   4 +
+ .../android/deskclock/timer/TimerAdapter.java |   5 +-
+ .../deskclock/timer/TimerFragment.java        |   8 +-
+ .../android/deskclock/timer/TimerItem.java    |   2 +
+ .../android/deskclock/timer/TimerService.java |   4 +
+ .../deskclock/timer/TimerViewHolder.java      |  14 +-
+ .../uidata/PeriodicCallbackModel.java         |   1 -
+ .../widget/CollapsingToolbarBaseActivity.java |   3 +
+ .../deskclock/widget/MockFabContainer.java    |  27 ++-
+ 75 files changed, 388 insertions(+), 933 deletions(-)
+ create mode 100644 res/drawable-nodpi/appwidget_digital_clock_preview.png
+ create mode 100644 res/drawable/ic_checkmark.xml
+ delete mode 100644 res/drawable/widget_background.xml
+ delete mode 100644 res/drawable/widget_configuration_background.xml
+ delete mode 100644 res/layout-night/digital_widget_preview.xml
+ create mode 100644 res/layout/day_button.xml
+ delete mode 100644 res/layout/digital_widget_configuration.xml
+ delete mode 100644 res/layout/digital_widget_configuration_preview.xml
+ delete mode 100644 res/layout/digital_widget_configuration_preview_solid_root.xml
+ delete mode 100644 res/layout/digital_widget_configuration_preview_transparent_root.xml
+ delete mode 100644 res/layout/digital_widget_darkbg_solid_theme_root.xml
+ delete mode 100644 res/layout/digital_widget_darkbg_theme_root.xml
+ delete mode 100644 res/layout/digital_widget_lightbg_solid_theme_root.xml
+ delete mode 100644 res/layout/digital_widget_lightbg_theme_root.xml
+ delete mode 100644 res/layout/digital_widget_preview.xml
+ delete mode 100644 res/values-night/styles.xml
+ create mode 100644 res/values-w360dp-h420dp/bools.xml
+ create mode 100644 res/values-w470dp-land/bools.xml
+ delete mode 100644 src/com/android/alarmclock/DigitalAppWidgetConfigurationActivity.java
+
+diff --git a/AndroidManifest.xml b/AndroidManifest.xml
+index b3717f7b5..67a2f2557 100644
+--- a/AndroidManifest.xml
++++ b/AndroidManifest.xml
+@@ -299,7 +299,6 @@
+                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                 <action android:name="com.android.deskclock.ON_DAY_CHANGE" />
+                 <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />
+-                <action android:name="android.intent.action.CONFIGURATION_CHANGED" />
+             </intent-filter>
+             <meta-data
+                 android:name="android.appwidget.provider"
+@@ -310,13 +309,5 @@
+             android:name="com.android.alarmclock.DigitalAppWidgetCityService"
+             android:permission="android.permission.BIND_REMOTEVIEWS" />
+ 
+-        <activity
+-            android:name="com.android.alarmclock.DigitalAppWidgetConfigurationActivity"
+-            android:theme="@style/Theme.DeskClock.DigitalWidgetConfigurationTheme"
+-            android:exported="true">
+-            <intent-filter>
+-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+-            </intent-filter>
+-        </activity>
+     </application>
+ </manifest>
+diff --git a/res/drawable-nodpi/appwidget_digital_clock_preview.png b/res/drawable-nodpi/appwidget_digital_clock_preview.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..25a49540bea2f3e9aad790f13cfbab4b1c2a60d5
+GIT binary patch
+literal 10832
+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
+
+literal 0
+HcmV?d00001
+
+diff --git a/res/drawable/ic_checkmark.xml b/res/drawable/ic_checkmark.xml
+new file mode 100644
+index 000000000..ed5c32dde
+--- /dev/null
++++ b/res/drawable/ic_checkmark.xml
+@@ -0,0 +1,27 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++  Copyright (C) 2016 The Android Open Source Project
++
++  Licensed under the Apache License, Version 2.0 (the "License");
++  you may not use this file except in compliance with the License.
++  You may obtain a copy of the License at
++
++      http://www.apache.org/licenses/LICENSE-2.0
++
++  Unless required by applicable law or agreed to in writing, software
++  distributed under the License is distributed on an "AS IS" BASIS,
++  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++  See the License for the specific language governing permissions and
++  limitations under the License.
++  -->
++
++<vector
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportHeight="24.0"
++    android:viewportWidth="24.0">
++    <path
++        android:fillColor="#FFF"
++        android:pathData="M9,16.2L4.8,12l-1.4,1.4L9,19 21,7l-1.4,-1.4L9,16.2z" />
++</vector>
+diff --git a/res/drawable/widget_background.xml b/res/drawable/widget_background.xml
+deleted file mode 100644
+index 4a9485a7d..000000000
+--- a/res/drawable/widget_background.xml
++++ /dev/null
+@@ -1,11 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<shape android:shape="rectangle"
+-  xmlns:android="http://schemas.android.com/apk/res/android">
+-    <solid android:color="@color/white" />
+-    <corners android:radius="@dimen/widget_background_corner_radius" />
+-</shape>
+diff --git a/res/drawable/widget_configuration_background.xml b/res/drawable/widget_configuration_background.xml
+deleted file mode 100644
+index 33eb4a5a7..000000000
+--- a/res/drawable/widget_configuration_background.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<shape android:shape="rectangle"
+-  xmlns:android="http://schemas.android.com/apk/res/android">
+-    <stroke
+-        android:width="1dp"
+-        android:color="@color/system_neutral2_700" />
+-    <solid android:color="@android:color/transparent"/>
+-    <corners android:radius="@dimen/widget_configuration_background_corner_radius" />
+-</shape>
+diff --git a/res/layout-night/digital_widget_preview.xml b/res/layout-night/digital_widget_preview.xml
+deleted file mode 100644
+index 1b8a6115d..000000000
+--- a/res/layout-night/digital_widget_preview.xml
++++ /dev/null
+@@ -1,59 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@android:id/background"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:gravity="top|center_horizontal"
+-    android:orientation="vertical"
+-    android:background="@drawable/widget_background"
+-    android:backgroundTint="?appWidgetBackgroundTint"
+-    android:padding="@dimen/widget_padding"
+-    android:paddingTop="@dimen/widget_padding"
+-    android:paddingBottom="@dimen/widget_padding"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetTransparentDarkBg">
+-
+-    <TextClock
+-        android:id="@+id/clock"
+-        android:textAppearance="?appWidgetTextAppearancePrimary"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:ellipsize="none"
+-        android:format12Hour="@string/lock_screen_12_hour_format"
+-        android:format24Hour="@string/lock_screen_24_hour_format"
+-        android:includeFontPadding="false"
+-        android:singleLine="true"
+-        android:textAlignment="center"
+-        android:textSize="48sp"
+-        tools:text="0123"
+-        tools:textColor="@android:color/white"/>
+-
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:layout_marginTop="-10dp">
+-
+-        <TextClock
+-            android:id="@+id/date"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:ellipsize="none"
+-            android:includeFontPadding="false"
+-            android:singleLine="true"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
+-            android:format12Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            android:format24Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            tools:text="01. Jan, 2023"
+-            tools:textColor="@android:color/white"
+-            tools:textSize="@dimen/label_font_size"/>
+-
+-    </LinearLayout>
+-</LinearLayout>
+diff --git a/res/layout/alarm_time_collapsed.xml b/res/layout/alarm_time_collapsed.xml
+index 101561e43..3f0b64264 100644
+--- a/res/layout/alarm_time_collapsed.xml
++++ b/res/layout/alarm_time_collapsed.xml
+@@ -59,7 +59,7 @@
+         android:layout_width="wrap_content"
+         android:layout_height="@dimen/touch_target_min_size"
+         android:background="?selectableItemBackgroundBorderless"
+-        android:contentDescription="@string/expand_alarm"
++        android:contentDescription="@string/collapse_alarm"
+         android:focusable="true"
+         android:padding="@dimen/checkbox_start_padding"
+         android:scaleType="center"
+diff --git a/res/layout/day_button.xml b/res/layout/day_button.xml
+new file mode 100644
+index 000000000..b7099e52d
+--- /dev/null
++++ b/res/layout/day_button.xml
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++  ~ Copyright (C) 2015 The Android Open Source Project
++  ~
++  ~ Licensed under the Apache License, Version 2.0 (the "License");
++  ~ you may not use this file except in compliance with the License.
++  ~ You may obtain a copy of the License at
++  ~
++  ~      http://www.apache.org/licenses/LICENSE-2.0
++  ~
++  ~ Unless required by applicable law or agreed to in writing, software
++  ~ distributed under the License is distributed on an "AS IS" BASIS,
++  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++  ~ See the License for the specific language governing permissions and
++  ~ limitations under the License
++  -->
++
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++             android:layout_width="0dp"
++             android:layout_height="48dp"
++             android:layout_weight="1">
++    <CheckBox
++        android:id="@+id/day_button_box"
++        android:layout_width="48dp"
++        android:layout_height="48dp"
++        android:background="@drawable/toggle_circle"
++        android:button="@null"
++        android:gravity="center"
++        android:textSize="@dimen/day_button_font_size" />
++</FrameLayout>
+diff --git a/res/layout/digital_widget.xml b/res/layout/digital_widget.xml
+index 3dfed7f84..5cf896a84 100644
+--- a/res/layout/digital_widget.xml
++++ b/res/layout/digital_widget.xml
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <!-- Copyright (C) 2016 The Android Open Source Project
+-     Copyright (C) 2023 The LineageOS Project
+ 
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+@@ -17,78 +16,61 @@
+ 
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@android:id/background"
++    android:id="@+id/digital_widget"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+-    android:background="@drawable/widget_background"
+-    android:backgroundTint="?appWidgetBackgroundTint"
+-    android:gravity="center"
+-    android:orientation="vertical"
+-    android:padding="@dimen/widget_padding"
+-    tools:theme="@style/Theme.DeskClock.DigitalWidgetDarkBg">
++    android:gravity="top|center_horizontal"
++    android:orientation="vertical">
+ 
+     <TextClock
+         android:id="@+id/clock"
++        style="@style/widget_big_thin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal"
++        android:layout_gravity="center_horizontal|top"
+         android:ellipsize="none"
+         android:format12Hour="@string/lock_screen_12_hour_format"
+         android:format24Hour="@string/lock_screen_24_hour_format"
+         android:includeFontPadding="false"
+         android:singleLine="true"
+-        android:textAppearance="?appWidgetTextAppearancePrimary"
+-        tools:text="0123"
+-        tools:textColor="@android:color/white"
+-        tools:textSize="@dimen/big_font_size" />
++        android:textColor="@color/white" />
+ 
+     <LinearLayout
+-        android:id="@+id/bottom_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_marginTop="-10dp">
++        android:layout_gravity="center_horizontal|top">
+ 
+         <TextClock
+             android:id="@+id/date"
++            style="@style/widget_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:ellipsize="none"
+             android:includeFontPadding="false"
+             android:singleLine="true"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
+-            tools:text="01. Jan, 2023"
+-            tools:textColor="@android:color/white"
+-            tools:textSize="@dimen/label_font_size" />
++            android:textAllCaps="true"
++            android:textColor="@color/white" />
+ 
+         <ImageView
+             android:id="@+id/nextAlarmIcon"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+-            android:adjustViewBounds="true"
+             android:contentDescription="@null"
+-            android:scaleType="fitCenter"
+-            android:src="@drawable/ic_alarm"
+-            android:tint="?appWidgetLabelTint"
+-            app:tint="?appWidgetLabelTint"
+-            tools:ignore="UseAppTint"
+-            tools:tint="@color/white" />
++            android:scaleType="center" />
+ 
+         <TextView
+             android:id="@+id/nextAlarm"
++            style="@style/widget_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:ellipsize="none"
+             android:includeFontPadding="false"
+             android:singleLine="true"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
+-            tools:text="08:30"
+-            tools:textColor="@android:color/white"
+-            tools:textSize="@dimen/label_font_size" />
++            android:textAllCaps="true"
++            android:textColor="@color/white" />
+ 
+     </LinearLayout>
+ 
+@@ -97,9 +79,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal|top"
+-        android:layout_marginTop="10dp"
+-        android:divider="@null"
+-        android:visibility="gone"
+-        tools:listitem="@layout/world_clock_remote_list_item" />
++        android:layout_marginTop="20dp"
++        android:divider="@null" />
+ 
+ </LinearLayout>
+diff --git a/res/layout/digital_widget_configuration.xml b/res/layout/digital_widget_configuration.xml
+deleted file mode 100644
+index d38e688db..000000000
+--- a/res/layout/digital_widget_configuration.xml
++++ /dev/null
+@@ -1,132 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<androidx.constraintlayout.widget.ConstraintLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="?appWidgetConfigBackground"
+-    android:paddingStart="16dp"
+-    android:paddingEnd="16dp"
+-    tools:theme="@style/Theme.DeskClock.DigitalWidgetConfigurationTheme">
+-
+-    <TextView
+-        android:id="@+id/title"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="24dp"
+-        android:layout_marginBottom="48dp"
+-        android:text="@string/widget_choice_title"
+-        android:textColor="?appWidgetConfigTitle"
+-        android:textSize="22sp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent" />
+-
+-    <androidx.constraintlayout.widget.ConstraintLayout
+-        android:id="@+id/center_layout"
+-        android:layout_width="0dp"
+-        android:layout_height="0dp"
+-        android:layout_marginTop="64dp"
+-        android:layout_marginBottom="64dp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_weight="1"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_weight="1"
+-        app:layout_constraintWidth_max="480dp">
+-
+-        <TextView
+-            android:id="@+id/title_transparent"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginBottom="24dp"
+-            android:fontFamily="sans-serif-medium"
+-            android:text="@string/widget_name_transparent"
+-            android:textAlignment="center"
+-            android:textColor="?appWidgetConfigSubtitle"
+-            android:textSize="16sp"
+-            app:layout_constraintBottom_toTopOf="@id/widget_bg"
+-            app:layout_constraintTop_toTopOf="parent"
+-            app:layout_constraintVertical_bias="1.0" />
+-
+-        <androidx.constraintlayout.widget.ConstraintLayout
+-            android:id="@+id/widget_bg"
+-            android:layout_width="match_parent"
+-            android:layout_height="0dp"
+-            android:background="@drawable/widget_configuration_background"
+-            android:backgroundTint="?appWidgetConfigBorder"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintHeight_max="480dp"
+-            app:layout_constraintTop_toTopOf="parent">
+-
+-            <LinearLayout
+-                android:id="@+id/container_transparent"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:gravity="center"
+-                android:orientation="vertical"
+-                android:paddingStart="48dp"
+-                android:paddingEnd="48dp"
+-                app:layout_constraintBottom_toTopOf="@+id/container_solid"
+-                app:layout_constraintEnd_toEndOf="parent"
+-                app:layout_constraintHeight_max="230dp"
+-                app:layout_constraintHeight_min="150dp"
+-                app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toTopOf="parent">
+-
+-                <include
+-                    android:id="@+id/preview_transparent"
+-                    layout="@layout/digital_widget_configuration_preview_transparent_root"
+-                    android:layout_width="203dp"
+-                    android:layout_height="wrap_content" />
+-
+-            </LinearLayout>
+-
+-            <LinearLayout
+-                android:id="@+id/container_solid"
+-                android:layout_width="match_parent"
+-                android:layout_height="0dp"
+-                android:gravity="center"
+-                android:orientation="vertical"
+-                android:paddingStart="48dp"
+-                android:paddingEnd="48dp"
+-                app:layout_constraintBottom_toBottomOf="parent"
+-                app:layout_constraintEnd_toEndOf="parent"
+-                app:layout_constraintHeight_max="250dp"
+-                app:layout_constraintHeight_min="130dp"
+-                app:layout_constraintStart_toStartOf="parent"
+-                app:layout_constraintTop_toBottomOf="@id/container_transparent">
+-
+-                <include
+-                    android:id="@+id/preview_solid"
+-                    layout="@layout/digital_widget_configuration_preview_solid_root"
+-                    android:layout_width="203dp"
+-                    android:layout_height="wrap_content" />
+-
+-            </LinearLayout>
+-
+-        </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-        <TextView
+-            android:id="@+id/title_solid"
+-            android:layout_width="match_parent"
+-            android:layout_height="wrap_content"
+-            android:layout_marginTop="24dp"
+-            android:fontFamily="sans-serif-medium"
+-            android:text="@string/widget_name_solid"
+-            android:textAlignment="center"
+-            android:textColor="?appWidgetConfigSubtitle"
+-            android:textSize="16sp"
+-            app:layout_constraintBottom_toBottomOf="parent"
+-            app:layout_constraintTop_toBottomOf="@+id/widget_bg"
+-            app:layout_constraintVertical_bias="0.0" />
+-    </androidx.constraintlayout.widget.ConstraintLayout>
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+diff --git a/res/layout/digital_widget_configuration_preview.xml b/res/layout/digital_widget_configuration_preview.xml
+deleted file mode 100644
+index fbc8a09b5..000000000
+--- a/res/layout/digital_widget_configuration_preview.xml
++++ /dev/null
+@@ -1,60 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<LinearLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@android:id/background"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:background="@drawable/widget_background"
+-    android:backgroundTint="?appWidgetBackgroundTint"
+-    android:gravity="top|center_horizontal"
+-    android:orientation="vertical"
+-    android:padding="@dimen/widget_padding"
+-    android:paddingTop="@dimen/widget_padding"
+-    android:paddingBottom="@dimen/widget_padding"
+-    tools:theme="@style/Theme.DeskClock.DigitalWidgetTransparentLightBg">
+-
+-    <TextClock
+-        android:id="@+id/clock"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:ellipsize="none"
+-        android:format12Hour="@string/lock_screen_12_hour_format"
+-        android:format24Hour="@string/lock_screen_24_hour_format"
+-        android:includeFontPadding="false"
+-        android:singleLine="true"
+-        android:textAlignment="center"
+-        android:textAppearance="?appWidgetTextAppearancePrimary"
+-        android:textSize="48sp"
+-        tools:text="0123"
+-        tools:textColor="@android:color/white" />
+-
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:layout_marginTop="-5dp">
+-
+-        <TextClock
+-            android:id="@+id/date"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:ellipsize="none"
+-            android:format12Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            android:format24Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            android:includeFontPadding="false"
+-            android:singleLine="true"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
+-            tools:text="01. Jan, 2023"
+-            tools:textColor="@android:color/white"
+-            tools:textSize="@dimen/label_font_size" />
+-
+-    </LinearLayout>
+-</LinearLayout>
+diff --git a/res/layout/digital_widget_configuration_preview_solid_root.xml b/res/layout/digital_widget_configuration_preview_solid_root.xml
+deleted file mode 100644
+index 100ff35a8..000000000
+--- a/res/layout/digital_widget_configuration_preview_solid_root.xml
++++ /dev/null
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="?appWidgetThemeSolid">
+-
+-    <include layout="@layout/digital_widget_configuration_preview" />
+-</FrameLayout>
+diff --git a/res/layout/digital_widget_configuration_preview_transparent_root.xml b/res/layout/digital_widget_configuration_preview_transparent_root.xml
+deleted file mode 100644
+index b935f0dc6..000000000
+--- a/res/layout/digital_widget_configuration_preview_transparent_root.xml
++++ /dev/null
+@@ -1,17 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="?appWidgetThemeTransparent">
+-
+-    <include layout="@layout/digital_widget_configuration_preview" />
+-</FrameLayout>
+diff --git a/res/layout/digital_widget_darkbg_solid_theme_root.xml b/res/layout/digital_widget_darkbg_solid_theme_root.xml
+deleted file mode 100644
+index 34b9e93a2..000000000
+--- a/res/layout/digital_widget_darkbg_solid_theme_root.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetDarkBg" />
+diff --git a/res/layout/digital_widget_darkbg_theme_root.xml b/res/layout/digital_widget_darkbg_theme_root.xml
+deleted file mode 100644
+index 4689c21b1..000000000
+--- a/res/layout/digital_widget_darkbg_theme_root.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetTransparentDarkBg" />
+diff --git a/res/layout/digital_widget_lightbg_solid_theme_root.xml b/res/layout/digital_widget_lightbg_solid_theme_root.xml
+deleted file mode 100644
+index cfecdc1b4..000000000
+--- a/res/layout/digital_widget_lightbg_solid_theme_root.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetLightBg" />
+diff --git a/res/layout/digital_widget_lightbg_theme_root.xml b/res/layout/digital_widget_lightbg_theme_root.xml
+deleted file mode 100644
+index 82fd72f0e..000000000
+--- a/res/layout/digital_widget_lightbg_theme_root.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<FrameLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:id="@+id/themed_root"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:gravity="center|center_horizontal"
+-    android:orientation="vertical"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetTransparentLightBg" />
+diff --git a/res/layout/digital_widget_preview.xml b/res/layout/digital_widget_preview.xml
+deleted file mode 100644
+index b2ca0a1be..000000000
+--- a/res/layout/digital_widget_preview.xml
++++ /dev/null
+@@ -1,60 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-
+-<LinearLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@android:id/background"
+-    android:layout_width="match_parent"
+-    android:layout_height="wrap_content"
+-    android:gravity="top|center_horizontal"
+-    android:orientation="vertical"
+-    android:background="@drawable/widget_background"
+-    android:backgroundTint="?appWidgetBackgroundTint"
+-    android:padding="@dimen/widget_padding"
+-    android:paddingTop="@dimen/widget_padding"
+-    android:paddingBottom="@dimen/widget_padding"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetTransparentLightBg">
+-
+-    <TextClock
+-        android:id="@+id/clock"
+-        android:textAppearance="?appWidgetTextAppearancePrimary"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:ellipsize="none"
+-        android:format12Hour="@string/lock_screen_12_hour_format"
+-        android:format24Hour="@string/lock_screen_24_hour_format"
+-        android:includeFontPadding="false"
+-        android:singleLine="true"
+-        android:textAlignment="center"
+-        android:textSize="48sp"
+-        tools:text="0123"
+-        tools:textColor="@android:color/white"/>
+-
+-    <LinearLayout
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:layout_marginTop="-10dp">
+-
+-        <TextClock
+-            android:id="@+id/date"
+-            android:layout_width="wrap_content"
+-            android:layout_height="wrap_content"
+-            android:layout_gravity="center"
+-            android:ellipsize="none"
+-            android:includeFontPadding="false"
+-            android:singleLine="true"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
+-            android:format12Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            android:format24Hour="@string/abbrev_wday_month_day_no_year_preview"
+-            tools:text="01. Jan, 2023"
+-            tools:textColor="@android:color/white"
+-            tools:textSize="@dimen/label_font_size"/>
+-
+-    </LinearLayout>
+-</LinearLayout>
+diff --git a/res/layout/digital_widget_sizer.xml b/res/layout/digital_widget_sizer.xml
+index 217686237..f524cf536 100644
+--- a/res/layout/digital_widget_sizer.xml
++++ b/res/layout/digital_widget_sizer.xml
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <!-- Copyright (C) 2016 The Android Open Source Project
+-     Copyright (C) 2023 The LineageOS Project
+ 
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+@@ -16,16 +15,13 @@
+ -->
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/widget_item"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+-    android:orientation="vertical"
+-    android:theme="@style/Theme.DeskClock.DigitalWidgetTransparentDarkBg">
++    android:orientation="vertical">
+ 
+     <TextClock
+         android:id="@+id/clock"
+-        android:textAppearance="?appWidgetTextAppearancePrimary"
++        style="@style/widget_big_thin"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_horizontal|top"
+@@ -34,30 +30,29 @@
+         android:format12Hour="@string/lock_screen_12_hour_format"
+         android:format24Hour="@string/lock_screen_24_hour_format"
+         android:singleLine="true"
+-        tools:text="01:23"/>
++        android:textColor="@color/white" />
+ 
+     <LinearLayout
+-        android:id="@+id/bottom_view"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+-        android:layout_gravity="center_horizontal|top"
+-        android:layout_marginTop="-10dp">
++        android:layout_gravity="center_horizontal|top">
+ 
+         <TextClock
+             android:id="@+id/date"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
++            style="@style/widget_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:includeFontPadding="false"
+             android:ellipsize="none"
+             android:singleLine="true"
+-            tools:text="Sa, Apr 14"/>
++            android:textAllCaps="true"
++            android:textColor="@color/white" />
+ 
+         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
+         <TextView
+             android:id="@+id/nextAlarmIcon"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
++            style="@style/widget_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+@@ -65,24 +60,19 @@
+             android:ellipsize="none"
+             android:singleLine="true"
+             android:text="@string/clock_emoji"
+-            android:textColor="?appWidgetLabelTint"
+-            tools:text=""
+-            tools:drawableStart="@drawable/ic_alarm"
+-            tools:paddingStart="8dp"
+-            tools:paddingEnd="8dp"/>
++            android:textColor="@color/white" />
+ 
+         <TextView
+             android:id="@+id/nextAlarm"
+-            android:textAppearance="?appWidgetTextAppearancePrimaryLabel"
++            style="@style/widget_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:includeFontPadding="false"
+             android:ellipsize="none"
+             android:singleLine="true"
+-            android:textAllCaps="false"
+-            android:textColor="@color/white"
+-            tools:text="Mo, 07:30 AM"/>
++            android:textAllCaps="true"
++            android:textColor="@color/white" />
+ 
+     </LinearLayout>
+ 
+diff --git a/res/layout/world_clock_remote_list_item.xml b/res/layout/world_clock_remote_list_item.xml
+index 699d96d18..8513ebefc 100644
+--- a/res/layout/world_clock_remote_list_item.xml
++++ b/res/layout/world_clock_remote_list_item.xml
+@@ -1,6 +1,5 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <!-- Copyright (C) 2016 The Android Open Source Project
+-     Copyright (C) 2023 The LineageOS Project
+ 
+      Licensed under the Apache License, Version 2.0 (the "License");
+      you may not use this file except in compliance with the License.
+@@ -17,12 +16,10 @@
+ 
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+     android:id="@+id/widget_item"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+-    android:orientation="vertical"
+-    tools:theme="@style/Theme.DeskClock.DigitalWidgetTransparentDarkBg">
++    android:orientation="vertical">
+ 
+     <LinearLayout
+         android:layout_width="match_parent"
+@@ -39,15 +36,13 @@
+ 
+             <TextClock
+                 android:id="@+id/left_clock"
+-                android:textAppearance="?appWidgetTextAppearanceSecondary"
++                style="@style/widget_medium_thin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:baselineAligned="true"
+                 android:gravity="center"
+-                android:maxLines="1"
+-                tools:text="01:23 AM"
+-                tools:textSize="16sp"/>
++                android:textColor="@color/white" />
+ 
+             <LinearLayout
+                 android:layout_width="wrap_content"
+@@ -62,21 +57,22 @@
+ 
+                     <TextView
+                         android:id="@+id/city_name_left"
+-                        android:textAppearance="?appWidgetTextAppearanceSecondaryLabel"
++                        style="@style/widget_label"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="end"
+                         android:ellipsize="end"
+                         android:includeFontPadding="false"
+                         android:singleLine="true"
+-                        android:textSize="@dimen/city_widget_name_font_size"
+-                        tools:text="City1"/>
++                        android:textAllCaps="true"
++                        android:textColor="@color/white"
++                        android:textSize="@dimen/city_widget_name_font_size" />
+ 
+                 </FrameLayout>
+ 
+                 <TextView
+                     android:id="@+id/city_day_left"
+-                    android:textAppearance="?appWidgetTextAppearanceSecondaryLabel"
++                    style="@style/widget_label"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="@dimen/style_label_space"
+@@ -85,8 +81,9 @@
+                     android:format24Hour="@string/abbrev_wday"
+                     android:includeFontPadding="false"
+                     android:singleLine="true"
+-                    android:textSize="@dimen/city_widget_name_font_size"
+-                    tools:text="/ Mon"/>
++                    android:textAllCaps="true"
++                    android:textColor="@color/white"
++                    android:textSize="@dimen/city_widget_name_font_size" />
+ 
+             </LinearLayout>
+ 
+@@ -101,15 +98,13 @@
+ 
+             <TextClock
+                 android:id="@+id/right_clock"
+-                android:textAppearance="?appWidgetTextAppearanceSecondary"
++                style="@style/widget_medium_thin"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_gravity="center"
+                 android:baselineAligned="true"
+                 android:gravity="center"
+-                android:maxLines="1"
+-                tools:text="01:23 AM"
+-                tools:textSize="16sp"/>
++                android:textColor="@color/white" />
+ 
+             <LinearLayout
+                 android:layout_width="wrap_content"
+@@ -124,21 +119,22 @@
+ 
+                     <TextView
+                         android:id="@+id/city_name_right"
+-                        android:textAppearance="?appWidgetTextAppearanceSecondaryLabel"
++                        style="@style/widget_label"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_gravity="end"
+                         android:ellipsize="end"
+                         android:includeFontPadding="false"
+                         android:singleLine="true"
+-                        android:textSize="@dimen/city_widget_name_font_size"
+-                        tools:text="City 2"/>
++                        android:textAllCaps="true"
++                        android:textColor="@color/white"
++                        android:textSize="@dimen/city_widget_name_font_size" />
+ 
+                 </FrameLayout>
+ 
+                 <TextView
+                     android:id="@+id/city_day_right"
+-                    android:textAppearance="?appWidgetTextAppearanceSecondaryLabel"
++                    style="@style/widget_label"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginStart="@dimen/style_label_space"
+@@ -147,8 +143,9 @@
+                     android:format24Hour="@string/abbrev_wday"
+                     android:includeFontPadding="false"
+                     android:singleLine="true"
+-                    android:textSize="@dimen/city_widget_name_font_size"
+-                    tools:text="/ Mon"/>
++                    android:textAllCaps="true"
++                    android:textColor="@color/white"
++                    android:textSize="@dimen/city_widget_name_font_size" />
+ 
+             </LinearLayout>
+ 
+diff --git a/res/values-h560dp/dimens.xml b/res/values-h560dp/dimens.xml
+index 403e19f93..7bf0909b1 100644
+--- a/res/values-h560dp/dimens.xml
++++ b/res/values-h560dp/dimens.xml
+@@ -16,5 +16,5 @@
+ 
+ <resources>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">86dp</dimen>
++    <dimen name="widget_max_clock_font_size">96dp</dimen>
+ </resources>
+diff --git a/res/values-h650dp/dimens.xml b/res/values-h650dp/dimens.xml
+index de043fd26..7c52196c0 100644
+--- a/res/values-h650dp/dimens.xml
++++ b/res/values-h650dp/dimens.xml
+@@ -16,5 +16,5 @@
+ 
+ <resources>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">90dp</dimen>
++    <dimen name="widget_max_clock_font_size">100dp</dimen>
+ </resources>
+diff --git a/res/values-land/dimens.xml b/res/values-land/dimens.xml
+index 8ad2d7b05..483ac25e1 100644
+--- a/res/values-land/dimens.xml
++++ b/res/values-land/dimens.xml
+@@ -21,6 +21,7 @@
+     <dimen name="time_margin_top">24dip</dimen>
+ 
+     <!-- Size of margin for circles. -->
++    <dimen name="analog_clock_margin">70dp</dimen>
+     <dimen name="analog_clock_size">168dp</dimen>
+ 
+     <dimen name="circle_margin_top">0dp</dimen>
+diff --git a/res/values-land/fractions.xml b/res/values-land/fractions.xml
+index df50736a8..23c0a9ef1 100644
+--- a/res/values-land/fractions.xml
++++ b/res/values-land/fractions.xml
+@@ -15,6 +15,12 @@
+ -->
+ 
+ <resources>
++    <!-- In landscape, -100% width implies only height is used to size the timer container. -->
++    <fraction name="timer_circle_width_percent">-100%</fraction>
++
++    <!-- In landscape, timer circles are 90% of the container height; width matches height. -->
++    <fraction name="timer_circle_height_percent">100%</fraction>
++
+     <item type="fraction" name="timer_setup_time_top_percent">0.25</item>
+     <item type="fraction" name="timer_setup_time_bottom_percent">0.75</item>
+ </resources>
+diff --git a/res/values-night/styles.xml b/res/values-night/styles.xml
+deleted file mode 100644
+index c26e26089..000000000
+--- a/res/values-night/styles.xml
++++ /dev/null
+@@ -1,15 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<!--
+-     SPDX-FileCopyrightText: 2023 The LineageOS Project
+-     SPDX-License-Identifier: Apache-2.0
+--->
+-<resources>
+-    <style name="Theme.DeskClock.DigitalWidgetConfigurationTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+-        <item name="appWidgetConfigBackground">#191C1C</item>
+-        <item name="appWidgetConfigTitle">@android:color/system_neutral1_200</item>
+-        <item name="appWidgetConfigSubtitle">@android:color/system_neutral2_200</item>
+-        <item name="appWidgetConfigBorder">@android:color/system_neutral2_700</item>
+-        <item name="appWidgetThemeTransparent">@style/Theme.DeskClock.DigitalWidgetTransparentDarkBg</item>
+-        <item name="appWidgetThemeSolid">@style/Theme.DeskClock.DigitalWidgetDarkBg</item>
+-    </style>
+-</resources>
+diff --git a/res/values-sw600dp-land/dimens.xml b/res/values-sw600dp-land/dimens.xml
+index 2c55578de..157e8b4ba 100644
+--- a/res/values-sw600dp-land/dimens.xml
++++ b/res/values-sw600dp-land/dimens.xml
+@@ -21,7 +21,8 @@
+ 
+     <!-- Size of margin for circles. -->
+     <dimen name="circle_margin_top">0dp</dimen>
++    <dimen name="analog_clock_margin">48dp</dimen>
+ 
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">90dp</dimen>
++    <dimen name="widget_max_clock_font_size">100dp</dimen>
+ </resources>
+diff --git a/res/values-sw600dp/dimens.xml b/res/values-sw600dp/dimens.xml
+index 86bc89581..2c3a50de6 100644
+--- a/res/values-sw600dp/dimens.xml
++++ b/res/values-sw600dp/dimens.xml
+@@ -29,19 +29,24 @@
+     <dimen name="main_clock_font_size">125sp</dimen>
+     <dimen name="big_font_size">115sp</dimen>
+     <dimen name="label_font_size">18sp</dimen>
++    <dimen name="alarm_label_size">18sp</dimen>
+     <dimen name="day_button_font_size">20sp</dimen>
+     <dimen name="alarm_info_font_size">48sp</dimen>
+     <dimen name="no_alarm_font_size">20sp</dimen>
+ 
++    <dimen name="backspace_icon_size">32dp</dimen>
+     <dimen name="no_alarms_size">180dp</dimen>
+     <dimen name="fab_alarm_size">80dp</dimen>
+ 
+     <dimen name="body_font_padding">8dp</dimen>
+ 
++    <dimen name="medium_space_top">46dp</dimen>
++
+     <dimen name="label_margin_big">8dp</dimen>
+ 
+     <!-- Size of margin for circles. -->
+     <dimen name="circle_margin_top">48dp</dimen>
++    <dimen name="analog_clock_margin">96dp</dimen>
+ 
+     <!-- Size of analog clock in world clock. -->
+     <dimen name="world_clock_analog_size">200dp</dimen>
+@@ -49,14 +54,14 @@
+     <dimen name="min_analog_widget_size">170dp</dimen>
+ 
+     <!-- digital widget sizing information -->
+-    <dimen name="min_digital_widget_width">130dp</dimen>
+-    <dimen name="min_digital_widget_height">80dp</dimen>
++    <dimen name="min_digital_widget_width">300dp</dimen>
++    <dimen name="min_digital_widget_height">170dp</dimen>
+     <dimen name="digital_widget_city_margin_bottom">15dp</dimen>
+-    <dimen name="digital_widget_city_12_medium_font_size">48sp</dimen>
+-    <dimen name="digital_widget_city_24_medium_font_size">56sp</dimen>
++    <dimen name="digital_widget_city_12_medium_font_size">52sp</dimen>
++    <dimen name="digital_widget_city_24_medium_font_size">65sp</dimen>
+ 
+     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
+     <dimen name="city_widget_name_font_size">20dp</dimen>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">112dp</dimen>
++    <dimen name="widget_max_clock_font_size">125dp</dimen>
+ </resources>
+diff --git a/res/values-sw720dp/dimens.xml b/res/values-sw720dp/dimens.xml
+index 8b786f0e9..92f495a76 100644
+--- a/res/values-sw720dp/dimens.xml
++++ b/res/values-sw720dp/dimens.xml
+@@ -22,5 +22,5 @@
+     <dimen name="analog_clock_size">312dp</dimen>
+ 
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">124dp</dimen>
++    <dimen name="widget_max_clock_font_size">138dp</dimen>
+ </resources>
+diff --git a/res/values-w360dp-h420dp/bools.xml b/res/values-w360dp-h420dp/bools.xml
+new file mode 100644
+index 000000000..0708712f7
+--- /dev/null
++++ b/res/values-w360dp-h420dp/bools.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2016 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++
++<resources>
++    <bool name="showTabLabel">true</bool>
++</resources>
+diff --git a/res/values-w470dp-land/bools.xml b/res/values-w470dp-land/bools.xml
+new file mode 100644
+index 000000000..958e07c92
+--- /dev/null
++++ b/res/values-w470dp-land/bools.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2016 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++
++<resources>
++    <bool name="showTabLabel">true</bool>
++    <bool name="showTabHorizontally">true</bool>
++</resources>
+diff --git a/res/values/attrs.xml b/res/values/attrs.xml
+index 2eb1ab4c8..9a619bced 100644
+--- a/res/values/attrs.xml
++++ b/res/values/attrs.xml
+@@ -47,17 +47,4 @@
+         <attr format="dimension" name="round"/>
+         <attr format="float" name="roundPercent"/>
+     </declare-styleable>
+-
+-    <attr name="appWidgetBackgroundTint" format="color" />
+-    <attr name="appWidgetLabelTint" format="color" />
+-    <attr name="appWidgetTextAppearancePrimary" format="reference" />
+-    <attr name="appWidgetTextAppearancePrimaryLabel" format="reference" />
+-    <attr name="appWidgetTextAppearanceSecondary" format="reference" />
+-    <attr name="appWidgetTextAppearanceSecondaryLabel" format="reference" />
+-    <attr name="appWidgetConfigBackground" format="color" />
+-    <attr name="appWidgetConfigTitle" format="color" />
+-    <attr name="appWidgetConfigSubtitle" format="color" />
+-    <attr name="appWidgetConfigBorder" format="color" />
+-    <attr name="appWidgetThemeTransparent" format="reference" />
+-    <attr name="appWidgetThemeSolid" format="reference" />
+ </resources>
+diff --git a/res/values/bools.xml b/res/values/bools.xml
+index c89c10303..3683454b6 100644
+--- a/res/values/bools.xml
++++ b/res/values/bools.xml
+@@ -16,4 +16,6 @@
+ 
+ <resources>
+     <bool name="rotateAlarmAlert">false</bool>
++    <bool name="showTabLabel">false</bool>
++    <bool name="showTabHorizontally">false</bool>
+ </resources>
+diff --git a/res/values/cm_strings.xml b/res/values/cm_strings.xml
+index 8bb085635..6da5ce9ec 100644
+--- a/res/values/cm_strings.xml
++++ b/res/values/cm_strings.xml
+@@ -59,11 +59,4 @@
+     <string name="selected">Selected</string>
+     <!-- Description of the menu button which opens on custom ringtones -->
+     <string name="more_options">More options</string>
+-
+-    <!-- Title of the widget layout choice activity -->
+-    <string name="widget_choice_title">Choose your style</string>
+-    <!-- Name of the transparent widget layout -->
+-    <string name="widget_name_transparent">Unbacked</string>
+-    <!-- Name of the solid widget layout -->
+-    <string name="widget_name_solid">Backed</string>
+ </resources>
+diff --git a/res/values/colors.xml b/res/values/colors.xml
+index cd1ea9060..91ca13873 100644
+--- a/res/values/colors.xml
++++ b/res/values/colors.xml
+@@ -18,6 +18,7 @@
+ <resources>
+ 
+     <color name="black">#FF000000</color>
++    <color name="black_87p">#DE000000</color>
+     <color name="black_54p">#8A000000</color>
+ 
+     <color name="white">#FFFFFFFF</color>
+@@ -28,8 +29,15 @@
+ 
+     <color name="transparent">#00000000</color>
+ 
++    <color name="hairline">#28FFFFFF</color>
++
++    <color name="clock_gray">#B3FFFFFF</color>
++
+     <color name="default_background">@android:color/system_neutral1_900</color>
+ 
++    <!-- shadowColor for widget text -->
++    <color name="widget_shadow_color">#000000</color>
++
+     <color name="accent_color">@android:color/system_accent3_200</color>
+     <color name="accent_color2">@android:color/system_accent2_200</color>
+     <color name="secondary_color">@android:color/system_neutral1_800</color>
+@@ -50,6 +58,7 @@
+     <!-- Material next track off color-->
+     <color name="track_off_color">@color/system_neutral2_500</color>
+ 
++    <color name="system_neutral2_100">@android:color/system_neutral2_100</color>
+     <color name="system_neutral2_300">@android:color/system_neutral2_300</color>
+     <color name="system_neutral2_500">@android:color/system_neutral2_500</color>
+     <color name="system_neutral2_700">@android:color/system_neutral2_700</color>
+@@ -57,13 +66,8 @@
+     <color name="system_neutral1_50">@android:color/system_neutral1_50</color>
+ 
+     <color name="accent_100">@android:color/system_accent3_100</color>
++    <color name="accent_200">@android:color/system_accent3_200</color>
++    <color name="accent_600">@android:color/system_accent3_600</color>
++    <color name="accent_900">@android:color/system_accent3_900</color>
+ 
+-    <color name="widget_text_color">@android:color/system_accent1_100</color>
+-    <color name="widget_text_color_dark">@android:color/system_accent1_700</color>
+-    <color name="widget_text_color_on_solid">@android:color/system_accent1_200</color>
+-    <color name="widget_text_color_on_solid_dark">@android:color/system_accent1_600</color>
+-    <color name="widget_label_color">@color/white</color>
+-    <color name="widget_label_color_dark">@color/black</color>
+-    <color name="widget_secondary_text_color">@android:color/system_accent2_100</color>
+-    <color name="widget_secondary_text_color_dark">@android:color/system_accent2_800</color>
+ </resources>
+diff --git a/res/values/dimens.xml b/res/values/dimens.xml
+index bf5128d1a..c136fe25a 100644
+--- a/res/values/dimens.xml
++++ b/res/values/dimens.xml
+@@ -32,6 +32,7 @@
+     <!-- Analog clock size in the the screen saver -->
+     <dimen name="bottom_text_size">16sp</dimen>
+ 
++    <dimen name="alarm_text_font_size">16sp</dimen>
+     <dimen name="circletimer_circle_size">6dp</dimen>
+     <dimen name="stopwatch_circle_size">12dp</dimen>
+     <dimen name="max_timer_circle_size">240dp</dimen>
+@@ -60,11 +61,14 @@
+ 
+     <dimen name="body_font_padding">4dp</dimen>
+ 
++    <dimen name="alarm_label_size">14sp</dimen>
+     <dimen name="alarm_icon_padding">6dp</dimen>
+ 
++    <dimen name="backspace_icon_size">24dp</dimen>
+     <dimen name="no_alarms_size">90dp</dimen>
+     <dimen name="fab_alarm_size">56dp</dimen>
+ 
++    <dimen name="medium_space_top">22dp</dimen>
+     <dimen name="style_label_space">4dip</dimen>
+ 
+     <dimen name="label_margin_big">4dp</dimen>
+@@ -73,6 +77,7 @@
+ 
+     <!-- Size of margin for circles. -->
+     <dimen name="circle_margin_top">16dp</dimen>
++    <dimen name="analog_clock_margin">60dp</dimen>
+     <dimen name="analog_clock_size">294dp</dimen>
+ 
+     <!-- Size of time zone analog clocks in world clock. -->
+@@ -81,18 +86,29 @@
+     <dimen name="min_analog_widget_size">110dp</dimen>
+ 
+     <!-- digital widget sizing information -->
+-    <dimen name="min_digital_widget_width">202dp</dimen>
+-    <dimen name="min_digital_widget_height">80dp</dimen>
++    <dimen name="min_digital_widget_width">206dp</dimen>
++    <dimen name="min_digital_widget_height">129dp</dimen>
+     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
+-    <dimen name="digital_widget_city_12_medium_font_size">24sp</dimen>
+-    <dimen name="digital_widget_city_24_medium_font_size">36sp</dimen>
++    <dimen name="digital_widget_city_12_medium_font_size">32sp</dimen>
++    <dimen name="digital_widget_city_24_medium_font_size">40sp</dimen>
+ 
+     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
+     <dimen name="city_widget_name_font_size">10dp</dimen>
+     <!-- The maximum size of the font for the time in widgets. -->
+-    <dimen name="widget_max_clock_font_size">80dp</dimen>
++    <dimen name="widget_max_clock_font_size">88dp</dimen>
+     <dimen name="widget_min_world_city_list_size">80dp</dimen>
+ 
++    <!-- shadow styles for widget text with drop shadows -->
++    <item name="widget_shadow_radius" format="float" type="dimen">2.75</item>
++    <item name="widget_shadow_dx" format="float" type="dimen">2.0</item>
++    <item name="widget_shadow_dy" format="float" type="dimen">2.0</item>
++
++    <!-- Divider height -->
++    <dimen name="hairline_height">1dp</dimen>
++
++    <!-- Divider side padding -->
++    <dimen name="hairline_side_padding">6dp</dimen>
++
+     <!-- The minimum height/width of any touch target -->
+     <dimen name="touch_target_min_size">48dp</dimen>
+ 
+@@ -105,6 +121,9 @@
+     <!-- Padding between checkbox and text. -->
+     <dimen name="checkbox_start_padding">12dp</dimen>
+ 
++    <!-- Floating action button elevation. -->
++    <dimen name="fab_elevation">8dp</dimen>
++
+     <!-- Floating action button margin -->
+     <dimen name="fab_margin">16dp</dimen>
+ 
+@@ -125,8 +144,4 @@
+     <dimen name="settings_padding">4dp</dimen>
+ 
+     <dimen name="analog_clock_width_percent">0.5</dimen>
+-
+-    <dimen name="widget_background_corner_radius">80dp</dimen>
+-    <dimen name="widget_configuration_background_corner_radius">12dp</dimen>
+-    <dimen name="widget_padding">16dp</dimen>
+ </resources>
+diff --git a/res/values/donottranslate.xml b/res/values/donottranslate.xml
+index c2a2ea6bc..76dae4905 100644
+--- a/res/values/donottranslate.xml
++++ b/res/values/donottranslate.xml
+@@ -16,9 +16,9 @@
+ 
+ <resources>
+     <!-- String matching the lock screen format for displaying 12-hour times. -->
+-    <string name="lock_screen_12_hour_format">h&#xEE01;mm</string>
++    <string name="lock_screen_12_hour_format">h&#58;mm</string>
+     <!-- String matching the lock screen format for displaying 24-hour times. -->
+-    <string name="lock_screen_24_hour_format">kk&#xEE01;mm</string>
++    <string name="lock_screen_24_hour_format">kk&#58;mm</string>
+     <!-- Format for displaying the day of week with a preceding slash divider. -->
+     <string name="abbrev_wday">&#160;/ EEE</string>
+     <!-- String matching the lock screen format for displaying the date. -->
+@@ -29,6 +29,4 @@
+     <string name="default_clock_style">digital</string>
+     <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
+     <string name="clock_emoji">A</string>
+-    <!-- String for the date in the DigitalAppWidget preview -->
+-    <string name="abbrev_wday_month_day_no_year_preview">EEE MMM d</string>
+ </resources>
+diff --git a/res/values/fractions.xml b/res/values/fractions.xml
+index e3048d4c5..3cee14c62 100644
+--- a/res/values/fractions.xml
++++ b/res/values/fractions.xml
+@@ -15,6 +15,12 @@
+ -->
+ 
+ <resources>
++    <!-- In portrait, -100% height implies only width is used to size the timer container. -->
++    <fraction name="timer_circle_height_percent">-100%</fraction>
++
++    <!-- In portrait, timer circles are 60% of the container width; height matches width. -->
++    <fraction name="timer_circle_width_percent">80%</fraction>
++
+     <item type="fraction" name="timer_setup_time_top_percent">0</item>
+     <item type="fraction" name="timer_setup_time_bottom_percent">0.25</item>
+ </resources>
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index 400a8ec7b..443d182e3 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -32,6 +32,9 @@
+     <!-- Setting labels on Set alarm screen: Vibration on or off -->
+     <string name="alarm_vibrate">Vibrate</string>
+ 
++    <!-- Setting labels on Set alarm screen: Repeat -->
++    <string name="alarm_repeat">Repeat</string>
++
+     <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
+     <string name="delete">Delete</string>
+ 
+@@ -480,6 +483,8 @@
+     <string name="button_cities">Cities</string>
+     <!-- Menu item on most screens to get to more settings -->
+     <string name="menu_item_settings">Settings</string>
++    <!-- Menu item on most screens to get to the help information -->
++    <string name="menu_item_help">Help</string>
+     <!-- Menu item on clock screen to enter screen saver. -->
+     <string name="menu_item_night_mode">Screen saver</string>
+     <!-- Menu item on Cities screen to sort by GMT offset -->
+@@ -892,8 +897,12 @@
+     <string name="timer_paused">Timer paused</string>
+     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
+     <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
++    <!-- Notification text when multiple timers are paused. -->
++    <string name="all_timers_stopped_notif">Tap to see your timers</string>
+     <!-- Notification title when at least one timer, of those in use, is counting down. -->
+     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
++    <!-- Notification text when at least one timer, of those in use, is counting down. -->
++    <string name="next_timer_notif">Next timer: <xliff:g id="time_remaining" example="2 minutes remaining">%s</xliff:g></string>
+ 
+     <!-- screensaver settings strings -->
+     <!-- Title for the screen saver settings activity. -->
+@@ -929,6 +938,9 @@
+     <!-- Number of hours the world city is behind the current city [CHAR LIMIT=NONE] -->
+     <string name="world_hours_yesterday">Yesterday, <xliff:g id="time" example="4 hours behind">%1$s</xliff:g></string>
+     <!-- The time in a world city is the day after the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
++    <string name="world_tomorrow">Tomorrow</string>
++    <!-- The time in a world city is the day before the time in the current city (used in landscape) [CHAR LIMIT=NONE] -->
++    <string name="world_yesterday">Yesterday</string>
+ 
+     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
+     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
+diff --git a/res/values/styles.xml b/res/values/styles.xml
+index 98bd74f52..8c6364344 100644
+--- a/res/values/styles.xml
++++ b/res/values/styles.xml
+@@ -22,10 +22,27 @@
+         <item name="android:textColor">@color/white_63p</item>
+     </style>
+ 
++    <style name="widget_medium_thin">
++        <item name="android:fontFamily">sans-serif-thin</item>
++        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
++        <item name="android:shadowColor">@color/widget_shadow_color</item>
++        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
++        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
++    </style>
++
+     <style name="label">
+         <item name="android:textSize">@dimen/label_font_size</item>
+     </style>
+ 
++    <style name="widget_label" parent="label">
++        <item name="android:textAllCaps">true</item>
++        <item name="android:letterSpacing">0.15</item>
++        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
++        <item name="android:shadowColor">@color/widget_shadow_color</item>
++        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
++        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
++    </style>
++
+     <style name="display_time">
+         <item name="android:textSize">56sp</item>
+         <item name="android:textColor">@color/white</item>
+@@ -55,6 +72,14 @@
+         <item name="android:fontFamily">sans-serif-thin</item>
+     </style>
+ 
++    <style name="widget_big_thin" parent="big_thin">
++        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
++        <item name="android:shadowColor">@color/widget_shadow_color</item>
++        <item name="android:shadowDx">@dimen/widget_shadow_dx</item>
++        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
++        <item name="android:fontFamily">sans-serif-thin</item>
++    </style>
++
+     <style name="PrimaryLabelTextParentAppearance">
+         <item name="android:textColor">@color/white</item>
+         <item name="android:textSize">@dimen/label_text_size</item>
+@@ -184,138 +209,4 @@
+         <item name="layout_constraintStart_toStartOf">parent</item>
+         <item name="layout_constraintTop_toBottomOf">@id/timer_setup_time</item>
+     </style>
+-
+-    <style name="Theme.DeskClock.DigitalWidgetTransparentDarkBg" parent="Theme.AppCompat.DayNight">
+-        <item name="appWidgetBackgroundTint">@android:color/transparent</item>
+-        <item name="appWidgetLabelTint">@color/widget_label_color</item>
+-        <item name="appWidgetTextAppearancePrimary">@style/TextAppearance.DigitalAppWidget.TextClockPrimary.TransparentDarkBg</item>
+-        <item name="appWidgetTextAppearancePrimaryLabel">@style/TextAppearance.DigitalAppWidget.Label.TransparentDarkBg</item>
+-        <item name="appWidgetTextAppearanceSecondary">@style/TextAppearance.DigitalAppWidget.WorldClock.TransparentDarkBg</item>
+-        <item name="appWidgetTextAppearanceSecondaryLabel">@style/TextAppearance.DigitalAppWidget.WorldClock.Label.TransparentDarkBg</item>
+-    </style>
+-
+-    <style name="Theme.DeskClock.DigitalWidgetTransparentLightBg" parent="Theme.AppCompat.DayNight">
+-        <item name="appWidgetBackgroundTint">@android:color/transparent</item>
+-        <item name="appWidgetLabelTint">@color/widget_label_color_dark</item>
+-        <item name="appWidgetTextAppearancePrimary">@style/TextAppearance.DigitalAppWidget.TextClockPrimary.TransparentLightBg</item>
+-        <item name="appWidgetTextAppearancePrimaryLabel">@style/TextAppearance.DigitalAppWidget.Label.TransparentLightBg</item>
+-        <item name="appWidgetTextAppearanceSecondary">@style/TextAppearance.DigitalAppWidget.WorldClock.TransparentLightBg</item>
+-        <item name="appWidgetTextAppearanceSecondaryLabel">@style/TextAppearance.DigitalAppWidget.WorldClock.Label.TransparentLightBg</item>
+-    </style>
+-
+-    <style name="Theme.DeskClock.DigitalWidgetDarkBg" parent="Theme.AppCompat.DayNight">
+-        <item name="appWidgetBackgroundTint">@android:color/system_accent2_800</item>
+-        <item name="appWidgetLabelTint">@color/widget_text_color_on_solid</item>
+-        <item name="appWidgetTextAppearancePrimary">@style/TextAppearance.DigitalAppWidget.TextClockPrimary.DarkBg</item>
+-        <item name="appWidgetTextAppearancePrimaryLabel">@style/TextAppearance.DigitalAppWidget.Label.DarkBg</item>
+-        <item name="appWidgetTextAppearanceSecondary">@style/TextAppearance.DigitalAppWidget.WorldClock.DarkBg</item>
+-        <item name="appWidgetTextAppearanceSecondaryLabel">@style/TextAppearance.DigitalAppWidget.WorldClock.Label.DarkBg</item>
+-    </style>
+-
+-    <style name="Theme.DeskClock.DigitalWidgetLightBg" parent="Theme.AppCompat.DayNight">
+-        <item name="appWidgetBackgroundTint">@android:color/system_accent2_100</item>
+-        <item name="appWidgetLabelTint">@color/widget_text_color_on_solid_dark</item>
+-        <item name="appWidgetTextAppearancePrimary">@style/TextAppearance.DigitalAppWidget.TextClockPrimary.LightBg</item>
+-        <item name="appWidgetTextAppearancePrimaryLabel">@style/TextAppearance.DigitalAppWidget.Label.LightBg</item>
+-        <item name="appWidgetTextAppearanceSecondary">@style/TextAppearance.DigitalAppWidget.WorldClock.LightBg</item>
+-        <item name="appWidgetTextAppearanceSecondaryLabel">@style/TextAppearance.DigitalAppWidget.WorldClock.Label.LightBg</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget" parent="">
+-        <item name="android:fontFamily">sans-serif</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.TextClockPrimary" parent="TextAppearance.DigitalAppWidget">
+-        <item name="android:textSize">@dimen/big_font_size</item>
+-        <item name="android:textColor">@color/widget_text_color</item>
+-        <item name="android:fontFeatureSettings">pnum</item>
+-        <item name="android:letterSpacing">-0.04</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.TextClockPrimary.TransparentDarkBg">
+-        <item name="android:textColor">@color/widget_text_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.TextClockPrimary.TransparentLightBg">
+-        <item name="android:textColor">@color/widget_text_color_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.TextClockPrimary.DarkBg">
+-        <item name="android:textColor">@color/widget_text_color_on_solid</item>
+-        <item name="android:fontFamily">sans-serif-light</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.TextClockPrimary.LightBg">
+-        <item name="android:textColor">@color/widget_text_color_on_solid_dark</item>
+-        <item name="android:fontFamily">sans-serif-light</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.Label">
+-        <item name="android:textSize">@dimen/label_font_size</item>
+-        <item name="android:fontFeatureSettings">pnum</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.Label.TransparentDarkBg" parent="TextAppearance.DigitalAppWidget.Label">
+-        <item name="android:textColor">@color/widget_label_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.Label.TransparentLightBg" parent="TextAppearance.DigitalAppWidget.Label">
+-        <item name="android:textColor">@color/widget_label_color_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.Label.DarkBg" parent="TextAppearance.DigitalAppWidget.Label">
+-        <item name="android:textColor">@color/widget_text_color_on_solid</item>
+-    </style>
+-    <style name="TextAppearance.DigitalAppWidget.Label.LightBg" parent="TextAppearance.DigitalAppWidget.Label">
+-        <item name="android:textColor">@color/widget_text_color_on_solid_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Primary" parent="TextAppearance.DigitalAppWidget">
+-        <item name="android:fontFeatureSettings">pnum</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.TransparentDarkBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Primary">
+-        <item name="android:textColor">@color/widget_text_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.TransparentLightBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Primary">
+-        <item name="android:textColor">@color/widget_text_color_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.DarkBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Primary">
+-        <item name="android:textColor">@color/widget_secondary_text_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.LightBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Primary">
+-        <item name="android:textColor">@color/widget_secondary_text_color_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Label" parent="TextAppearance.DigitalAppWidget">
+-        <item name="android:letterSpacing">0.05</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Label.TransparentDarkBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Label">
+-        <item name="android:textColor">@color/widget_label_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Label.TransparentLightBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Label">
+-        <item name="android:textColor">@color/widget_label_color_dark</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Label.DarkBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Label">
+-        <item name="android:textColor">@color/widget_secondary_text_color</item>
+-    </style>
+-
+-    <style name="TextAppearance.DigitalAppWidget.WorldClock.Label.LightBg" parent="TextAppearance.DigitalAppWidget.WorldClock.Label">
+-        <item name="android:textColor">@color/widget_secondary_text_color_dark</item>
+-    </style>
+-
+-    <style name="Theme.DeskClock.DigitalWidgetConfigurationTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+-        <item name="appWidgetConfigBackground">#FAFDFB</item>
+-        <item name="appWidgetConfigTitle">@android:color/system_neutral1_900</item>
+-        <item name="appWidgetConfigSubtitle">@android:color/system_neutral2_700</item>
+-        <item name="appWidgetConfigBorder">@android:color/system_neutral2_200</item>
+-        <item name="appWidgetThemeTransparent">@style/Theme.DeskClock.DigitalWidgetTransparentLightBg</item>
+-        <item name="appWidgetThemeSolid">@style/Theme.DeskClock.DigitalWidgetLightBg</item>
+-    </style>
+ </resources>
+diff --git a/res/values/themes.xml b/res/values/themes.xml
+index 98d7b634d..08921baec 100644
+--- a/res/values/themes.xml
++++ b/res/values/themes.xml
+@@ -15,7 +15,7 @@
+   limitations under the License.
+   -->
+ 
+-<resources>
++<resources xmlns:tools="http://schemas.android.com/tools">
+ 
+     <style name="Theme.DeskClock" parent="Theme.AppCompat.NoActionBar">
+         <item name="android:colorBackgroundFloating">?attr/colorBackgroundFloating</item>
+diff --git a/res/xml/digital_appwidget.xml b/res/xml/digital_appwidget.xml
+index cb876da80..fe91ff643 100644
+--- a/res/xml/digital_appwidget.xml
++++ b/res/xml/digital_appwidget.xml
+@@ -17,14 +17,11 @@
+ <appwidget-provider
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:initialLayout="@layout/loading_widget"
+-    android:minWidth="@dimen/min_digital_widget_width"
+     android:minHeight="@dimen/min_digital_widget_height"
+-    android:minResizeWidth="202dp"
+-    android:minResizeHeight="24dp"
+-    android:targetCellWidth="3"
+-    android:targetCellHeight="1"
+-    android:previewLayout="@layout/digital_widget_preview"
++    android:minWidth="@dimen/min_digital_widget_width"
++    android:minResizeHeight="59dp"
++    android:minResizeWidth="136dp"
++    android:previewImage="@drawable/appwidget_digital_clock_preview"
+     android:resizeMode="horizontal|vertical"
+     android:updatePeriodMillis="0"
+-    android:widgetCategory="keyguard|home_screen"
+-    android:configure="com.android.alarmclock.DigitalAppWidgetConfigurationActivity" />
++    android:widgetCategory="keyguard|home_screen" />
+diff --git a/src/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.java b/src/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.java
+index d50be4849..96c499bcc 100644
+--- a/src/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.java
++++ b/src/com/android/alarmclock/DigitalAppWidgetCityViewsFactory.java
+@@ -113,14 +113,8 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
+                 (leftIndex < mCities.size() ? mCities.get(leftIndex) : null);
+         final City right = rightIndex < mCities.size() ? mCities.get(rightIndex) : null;
+ 
+-        String packageName = mContext.getPackageName();
+-        int[] layoutIds = WidgetUtils.getWidgetLayouts(mContext, mWidgetId);
+-        final RemoteViews rv = new RemoteViews(packageName, layoutIds[0]);
+-        rv.setLightBackgroundLayoutId(layoutIds[1]);
+-
+-        rv.removeAllViews(R.id.themed_root);
+-        rv.addView(R.id.themed_root, new RemoteViews(packageName,
+-                R.layout.world_clock_remote_list_item));
++        final RemoteViews rv =
++                new RemoteViews(mContext.getPackageName(), R.layout.world_clock_remote_list_item);
+ 
+         // Show the left clock if one exists.
+         if (left != null) {
+diff --git a/src/com/android/alarmclock/DigitalAppWidgetConfigurationActivity.java b/src/com/android/alarmclock/DigitalAppWidgetConfigurationActivity.java
+deleted file mode 100644
+index d65a9e9d9..000000000
+--- a/src/com/android/alarmclock/DigitalAppWidgetConfigurationActivity.java
++++ /dev/null
+@@ -1,50 +0,0 @@
+-package com.android.alarmclock;
+-
+-import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
+-import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+-
+-import android.appwidget.AppWidgetManager;
+-import android.content.Intent;
+-import android.os.Bundle;
+-import android.view.View;
+-
+-import androidx.annotation.Nullable;
+-import androidx.appcompat.app.AppCompatActivity;
+-
+-import com.android.deskclock.R;
+-
+-public class DigitalAppWidgetConfigurationActivity extends AppCompatActivity {
+-    private int mAppWidgetId = INVALID_APPWIDGET_ID;
+-
+-    @Override
+-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+-        super.onCreate(savedInstanceState);
+-
+-        setResult(RESULT_CANCELED);
+-        setContentView(R.layout.digital_widget_configuration);
+-
+-        View transparent = findViewById(R.id.preview_transparent);
+-        transparent.setOnClickListener(v -> onWidgetContainerClicked(false));
+-        View solid = findViewById(R.id.preview_solid);
+-        solid.setOnClickListener(v -> onWidgetContainerClicked(true));
+-
+-        Intent intent = getIntent();
+-        if (intent != null) {
+-            Bundle extras = intent.getExtras();
+-            if (extras != null) {
+-                mAppWidgetId = extras.getInt(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
+-            }
+-        }
+-    }
+-
+-    private void onWidgetContainerClicked(boolean isSolid) {
+-        WidgetUtils.saveWidgetMode(this, mAppWidgetId, isSolid);
+-        AppWidgetManager wm = AppWidgetManager.getInstance(this);
+-        DigitalAppWidgetProvider.updateAppWidget(this, wm, mAppWidgetId);
+-
+-        Intent result = new Intent();
+-        result.putExtra(EXTRA_APPWIDGET_ID, mAppWidgetId);
+-        setResult(RESULT_OK, result);
+-        finish();
+-    }
+-}
+diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+index ec6fac409..b54a500c5 100644
+--- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
++++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
+@@ -24,7 +24,6 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
+ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH;
+-import static android.content.Intent.ACTION_CONFIGURATION_CHANGED;
+ import static android.content.Intent.ACTION_LOCALE_CHANGED;
+ import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
+ import static android.content.Intent.ACTION_TIME_CHANGED;
+@@ -47,6 +46,7 @@ import android.content.Context;
+ import android.content.Intent;
+ import android.content.IntentFilter;
+ import android.content.res.Resources;
++import android.graphics.Bitmap;
+ import android.net.Uri;
+ import android.os.Bundle;
+ import android.text.TextUtils;
+@@ -54,7 +54,6 @@ import android.text.format.DateFormat;
+ import android.util.ArraySet;
+ import android.view.LayoutInflater;
+ import android.view.View;
+-import android.widget.LinearLayout;
+ import android.widget.RemoteViews;
+ import android.widget.TextClock;
+ import android.widget.TextView;
+@@ -149,7 +148,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+             case ACTION_TIMEZONE_CHANGED:
+             case ACTION_ON_DAY_CHANGE:
+             case ACTION_WORLD_CITIES_CHANGED:
+-            case ACTION_CONFIGURATION_CHANGED:
+                 for (int widgetId : widgetIds) {
+                     relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+                 }
+@@ -182,7 +180,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         IntentFilter intentFilter = new IntentFilter();
+         intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
+         intentFilter.addAction(ACTION_ON_DAY_CHANGE);
+-        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
+         context.getApplicationContext().registerReceiver(receiver, intentFilter);
+ 
+         sReceiversRegistered = true;
+@@ -213,10 +210,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
+     }
+ 
+-    public static void updateAppWidget(Context context, AppWidgetManager wm, int widgetId) {
+-        relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+-    }
+-
+     /**
+      * Compute optimal font and icon sizes offscreen for the given orientation.
+      */
+@@ -224,18 +217,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+             Bundle options, boolean portrait) {
+         // Create a remote view for the digital clock.
+         final String packageName = context.getPackageName();
+-        int[] layoutIds = WidgetUtils.getWidgetLayouts(context, widgetId);
+-        final RemoteViews rv = new RemoteViews(packageName, layoutIds[0]);
+-        rv.setLightBackgroundLayoutId(layoutIds[1]);
+-
+-        rv.removeAllViews(R.id.themed_root);
+-        rv.addView(R.id.themed_root, new RemoteViews(packageName, R.layout.digital_widget));
++        final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget);
+ 
+         // Tapping on the widget opens the app (if not on the lock screen).
+         if (Utils.isWidgetClickable(wm, widgetId)) {
+             final Intent openApp = new Intent(context, DeskClock.class);
+             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, FLAG_IMMUTABLE);
+-            rv.setOnClickPendingIntent(android.R.id.background, pi);
++            rv.setOnClickPendingIntent(R.id.digital_widget, pi);
+         }
+ 
+         // Configure child views of the remote view.
+@@ -279,15 +267,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         }
+ 
+         // Apply the computed sizes to the remote views.
+-        rv.setInt(R.id.nextAlarmIcon, "setMaxHeight", sizes.mFontSizePx);
+-        rv.setViewPadding(R.id.nextAlarmIcon, sizes.mIconPaddingPx, 0, sizes.mIconPaddingPx, 0);
++        rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
+         rv.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+-        // Shift the bottom view up by half of the non-removable TextView padding
+-        rv.setViewLayoutMargin(R.id.bottom_view, RemoteViews.MARGIN_TOP,
+-                sizes.mBottomViewMarginTopPx, COMPLEX_UNIT_PX);
+-        rv.setViewPadding(R.id.bottom_view, 0, 0, 0, sizes.mBottomViewPaddingBottomPx);
+ 
+         final int smallestWorldCityListSizePx =
+                 resources.getDimensionPixelSize(R.dimen.widget_min_world_city_list_size);
+@@ -324,8 +307,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         @SuppressLint("InflateParams")
+         final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null /* root */);
+ 
+-        int padding = context.getResources().getDimensionPixelSize(R.dimen.widget_padding);
+-        sizer.findViewById(R.id.widget_item).setPadding(padding, padding, padding, padding);
+         // Configure the date to display the current date string.
+         final CharSequence dateFormat = getDateFormat(context);
+         final TextClock date = sizer.findViewById(R.id.date);
+@@ -439,7 +420,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         final TextClock clock = sizer.findViewById(R.id.clock);
+         final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
+         final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
+-        final LinearLayout bottomView = sizer.findViewById(R.id.bottom_view);
+ 
+         // Adjust the font sizes.
+         measuredSizes.setClockFontSizePx(clockFontSize);
+@@ -449,17 +429,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
+         nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
+-        // We want to shift the date line up by half the invisible padding of the clock (which is
+-        // 33% of the font size)
+-        measuredSizes.setBottomViewMarginPx(-1 * (int)(measuredSizes.mClockFontSizePx * 0.33 / 2));
+-        // We want the bottom padding of the date be equal to the top padding of the clock
+-        measuredSizes.setBottomViewPaddingPx(
+-                (int)(measuredSizes.mClockFontSizePx * 0.28 - measuredSizes.mFontSizePx * 0.33));
+-        bottomView.setPadding(0, 0, 0, measuredSizes.getBottomViewPaddingPx());
+-        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams)
+-                bottomView.getLayoutParams();
+-        layoutParams.topMargin = measuredSizes.getBottomViewMarginTopPx();
+-        bottomView.setLayoutParams(layoutParams);
+ 
+         // Measure and layout the sizer.
+         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
+@@ -475,6 +444,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         measuredSizes.mMeasuredTextClockWidthPx = clock.getMeasuredWidth();
+         measuredSizes.mMeasuredTextClockHeightPx = clock.getMeasuredHeight();
+ 
++        // If an alarm icon is required, generate one from the TextView with the special font.
++        if (nextAlarmIcon.getVisibility() == VISIBLE) {
++            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
++        }
++
+         return measuredSizes;
+     }
+ 
+@@ -509,6 +483,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         private final int mTargetHeightPx;
+         private final int mLargestClockFontSizePx;
+         private final int mSmallestClockFontSizePx;
++        private Bitmap mIconBitmap;
+ 
+         private int mMeasuredWidthPx;
+         private int mMeasuredHeightPx;
+@@ -524,9 +499,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         private int mIconFontSizePx;
+         private int mIconPaddingPx;
+ 
+-        private int mBottomViewMarginTopPx;
+-        private int mBottomViewPaddingBottomPx;
+-
+         private Sizes(int targetWidthPx, int targetHeightPx, int largestClockFontSizePx) {
+             mTargetWidthPx = targetWidthPx;
+             mTargetHeightPx = targetHeightPx;
+@@ -539,21 +511,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+         private int getClockFontSizePx() { return mClockFontSizePx; }
+         private void setClockFontSizePx(int clockFontSizePx) {
+             mClockFontSizePx = clockFontSizePx;
+-            mFontSizePx = max(1, round(clockFontSizePx / 5.5f));
++            mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
+             mIconFontSizePx = (int) (mFontSizePx * 1.4f);
+             mIconPaddingPx = mFontSizePx / 3;
+         }
+ 
+-        private int getBottomViewMarginTopPx() { return mBottomViewMarginTopPx; }
+-        private void setBottomViewMarginPx(int bottomViewMarginPx) {
+-            mBottomViewMarginTopPx = bottomViewMarginPx;
+-        }
+-
+-        private int getBottomViewPaddingPx() { return mBottomViewPaddingBottomPx; }
+-        private void setBottomViewPaddingPx(int bottomViewPaddingPx) {
+-            mBottomViewPaddingBottomPx = bottomViewPaddingPx;
+-        }
+-
+         /**
+          * @return the amount of widget height available to the world cities list
+          */
+diff --git a/src/com/android/alarmclock/WidgetUtils.java b/src/com/android/alarmclock/WidgetUtils.java
+index 21f3bd067..7ad2df7b8 100644
+--- a/src/com/android/alarmclock/WidgetUtils.java
++++ b/src/com/android/alarmclock/WidgetUtils.java
+@@ -26,11 +26,6 @@ import com.android.deskclock.Utils;
+ 
+ public final class WidgetUtils {
+ 
+-    private static final String PREFS_NAME = "com.android.alarmclock.widgets";
+-    private static final String PREF_PREFIX_KEY = "appwidget_";
+-    private static final String PREF_MODE_PREFIX = PREF_PREFIX_KEY + "solid_";
+-
+-
+     private WidgetUtils() {}
+ 
+     // Calculate the scale factor of the fonts in the widget
+@@ -97,27 +92,4 @@ public final class WidgetUtils {
+         }
+         return 1;
+     }
+-
+-    public static void saveWidgetMode(Context context, int appWidgetId, boolean isSolid) {
+-        context.getSharedPreferences(PREFS_NAME, 0).edit()
+-                .putBoolean(PREF_MODE_PREFIX + appWidgetId, isSolid)
+-                .commit();
+-    }
+-
+-    public static boolean getWidgetMode(Context context, int appWidgetId) {
+-        return context.getSharedPreferences(PREFS_NAME, 0)
+-                .getBoolean(PREF_MODE_PREFIX + appWidgetId, false);
+-    }
+-
+-    public static int[] getWidgetLayouts(Context context, int appWidgetId) {
+-        int[] layoutIds = new int[2];
+-        if (getWidgetMode(context, appWidgetId)) {
+-            layoutIds[0] = R.layout.digital_widget_darkbg_solid_theme_root;
+-            layoutIds[1] = R.layout.digital_widget_lightbg_solid_theme_root;
+-        } else {
+-            layoutIds[0] = R.layout.digital_widget_darkbg_theme_root;
+-            layoutIds[1] = R.layout.digital_widget_lightbg_theme_root;
+-        }
+-        return layoutIds;
+-    }
+ }
+diff --git a/src/com/android/deskclock/ClockFragment.java b/src/com/android/deskclock/ClockFragment.java
+index a6dbdfe16..bf53584e4 100644
+--- a/src/com/android/deskclock/ClockFragment.java
++++ b/src/com/android/deskclock/ClockFragment.java
+@@ -28,6 +28,7 @@ import android.content.BroadcastReceiver;
+ import android.content.Context;
+ import android.content.Intent;
+ import android.content.IntentFilter;
++import android.content.res.Resources;
+ import android.os.Bundle;
+ import android.text.format.DateUtils;
+ import android.view.GestureDetector;
+diff --git a/src/com/android/deskclock/DropShadowController.java b/src/com/android/deskclock/DropShadowController.java
+index 23cad28b3..e8bb075cb 100644
+--- a/src/com/android/deskclock/DropShadowController.java
++++ b/src/com/android/deskclock/DropShadowController.java
+@@ -63,7 +63,6 @@ public final class DropShadowController {
+      * @param hairlineView at the bottom of the tab bar to be hidden or shown when the drop shadow
+      *                     is displayed or hidden, respectively.
+      */
+-    @SuppressWarnings("unused")
+     public DropShadowController(View dropShadowView, UiDataModel uiDataModel, View hairlineView) {
+         this(dropShadowView);
+         mUiDataModel = uiDataModel;
+@@ -87,7 +86,6 @@ public final class DropShadowController {
+      * @param dropShadowView to be hidden/shown as {@code recyclerView} reports scrolling changes
+      * @param recyclerView a scrollable view that dictates the visibility of {@code dropShadowView}
+      */
+-    @SuppressWarnings("unused")
+     public DropShadowController(View dropShadowView, RecyclerView recyclerView) {
+         this(dropShadowView);
+         mRecyclerView = recyclerView;
+diff --git a/src/com/android/deskclock/FabContainer.java b/src/com/android/deskclock/FabContainer.java
+index d8fdd8532..449f86712 100644
+--- a/src/com/android/deskclock/FabContainer.java
++++ b/src/com/android/deskclock/FabContainer.java
+@@ -9,7 +9,7 @@ import androidx.annotation.IntDef;
+  */
+ public interface FabContainer {
+ 
+-    /* Bit field for updates */
++    /** Bit field for updates */
+ 
+     /** Bit 0-1 */
+     int FAB_ANIMATION_MASK = 0b11;
+diff --git a/src/com/android/deskclock/FabController.java b/src/com/android/deskclock/FabController.java
+index 06ca12811..d09f17700 100644
+--- a/src/com/android/deskclock/FabController.java
++++ b/src/com/android/deskclock/FabController.java
+@@ -42,7 +42,6 @@ public interface FabController {
+      *
+      * @param fab the fab component on which the click occurred
+      */
+-    @SuppressWarnings("unused")
+     void onFabClick(@NonNull ImageView fab);
+ 
+     /**
+@@ -57,7 +56,6 @@ public interface FabController {
+      *
+      * @param right the button to the right of the fab component
+      */
+-    @SuppressWarnings("unused")
+     void onRightButtonClick(@NonNull ImageView right);
+ 
+     /**
+diff --git a/src/com/android/deskclock/FragmentUtils.java b/src/com/android/deskclock/FragmentUtils.java
+index cbf6883cc..10df12ec6 100644
+--- a/src/com/android/deskclock/FragmentUtils.java
++++ b/src/com/android/deskclock/FragmentUtils.java
+@@ -20,7 +20,6 @@ package com.android.deskclock;
+ import android.util.ArrayMap;
+ 
+ import androidx.fragment.app.Fragment;
+-import androidx.fragment.app.FragmentFactory;
+ import androidx.fragment.app.FragmentManager;
+ import androidx.fragment.app.FragmentTransaction;
+ 
+@@ -77,9 +76,7 @@ public final class FragmentUtils {
+ 
+         // Otherwise, build the fragment from scratch.
+         final String fragmentClassName = tab.getFragmentClassName();
+-        FragmentFactory fragmentFactory = mFragmentManager.getFragmentFactory();
+-        fragment = (DeskClockFragment) fragmentFactory.instantiate(
+-                mDeskClock.getClassLoader(), fragmentClassName);
++        fragment = (DeskClockFragment) Fragment.instantiate(mDeskClock, fragmentClassName);
+         fragment.setFabContainer(mDeskClock);
+ 
+         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
+index 2cfd2c2a9..b30f82ee7 100644
+--- a/src/com/android/deskclock/ScreensaverActivity.java
++++ b/src/com/android/deskclock/ScreensaverActivity.java
+@@ -28,12 +28,9 @@ import android.os.Bundle;
+ import android.view.View;
+ import android.view.ViewTreeObserver.OnPreDrawListener;
+ import android.view.Window;
+-import android.view.WindowInsets;
+ import android.view.WindowManager;
+ import android.widget.TextClock;
+ 
+-import androidx.annotation.NonNull;
+-
+ import com.android.deskclock.events.Events;
+ import com.android.deskclock.uidata.UiDataModel;
+ 
+@@ -87,8 +84,6 @@ public class ScreensaverActivity extends BaseActivity {
+ 
+     private MoveScreensaverRunnable mPositionUpdater;
+ 
+-    private boolean mAlreadyActive;
+-
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+@@ -114,7 +109,7 @@ public class ScreensaverActivity extends BaseActivity {
+                 | View.SYSTEM_UI_FLAG_FULLSCREEN
+                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+-        mContentView.setOnApplyWindowInsetsListener(new InteractionListener());
++        mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
+ 
+         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
+ 
+@@ -224,19 +219,14 @@ public class ScreensaverActivity extends BaseActivity {
+         }
+     }
+ 
+-    private final class InteractionListener implements View.OnApplyWindowInsetsListener {
+-        @NonNull
++    private final class InteractionListener implements View.OnSystemUiVisibilityChangeListener {
+         @Override
+-        public WindowInsets onApplyWindowInsets(@NonNull View v, @NonNull WindowInsets insets) {
+-            if (insets.isVisible(WindowInsets.Type.navigationBars())) {
+-                if (mAlreadyActive) {
+-                    mAlreadyActive = false;
+-                    finish();
+-                } else {
+-                    mAlreadyActive = true;
+-                }
++        public void onSystemUiVisibilityChange(int visibility) {
++            // When the user interacts with the screen, the navigation bar reappears
++            if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
++                // We want the screen saver to exit upon user interaction.
++                finish();
+             }
+-            return insets;
+         }
+     }
+ }
+diff --git a/src/com/android/deskclock/Utils.java b/src/com/android/deskclock/Utils.java
+index 2858510ce..4eea6beba 100644
+--- a/src/com/android/deskclock/Utils.java
++++ b/src/com/android/deskclock/Utils.java
+@@ -22,6 +22,7 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
+ import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+ import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
++import static android.graphics.Bitmap.Config.ARGB_8888;
+ 
+ import android.annotation.SuppressLint;
+ import android.app.AlarmManager;
+@@ -31,6 +32,8 @@ import android.appwidget.AppWidgetManager;
+ import android.content.ContentResolver;
+ import android.content.Context;
+ import android.content.Intent;
++import android.graphics.Bitmap;
++import android.graphics.Canvas;
+ import android.graphics.Color;
+ import android.graphics.Paint;
+ import android.graphics.PorterDuff;
+@@ -356,7 +359,7 @@ public class Utils {
+         final Spannable sp = new SpannableString(pattern);
+         sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1,
+                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+-        sp.setSpan(new StyleSpan(Typeface.BOLD), amPmPos, amPmPos + 1,
++        sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
+                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+         sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
+                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+@@ -441,6 +444,18 @@ public class Utils {
+         return VectorDrawableCompat.create(context.getResources(), resId, context.getTheme());
+     }
+ 
++    /**
++     * This method assumes the given {@code view} has already been layed out.
++     *
++     * @return a Bitmap containing an image of the {@code view} at its current size
++     */
++    public static Bitmap createBitmap(View view) {
++        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), ARGB_8888);
++        final Canvas canvas = new Canvas(bitmap);
++        view.draw(canvas);
++        return bitmap;
++    }
++
+     /**
+      * {@link ArraySet} is @hide prior to {@link Build.VERSION_CODES#M}.
+      */
+@@ -538,12 +553,10 @@ public class Utils {
+         /** Whether or not to always make the view visible to talkback */
+         private final boolean mIsAlwaysAccessibilityVisible;
+ 
+-        @SuppressWarnings("unused")
+         public ClickAccessibilityDelegate(String label) {
+             this(label, false);
+         }
+ 
+-        @SuppressWarnings("unused")
+         public ClickAccessibilityDelegate(String label, boolean isAlwaysAccessibilityVisible) {
+             mLabel = label;
+             mIsAlwaysAccessibilityVisible = isAlwaysAccessibilityVisible;
+diff --git a/src/com/android/deskclock/actionbarmenu/MenuItemController.java b/src/com/android/deskclock/actionbarmenu/MenuItemController.java
+index 5649b3a49..542a035b6 100644
+--- a/src/com/android/deskclock/actionbarmenu/MenuItemController.java
++++ b/src/com/android/deskclock/actionbarmenu/MenuItemController.java
+@@ -44,8 +44,8 @@ public interface MenuItemController {
+     /**
+      * Attempts to handle the click action.
+      *
+-     * @param ignoredItem the {@link MenuItem} that was selected
++     * @param item the {@link MenuItem} that was selected
+      * @return {@code true} if the action is handled by this controller
+      */
+-    boolean onOptionsItemSelected(MenuItem ignoredItem);
++    boolean onOptionsItemSelected(MenuItem item);
+ }
+diff --git a/src/com/android/deskclock/data/DataModel.java b/src/com/android/deskclock/data/DataModel.java
+index e5c78e4c5..2e5330668 100644
+--- a/src/com/android/deskclock/data/DataModel.java
++++ b/src/com/android/deskclock/data/DataModel.java
+@@ -447,6 +447,15 @@ public final class DataModel {
+         return mTimerModel.getTimer(timerId);
+     }
+ 
++    /**
++     * @return the timer that last expired and is still expired now; {@code null} if no timers are
++     *      expired
++     */
++    public Timer getMostRecentExpiredTimer() {
++        enforceMainLooper();
++        return mTimerModel.getMostRecentExpiredTimer();
++    }
++
+     /**
+      * @param length the length of the timer in milliseconds
+      * @param label describes the purpose of the timer
+@@ -762,7 +771,7 @@ public final class DataModel {
+      */
+     public List<Lap> getLaps() {
+         enforceMainLooper();
+-        return (mStopwatchModel != null) ? mStopwatchModel.getLaps() : new ArrayList<>();
++        return (mStopwatchModel != null) ? mStopwatchModel.getLaps() : new ArrayList<Lap>();
+     }
+ 
+     /**
+diff --git a/src/com/android/deskclock/data/RingtoneModel.java b/src/com/android/deskclock/data/RingtoneModel.java
+index d765ba8b9..b83270cab 100644
+--- a/src/com/android/deskclock/data/RingtoneModel.java
++++ b/src/com/android/deskclock/data/RingtoneModel.java
+@@ -81,16 +81,17 @@ final class RingtoneModel {
+         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+     }
+ 
+-    void addCustomRingtone(Uri uri, String title) {
++    CustomRingtone addCustomRingtone(Uri uri, String title) {
+         // If the uri is already present in an existing ringtone, do nothing.
+         final CustomRingtone existing = getCustomRingtone(uri);
+         if (existing != null) {
+-            return;
++            return existing;
+         }
+ 
+         final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
+         getMutableCustomRingtones().add(ringtone);
+         Collections.sort(getMutableCustomRingtones());
++        return ringtone;
+     }
+ 
+     void removeCustomRingtone(Uri uri) {
+diff --git a/src/com/android/deskclock/data/SilentSettingsModel.java b/src/com/android/deskclock/data/SilentSettingsModel.java
+index 1cfc1884c..af3caee2a 100644
+--- a/src/com/android/deskclock/data/SilentSettingsModel.java
++++ b/src/com/android/deskclock/data/SilentSettingsModel.java
+@@ -145,8 +145,8 @@ final class SilentSettingsModel {
+      * making noise, a description of the setting is reported to this model on the main thread.
+      */
+     private final class CheckSilenceSettingsTask {
+-        final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
+-        final Handler mHandler = new Handler(Looper.getMainLooper());
++        ExecutorService mExecutor = Executors.newSingleThreadExecutor();
++        Handler mHandler = new Handler(Looper.getMainLooper());
+ 
+         private void execute() {
+             mExecutor.execute(() -> {
+diff --git a/src/com/android/deskclock/data/StopwatchListener.java b/src/com/android/deskclock/data/StopwatchListener.java
+index 9f0c7cdd6..b3d5c07be 100644
+--- a/src/com/android/deskclock/data/StopwatchListener.java
++++ b/src/com/android/deskclock/data/StopwatchListener.java
+@@ -22,8 +22,8 @@ package com.android.deskclock.data;
+ public interface StopwatchListener {
+ 
+     /**
+-     * @param ignoredBefore the stopwatch state before the update
++     * @param before the stopwatch state before the update
+      * @param after the stopwatch state after the update
+      */
+-    void stopwatchUpdated(Stopwatch ignoredBefore, Stopwatch after);
++    void stopwatchUpdated(Stopwatch before, Stopwatch after);
+ }
+diff --git a/src/com/android/deskclock/data/StopwatchModel.java b/src/com/android/deskclock/data/StopwatchModel.java
+index ba2489333..a9ea1376f 100644
+--- a/src/com/android/deskclock/data/StopwatchModel.java
++++ b/src/com/android/deskclock/data/StopwatchModel.java
+@@ -101,7 +101,7 @@ final class StopwatchModel {
+     /**
+      * @param stopwatch the new state of the stopwatch
+      */
+-    void setStopwatch(Stopwatch stopwatch) {
++    Stopwatch setStopwatch(Stopwatch stopwatch) {
+         final Stopwatch before = getStopwatch();
+         if (before != stopwatch) {
+             StopwatchDAO.setStopwatch(mPrefs, stopwatch);
+@@ -123,7 +123,7 @@ final class StopwatchModel {
+             }
+         }
+ 
+-        return;
++        return stopwatch;
+     }
+ 
+     /**
+diff --git a/src/com/android/deskclock/data/StopwatchNotificationBuilder.java b/src/com/android/deskclock/data/StopwatchNotificationBuilder.java
+index c179baa28..eef4936f0 100644
+--- a/src/com/android/deskclock/data/StopwatchNotificationBuilder.java
++++ b/src/com/android/deskclock/data/StopwatchNotificationBuilder.java
+@@ -21,7 +21,6 @@ import static android.view.View.VISIBLE;
+ import static com.android.deskclock.NotificationUtils.STOPWATCH_NOTIFICATION_CHANNEL_ID;
+ 
+ import android.app.Notification;
+-import android.app.NotificationManager;
+ import android.app.PendingIntent;
+ import android.content.Context;
+ import android.content.Intent;
+@@ -133,7 +132,7 @@ class StopwatchNotificationBuilder {
+                         .setCustomContentView(content)
+                         .setContentIntent(pendingShowApp)
+                         .setAutoCancel(stopwatch.isPaused())
+-                        .setPriority(NotificationManager.IMPORTANCE_LOW)
++                        .setPriority(Notification.PRIORITY_LOW)
+                         .setSmallIcon(R.drawable.stat_notify_stopwatch)
+                         .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                         .setColor(ContextCompat.getColor(context, R.color.default_background))
+diff --git a/src/com/android/deskclock/data/Timer.java b/src/com/android/deskclock/data/Timer.java
+index 0cb304d81..93e4d8cd6 100644
+--- a/src/com/android/deskclock/data/Timer.java
++++ b/src/com/android/deskclock/data/Timer.java
+@@ -357,7 +357,7 @@ public final class Timer {
+      *     <li>{@link State#RESET RESET} timers; ties broken by {@link #getLength()}</li>
+      * </ol>
+      */
+-    static final Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<>() {
++    static final Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<Timer>() {
+ 
+         private final List<State> stateExpiryOrder = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED,
+                 RESET);
+diff --git a/src/com/android/deskclock/data/TimerModel.java b/src/com/android/deskclock/data/TimerModel.java
+index cc06add50..784a72c7b 100644
+--- a/src/com/android/deskclock/data/TimerModel.java
++++ b/src/com/android/deskclock/data/TimerModel.java
+@@ -294,7 +294,7 @@ final class TimerModel {
+      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+      * @return the reset {@code timer} or {@code null} if the timer was deleted
+      */
+-    void resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
++    Timer resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
+         final Timer result = doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
+ 
+         // Update the notification after updating the timer data.
+@@ -306,7 +306,7 @@ final class TimerModel {
+             updateNotification();
+         }
+ 
+-        return;
++        return result;
+     }
+ 
+     /**
+diff --git a/src/com/android/deskclock/provider/Alarm.java b/src/com/android/deskclock/provider/Alarm.java
+index dd57e7f6b..8f7ba2e6d 100644
+--- a/src/com/android/deskclock/provider/Alarm.java
++++ b/src/com/android/deskclock/provider/Alarm.java
+@@ -259,7 +259,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
+         return deletedRows == 1;
+     }
+ 
+-    public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<>() {
++    public static final Parcelable.Creator<Alarm> CREATOR = new Parcelable.Creator<Alarm>() {
+         public Alarm createFromParcel(Parcel p) {
+             return new Alarm(p);
+         }
+diff --git a/src/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.java b/src/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.java
+index 779d519e9..ca4fc2838 100644
+--- a/src/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.java
++++ b/src/com/android/deskclock/ringtone/AddCustomRingtoneViewHolder.java
+@@ -16,6 +16,7 @@
+ 
+ package com.android.deskclock.ringtone;
+ 
++import android.content.Context;
+ import android.content.res.ColorStateList;
+ import android.view.LayoutInflater;
+ import android.view.View;
+diff --git a/src/com/android/deskclock/ringtone/RingtonePickerActivity.java b/src/com/android/deskclock/ringtone/RingtonePickerActivity.java
+index fcfc6421c..77203048d 100644
+--- a/src/com/android/deskclock/ringtone/RingtonePickerActivity.java
++++ b/src/com/android/deskclock/ringtone/RingtonePickerActivity.java
+@@ -26,6 +26,8 @@ import static com.android.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM
+ import static com.android.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_SYSTEM_SOUND;
+ 
+ import android.app.Dialog;
++import android.app.DialogFragment;
++import android.app.FragmentManager;
+ import android.content.ContentResolver;
+ import android.content.Context;
+ import android.content.DialogInterface;
+@@ -43,8 +45,6 @@ import android.view.LayoutInflater;
+ import androidx.annotation.NonNull;
+ import androidx.annotation.VisibleForTesting;
+ import androidx.appcompat.app.AlertDialog;
+-import androidx.fragment.app.DialogFragment;
+-import androidx.fragment.app.FragmentManager;
+ import androidx.loader.content.Loader;
+ import androidx.loader.app.LoaderManager;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+@@ -295,7 +295,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
+         final RingtoneHolder toRemove = (RingtoneHolder) items.get(indexOfRingtoneToRemove);
+ 
+         // Launch the confirmation dialog.
+-        final FragmentManager manager = getSupportFragmentManager();
++        final FragmentManager manager = getFragmentManager();
+         final boolean hasPermissions = toRemove.hasPermissions();
+         ConfirmRemoveCustomRingtoneDialogFragment.show(manager, toRemove.getUri(), hasPermissions);
+     }
+@@ -382,24 +382,22 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
+             fragment.show(manager, "confirm_ringtone_remove");
+         }
+ 
+-        @NonNull
+         @Override
+         public Dialog onCreateDialog(Bundle savedInstanceState) {
+-            final Bundle arguments = requireArguments();
++            final Bundle arguments = getArguments();
+             final Uri toRemove = arguments.getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+-            final RingtonePickerActivity activity = (RingtonePickerActivity) requireActivity();
+ 
+             final DialogInterface.OnClickListener okListener = (dialog, which) ->
+-                    activity.removeCustomRingtoneAsync(toRemove);
++                    ((RingtonePickerActivity) getActivity()).removeCustomRingtoneAsync(toRemove);
+ 
+             if (arguments.getBoolean(ARG_RINGTONE_HAS_PERMISSIONS)) {
+-                return new AlertDialog.Builder(activity)
++                return new AlertDialog.Builder(getActivity())
+                         .setPositiveButton(R.string.remove_sound, okListener)
+                         .setNegativeButton(android.R.string.cancel, null /* listener */)
+                         .setMessage(R.string.confirm_remove_custom_ringtone)
+                         .create();
+             } else {
+-                return new AlertDialog.Builder(activity)
++                return new AlertDialog.Builder(getActivity())
+                         .setPositiveButton(R.string.remove_sound, okListener)
+                         .setMessage(R.string.custom_ringtone_lost_permissions)
+                         .create();
+@@ -446,7 +444,7 @@ public class RingtonePickerActivity extends CollapsingToolbarBaseActivity
+                     break;
+ 
+                 case RingtoneViewHolder.CLICK_NO_PERMISSIONS:
+-                    ConfirmRemoveCustomRingtoneDialogFragment.show(getSupportFragmentManager(),
++                    ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(),
+                             ((RingtoneHolder) viewHolder.getItemHolder()).getUri(), false);
+                     break;
+             }
+diff --git a/src/com/android/deskclock/settings/AlarmVolumePreference.java b/src/com/android/deskclock/settings/AlarmVolumePreference.java
+index 28c45ea04..afde9b1b6 100644
+--- a/src/com/android/deskclock/settings/AlarmVolumePreference.java
++++ b/src/com/android/deskclock/settings/AlarmVolumePreference.java
+@@ -30,7 +30,6 @@ import android.view.View;
+ import android.widget.ImageView;
+ import android.widget.SeekBar;
+ 
+-import androidx.annotation.NonNull;
+ import androidx.preference.Preference;
+ import androidx.preference.PreferenceViewHolder;
+ 
+@@ -50,7 +49,7 @@ public class AlarmVolumePreference extends Preference {
+     }
+ 
+     @Override
+-    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
++    public void onBindViewHolder(PreferenceViewHolder holder) {
+         super.onBindViewHolder(holder);
+ 
+         final Context context = getContext();
+diff --git a/src/com/android/deskclock/settings/SettingsActivity.java b/src/com/android/deskclock/settings/SettingsActivity.java
+index fca0a54e3..388b1d511 100644
+--- a/src/com/android/deskclock/settings/SettingsActivity.java
++++ b/src/com/android/deskclock/settings/SettingsActivity.java
+@@ -168,7 +168,7 @@ public final class SettingsActivity extends CollapsingToolbarBaseActivity {
+         }
+ 
+         @Override
+-        public boolean onPreferenceClick(@NonNull Preference pref) {
++        public boolean onPreferenceClick(Preference pref) {
+             final Context context = getActivity();
+             if (context == null) {
+                 return false;
+diff --git a/src/com/android/deskclock/stopwatch/StopwatchService.java b/src/com/android/deskclock/stopwatch/StopwatchService.java
+index af2134c4d..0f2315f06 100644
+--- a/src/com/android/deskclock/stopwatch/StopwatchService.java
++++ b/src/com/android/deskclock/stopwatch/StopwatchService.java
+@@ -16,13 +16,17 @@
+ 
+ package com.android.deskclock.stopwatch;
+ 
++import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
++
+ import android.app.Service;
+ import android.content.Intent;
+ import android.os.IBinder;
+ 
++import com.android.deskclock.DeskClock;
+ import com.android.deskclock.R;
+ import com.android.deskclock.data.DataModel;
+ import com.android.deskclock.events.Events;
++import com.android.deskclock.uidata.UiDataModel;
+ 
+ /**
+  * This service exists solely to allow the stopwatch notification to alter the state of the
+diff --git a/src/com/android/deskclock/timer/TimerAdapter.java b/src/com/android/deskclock/timer/TimerAdapter.java
+index 003f5ff8b..f6250397f 100644
+--- a/src/com/android/deskclock/timer/TimerAdapter.java
++++ b/src/com/android/deskclock/timer/TimerAdapter.java
+@@ -16,14 +16,17 @@
+ 
+ package com.android.deskclock.timer;
+ 
++import android.annotation.SuppressLint;
+ import android.content.Context;
+ import android.util.ArrayMap;
++import android.util.Log;
+ import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ 
+ import androidx.annotation.NonNull;
+ import androidx.recyclerview.widget.RecyclerView;
++import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+ 
+ import com.android.deskclock.data.DataModel;
+ import com.android.deskclock.data.Timer;
+@@ -61,7 +64,7 @@ class TimerAdapter extends RecyclerView.Adapter implements TimerListener {
+     }
+ 
+     @Override
+-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder itemViewHolder, int position) {
++    public void onBindViewHolder(RecyclerView.ViewHolder itemViewHolder, int position) {
+         TimerViewHolder holder = (TimerViewHolder) itemViewHolder;
+         mHolders.put(getTimer(position).getId(), holder);
+         holder.onBind(getTimer(position).getId());
+diff --git a/src/com/android/deskclock/timer/TimerFragment.java b/src/com/android/deskclock/timer/TimerFragment.java
+index 825b8dece..41473335f 100644
+--- a/src/com/android/deskclock/timer/TimerFragment.java
++++ b/src/com/android/deskclock/timer/TimerFragment.java
+@@ -54,10 +54,12 @@ import com.android.deskclock.Utils;
+ import com.android.deskclock.data.DataModel;
+ import com.android.deskclock.data.Timer;
+ import com.android.deskclock.data.TimerListener;
++import com.android.deskclock.data.TimerStringFormatter;
+ import com.android.deskclock.events.Events;
+ import com.android.deskclock.uidata.UiDataModel;
+ 
+ import java.io.Serializable;
++import java.util.Arrays;
+ 
+ /**
+  * Displays a vertical list of timers in all states.
+@@ -103,6 +105,7 @@ public final class TimerFragment extends DeskClockFragment {
+             Bundle savedInstanceState) {
+         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+ 
++        Context context = view.getContext();
+         mTimerClickHandler = new TimerClickHandler(this);
+         mAdapter = new TimerAdapter(mTimerClickHandler);
+         mRecyclerView = view.findViewById(R.id.recycler_view);
+@@ -498,7 +501,10 @@ public final class TimerFragment extends DeskClockFragment {
+         }
+ 
+         int orientation = res.getConfiguration().orientation;
+-        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
++        boolean isLandscape = false;
++        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
++            isLandscape = true;
++        }
+         return new LinearLayoutManager(context, isLandscape
+                 ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL, false);
+     }
+diff --git a/src/com/android/deskclock/timer/TimerItem.java b/src/com/android/deskclock/timer/TimerItem.java
+index bbffe8c87..30d739e94 100644
+--- a/src/com/android/deskclock/timer/TimerItem.java
++++ b/src/com/android/deskclock/timer/TimerItem.java
+@@ -30,10 +30,12 @@ import android.widget.ImageButton;
+ import android.widget.TextView;
+ 
+ import androidx.constraintlayout.widget.ConstraintLayout;
++import androidx.core.view.ViewCompat;
+ 
+ import com.android.deskclock.R;
+ import com.android.deskclock.ThemeUtils;
+ import com.android.deskclock.TimerTextController;
++import com.android.deskclock.Utils.ClickAccessibilityDelegate;
+ import com.android.deskclock.data.Timer;
+ 
+ /**
+diff --git a/src/com/android/deskclock/timer/TimerService.java b/src/com/android/deskclock/timer/TimerService.java
+index d7b7160e5..caf46cf72 100644
+--- a/src/com/android/deskclock/timer/TimerService.java
++++ b/src/com/android/deskclock/timer/TimerService.java
+@@ -16,15 +16,19 @@
+ 
+ package com.android.deskclock.timer;
+ 
++import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
++
+ import android.app.Service;
+ import android.content.Context;
+ import android.content.Intent;
+ import android.os.IBinder;
+ 
++import com.android.deskclock.DeskClock;
+ import com.android.deskclock.R;
+ import com.android.deskclock.data.DataModel;
+ import com.android.deskclock.data.Timer;
+ import com.android.deskclock.events.Events;
++import com.android.deskclock.uidata.UiDataModel;
+ 
+ /**
+  * <p>This service exists solely to allow {@link android.app.AlarmManager} and timer notifications
+diff --git a/src/com/android/deskclock/timer/TimerViewHolder.java b/src/com/android/deskclock/timer/TimerViewHolder.java
+index 979be1440..c6a557a8e 100644
+--- a/src/com/android/deskclock/timer/TimerViewHolder.java
++++ b/src/com/android/deskclock/timer/TimerViewHolder.java
+@@ -19,11 +19,16 @@ package com.android.deskclock.timer;
+ import android.content.Context;
+ import android.content.res.Configuration;
+ import android.content.res.Resources;
++import android.os.Bundle;
++import android.view.LayoutInflater;
+ import android.view.View;
+ import android.view.ViewGroup;
+ 
++import androidx.annotation.NonNull;
++import androidx.fragment.app.Fragment;
+ import androidx.recyclerview.widget.RecyclerView;
+ 
++import com.android.deskclock.LabelDialogFragment;
+ import com.android.deskclock.R;
+ import com.android.deskclock.data.DataModel;
+ import com.android.deskclock.data.Timer;
+@@ -33,8 +38,8 @@ import com.android.deskclock.events.Events;
+ public class TimerViewHolder extends RecyclerView.ViewHolder {
+ 
+     private int mTimerId;
+-    private final TimerItem mTimerItem;
+-    private final TimerClickHandler mTimerClickHandler;
++    private TimerItem mTimerItem;
++    private TimerClickHandler mTimerClickHandler;
+ 
+     public TimerViewHolder(View view, TimerClickHandler timerClickHandler) {
+         super(view);
+@@ -50,8 +55,9 @@ public class TimerViewHolder extends RecyclerView.ViewHolder {
+         view.findViewById(R.id.timer_label).setOnClickListener(v ->
+                 mTimerClickHandler.onEditLabelClicked(getTimer()));
+         view.findViewById(R.id.play_pause).setOnClickListener(mPlayPauseListener);
+-        view.findViewById(R.id.close).setOnClickListener(v ->
+-                DataModel.getDataModel().removeTimer(getTimer()));
++        view.findViewById(R.id.close).setOnClickListener(v -> {
++            DataModel.getDataModel().removeTimer(getTimer());
++        });
+     }
+ 
+     public void onBind(int timerId) {
+diff --git a/src/com/android/deskclock/uidata/PeriodicCallbackModel.java b/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
+index 4928244ec..0127e66cd 100644
+--- a/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
++++ b/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
+@@ -93,7 +93,6 @@ final class PeriodicCallbackModel {
+     /**
+      * @param runnable to be called every hour
+      */
+-    @SuppressWarnings("unused")
+     void addHourCallback(Runnable runnable) {
+         // Callbacks *can* occur early so pad in an extra 100ms on the hour callback to ensure
+         // the sampled wallclock time reflects the subsequent hour.
+diff --git a/src/com/android/deskclock/widget/CollapsingToolbarBaseActivity.java b/src/com/android/deskclock/widget/CollapsingToolbarBaseActivity.java
+index 25b25bb64..4d606ff5f 100644
+--- a/src/com/android/deskclock/widget/CollapsingToolbarBaseActivity.java
++++ b/src/com/android/deskclock/widget/CollapsingToolbarBaseActivity.java
+@@ -33,6 +33,7 @@ import androidx.fragment.app.FragmentActivity;
+ import com.android.deskclock.R;
+ import com.google.android.material.appbar.AppBarLayout;
+ import com.google.android.material.appbar.CollapsingToolbarLayout;
++import com.google.android.material.resources.TextAppearanceConfig;
+ 
+ /**
+  * A base Activity that has a collapsing toolbar layout is used for the activities intending to
+@@ -50,6 +51,8 @@ public class CollapsingToolbarBaseActivity extends FragmentActivity {
+     @Override
+     protected void onCreate(@Nullable Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
++        // Force loading font synchronously for collapsing toolbar layout
++        TextAppearanceConfig.setShouldLoadFontSynchronously(true);
+         super.setContentView(R.layout.collapsing_toolbar_base_layout);
+         mCollapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+         mAppBarLayout = findViewById(R.id.app_bar);
+diff --git a/tests/src/com/android/deskclock/widget/MockFabContainer.java b/tests/src/com/android/deskclock/widget/MockFabContainer.java
+index 09f6542a0..0c2d90069 100644
+--- a/tests/src/com/android/deskclock/widget/MockFabContainer.java
++++ b/tests/src/com/android/deskclock/widget/MockFabContainer.java
+@@ -34,9 +34,9 @@ public final class MockFabContainer implements FabContainer {
+ 
+     private final DeskClockFragment deskClockFragment;
+ 
+-    private final ImageView fab;
+-    private final ImageView leftButton;
+-    private final ImageView rightButton;
++    private ImageView fab;
++    private Button leftButton;
++    private Button rightButton;
+ 
+     public MockFabContainer(DeskClockFragment fragment, Context context) {
+         deskClockFragment = fragment;
+@@ -46,9 +46,24 @@ public final class MockFabContainer implements FabContainer {
+ 
+         updateFab(FabContainer.FAB_AND_BUTTONS_IMMEDIATE);
+ 
+-        fab.setOnClickListener(view -> deskClockFragment.onFabClick(fab));
+-        leftButton.setOnClickListener(view -> deskClockFragment.onLeftButtonClick(leftButton));
+-        rightButton.setOnClickListener(view -> deskClockFragment.onRightButtonClick(rightButton));
++        fab.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                deskClockFragment.onFabClick(fab);
++            }
++        });
++        leftButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                deskClockFragment.onLeftButtonClick(leftButton);
++            }
++        });
++        rightButton.setOnClickListener(new View.OnClickListener() {
++            @Override
++            public void onClick(View view) {
++                deskClockFragment.onRightButtonClick(rightButton);
++            }
++        });
+     }
+ 
+     @Override
+-- 
+2.34.1
+

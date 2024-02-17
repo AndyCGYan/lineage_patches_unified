@@ -1,0 +1,28 @@
+From 6b596089d52d5e95ff75605a97269770a5d3a061 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 1 Sep 2021 14:10:50 +0000
+Subject: [PATCH 15/21] UI: Kill rounded corners in notification scrim
+
+Rounded corners in S is nicely implemented, but this is one occasion where it looks out of place
+
+Change-Id: I09ed59e0e658ebd512a9d02a8ef3edfe2c9888da
+---
+ packages/SystemUI/res/values/dimens.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index 3320f98d1620..be08d662ed14 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -759,7 +759,7 @@
+     <!-- When large clock is showing, offset the smartspace by this amount -->
+     <dimen name="keyguard_smartspace_top_offset">12dp</dimen>
+ 
+-    <dimen name="notification_scrim_corner_radius">32dp</dimen>
++    <dimen name="notification_scrim_corner_radius">0dp</dimen>
+ 
+     <!-- The minimum amount the user needs to swipe to go to the camera / phone. -->
+     <dimen name="keyguard_min_swipe_amount">110dp</dimen>
+-- 
+2.34.1
+

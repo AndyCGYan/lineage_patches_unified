@@ -1,0 +1,26 @@
+From b2dee98e6f08035160ae2e9b792774cea1903106 Mon Sep 17 00:00:00 2001
+From: Hikari-no-Tenshi <kyryljan.serhij@gmail.com>
+Date: Thu, 30 Jan 2020 22:20:54 +0200
+Subject: [PATCH 03/21] Disable Bluetooth by default
+
+Change-Id: Iea5d24f977928bf01cd7a46b98c75c0a4bd6a23c
+---
+ packages/SettingsProvider/res/values/defaults.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
+index a93cd62e6301..b63896f09710 100644
+--- a/packages/SettingsProvider/res/values/defaults.xml
++++ b/packages/SettingsProvider/res/values/defaults.xml
+@@ -38,7 +38,7 @@
+     <fraction name="def_window_transition_scale">100%</fraction>
+     <bool name="def_haptic_feedback">true</bool>
+ 
+-    <bool name="def_bluetooth_on">true</bool>
++    <bool name="def_bluetooth_on">false</bool>
+     <bool name="def_wifi_display_on">false</bool>
+     <bool name="def_install_non_market_apps">false</bool>
+     <!-- 0 == off, 3 == on -->
+-- 
+2.34.1
+

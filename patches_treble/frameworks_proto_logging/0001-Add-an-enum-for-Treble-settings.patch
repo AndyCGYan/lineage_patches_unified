@@ -1,0 +1,27 @@
+From 31b4f85f4d8d4e3aad6cab62d88ec7c065b62607 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 30 Sep 2022 11:32:24 +0000
+Subject: [PATCH] Add an enum for Treble settings
+
+Change-Id: I8dc25afa27e938ee82594a8343e73c7c494003e2
+---
+ stats/enums/app/settings_enums.proto | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/stats/enums/app/settings_enums.proto b/stats/enums/app/settings_enums.proto
+index 50a68098..7392b1ce 100644
+--- a/stats/enums/app/settings_enums.proto
++++ b/stats/enums/app/settings_enums.proto
+@@ -2217,6 +2217,9 @@ enum PageId {
+     // OPEN: Settings > System > Input & Gesture > Double twist gesture
+     SETTINGS_GESTURE_DOUBLE_TWIST = 755;
+ 
++    // OPEN: Settings > Treble Settings
++    SETTINGS_TREBLE_CATEGORY = 777;
++
+     // OPEN: Settings > Apps > Default Apps > Default browser
+     DEFAULT_BROWSER_PICKER = 785;
+ 
+-- 
+2.34.1
+

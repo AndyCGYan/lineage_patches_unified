@@ -1,0 +1,37 @@
+From cd56da986fdf17fc6d5d82d6cb553a8444093099 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 26 Sep 2022 14:41:41 +0000
+Subject: [PATCH 1/4] Make xbin and su executable by other
+
+Needed by PHH-SU
+
+Change-Id: I5304b787ce4602036904a373a409bb08f8f969de
+---
+ libcutils/fs_config.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/libcutils/fs_config.cpp b/libcutils/fs_config.cpp
+index f90a1bc3c..ef35e0588 100644
+--- a/libcutils/fs_config.cpp
++++ b/libcutils/fs_config.cpp
+@@ -87,7 +87,7 @@ static const struct fs_path_config android_dirs[] = {
+     { 00751, AID_ROOT,         AID_SHELL,        0, "system/bin" },
+     { 00755, AID_ROOT,         AID_ROOT,         0, "system/etc/ppp" },
+     { 00755, AID_ROOT,         AID_SHELL,        0, "system/vendor" },
+-    { 00750, AID_ROOT,         AID_SHELL,        0, "system/xbin" },
++    { 00755, AID_ROOT,         AID_SHELL,        0, "system/xbin" },
+     { 00751, AID_ROOT,         AID_SHELL,        0, "system/apex/*/bin" },
+     { 00750, AID_ROOT,         AID_SYSTEM,       0, "system_ext/apex/com.android.tethering/bin/for-system" },
+     { 00751, AID_ROOT,         AID_SHELL,        0, "system_ext/bin" },
+@@ -192,7 +192,7 @@ static const struct fs_path_config android_files[] = {
+     // the following two files are INTENTIONALLY set-uid, but they
+     // are NOT included on user builds.
+     { 06755, AID_ROOT,      AID_ROOT,      0, "system/xbin/procmem" },
+-    { 04750, AID_ROOT,      AID_SHELL,     0, "system/xbin/su" },
++    { 04755, AID_ROOT,      AID_SHELL,     0, "system/xbin/su" },
+ 
+     // the following files have enhanced capabilities and ARE included
+     // in user builds.
+-- 
+2.34.1
+

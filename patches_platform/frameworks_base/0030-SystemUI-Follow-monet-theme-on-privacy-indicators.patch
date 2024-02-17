@@ -1,0 +1,42 @@
+From a4b5ee62c8b2e49ce188631cb9155cef5c2dd143 Mon Sep 17 00:00:00 2001
+From: minaripenguin <minaripenguin@users.noreply.github.com>
+Date: Fri, 24 Mar 2023 13:04:06 +0800
+Subject: [PATCH 30/31] SystemUI: Follow monet theme on privacy indicators
+
+Change-Id: Ib713cb3283fcf3a49086c5da8360d2a1b6cd6704
+Signed-off-by: minaripenguin <minaripenguin@users.noreply.github.com>
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ packages/SystemUI/res/values/colors.xml                         | 2 +-
+ .../src/com/android/systemui/privacy/OngoingPrivacyChip.kt      | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packages/SystemUI/res/values/colors.xml b/packages/SystemUI/res/values/colors.xml
+index b494973b319f..d65f5d66c5e4 100644
+--- a/packages/SystemUI/res/values/colors.xml
++++ b/packages/SystemUI/res/values/colors.xml
+@@ -217,7 +217,7 @@
+     <color name="screenrecord_status_color">#E94235</color>
+     <color name="screenrecord_icon_color">#D93025</color><!-- red 600 -->
+ 
+-    <color name="privacy_chip_background">#3ddc84</color>
++    <color name="privacy_chip_background">?android:attr/colorAccent</color>
+ 
+     <!-- Accessibility floating menu -->
+     <color name="accessibility_floating_menu_background">#CCFFFFFF</color> <!-- 80% -->
+diff --git a/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt b/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
+index 310d23407d5d..957fc8faad2c 100644
+--- a/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
++++ b/packages/SystemUI/src/com/android/systemui/privacy/OngoingPrivacyChip.kt
+@@ -123,7 +123,7 @@ class OngoingPrivacyChip @JvmOverloads constructor(
+         iconSize = context.resources
+                 .getDimensionPixelSize(R.dimen.ongoing_appops_chip_icon_size)
+         iconColor =
+-                Utils.getColorAttrDefaultColor(context, com.android.internal.R.attr.colorPrimary)
++                Utils.getColorAttrDefaultColor(context, android.R.attr.textColorPrimaryInverse)
+ 
+         val height = context.resources
+                 .getDimensionPixelSize(R.dimen.ongoing_appops_chip_height)
+-- 
+2.34.1
+

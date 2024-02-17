@@ -1,0 +1,116 @@
+From 77dfd4ad7da5a0320f143b06324da05a212229fc Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 17 Dec 2022 10:29:05 +0000
+Subject: [PATCH 6/8] TrebleSettings: Override minimum brightness
+
+Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
+---
+ res/values/strings.xml                        |  2 +
+ res/xml/treble_settings.xml                   |  4 ++
+ ...MinimumBrightnessPreferenceController.java | 53 +++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  1 +
+ 4 files changed, 60 insertions(+)
+ create mode 100644 src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index deb2cf9d77..865a9c4f5f 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -6898,6 +6898,8 @@
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
+     <!-- Treble settings screen, use alternative backlight scale title -->
+     <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
++    <!-- Treble settings screen, override minimum brightness title -->
++    <string name="override_minimum_brightness_title">Override minimum brightness</string>
+     <!-- Treble settings screen, install IMS APK title -->
+     <string name="install_ims_apk_title">Install IMS APK</string>
+     <!-- Treble settings screen, install IMS APK toasts -->
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 47097a14c7..5c18461b69 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -38,6 +38,10 @@
+             android:key="use_alternative_backlight_scale"
+             android:title="@string/use_alternative_backlight_scale_title" />
+ 
++        <SwitchPreference
++            android:key="override_minimum_brightness"
++            android:title="@string/override_minimum_brightness_title" />
++
+     </PreferenceCategory>
+ 
+     <PreferenceCategory
+diff --git a/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java b/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
+new file mode 100644
+index 0000000000..95200fbeaa
+--- /dev/null
++++ b/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class OverrideMinimumBrightnessPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String OVERRIDE_MINIMUM_BRIGHTNESS_KEY = "override_minimum_brightness";
++    private static final String MINIMAL_BRIGHTNESS_PROPERTY = "persist.sys.overlay.minimal_brightness";
++
++    private SwitchPreference mSwitchPreference;
++
++    public OverrideMinimumBrightnessPreferenceController(Context context) {
++        super(context, OVERRIDE_MINIMUM_BRIGHTNESS_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return OVERRIDE_MINIMUM_BRIGHTNESS_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(MINIMAL_BRIGHTNESS_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(MINIMAL_BRIGHTNESS_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index 09aa001e82..39a0e19972 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -38,6 +38,7 @@ public class TrebleSettings extends DashboardFragment {
+         controllers.add(new UseAlternativeAudioJackDetectionPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
+         controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
++        controllers.add(new OverrideMinimumBrightnessPreferenceController(context));
+         controllers.add(new InstallImsApkPreferenceController(context));
+         controllers.add(new OverrideVolteAvailabilityPreferenceController(context));
+         return controllers;
+-- 
+2.34.1
+
