@@ -1,4 +1,4 @@
-From d81745ad081c1e8bbabd346deb3fa5cb3b3a1017 Mon Sep 17 00:00:00 2001
+From a5566575757350417b9eec5b5aa2f00febbd17f9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 Apr 2020 08:56:13 +0000
 Subject: [PATCH 11/22] UI: Use SNAP_FIXED_RATIO for multi-window globally

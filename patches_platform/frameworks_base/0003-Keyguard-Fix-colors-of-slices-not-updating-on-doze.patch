@@ -1,4 +1,4 @@
-From d8dea7b3e03976fa4ab292f3d6fdcae84e039196 Mon Sep 17 00:00:00 2001
+From 13ecef904ab561f69164fcd716ff13174edb9172 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 17 Jan 2023 17:19:19 +0000
 Subject: [PATCH 03/22] Keyguard: Fix colors of slices not updating on doze
@@ -31,10 +31,10 @@ index f4c581552bc4..c0f983551877 100644
       * Set which clock should be displayed on the keyguard. The other one will be automatically
       * hidden.
 diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
-index 1394c68ceeb7..6cb1da129b60 100644
+index 673ce312618f..ad1804e9562e 100644
 --- a/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
 +++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationPanelViewController.java
-@@ -4422,6 +4422,7 @@ public final class NotificationPanelViewController implements Dumpable {
+@@ -4425,6 +4425,7 @@ public final class NotificationPanelViewController implements Dumpable {
          public void onDozeAmountChanged(float linearAmount, float amount) {
              mInterpolatedDarkAmount = amount;
              mLinearDarkAmount = linearAmount;

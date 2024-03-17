@@ -1,0 +1,99 @@
+From 1f423ec35afe9be5dcde2acf9a600190dd13f982 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 29 Dec 2022 15:08:49 +0000
+Subject: [PATCH] Simplify Securize to CheckBoxPreference and persist prop
+
+For "Securize on-demand"
+---
+ app/src/main/java/me/phh/treble/app/Misc.kt   |  5 +++
+ .../java/me/phh/treble/app/MiscSettings.kt    | 33 -------------------
+ app/src/main/res/xml/pref_misc.xml            |  7 ++--
+ 3 files changed, 10 insertions(+), 35 deletions(-)
+
+diff --git a/app/src/main/java/me/phh/treble/app/Misc.kt b/app/src/main/java/me/phh/treble/app/Misc.kt
+index cc01af2..fc59faf 100644
+--- a/app/src/main/java/me/phh/treble/app/Misc.kt
++++ b/app/src/main/java/me/phh/treble/app/Misc.kt
+@@ -303,6 +303,10 @@ object Misc: EntryStartup {
+                 val value = sp.getBoolean(key, false)
+                 SystemProperties.set("persist.sys.phh.wifi_disable_sae", if (value) "true" else "false")
+             }
++            MiscSettings.securize -> {
++                val value = sp.getBoolean(key, false)
++                SystemProperties.set("persist.sys.phh.securize", if (value) "true" else "false")
++            }
+         }
+     }
+ 
+@@ -330,5 +334,6 @@ object Misc: EntryStartup {
+         spListener.onSharedPreferenceChanged(sp, MiscSettings.noHwcomposer)
+         spListener.onSharedPreferenceChanged(sp, MiscSettings.storageFUSE)
+         spListener.onSharedPreferenceChanged(sp, MiscSettings.dt2w)
++        spListener.onSharedPreferenceChanged(sp, MiscSettings.securize)
+     }
+ }
+diff --git a/app/src/main/java/me/phh/treble/app/MiscSettings.kt b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
+index 4ce9d97..f227ce1 100644
+--- a/app/src/main/java/me/phh/treble/app/MiscSettings.kt
++++ b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
+@@ -56,39 +56,6 @@ class MiscSettingsFragment : SettingsFragment() {
+     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+         super.onCreatePreferences(savedInstanceState, rootKey)
+ 
+-        val securizePref = findPreference<Preference>(MiscSettings.securize)
+-        securizePref!!.setOnPreferenceClickListener {
+-                val builder = AlertDialog.Builder( this.getActivity() )
+-                builder.setTitle(getString(R.string.remove_root))
+-                builder.setMessage(getString(R.string.continue_question))
+-
+-                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+-
+-                var cmds = listOf(
+-                    arrayOf("/sbin/su", "-c", "/system/bin/phh-securize.sh"),
+-                    arrayOf("/system/xbin/su", "-c", "/system/bin/phh-securize.sh"),
+-                    arrayOf("/system/xbin/phh-su", "-c", "/system/bin/phh-securize.sh"),
+-                    arrayOf("/sbin/su", "0", "/system/bin/phh-securize.sh"),
+-                    arrayOf("/system/xbin/su", "0", "/system/bin/phh-securize.sh"),
+-                    arrayOf("/system/xbin/phh-su", "0", "/system/bin/phh-securize.sh")
+-                )
+-                for (cmd in cmds) {
+-                    try {
+-                        Runtime.getRuntime().exec(cmd).waitFor()
+-                        break
+-                    } catch (t: Throwable) {
+-                        Log.d("PHH", "Failed to exec \"" + cmd.joinToString(separator = " ") + "\", skipping")
+-                    }
+-                }
+-            }
+-
+-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+-            }
+-
+-            builder.show()
+-            return@setOnPreferenceClickListener true
+-        }
+-
+         val removeTelephonyPref = findPreference<Preference>(MiscSettings.removeTelephony)
+         removeTelephonyPref!!.setOnPreferenceClickListener {
+ 
+diff --git a/app/src/main/res/xml/pref_misc.xml b/app/src/main/res/xml/pref_misc.xml
+index 9a12f16..3d6f7de 100644
+--- a/app/src/main/res/xml/pref_misc.xml
++++ b/app/src/main/res/xml/pref_misc.xml
+@@ -193,8 +193,11 @@
+ 		    android:entryValues="@array/pref_misc_fod_color_values"
+ 		    android:key="key_misc_fod_color"
+             android:title="Under-display fp color" />
+-		<Preference android:title="Securize"
+-            android:key="key_misc_securize" />
++		<CheckBoxPreference
++            android:defaultValue="false"
++            android:key="key_misc_securize"
++            android:title="Spoof system properties"
++            android:summary="For better chances of passing SafetyNet\nMight cause bootloop on some devices" />
+ 	</PreferenceCategory>
+     <PreferenceCategory android:title="Debugging">
+         <Preference android:title="Debug Sensors">
+-- 
+2.34.1
+
