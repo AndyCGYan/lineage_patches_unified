@@ -1,0 +1,28 @@
+From e899e501d403be5c654356d3e7830fb113468a06 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 17 Mar 2024 17:10:38 +0800
+Subject: [PATCH 14/22] Remove debuggable requirement for signature spoofing
+
+Change-Id: I8d637ddbbd117a9c5b1d9c5e462b0f4b30d98333
+---
+ services/core/java/com/android/server/pm/ComputerEngine.java | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/services/core/java/com/android/server/pm/ComputerEngine.java b/services/core/java/com/android/server/pm/ComputerEngine.java
+index 63e3deffe97a..f6a5a7d4beec 100644
+--- a/services/core/java/com/android/server/pm/ComputerEngine.java
++++ b/services/core/java/com/android/server/pm/ComputerEngine.java
+@@ -1612,10 +1612,6 @@ public class ComputerEngine implements Computer {
+     private static native boolean isDebuggable();
+ 
+     public static boolean isMicrogSigned(AndroidPackage p) {
+-        if (!isDebuggable()) {
+-            return false;
+-        }
+-
+         // Allowlist the following apps:
+         // * com.android.vending - microG Companion
+         // * com.google.android.gms - microG Services
+-- 
+2.34.1
+

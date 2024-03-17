@@ -1,0 +1,191 @@
+From f6313909d7124630fc1146b72d847f19a026dcf6 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 16 Feb 2024 22:06:59 +0800
+Subject: [PATCH 2/2] Revert "[Wi-Fi] Check if domain field is not empty when
+ users choose a ca certificate"
+
+This reverts commit 8d5c8c2611adadbd5baf81d8157871005ff87497.
+---
+ .../settings/wifi/WifiConfigController.java   | 16 +++++-----
+ .../settings/wifi/WifiConfigController2.java  | 16 +++++-----
+ .../wifi/WifiConfigController2Test.java       | 29 -------------------
+ .../wifi/WifiConfigControllerTest.java        | 29 -------------------
+ 4 files changed, 18 insertions(+), 72 deletions(-)
+
+diff --git a/src/com/android/settings/wifi/WifiConfigController.java b/src/com/android/settings/wifi/WifiConfigController.java
+index 306576d102..53053c28ad 100644
+--- a/src/com/android/settings/wifi/WifiConfigController.java
++++ b/src/com/android/settings/wifi/WifiConfigController.java
+@@ -547,11 +547,12 @@ public class WifiConfigController implements TextWatcher,
+                 // Disallow submit if the user has not selected a CA certificate for an EAP network
+                 // configuration.
+                 enabled = false;
+-            } else if (!caCertSelection.equals(mDoNotValidateEapServerString)
++            }
++            if (caCertSelection.equals(mUseSystemCertsString)
+                     && mEapDomainView != null
+                     && mView.findViewById(R.id.l_domain).getVisibility() != View.GONE
+                     && TextUtils.isEmpty(mEapDomainView.getText().toString())) {
+-                // Disallow submit if the user chooses to use a certificate for EAP server
++                // Disallow submit if the user chooses to use system certificates for EAP server
+                 // validation, but does not provide a domain.
+                 enabled = false;
+             }
+@@ -588,12 +589,14 @@ public class WifiConfigController implements TextWatcher,
+                 // Display warning if user chooses not to validate the EAP server with a
+                 // user-supplied CA certificate in an EAP network configuration.
+                 mView.findViewById(R.id.no_ca_cert_warning).setVisibility(View.VISIBLE);
+-            } else if (!caCertSelection.equals(mUnspecifiedCertString)
++            }
++            if (caCertSelection.equals(mUseSystemCertsString)
+                     && mEapDomainView != null
+                     && mView.findViewById(R.id.l_domain).getVisibility() != View.GONE
+                     && TextUtils.isEmpty(mEapDomainView.getText().toString())) {
+-                // Display warning if user chooses to use a certificate without restricting the
+-                // server domain that these certificates can be used to validate.
++                // Display warning if user chooses to use pre-installed public CA certificates
++                // without restricting the server domain that these certificates can be used to
++                // validate.
+                 mView.findViewById(R.id.no_domain_warning).setVisibility(View.VISIBLE);
+             }
+         }
+@@ -1793,8 +1796,7 @@ public class WifiConfigController implements TextWatcher,
+                 mContext.getResources().getStringArray(contentStringArrayResId));
+     }
+ 
+-    @VisibleForTesting
+-    ArrayAdapter<CharSequence> getSpinnerAdapter(
++    private ArrayAdapter<CharSequence> getSpinnerAdapter(
+             String[] contentStringArray) {
+         ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<>(mContext,
+                 android.R.layout.simple_spinner_item, contentStringArray);
+diff --git a/src/com/android/settings/wifi/WifiConfigController2.java b/src/com/android/settings/wifi/WifiConfigController2.java
+index 01353b38fc..b08315c0f5 100644
+--- a/src/com/android/settings/wifi/WifiConfigController2.java
++++ b/src/com/android/settings/wifi/WifiConfigController2.java
+@@ -531,11 +531,12 @@ public class WifiConfigController2 implements TextWatcher,
+                 // Disallow submit if the user has not selected a CA certificate for an EAP network
+                 // configuration.
+                 enabled = false;
+-            } else if (!caCertSelection.equals(mDoNotValidateEapServerString)
++            }
++            if (caCertSelection.equals(mUseSystemCertsString)
+                     && mEapDomainView != null
+                     && mView.findViewById(R.id.l_domain).getVisibility() != View.GONE
+                     && TextUtils.isEmpty(mEapDomainView.getText().toString())) {
+-                // Disallow submit if the user chooses to use a certificate for EAP server
++                // Disallow submit if the user chooses to use system certificates for EAP server
+                 // validation, but does not provide a domain.
+                 enabled = false;
+             }
+@@ -572,12 +573,14 @@ public class WifiConfigController2 implements TextWatcher,
+                 // Display warning if user chooses not to validate the EAP server with a
+                 // user-supplied CA certificate in an EAP network configuration.
+                 mView.findViewById(R.id.no_ca_cert_warning).setVisibility(View.VISIBLE);
+-            } else if (!caCertSelection.equals(mUnspecifiedCertString)
++            }
++            if (caCertSelection.equals(mUseSystemCertsString)
+                     && mEapDomainView != null
+                     && mView.findViewById(R.id.l_domain).getVisibility() != View.GONE
+                     && TextUtils.isEmpty(mEapDomainView.getText().toString())) {
+-                // Display warning if user chooses to use a certificate without restricting the
+-                // server domain that these certificates can be used to validate.
++                // Display warning if user chooses to use pre-installed public CA certificates
++                // without restricting the server domain that these certificates can be used to
++                // validate.
+                 mView.findViewById(R.id.no_domain_warning).setVisibility(View.VISIBLE);
+             }
+         }
+@@ -1858,8 +1861,7 @@ public class WifiConfigController2 implements TextWatcher,
+                 mContext.getResources().getStringArray(contentStringArrayResId));
+     }
+ 
+-    @VisibleForTesting
+-    ArrayAdapter<CharSequence> getSpinnerAdapter(
++    private ArrayAdapter<CharSequence> getSpinnerAdapter(
+             String[] contentStringArray) {
+         ArrayAdapter<CharSequence> spinnerAdapter = new ArrayAdapter<>(mContext,
+                 android.R.layout.simple_spinner_item, contentStringArray);
+diff --git a/tests/robotests/src/com/android/settings/wifi/WifiConfigController2Test.java b/tests/robotests/src/com/android/settings/wifi/WifiConfigController2Test.java
+index 9139a285e1..d2de325d00 100644
+--- a/tests/robotests/src/com/android/settings/wifi/WifiConfigController2Test.java
++++ b/tests/robotests/src/com/android/settings/wifi/WifiConfigController2Test.java
+@@ -269,35 +269,6 @@ public class WifiConfigController2Test {
+         assertThat(mController.isSubmittable()).isTrue();
+     }
+ 
+-    @Test
+-    public void isSubmittable_caCertWithoutDomain_shouldReturnFalse() {
+-        when(mWifiEntry.getSecurity()).thenReturn(WifiEntry.SECURITY_EAP);
+-        mController = new TestWifiConfigController2(mConfigUiBase, mView, mWifiEntry,
+-                WifiConfigUiBase2.MODE_CONNECT);
+-        mView.findViewById(R.id.l_ca_cert).setVisibility(View.VISIBLE);
+-        final Spinner eapCaCertSpinner = mView.findViewById(R.id.ca_cert);
+-        eapCaCertSpinner.setAdapter(mController.getSpinnerAdapter(new String[]{"certificate"}));
+-        eapCaCertSpinner.setSelection(0);
+-        mView.findViewById(R.id.l_domain).setVisibility(View.VISIBLE);
+-
+-        assertThat(mController.isSubmittable()).isFalse();
+-    }
+-
+-    @Test
+-    public void isSubmittable_caCertWithDomain_shouldReturnTrue() {
+-        when(mWifiEntry.getSecurity()).thenReturn(WifiEntry.SECURITY_EAP);
+-        mController = new TestWifiConfigController2(mConfigUiBase, mView, mWifiEntry,
+-                WifiConfigUiBase2.MODE_CONNECT);
+-        mView.findViewById(R.id.l_ca_cert).setVisibility(View.VISIBLE);
+-        final Spinner eapCaCertSpinner = mView.findViewById(R.id.ca_cert);
+-        eapCaCertSpinner.setAdapter(mController.getSpinnerAdapter(new String[]{"certificate"}));
+-        eapCaCertSpinner.setSelection(0);
+-        mView.findViewById(R.id.l_domain).setVisibility(View.VISIBLE);
+-        ((TextView) mView.findViewById(R.id.domain)).setText("fakeDomain");
+-
+-        assertThat(mController.isSubmittable()).isTrue();
+-    }
+-
+     @Test
+     public void getSignalString_notReachable_shouldHaveNoSignalString() {
+         when(mWifiEntry.getLevel()).thenReturn(WifiEntry.WIFI_LEVEL_UNREACHABLE);
+diff --git a/tests/robotests/src/com/android/settings/wifi/WifiConfigControllerTest.java b/tests/robotests/src/com/android/settings/wifi/WifiConfigControllerTest.java
+index 8ecbaf64b1..a8fde6dd29 100644
+--- a/tests/robotests/src/com/android/settings/wifi/WifiConfigControllerTest.java
++++ b/tests/robotests/src/com/android/settings/wifi/WifiConfigControllerTest.java
+@@ -228,35 +228,6 @@ public class WifiConfigControllerTest {
+         assertThat(mController.isSubmittable()).isTrue();
+     }
+ 
+-    @Test
+-    public void isSubmittable_caCertWithoutDomain_shouldReturnFalse() {
+-        when(mAccessPoint.getSecurity()).thenReturn(AccessPoint.SECURITY_EAP);
+-        mController = new TestWifiConfigController(mConfigUiBase, mView, mAccessPoint,
+-                WifiConfigUiBase.MODE_CONNECT);
+-        mView.findViewById(R.id.l_ca_cert).setVisibility(View.VISIBLE);
+-        final Spinner eapCaCertSpinner = mView.findViewById(R.id.ca_cert);
+-        eapCaCertSpinner.setAdapter(mController.getSpinnerAdapter(new String[]{"certificate"}));
+-        eapCaCertSpinner.setSelection(0);
+-        mView.findViewById(R.id.l_domain).setVisibility(View.VISIBLE);
+-
+-        assertThat(mController.isSubmittable()).isFalse();
+-    }
+-
+-    @Test
+-    public void isSubmittable_caCertWithDomain_shouldReturnTrue() {
+-        when(mAccessPoint.getSecurity()).thenReturn(AccessPoint.SECURITY_EAP);
+-        mController = new TestWifiConfigController(mConfigUiBase, mView, mAccessPoint,
+-                WifiConfigUiBase.MODE_CONNECT);
+-        mView.findViewById(R.id.l_ca_cert).setVisibility(View.VISIBLE);
+-        final Spinner eapCaCertSpinner = mView.findViewById(R.id.ca_cert);
+-        eapCaCertSpinner.setAdapter(mController.getSpinnerAdapter(new String[]{"certificate"}));
+-        eapCaCertSpinner.setSelection(0);
+-        mView.findViewById(R.id.l_domain).setVisibility(View.VISIBLE);
+-        ((TextView) mView.findViewById(R.id.domain)).setText("fakeDomain");
+-
+-        assertThat(mController.isSubmittable()).isTrue();
+-    }
+-
+     @Test
+     public void getSignalString_notReachable_shouldHaveNoSignalString() {
+         when(mAccessPoint.isReachable()).thenReturn(false);
+-- 
+2.34.1
+

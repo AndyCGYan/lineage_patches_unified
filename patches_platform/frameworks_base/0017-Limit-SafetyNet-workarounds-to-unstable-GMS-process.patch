@@ -1,4 +1,4 @@
-From 05bc5fa10b4e2ebc539c32db04abbc995906ff05 Mon Sep 17 00:00:00 2001
+From b5749dfcd4609d8e1da94bf3955b1f57206d68ce Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 1 Nov 2021 20:06:48 -0700
 Subject: [PATCH 17/22] Limit SafetyNet workarounds to unstable GMS process
