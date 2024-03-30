@@ -1,0 +1,28 @@
+From 520cdf4d471004d90f858af54c6642ea21a81e3f Mon Sep 17 00:00:00 2001
+From: Jonathon Fitch <lightman1@virginmedia.com>
+Date: Mon, 26 Jun 2023 19:54:34 +0100
+Subject: [PATCH] Fix Mediatek Audio HAL
+
+Change-Id: Ic722f4ad6bfbd72b088570d62f239a052e383d5c
+---
+ sepolicy/mediatek.te | 2 ++
+ 1 file changed, 2 insertions(+)
+ mode change 100644 => 100755 sepolicy/mediatek.te
+
+diff --git a/sepolicy/mediatek.te b/sepolicy/mediatek.te
+old mode 100644
+new mode 100755
+index 24efe33..6b6dc99
+--- a/sepolicy/mediatek.te
++++ b/sepolicy/mediatek.te
+@@ -6,6 +6,8 @@ allow init mnt_product_file:dir mounton;
+ 
+ type mtk_hal_audio, domain;
+ typeattribute mtk_hal_audio hal_broadcastradio_client;
++allow mtk_hal_audio audioserver:fifo_file write;
++allow mtk_hal_audio untrusted_app:fifo_file write;
+ 
+ type mtk_hal_power, domain;
+ allow mtk_hal_power system_data_root_file:file create_file_perms;
+-- 
+2.39.2
