@@ -1,4 +1,4 @@
-From 47061bc2ff7442d892e488a0a369d61d7ecdfc0c Mon Sep 17 00:00:00 2001
+From 3f42e26678aa5b089011c613f371bbe44e99812c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 11:00:38 +0000
 Subject: [PATCH 7/8] TrebleSettings: Override navbar availability
@@ -13,10 +13,10 @@ Change-Id: I7c771caf6274543fed23a8cc47411bf8c369ac2c
  create mode 100644 src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 865a9c4f5f..67d944d9bf 100644
+index 724b0393626..843fe444dc9 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6885,6 +6885,8 @@
+@@ -7188,6 +7188,8 @@
      <string name="treble_settings_category_name_display">Display</string>
      <!-- IMS category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ims">IMS</string>
@@ -25,7 +25,7 @@ index 865a9c4f5f..67d944d9bf 100644
  
      <!-- Treble settings screen, use alternative audio policy title -->
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
-@@ -6907,6 +6909,8 @@
+@@ -7210,6 +7212,8 @@
      <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
      <!-- Treble settings screen, override VoLTE availability title -->
      <string name="override_volte_availability_title">Override VoLTE availability</string>
@@ -35,7 +35,7 @@ index 865a9c4f5f..67d944d9bf 100644
      <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
      <string name="network_dashboard_title">Network &amp; internet</string>
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 5c18461b69..250a8ee75a 100644
+index 5c18461b69f..250a8ee75ae 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -57,4 +57,13 @@
@@ -54,7 +54,7 @@ index 5c18461b69..250a8ee75a 100644
  </PreferenceScreen>
 diff --git a/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java b/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
 new file mode 100644
-index 0000000000..d6baa33739
+index 00000000000..d6baa337397
 --- /dev/null
 +++ b/src/com/android/settings/treble/OverrideNavbarAvailabilityPreferenceController.java
 @@ -0,0 +1,53 @@
@@ -112,7 +112,7 @@ index 0000000000..d6baa33739
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 39a0e19972..634b7ce3ce 100644
+index 39a0e199726..634b7ce3ce1 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -41,6 +41,7 @@ public class TrebleSettings extends DashboardFragment {

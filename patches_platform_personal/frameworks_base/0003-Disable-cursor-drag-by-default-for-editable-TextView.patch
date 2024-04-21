@@ -1,0 +1,28 @@
+From 82c401678edc0d3426e9a11b59ac488497a43822 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 27 Sep 2021 16:30:00 +0000
+Subject: [PATCH 03/20] Disable cursor drag by default for editable TextViews
+
+Requested by @TadiT7
+
+Change-Id: Id54e38ee418174af8cde4113c849bc292f5fc96d
+---
+ core/java/android/widget/WidgetFlags.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/widget/WidgetFlags.java b/core/java/android/widget/WidgetFlags.java
+index fb40ee5ec843..c0c6fb6e9431 100644
+--- a/core/java/android/widget/WidgetFlags.java
++++ b/core/java/android/widget/WidgetFlags.java
+@@ -38,7 +38,7 @@ public final class WidgetFlags {
+     /**
+      * Default value for the flag {@link #ENABLE_CURSOR_DRAG_FROM_ANYWHERE}.
+      */
+-    public static final boolean ENABLE_CURSOR_DRAG_FROM_ANYWHERE_DEFAULT = true;
++    public static final boolean ENABLE_CURSOR_DRAG_FROM_ANYWHERE_DEFAULT = false;
+ 
+     /**
+      * Threshold for the direction of a swipe gesture in order for it to be handled as a cursor drag
+-- 
+2.34.1
+

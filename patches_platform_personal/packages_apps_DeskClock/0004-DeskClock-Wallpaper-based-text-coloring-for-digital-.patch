@@ -1,4 +1,4 @@
-From 13cd5543d2d0a253c86fa84030bb3dfb636ceea1 Mon Sep 17 00:00:00 2001
+From 8183a51d8cac2772c1e8d17a264218a4fa0a0287 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 20 Jan 2022 04:42:03 +0000
 Subject: [PATCH 4/4] DeskClock: Wallpaper-based text coloring for digital
@@ -12,7 +12,7 @@ Change-Id: Ie22c4980526575f73ebb4e56780d4c2193cc45d3
  1 file changed, 57 insertions(+)
 
 diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
-index fb1b30aa7..c04528240 100644
+index 621b39132..1031a65b2 100644
 --- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 +++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 @@ -38,6 +38,8 @@ import static java.lang.Math.round;

@@ -1,0 +1,29 @@
+From 6d944c3e413c882c8203bd8eaf2bfc5183fffffd Mon Sep 17 00:00:00 2001
+From: althafvly <althafvly@gmail.com>
+Date: Tue, 4 Oct 2022 18:34:08 +0530
+Subject: [PATCH 28/34] SystemUI: Re-inflate QS and SB when
+ CONFIG_SCREEN_LAYOUT
+
+- It was removed in a13, needed for light theme change in landscape.
+
+Change-Id: I1872f5d90e6f6b8debecbc69eb80c3a11d8984e2
+---
+ .../src/com/android/systemui/fragments/FragmentHostManager.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java b/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
+index 5e0b34db0965..5aa7ceb7b5f5 100644
+--- a/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
++++ b/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
+@@ -59,7 +59,7 @@ public class FragmentHostManager {
+     private final LeakDetector mLeakDetector;
+     private final InterestingConfigChanges mConfigChanges = new InterestingConfigChanges(
+             ActivityInfo.CONFIG_FONT_SCALE | ActivityInfo.CONFIG_LOCALE
+-                    | ActivityInfo.CONFIG_ASSETS_PATHS
++                    | ActivityInfo.CONFIG_SCREEN_LAYOUT | ActivityInfo.CONFIG_ASSETS_PATHS
+                     | ActivityInfo.CONFIG_UI_MODE);
+     private final FragmentService mManager;
+     private final ExtensionFragmentManager mPlugins = new ExtensionFragmentManager();
+-- 
+2.34.1
+

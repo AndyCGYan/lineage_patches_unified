@@ -1,0 +1,136 @@
+From 52d583bc1d9c696bfd4e3cfb12f6b59ec12e3ce4 Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Mon, 11 Oct 2021 19:25:08 -0700
+Subject: [PATCH 23/34] SystemUI: Add dual-tone light and dark themes for QS
+
+Google's dual-tone QS design where the notification panel has a
+semantically higher elevation adds depth to the notification+QS shade,
+and we don't necessarily have to give it up just because our QS has
+light and dark themes.
+
+To preserve the dual-tone effect, use a darker background color for the
+QS section:
+
+Light:
+    Notifications: neutral1 20 (surface_light)
+    Notification panel: neutral1 50 (light BG)
+    QS background: neutral1 100 (darker light BG / surface_header_light)
+    Inactive QS tiles: neutral1 20 (surface_light)
+
+Dark:
+    Notifications: neutral1 800 (surface_dark)
+    Notification panel: neutral1 900 (dark BG)
+    QS background: neutral1 950 (surface_header_dark_sysui modulated to L* 5)
+    Inactive QS tiles: neutral1 800 (surface_dark)
+
+The dark QS background could be neutral1 0 (black) like it was before,
+but I don't think it looks as good because it can't be tinted based on
+the active wallpaper and thus stands out from other colors.
+
+Unfortunately, Google's current CAM16-based modulation causes hue shifts
+in extreme light and dark shades (e.g. L* = 98 / 5), but we'll fix this
+by generating and overlaying modulated surface colors in our
+ThemeOverlayController implementation.
+
+Demo screenshots: https://twitter.com/kdrag0n/status/1445922541218922496
+
+Change-Id: Icdc4957ecb4e0201377351f1a3e1c6928d6b3955
+Signed-off-by: PainKiller3 <ninadpatil100@gmail.com>
+---
+ .../res/color/surface_header_dark_sysui.xml    | 18 ++++++++++++++++++
+ core/res/res/values-night/values.xml           |  1 +
+ .../statusbar/phone/ScrimController.java       | 12 +++++++++++-
+ 3 files changed, 30 insertions(+), 1 deletion(-)
+ create mode 100644 core/res/res/color/surface_header_dark_sysui.xml
+
+diff --git a/core/res/res/color/surface_header_dark_sysui.xml b/core/res/res/color/surface_header_dark_sysui.xml
+new file mode 100644
+index 000000000000..ec070c96f91a
+--- /dev/null
++++ b/core/res/res/color/surface_header_dark_sysui.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2021 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="@color/system_neutral1_500" android:lStar="5" />
++</selector>
+diff --git a/core/res/res/values-night/values.xml b/core/res/res/values-night/values.xml
+index 1571fab66a5b..0683c20a4a4c 100644
+--- a/core/res/res/values-night/values.xml
++++ b/core/res/res/values-night/values.xml
+@@ -22,6 +22,7 @@
+         <item name="colorSecondary">@color/secondary_device_default_settings</item>
+         <item name="colorAccent">@color/accent_device_default_dark</item>
+         <item name="colorError">@color/error_color_device_default_dark</item>
++        <item name="colorSurfaceHeader">@color/surface_header_dark_sysui</item>
+         <item name="colorControlNormal">?attr/textColorPrimary</item>
+         <item name="alertDialogTheme">@style/Theme.DeviceDefault.Dialog.Alert</item>
+         <item name="forceDarkAllowed">false</item>
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+index 1130585db0c7..b6488cff6842 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+@@ -219,6 +219,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+     private final StatusBarKeyguardViewManager mStatusBarKeyguardViewManager;
+ 
+     private GradientColors mColors;
++    private GradientColors mBehindColors;
+     private boolean mNeedsDrawableColorUpdate;
+ 
+     private float mAdditionalScrimBehindAlphaKeyguard = 0f;
+@@ -359,6 +360,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+         mKeyguardTransitionInteractor = keyguardTransitionInteractor;
+         mWallpaperRepository = wallpaperRepository;
+         mMainDispatcher = mainDispatcher;
++        mBehindColors = new GradientColors();
+     }
+ 
+     @Override
+@@ -1132,7 +1134,7 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+                     && !mBlankScreen;
+ 
+             mScrimInFront.setColors(mColors, animateScrimInFront);
+-            mScrimBehind.setColors(mColors, animateBehindScrim);
++            mScrimBehind.setColors(mBehindColors, animateBehindScrim);
+             mNotificationsScrim.setColors(mColors, animateScrimNotifications);
+ 
+             dispatchBackScrimState(mScrimBehind.getViewAlpha());
+@@ -1497,7 +1499,10 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+         if (mScrimBehind == null) return;
+         int background = Utils.getColorAttr(mScrimBehind.getContext(),
+                 android.R.attr.colorBackgroundFloating).getDefaultColor();
++        int surfaceBackground = Utils.getColorAttr(mScrimBehind.getContext(),
++                com.android.internal.R.attr.colorSurfaceHeader).getDefaultColor();
+         int accent = Utils.getColorAccent(mScrimBehind.getContext()).getDefaultColor();
++
+         mColors.setMainColor(background);
+         mColors.setSecondaryColor(accent);
+         final boolean isBackgroundLight = !ContrastColorUtil.isColorDark(background);
+@@ -1509,6 +1514,11 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+             state.setSurfaceColor(surface);
+         }
+ 
++        mBehindColors.setMainColor(surfaceBackground);
++        mBehindColors.setSecondaryColor(accent);
++        mBehindColors.setSupportsDarkText(
++                ColorUtils.calculateContrast(mBehindColors.getMainColor(), Color.WHITE) > 4.5);
++
+         mNeedsDrawableColorUpdate = true;
+     }
+ 
+-- 
+2.34.1
+

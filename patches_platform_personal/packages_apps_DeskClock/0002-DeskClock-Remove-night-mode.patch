@@ -1,4 +1,4 @@
-From 1b76c4a2eb60baceab9cd169cbded8f58b06b89e Mon Sep 17 00:00:00 2001
+From 2f468ddf5a40a1e267144691242610e96b2b58b6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 5 Sep 2021 00:30:33 +0000
 Subject: [PATCH 2/4] DeskClock: Remove night mode
@@ -27,10 +27,10 @@ index 7b8c9764a..908f76fef 100644
 -
  </PreferenceScreen>
 diff --git a/src/com/android/deskclock/Screensaver.java b/src/com/android/deskclock/Screensaver.java
-index ad92b1149..f6c03ed0a 100644
+index 1031f37d6..5b6de21d1 100644
 --- a/src/com/android/deskclock/Screensaver.java
 +++ b/src/com/android/deskclock/Screensaver.java
-@@ -136,9 +136,8 @@ public final class Screensaver extends DreamService {
+@@ -137,9 +137,8 @@ public final class Screensaver extends DreamService {
  
      private void setClockStyle() {
          Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
@@ -43,7 +43,7 @@ index ad92b1149..f6c03ed0a 100644
  
      /**
 diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
-index b30f82ee7..90235351f 100644
+index 8b4b422d8..2f80537a6 100644
 --- a/src/com/android/deskclock/ScreensaverActivity.java
 +++ b/src/com/android/deskclock/ScreensaverActivity.java
 @@ -101,7 +101,7 @@ public class ScreensaverActivity extends BaseActivity {

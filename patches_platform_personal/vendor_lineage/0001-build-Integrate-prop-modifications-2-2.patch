@@ -1,4 +1,4 @@
-From 863e8f70e3a4f987938ff4ad01c22822bc38e409 Mon Sep 17 00:00:00 2001
+From 0af40237062fa2e1177bfb69f7aedc919c8c70a4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 09:09:15 +0000
 Subject: [PATCH 1/4] build: Integrate prop modifications (2/2)

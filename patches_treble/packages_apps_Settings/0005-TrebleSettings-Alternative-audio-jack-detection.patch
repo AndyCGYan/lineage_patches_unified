@@ -1,4 +1,4 @@
-From 51821d58357b577cbc62ce5a2e9d0b4f19e686b3 Mon Sep 17 00:00:00 2001
+From 9111f1b57b14ad679422fe170e333088b20e0838 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 14:16:50 +0000
 Subject: [PATCH 5/8] TrebleSettings: Alternative audio jack detection
@@ -13,10 +13,10 @@ Change-Id: I5d6d48f26a4a2134fd6edf996eca89a1fc42e6de
  create mode 100644 src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 8f1056da77..deb2cf9d77 100644
+index ccdc9e04c3c..62478ec1a6c 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6892,6 +6892,8 @@
+@@ -7195,6 +7195,8 @@
      <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
      <!-- Treble settings screen, disable A2DP offload title -->
      <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
@@ -26,7 +26,7 @@ index 8f1056da77..deb2cf9d77 100644
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index b58e7a1282..47097a14c7 100644
+index b58e7a1282c..47097a14c70 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -21,6 +21,10 @@
@@ -41,7 +41,7 @@ index b58e7a1282..47097a14c7 100644
  
      <PreferenceCategory
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 5e9b7f88e2..09aa001e82 100644
+index 5e9b7f88e25..09aa001e82c 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -35,6 +35,7 @@ public class TrebleSettings extends DashboardFragment {
@@ -54,7 +54,7 @@ index 5e9b7f88e2..09aa001e82 100644
          controllers.add(new InstallImsApkPreferenceController(context));
 diff --git a/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java b/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
 new file mode 100644
-index 0000000000..0d60b72db1
+index 00000000000..0d60b72db1b
 --- /dev/null
 +++ b/src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
 @@ -0,0 +1,53 @@

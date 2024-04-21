@@ -1,4 +1,4 @@
-From f0f5e3f2db8aad94329c6354da8dbca17b8cef81 Mon Sep 17 00:00:00 2001
+From 7262d6fa8ee2dac2e359e1cc0bbd2d1ef81cfd26 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 8 Jun 2023 00:46:00 +0800
 Subject: [PATCH 1/4] Squashed revert of LOS widget redesign
@@ -52,7 +52,7 @@ Until it no longer works...
  res/xml/digital_appwidget.xml                 |  13 +-
  .../DigitalAppWidgetCityViewsFactory.java     |  10 +-
  ...DigitalAppWidgetConfigurationActivity.java |  50 ------
- .../alarmclock/DigitalAppWidgetProvider.java  |  60 ++-----
+ .../alarmclock/DigitalAppWidgetProvider.java  |  61 ++-----
  src/com/android/alarmclock/WidgetUtils.java   |  28 ---
  src/com/android/deskclock/ClockFragment.java  |   1 +
  .../deskclock/DropShadowController.java       |   2 -
@@ -84,7 +84,7 @@ Until it no longer works...
  .../uidata/PeriodicCallbackModel.java         |   1 -
  .../widget/CollapsingToolbarBaseActivity.java |   3 +
  .../deskclock/widget/MockFabContainer.java    |  27 ++-
- 75 files changed, 388 insertions(+), 933 deletions(-)
+ 75 files changed, 388 insertions(+), 934 deletions(-)
  create mode 100644 res/drawable-nodpi/appwidget_digital_clock_preview.png
  create mode 100644 res/drawable/ic_checkmark.xml
  delete mode 100644 res/drawable/widget_background.xml
@@ -2043,7 +2043,7 @@ index d65a9e9d9..000000000
 -    }
 -}
 diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
-index ec6fac409..b54a500c5 100644
+index 7bda49314..709835ebc 100644
 --- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 +++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 @@ -24,7 +24,6 @@ import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
@@ -2078,15 +2078,18 @@ index ec6fac409..b54a500c5 100644
                  for (int widgetId : widgetIds) {
                      relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                  }
-@@ -182,7 +180,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -182,10 +180,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          IntentFilter intentFilter = new IntentFilter();
          intentFilter.addAction(ACTION_WORLD_CITIES_CHANGED);
          intentFilter.addAction(ACTION_ON_DAY_CHANGE);
 -        intentFilter.addAction(ACTION_CONFIGURATION_CHANGED);
-         context.getApplicationContext().registerReceiver(receiver, intentFilter);
- 
+         context.getApplicationContext().registerReceiver(receiver, intentFilter,
+                 Context.RECEIVER_NOT_EXPORTED);
+-
          sReceiversRegistered = true;
-@@ -213,10 +210,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+     }
+ 
+@@ -214,10 +210,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
      }
  
@@ -2097,7 +2100,7 @@ index ec6fac409..b54a500c5 100644
      /**
       * Compute optimal font and icon sizes offscreen for the given orientation.
       */
-@@ -224,18 +217,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -225,18 +217,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
              Bundle options, boolean portrait) {
          // Create a remote view for the digital clock.
          final String packageName = context.getPackageName();
@@ -2118,7 +2121,7 @@ index ec6fac409..b54a500c5 100644
          }
  
          // Configure child views of the remote view.
-@@ -279,15 +267,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -280,15 +267,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          }
  
          // Apply the computed sizes to the remote views.
@@ -2135,7 +2138,7 @@ index ec6fac409..b54a500c5 100644
  
          final int smallestWorldCityListSizePx =
                  resources.getDimensionPixelSize(R.dimen.widget_min_world_city_list_size);
-@@ -324,8 +307,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -325,8 +307,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          @SuppressLint("InflateParams")
          final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null /* root */);
  
@@ -2144,7 +2147,7 @@ index ec6fac409..b54a500c5 100644
          // Configure the date to display the current date string.
          final CharSequence dateFormat = getDateFormat(context);
          final TextClock date = sizer.findViewById(R.id.date);
-@@ -439,7 +420,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -440,7 +420,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          final TextClock clock = sizer.findViewById(R.id.clock);
          final TextView nextAlarm = sizer.findViewById(R.id.nextAlarm);
          final TextView nextAlarmIcon = sizer.findViewById(R.id.nextAlarmIcon);
@@ -2152,7 +2155,7 @@ index ec6fac409..b54a500c5 100644
  
          // Adjust the font sizes.
          measuredSizes.setClockFontSizePx(clockFontSize);
-@@ -449,17 +429,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -450,17 +429,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
          nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
          nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
@@ -2170,7 +2173,7 @@ index ec6fac409..b54a500c5 100644
  
          // Measure and layout the sizer.
          final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
-@@ -475,6 +444,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -476,6 +444,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          measuredSizes.mMeasuredTextClockWidthPx = clock.getMeasuredWidth();
          measuredSizes.mMeasuredTextClockHeightPx = clock.getMeasuredHeight();
  
@@ -2182,7 +2185,7 @@ index ec6fac409..b54a500c5 100644
          return measuredSizes;
      }
  
-@@ -509,6 +483,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -510,6 +483,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          private final int mTargetHeightPx;
          private final int mLargestClockFontSizePx;
          private final int mSmallestClockFontSizePx;
@@ -2190,7 +2193,7 @@ index ec6fac409..b54a500c5 100644
  
          private int mMeasuredWidthPx;
          private int mMeasuredHeightPx;
-@@ -524,9 +499,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -525,9 +499,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          private int mIconFontSizePx;
          private int mIconPaddingPx;
  
@@ -2200,7 +2203,7 @@ index ec6fac409..b54a500c5 100644
          private Sizes(int targetWidthPx, int targetHeightPx, int largestClockFontSizePx) {
              mTargetWidthPx = targetWidthPx;
              mTargetHeightPx = targetHeightPx;
-@@ -539,21 +511,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
+@@ -540,21 +511,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
          private int getClockFontSizePx() { return mClockFontSizePx; }
          private void setClockFontSizePx(int clockFontSizePx) {
              mClockFontSizePx = clockFontSizePx;
@@ -2268,7 +2271,7 @@ index 21f3bd067..7ad2df7b8 100644
 -    }
  }
 diff --git a/src/com/android/deskclock/ClockFragment.java b/src/com/android/deskclock/ClockFragment.java
-index a6dbdfe16..bf53584e4 100644
+index 7591a18d0..2a1f2770f 100644
 --- a/src/com/android/deskclock/ClockFragment.java
 +++ b/src/com/android/deskclock/ClockFragment.java
 @@ -28,6 +28,7 @@ import android.content.BroadcastReceiver;
@@ -2356,7 +2359,7 @@ index cbf6883cc..10df12ec6 100644
  
          FragmentTransaction transaction = mFragmentManager.beginTransaction();
 diff --git a/src/com/android/deskclock/ScreensaverActivity.java b/src/com/android/deskclock/ScreensaverActivity.java
-index 2cfd2c2a9..b30f82ee7 100644
+index ab0e8b2bc..8b4b422d8 100644
 --- a/src/com/android/deskclock/ScreensaverActivity.java
 +++ b/src/com/android/deskclock/ScreensaverActivity.java
 @@ -28,12 +28,9 @@ import android.os.Bundle;
@@ -2390,7 +2393,7 @@ index 2cfd2c2a9..b30f82ee7 100644
  
          mPositionUpdater = new MoveScreensaverRunnable(mContentView, mMainClockView);
  
-@@ -224,19 +219,14 @@ public class ScreensaverActivity extends BaseActivity {
+@@ -225,19 +220,14 @@ public class ScreensaverActivity extends BaseActivity {
          }
      }
  
@@ -2523,11 +2526,11 @@ index e5c78e4c5..2e5330668 100644
  
      /**
 diff --git a/src/com/android/deskclock/data/RingtoneModel.java b/src/com/android/deskclock/data/RingtoneModel.java
-index d765ba8b9..b83270cab 100644
+index de7e9a25d..145bdf280 100644
 --- a/src/com/android/deskclock/data/RingtoneModel.java
 +++ b/src/com/android/deskclock/data/RingtoneModel.java
-@@ -81,16 +81,17 @@ final class RingtoneModel {
-         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+@@ -82,16 +82,17 @@ final class RingtoneModel {
+                 Context.RECEIVER_NOT_EXPORTED);
      }
  
 -    void addCustomRingtone(Uri uri, String title) {
@@ -2547,10 +2550,10 @@ index d765ba8b9..b83270cab 100644
  
      void removeCustomRingtone(Uri uri) {
 diff --git a/src/com/android/deskclock/data/SilentSettingsModel.java b/src/com/android/deskclock/data/SilentSettingsModel.java
-index 1cfc1884c..af3caee2a 100644
+index 052dbf39f..8aabfefc4 100644
 --- a/src/com/android/deskclock/data/SilentSettingsModel.java
 +++ b/src/com/android/deskclock/data/SilentSettingsModel.java
-@@ -145,8 +145,8 @@ final class SilentSettingsModel {
+@@ -146,8 +146,8 @@ final class SilentSettingsModel {
       * making noise, a description of the setting is reported to this model on the main thread.
       */
      private final class CheckSilenceSettingsTask {
@@ -2577,10 +2580,10 @@ index 9f0c7cdd6..b3d5c07be 100644
 +    void stopwatchUpdated(Stopwatch before, Stopwatch after);
  }
 diff --git a/src/com/android/deskclock/data/StopwatchModel.java b/src/com/android/deskclock/data/StopwatchModel.java
-index ba2489333..a9ea1376f 100644
+index 804bea9a5..2ae3febbf 100644
 --- a/src/com/android/deskclock/data/StopwatchModel.java
 +++ b/src/com/android/deskclock/data/StopwatchModel.java
-@@ -101,7 +101,7 @@ final class StopwatchModel {
+@@ -102,7 +102,7 @@ final class StopwatchModel {
      /**
       * @param stopwatch the new state of the stopwatch
       */
@@ -2589,7 +2592,7 @@ index ba2489333..a9ea1376f 100644
          final Stopwatch before = getStopwatch();
          if (before != stopwatch) {
              StopwatchDAO.setStopwatch(mPrefs, stopwatch);
-@@ -123,7 +123,7 @@ final class StopwatchModel {
+@@ -124,7 +124,7 @@ final class StopwatchModel {
              }
          }
  
@@ -2633,10 +2636,10 @@ index 0cb304d81..93e4d8cd6 100644
          private final List<State> stateExpiryOrder = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED,
                  RESET);
 diff --git a/src/com/android/deskclock/data/TimerModel.java b/src/com/android/deskclock/data/TimerModel.java
-index cc06add50..784a72c7b 100644
+index 47bafe31c..1197373af 100644
 --- a/src/com/android/deskclock/data/TimerModel.java
 +++ b/src/com/android/deskclock/data/TimerModel.java
-@@ -294,7 +294,7 @@ final class TimerModel {
+@@ -295,7 +295,7 @@ final class TimerModel {
       * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
       * @return the reset {@code timer} or {@code null} if the timer was deleted
       */
@@ -2645,7 +2648,7 @@ index cc06add50..784a72c7b 100644
          final Timer result = doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
  
          // Update the notification after updating the timer data.
-@@ -306,7 +306,7 @@ final class TimerModel {
+@@ -307,7 +307,7 @@ final class TimerModel {
              updateNotification();
          }
  
@@ -2958,10 +2961,10 @@ index 979be1440..c6a557a8e 100644
  
      public void onBind(int timerId) {
 diff --git a/src/com/android/deskclock/uidata/PeriodicCallbackModel.java b/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
-index 4928244ec..0127e66cd 100644
+index 1b0e00fca..8a74000eb 100644
 --- a/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
 +++ b/src/com/android/deskclock/uidata/PeriodicCallbackModel.java
-@@ -93,7 +93,6 @@ final class PeriodicCallbackModel {
+@@ -94,7 +94,6 @@ final class PeriodicCallbackModel {
      /**
       * @param runnable to be called every hour
       */

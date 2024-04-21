@@ -1,4 +1,4 @@
-From ea0f9443f862e2059cef4c3f8f64707d1d3ff46c Mon Sep 17 00:00:00 2001
+From b37a53bfddd844a62673be768c3a6352886e617f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:53:34 +0000
 Subject: [PATCH 2/2] Enable IMS overlays statically on QCOM/MTK devices

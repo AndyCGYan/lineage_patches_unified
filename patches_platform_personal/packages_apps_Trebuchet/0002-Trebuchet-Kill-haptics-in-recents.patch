@@ -1,4 +1,4 @@
-From 471be03743d96834bea2007e1beccd858149b8f6 Mon Sep 17 00:00:00 2001
+From 5137588e22d194c87da0000ba6642f17fe37516a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 18 Mar 2022 08:42:18 +0000
 Subject: [PATCH 2/3] Trebuchet: Kill haptics in recents
@@ -13,10 +13,10 @@ Change-Id: Ie3b0eabe8cc0421e696720740edc492cae2f5153
  3 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-index 6f421eb14a..655797da62 100644
+index 968faf07c7..bb93664b46 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-@@ -438,14 +438,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
+@@ -437,14 +437,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
              nonOverviewAnim.setFloatValues(startProgress, endProgress);
              mNonOverviewAnim.dispatchOnStart();
          }
@@ -33,10 +33,10 @@ index 6f421eb14a..655797da62 100644
          }
  
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-index 3d94857848..849b9fd2d1 100644
+index 19bfe069c8..f6cb2c7024 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-@@ -369,11 +369,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
+@@ -370,11 +370,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
          mCurrentAnimation.startWithVelocity(mActivity, goingToEnd,
                  velocity * orientationHandler.getSecondaryTranslationDirectionFactor(),
                  mEndDisplacement, animationDuration);
@@ -49,10 +49,10 @@ index 3d94857848..849b9fd2d1 100644
  
      private void clearState() {
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index 9b151394fa..0ce5537d2e 100644
+index e1ab7311dd..c2f848c71a 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -1558,25 +1558,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -1583,25 +1583,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
          }
      }
  

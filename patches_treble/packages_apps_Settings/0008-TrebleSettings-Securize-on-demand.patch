@@ -1,4 +1,4 @@
-From 3b2b06803b579a2572ca1707aee7b56d1bfd0cff Mon Sep 17 00:00:00 2001
+From 2f6f5ee5ed0825f3075179b0d40bbee788792274 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 14:30:52 +0000
 Subject: [PATCH 8/8] TrebleSettings: Securize on-demand
@@ -13,10 +13,10 @@ Change-Id: I76f54620277ccdc41636d74d1afa6330c382ce6a
  create mode 100644 src/com/android/settings/treble/SecurizePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 67d944d9bf..f034a9ff39 100644
+index 843fe444dc9..f7940dce85d 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6885,6 +6885,8 @@
+@@ -7188,6 +7188,8 @@
      <string name="treble_settings_category_name_display">Display</string>
      <!-- IMS category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ims">IMS</string>
@@ -25,7 +25,7 @@ index 67d944d9bf..f034a9ff39 100644
      <!-- UI category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ui">UI</string>
  
-@@ -6909,6 +6911,10 @@
+@@ -7212,6 +7214,10 @@
      <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
      <!-- Treble settings screen, override VoLTE availability title -->
      <string name="override_volte_availability_title">Override VoLTE availability</string>
@@ -37,7 +37,7 @@ index 67d944d9bf..f034a9ff39 100644
      <string name="override_navbar_availability_title">Override navigation bar availability</string>
  
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 250a8ee75a..1f24352421 100644
+index 250a8ee75ae..1f24352421f 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -57,6 +57,16 @@
@@ -59,7 +59,7 @@ index 250a8ee75a..1f24352421 100644
  
 diff --git a/src/com/android/settings/treble/SecurizePreferenceController.java b/src/com/android/settings/treble/SecurizePreferenceController.java
 new file mode 100644
-index 0000000000..0b59bbad81
+index 00000000000..0b59bbad81c
 --- /dev/null
 +++ b/src/com/android/settings/treble/SecurizePreferenceController.java
 @@ -0,0 +1,53 @@
@@ -117,7 +117,7 @@ index 0000000000..0b59bbad81
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 634b7ce3ce..149c18f231 100644
+index 634b7ce3ce1..149c18f2315 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -41,6 +41,7 @@ public class TrebleSettings extends DashboardFragment {

@@ -1,4 +1,4 @@
-From 75e694dddc0a06a097983f0a8674849f3cec5fb6 Mon Sep 17 00:00:00 2001
+From 7168689803383166446266171d8ac0e54c052b41 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 12:04:37 +0000
 Subject: [PATCH 4/8] TrebleSettings: Disable A2DP offload
@@ -13,10 +13,10 @@ Change-Id: I737f49d146f83d96793f4436850529e3c528acbe
  create mode 100644 src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 1df0fe22f1..8f1056da77 100644
+index 029308db35b..ccdc9e04c3c 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6890,6 +6890,8 @@
+@@ -7193,6 +7193,8 @@
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
      <!-- Treble settings screen, disable soundvolume effect title -->
      <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
@@ -26,7 +26,7 @@ index 1df0fe22f1..8f1056da77 100644
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 09e6bc5d00..b58e7a1282 100644
+index 09e6bc5d006..b58e7a1282c 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -17,6 +17,10 @@
@@ -42,7 +42,7 @@ index 09e6bc5d00..b58e7a1282 100644
      <PreferenceCategory
 diff --git a/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java b/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
 new file mode 100644
-index 0000000000..f53103160d
+index 00000000000..f53103160df
 --- /dev/null
 +++ b/src/com/android/settings/treble/DisableA2DPOffloadPreferenceController.java
 @@ -0,0 +1,53 @@
@@ -100,7 +100,7 @@ index 0000000000..f53103160d
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 50e3eda8c6..5e9b7f88e2 100644
+index 50e3eda8c68..5e9b7f88e25 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -34,6 +34,7 @@ public class TrebleSettings extends DashboardFragment {

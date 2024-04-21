@@ -1,4 +1,4 @@
-From 77dfd4ad7da5a0320f143b06324da05a212229fc Mon Sep 17 00:00:00 2001
+From f41885c3103b205838b186ca47c38da3d1aa837e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 10:29:05 +0000
 Subject: [PATCH 6/8] TrebleSettings: Override minimum brightness
@@ -13,10 +13,10 @@ Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
  create mode 100644 src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index deb2cf9d77..865a9c4f5f 100644
+index 62478ec1a6c..724b0393626 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6898,6 +6898,8 @@
+@@ -7201,6 +7201,8 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
@@ -26,7 +26,7 @@ index deb2cf9d77..865a9c4f5f 100644
      <string name="install_ims_apk_title">Install IMS APK</string>
      <!-- Treble settings screen, install IMS APK toasts -->
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 47097a14c7..5c18461b69 100644
+index 47097a14c70..5c18461b69f 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -38,6 +38,10 @@
@@ -42,7 +42,7 @@ index 47097a14c7..5c18461b69 100644
      <PreferenceCategory
 diff --git a/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java b/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
 new file mode 100644
-index 0000000000..95200fbeaa
+index 00000000000..95200fbeaac
 --- /dev/null
 +++ b/src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
 @@ -0,0 +1,53 @@
@@ -100,7 +100,7 @@ index 0000000000..95200fbeaa
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 09aa001e82..39a0e19972 100644
+index 09aa001e82c..39a0e199726 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -38,6 +38,7 @@ public class TrebleSettings extends DashboardFragment {

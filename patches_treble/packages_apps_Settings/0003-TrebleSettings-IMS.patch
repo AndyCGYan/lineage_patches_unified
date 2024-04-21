@@ -1,4 +1,4 @@
-From 9cef4d5c64956f27e73320c6f5cc28201bd2692c Mon Sep 17 00:00:00 2001
+From fb208d5ca890f31bfff228836a548f3aacf3b061 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:29:36 +0000
 Subject: [PATCH 3/8] TrebleSettings: IMS
@@ -16,22 +16,22 @@ Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
  create mode 100644 src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 
 diff --git a/Android.bp b/Android.bp
-index 8cd7aa76aa..20efe42a50 100644
+index 7b7f7f42453..ab2d10cdb08 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -105,6 +105,7 @@ android_library {
+@@ -109,6 +109,7 @@ android_library {
+         "org.lineageos.platform.internal",
          "LineagePreferenceLib",
          "vendor.lineage.fastcharge-V1.0-java",
-         "SystemUISharedLib",
 +        "android.hidl.manager-V1.0-java",
      ],
  
      plugins: ["androidx.room_room-compiler-plugin"],
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index f799b4d0c7..1df0fe22f1 100644
+index 0961c045330..029308db35b 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6883,6 +6883,8 @@
+@@ -7186,6 +7186,8 @@
      <string name="treble_settings_category_name_audio">Audio</string>
      <!-- Display category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_display">Display</string>
@@ -40,7 +40,7 @@ index f799b4d0c7..1df0fe22f1 100644
  
      <!-- Treble settings screen, use alternative audio policy title -->
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
-@@ -6892,6 +6894,13 @@
+@@ -7195,6 +7197,13 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
@@ -55,7 +55,7 @@ index f799b4d0c7..1df0fe22f1 100644
      <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
      <string name="network_dashboard_title">Network &amp; internet</string>
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 336137c95f..09e6bc5d00 100644
+index 336137c95f1..09e6bc5d006 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -32,4 +32,17 @@
@@ -78,7 +78,7 @@ index 336137c95f..09e6bc5d00 100644
  </PreferenceScreen>
 diff --git a/src/com/android/settings/treble/InstallImsApkPreferenceController.java b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
 new file mode 100644
-index 0000000000..6a63cbf1bf
+index 00000000000..6a63cbf1bf3
 --- /dev/null
 +++ b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
 @@ -0,0 +1,209 @@
@@ -293,7 +293,7 @@ index 0000000000..6a63cbf1bf
 +}
 diff --git a/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java b/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 new file mode 100644
-index 0000000000..1ab12d3ca0
+index 00000000000..1ab12d3ca0e
 --- /dev/null
 +++ b/src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 @@ -0,0 +1,59 @@
@@ -357,7 +357,7 @@ index 0000000000..1ab12d3ca0
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index 5c1611c053..50e3eda8c6 100644
+index 5c1611c0534..50e3eda8c68 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -36,6 +36,8 @@ public class TrebleSettings extends DashboardFragment {

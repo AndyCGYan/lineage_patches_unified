@@ -1,4 +1,4 @@
-From 69fbb22f3d265d9baf7ba87c2e0d42671a898037 Mon Sep 17 00:00:00 2001
+From cf5d89e76aa67ca83e682a9e091e6ddc7e43fd41 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
 Subject: [PATCH 2/5] LightsService: Alternative backlight scale
@@ -11,18 +11,18 @@ Change-Id: I46ae69c758d1a4609d89cf1c293488ea5fc76787
  1 file changed, 13 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index fea6b29d9260..2a9a3b63ea2e 100644
+index 4d26f43307b2..c5e672726d21 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -32,6 +32,7 @@ import android.os.IBinder;
- import android.os.Looper;
+@@ -32,6 +32,7 @@ import android.os.Looper;
+ import android.os.PermissionEnforcer;
  import android.os.RemoteException;
  import android.os.ServiceManager;
 +import android.os.SystemProperties;
  import android.os.Trace;
  import android.provider.Settings;
  import android.util.Slog;
-@@ -295,6 +296,18 @@ public class LightsService extends SystemService {
+@@ -298,6 +299,18 @@ public class LightsService extends SystemService {
                      return;
                  }
                  int brightnessInt = BrightnessSynchronizer.brightnessFloatToInt(brightness);

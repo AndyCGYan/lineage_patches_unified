@@ -1,4 +1,4 @@
-From 01ce7e73cb79e56484594b0ce03eb2ebfa193e90 Mon Sep 17 00:00:00 2001
+From 7cff85caaabd92c499d24c2915d7735d0b5cad4d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 03:38:41 +0000
 Subject: [PATCH 2/8] TrebleSettings: Basic audio and display fixes
@@ -21,10 +21,10 @@ Change-Id: I4f22dcd9c59c40b3fd70ba642db35b9466467b7d
  create mode 100644 src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index dcb08f0731..f799b4d0c7 100644
+index 48f0b763431..0961c045330 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6879,11 +6879,19 @@
+@@ -7182,11 +7182,19 @@
      <string name="treble_settings">Treble settings</string>
      <!-- Summary for Treble settings [CHAR LIMIT=NONE]-->
      <string name="treble_settings_summary">Fixes &amp; tweaks for GSIs</string>
@@ -45,7 +45,7 @@ index dcb08f0731..f799b4d0c7 100644
      <!-- Title for setting tile leading to network and Internet settings [CHAR LIMIT=40]-->
      <string name="network_dashboard_title">Network &amp; internet</string>
 diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
-index 1a82c468a2..336137c95f 100644
+index 1a82c468a26..336137c95f1 100644
 --- a/res/xml/treble_settings.xml
 +++ b/res/xml/treble_settings.xml
 @@ -6,6 +6,19 @@
@@ -81,7 +81,7 @@ index 1a82c468a2..336137c95f 100644
  </PreferenceScreen>
 diff --git a/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java b/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java
 new file mode 100644
-index 0000000000..8feb318f55
+index 00000000000..8feb318f55a
 --- /dev/null
 +++ b/src/com/android/settings/treble/DisableSoundvolumeEffectPreferenceController.java
 @@ -0,0 +1,59 @@
@@ -145,7 +145,7 @@ index 0000000000..8feb318f55
 +
 +}
 diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
-index e581539229..5c1611c053 100644
+index e581539229b..5c1611c0534 100644
 --- a/src/com/android/settings/treble/TrebleSettings.java
 +++ b/src/com/android/settings/treble/TrebleSettings.java
 @@ -32,7 +32,10 @@ public class TrebleSettings extends DashboardFragment {
@@ -161,7 +161,7 @@ index e581539229..5c1611c053 100644
  
 diff --git a/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java b/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java
 new file mode 100644
-index 0000000000..fbc327cba0
+index 00000000000..fbc327cba0b
 --- /dev/null
 +++ b/src/com/android/settings/treble/UseAlternativeAudioPolicyPreferenceController.java
 @@ -0,0 +1,59 @@
@@ -226,7 +226,7 @@ index 0000000000..fbc327cba0
 +}
 diff --git a/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java b/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
 new file mode 100644
-index 0000000000..bd9de82d90
+index 00000000000..bd9de82d906
 --- /dev/null
 +++ b/src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
 @@ -0,0 +1,53 @@

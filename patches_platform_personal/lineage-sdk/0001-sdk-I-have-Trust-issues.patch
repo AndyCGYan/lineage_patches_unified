@@ -1,4 +1,4 @@
-From d8a13aada0c4951deeda873543b8d6f33c402889 Mon Sep 17 00:00:00 2001
+From e130858b3f35dabed681a6bce8a8dbda7e71b607 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 23 Nov 2023 22:31:47 +0800
 Subject: [PATCH] sdk: I have Trust issues
@@ -11,13 +11,13 @@ Change-Id: Id36104c8a9c386145e6d99a9d741947bddaa37be
  1 file changed, 29 deletions(-)
 
 diff --git a/lineage/lib/main/java/org/lineageos/platform/internal/TrustInterfaceService.java b/lineage/lib/main/java/org/lineageos/platform/internal/TrustInterfaceService.java
-index 473bfe08..281c70ef 100644
+index 3cb8e5e7..aad5f3f4 100644
 --- a/lineage/lib/main/java/org/lineageos/platform/internal/TrustInterfaceService.java
 +++ b/lineage/lib/main/java/org/lineageos/platform/internal/TrustInterfaceService.java
-@@ -99,15 +99,6 @@ public class TrustInterfaceService extends LineageSystemService {
-             } catch (NoSuchElementException | RemoteException e) {
-                 // ignore, the hal is not available
-             }
+@@ -87,15 +87,6 @@ public class TrustInterfaceService extends LineageSystemService {
+     public void onBootPhase(int phase) {
+         if (phase == PHASE_BOOT_COMPLETED) {
+             mNotificationManager = mContext.getSystemService(NotificationManager.class);
 -
 -            // Onboard
 -            if (!hasOnboardedUser()) {
@@ -30,7 +30,7 @@ index 473bfe08..281c70ef 100644
          }
      }
  
-@@ -351,26 +342,6 @@ public class TrustInterfaceService extends LineageSystemService {
+@@ -338,26 +329,6 @@ public class TrustInterfaceService extends LineageSystemService {
                  LineageSettings.System.TRUST_INTERFACE_HINTED, 0) == 1;
      }
  
