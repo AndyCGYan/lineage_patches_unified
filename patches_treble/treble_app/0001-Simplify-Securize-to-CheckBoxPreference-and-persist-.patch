@@ -1,4 +1,4 @@
-From 1f423ec35afe9be5dcde2acf9a600190dd13f982 Mon Sep 17 00:00:00 2001
+From 66534cd4c678494e0aa0e74197a39fcee57e313a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 29 Dec 2022 15:08:49 +0000
 Subject: [PATCH] Simplify Securize to CheckBoxPreference and persist prop
@@ -11,12 +11,12 @@ For "Securize on-demand"
  3 files changed, 10 insertions(+), 35 deletions(-)
 
 diff --git a/app/src/main/java/me/phh/treble/app/Misc.kt b/app/src/main/java/me/phh/treble/app/Misc.kt
-index cc01af2..fc59faf 100644
+index a56b460..8861d51 100644
 --- a/app/src/main/java/me/phh/treble/app/Misc.kt
 +++ b/app/src/main/java/me/phh/treble/app/Misc.kt
-@@ -303,6 +303,10 @@ object Misc: EntryStartup {
-                 val value = sp.getBoolean(key, false)
-                 SystemProperties.set("persist.sys.phh.wifi_disable_sae", if (value) "true" else "false")
+@@ -302,6 +302,10 @@ object Misc: EntryStartup {
+                 val value = sp.getString(key, "0")
+                 SystemProperties.set("persist.sys.bt.esco_transport_unit_size", value)
              }
 +            MiscSettings.securize -> {
 +                val value = sp.getBoolean(key, false)
@@ -25,7 +25,7 @@ index cc01af2..fc59faf 100644
          }
      }
  
-@@ -330,5 +334,6 @@ object Misc: EntryStartup {
+@@ -328,5 +332,6 @@ object Misc: EntryStartup {
          spListener.onSharedPreferenceChanged(sp, MiscSettings.noHwcomposer)
          spListener.onSharedPreferenceChanged(sp, MiscSettings.storageFUSE)
          spListener.onSharedPreferenceChanged(sp, MiscSettings.dt2w)
@@ -33,7 +33,7 @@ index cc01af2..fc59faf 100644
      }
  }
 diff --git a/app/src/main/java/me/phh/treble/app/MiscSettings.kt b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
-index 4ce9d97..f227ce1 100644
+index e3b5312..5fe481f 100644
 --- a/app/src/main/java/me/phh/treble/app/MiscSettings.kt
 +++ b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
 @@ -56,39 +56,6 @@ class MiscSettingsFragment : SettingsFragment() {
@@ -77,21 +77,21 @@ index 4ce9d97..f227ce1 100644
          removeTelephonyPref!!.setOnPreferenceClickListener {
  
 diff --git a/app/src/main/res/xml/pref_misc.xml b/app/src/main/res/xml/pref_misc.xml
-index 9a12f16..3d6f7de 100644
+index e41659d..bdf1147 100644
 --- a/app/src/main/res/xml/pref_misc.xml
 +++ b/app/src/main/res/xml/pref_misc.xml
 @@ -193,8 +193,11 @@
- 		    android:entryValues="@array/pref_misc_fod_color_values"
- 		    android:key="key_misc_fod_color"
+             android:entryValues="@array/pref_misc_fod_color_values"
+             android:key="key_misc_fod_color"
              android:title="Under-display fp color" />
--		<Preference android:title="Securize"
+-        <Preference android:title="Securize"
 -            android:key="key_misc_securize" />
-+		<CheckBoxPreference
++        <CheckBoxPreference
 +            android:defaultValue="false"
 +            android:key="key_misc_securize"
 +            android:title="Spoof system properties"
 +            android:summary="For better chances of passing SafetyNet\nMight cause bootloop on some devices" />
- 	</PreferenceCategory>
+     </PreferenceCategory>
      <PreferenceCategory android:title="Debugging">
          <Preference android:title="Debug Sensors">
 -- 
