@@ -1,7 +1,7 @@
-From c67644842d8ad141ebe666ae42333f8ec211768a Mon Sep 17 00:00:00 2001
+From 3cdc100937182ba4844a47f902d503adc2f9ec92 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 6 Dec 2020 12:20:08 +0100
-Subject: [PATCH 13/35] Make rounded corners padding overridable with
+Subject: [PATCH 13/34] Make rounded corners padding overridable with
  persist.sys.phh.rounded_corners_padding
 
 Change-Id: I481c1c8849b2f22a7cdfb2896a6d3c2e7e3b44d9
@@ -62,7 +62,7 @@ index eb41536e21d0..b11843cd5d1f 100644
  
      private void updateVisibilities() {
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarContentInsetsProvider.kt b/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarContentInsetsProvider.kt
-index b7988bcc6f45..72b8e971306c 100644
+index ac3eee12752a..7302ec5095d4 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarContentInsetsProvider.kt
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/StatusBarContentInsetsProvider.kt
 @@ -23,7 +23,7 @@ import android.graphics.Rect
@@ -86,5 +86,5 @@ index b7988bcc6f45..72b8e971306c 100644
          val minDotPadding = if (isPrivacyDotEnabled)
                  rotatedResources.getDimensionPixelSize(R.dimen.ongoing_appops_dot_min_padding)
 -- 
-2.25.1
+2.34.1
 

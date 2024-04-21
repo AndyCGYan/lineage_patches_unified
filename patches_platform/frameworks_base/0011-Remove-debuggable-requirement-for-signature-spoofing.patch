@@ -1,0 +1,28 @@
+From b4fa57280a91d884655c0cdfe2767d9277e6d238 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 17 Mar 2024 17:10:38 +0800
+Subject: [PATCH 11/11] Remove debuggable requirement for signature spoofing
+
+Change-Id: I8d637ddbbd117a9c5b1d9c5e462b0f4b30d98333
+---
+ .../java/com/android/server/pm/PackageManagerService.java     | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/services/core/java/com/android/server/pm/PackageManagerService.java b/services/core/java/com/android/server/pm/PackageManagerService.java
+index b6c08ab5f935..f2b6e35a5392 100644
+--- a/services/core/java/com/android/server/pm/PackageManagerService.java
++++ b/services/core/java/com/android/server/pm/PackageManagerService.java
+@@ -8939,10 +8939,6 @@ public class PackageManagerService extends IPackageManager.Stub
+     private static native boolean isDebuggable();
+ 
+     public static boolean isMicrogSigned(AndroidPackage p) {
+-        if (!isDebuggable()) {
+-            return false;
+-        }
+-
+         // Allowlist the following apps:
+         // * com.android.vending - microG Companion
+         // * com.google.android.gms - microG Services
+-- 
+2.34.1
+

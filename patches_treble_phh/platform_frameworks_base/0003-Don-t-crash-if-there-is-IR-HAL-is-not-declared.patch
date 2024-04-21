@@ -1,7 +1,7 @@
-From 698fa45b258f1770e51091f619237a56a558dba7 Mon Sep 17 00:00:00 2001
+From 19d8799aa0c975b9ddb9b46bf76312151c180148 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 17 May 2018 20:28:35 +0200
-Subject: [PATCH 03/35] Don't crash if there is IR HAL is not declared
+Subject: [PATCH 03/34] Don't crash if there is IR HAL is not declared
 
 Change-Id: I3afded27441bbee8244d5fda544b3e6d1238dc1b
 ---
@@ -41,5 +41,5 @@ index 2ca348b3ae46..148fba9a688c 100644
  }
  
 -- 
-2.25.1
+2.34.1
 

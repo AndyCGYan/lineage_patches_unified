@@ -1,7 +1,7 @@
-From 34a2141186d697e13c7085b4b194dfa23d959549 Mon Sep 17 00:00:00 2001
+From 8424f81c8b318f26ca7eb70cc3a96b15fe8a1d80 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 24 Mar 2019 23:05:14 +0100
-Subject: [PATCH 06/35] Support samsung Pie and Q light hal
+Subject: [PATCH 06/34] Support samsung Pie and Q light hal
 
 Change-Id: I01f94acd7d0672733e48854d80368f9ac6f861c6
 ---
@@ -10,10 +10,10 @@ Change-Id: I01f94acd7d0672733e48854d80368f9ac6f861c6
  2 files changed, 53 insertions(+)
 
 diff --git a/services/core/jni/Android.bp b/services/core/jni/Android.bp
-index 53401fd47178..59256cc73df1 100644
+index b8d3eed46705..69ff0f5cbedd 100644
 --- a/services/core/jni/Android.bp
 +++ b/services/core/jni/Android.bp
-@@ -183,6 +183,8 @@ cc_defaults {
+@@ -190,6 +190,8 @@ cc_defaults {
          "android.system.suspend.control.internal-cpp",
          "android.system.suspend@1.0",
          "service.incremental",
@@ -101,5 +101,5 @@ index 35d8219651d7..b45b2137d0e6 100644
      LightState state = constructState(
          colorARGB, flashMode, onMS, offMS, brightnessMode);
 -- 
-2.25.1
+2.34.1
 
