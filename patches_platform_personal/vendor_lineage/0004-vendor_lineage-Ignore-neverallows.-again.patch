@@ -1,7 +1,7 @@
-From 1d5207e4a74c70a3ea58f8d511ceee6f1316f0be Mon Sep 17 00:00:00 2001
+From 9f3c9c81bcfa84269f99ae4e2577ab937ac9c32a Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Mon, 1 Jul 2019 07:03:04 +0000
-Subject: [PATCH 3/4] vendor_lineage: Ignore neverallows... again
+Subject: [PATCH 4/5] vendor_lineage: Ignore neverallows... again
 
 Because unofficial builds are better than no builds!
 

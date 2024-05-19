@@ -1,4 +1,4 @@
-From 31aaa35b4f3ce875b61fe9c7d545adf29979a24e Mon Sep 17 00:00:00 2001
+From d60458e34f7570e362b244c156020f986f26a36c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 22 Mar 2023 00:29:13 +0000
 Subject: [PATCH 19/20] UI: Restore quick settings fonts to pre-T-QPR2

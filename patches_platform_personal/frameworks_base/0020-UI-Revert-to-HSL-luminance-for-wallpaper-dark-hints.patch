@@ -1,4 +1,4 @@
-From 2b05323bf1e2e78ff10d2c5a7b098c39f4deaba9 Mon Sep 17 00:00:00 2001
+From 92e809ecdc3cb63ad9d4aa107dd959896cb6024c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 30 Sep 2022 16:02:16 +0000
 Subject: [PATCH 20/20] UI: Revert to HSL luminance for wallpaper dark hints

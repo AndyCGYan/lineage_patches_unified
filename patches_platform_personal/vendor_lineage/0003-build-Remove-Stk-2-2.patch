@@ -1,7 +1,7 @@
-From fb566e5192808925dcfdaec3ee15dceec9efcbaa Mon Sep 17 00:00:00 2001
+From e244927e57dc90182935201595635e0649d9101c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 00:41:07 +0000
-Subject: [PATCH 2/4] build: Remove Stk (2/2)
+Subject: [PATCH 3/5] build: Remove Stk (2/2)
 
 Change-Id: I4e1cfacd296e47ef1731f3c32555089a5fca6f0c
 ---
@@ -22,7 +22,7 @@ index 5ff877c9..ab70301b 100644
 -PRODUCT_PACKAGES += \
 -    Stk
 diff --git a/config/telephony.mk b/config/telephony.mk
-index be414ed5..a75ba9a5 100644
+index 0c6ebba8..47437035 100644
 --- a/config/telephony.mk
 +++ b/config/telephony.mk
 @@ -13,8 +13,7 @@ PRODUCT_PACKAGES += \

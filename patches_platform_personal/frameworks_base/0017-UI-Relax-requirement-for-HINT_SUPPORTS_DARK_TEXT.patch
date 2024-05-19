@@ -1,4 +1,4 @@
-From 15759ef5b8eadd49218579a68841035cdd78a0d1 Mon Sep 17 00:00:00 2001
+From 738b824c574d4189f5bdcc188b40fe51785854c2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 29 Jun 2021 22:57:01 +0000
 Subject: [PATCH 17/20] UI: Relax requirement for HINT_SUPPORTS_DARK_TEXT

@@ -1,4 +1,4 @@
-From 8fa49723b3ae2b67b95b7352b885044988219e03 Mon Sep 17 00:00:00 2001
+From fbe718b53b0898e984d276dc431d89402bfabbaa Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 1 Sep 2021 14:41:53 +0000
 Subject: [PATCH 07/20] Keyguard: Default to small clock (1/3)

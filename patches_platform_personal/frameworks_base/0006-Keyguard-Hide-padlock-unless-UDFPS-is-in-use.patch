@@ -1,4 +1,4 @@
-From 4aa38a0e428d24ffd95d1a0376d01607be3e3647 Mon Sep 17 00:00:00 2001
+From 2d7a9b6d34331608e349d1f6075e0112fde7d24c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 06:41:03 +0000
 Subject: [PATCH 06/20] Keyguard: Hide padlock unless UDFPS is in use

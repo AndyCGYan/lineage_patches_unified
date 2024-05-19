@@ -1,7 +1,7 @@
-From 16541bcf6b647b2aaf9e446fa7cc8d2f83d1a414 Mon Sep 17 00:00:00 2001
+From 0986eff9b1f734268f330f13389cb9e7ee8798f9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 9 Apr 2022 02:48:55 +0000
-Subject: [PATCH 4/4] vendor_lineage: Personal theme as SRO
+Subject: [PATCH 5/5] vendor_lineage: Personal theme as SRO
 
 Last revised on 2024/02/26
 
@@ -159,10 +159,10 @@ Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
  create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
 
 diff --git a/config/common.mk b/config/common.mk
-index b19872b0..8e8c83bf 100644
+index 460a0085..f37187ad 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -205,10 +205,13 @@ PRODUCT_PRODUCT_PROPERTIES += \
+@@ -219,10 +219,13 @@ PRODUCT_PRODUCT_PROPERTIES += \
      setupwizard.theme=glif_v4 \
      setupwizard.feature.day_night_mode_enabled=true
  

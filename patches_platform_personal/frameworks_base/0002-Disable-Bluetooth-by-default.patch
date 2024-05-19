@@ -1,4 +1,4 @@
-From d7b0a165e9c482f8efedd6911173e8c8b74ed08c Mon Sep 17 00:00:00 2001
+From 06799a1be4a78be284b530b009b9edd67bb1aae7 Mon Sep 17 00:00:00 2001
 From: Hikari-no-Tenshi <kyryljan.serhij@gmail.com>
 Date: Thu, 30 Jan 2020 22:20:54 +0200
 Subject: [PATCH 02/20] Disable Bluetooth by default
