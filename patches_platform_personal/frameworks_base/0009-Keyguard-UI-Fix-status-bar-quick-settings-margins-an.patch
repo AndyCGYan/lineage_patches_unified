@@ -1,0 +1,216 @@
+From 6214db6cea55c2072b2a51cc07ee8d27eecf299c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 20 Mar 2021 10:35:14 +0000
+Subject: [PATCH 09/20] Keyguard/UI: Fix status bar / quick settings margins
+ and paddings
+
+Last revised on 2024/04/04, targeting U QPR2
+
+The way I think SB/QS margins/paddings should work:
+- Devices with left notch: [notch_definition][status_bar_padding_start][content]...[content][status_bar_padding_end][rounded_corner_content_padding]
+- Devices with center or no notch: [rounded_corner_content_padding][status_bar_padding_start][content]...[content][status_bar_padding_end][rounded_corner_content_padding]
+Key point being:
+- SB (including keyguard) and QS should always act uniformly
+- Notch definition should only be the notch itself, without additional padding
+- Instead, these paddings should be covered by status_bar_padding_{start|end}
+As a result, below changes have been made:
+- Change keyguard_carrier_text_margin into a padding and link to status_bar_padding_start
+- Add status_bar_padding_{start|end} to quick settings header
+- Remove unnecessary margins and paddings if any
+
+Change-Id: Ic91fa398813e1907297bb0892c444d96405950e7
+---
+ packages/SystemUI/res/layout/keyguard_status_bar.xml   |  2 +-
+ packages/SystemUI/res/layout/operator_name.xml         |  3 ++-
+ packages/SystemUI/res/values-sw600dp/dimens.xml        |  7 ++-----
+ packages/SystemUI/res/values/dimens.xml                |  6 +++---
+ packages/SystemUI/res/xml/qqs_header.xml               |  4 ++--
+ .../android/systemui/shade/ShadeHeaderController.kt    | 10 +++++++---
+ .../systemui/statusbar/OperatorNameViewController.java |  2 +-
+ .../statusbar/phone/KeyguardStatusBarView.java         |  7 -------
+ 8 files changed, 18 insertions(+), 23 deletions(-)
+
+diff --git a/packages/SystemUI/res/layout/keyguard_status_bar.xml b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+index 388ab51a6245..0c4b898055fe 100644
+--- a/packages/SystemUI/res/layout/keyguard_status_bar.xml
++++ b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+@@ -72,7 +72,7 @@
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:paddingTop="@dimen/status_bar_padding_top"
+-        android:layout_marginStart="@dimen/keyguard_carrier_text_margin"
++        android:paddingStart="@dimen/keyguard_carrier_text_margin"
+         android:layout_toStartOf="@id/system_icons_container"
+         android:gravity="center_vertical"
+         android:ellipsize="marquee"
+diff --git a/packages/SystemUI/res/layout/operator_name.xml b/packages/SystemUI/res/layout/operator_name.xml
+index 015e30a5d050..8ae4faee8325 100644
+--- a/packages/SystemUI/res/layout/operator_name.xml
++++ b/packages/SystemUI/res/layout/operator_name.xml
+@@ -28,5 +28,6 @@
+         android:gravity="center_vertical|start"
+         android:textAppearance="?android:attr/textAppearanceSmall"
+         android:singleLine="true"
+-        android:paddingEnd="5dp" />
++        android:paddingEnd="5dp"
++        android:visibility="gone" />
+ </com.android.systemui.statusbar.AlphaOptimizedFrameLayout>
+diff --git a/packages/SystemUI/res/values-sw600dp/dimens.xml b/packages/SystemUI/res/values-sw600dp/dimens.xml
+index 1e54fc9e1445..6c1cb6ce43cb 100644
+--- a/packages/SystemUI/res/values-sw600dp/dimens.xml
++++ b/packages/SystemUI/res/values-sw600dp/dimens.xml
+@@ -21,7 +21,7 @@
+     <dimen name="status_bar_header_height_keyguard">@dimen/status_bar_height</dimen>
+ 
+     <!-- padding for container with status icons and battery -->
+-    <dimen name="status_bar_icons_padding_end">4dp</dimen>
++    <dimen name="status_bar_icons_padding_end">0dp</dimen>
+     <!-- start padding is smaller to account for status icon margins coming from drawable itself -->
+     <dimen name="status_bar_icons_padding_start">3dp</dimen>
+     <dimen name="status_bar_icons_padding_bottom">2dp</dimen>
+@@ -37,9 +37,6 @@
+     <!-- The width of user avatar when on Keyguard -->
+     <dimen name="multi_user_avatar_keyguard_size">30dp</dimen>
+ 
+-    <!-- Margin on the left side of the carrier text on Keyguard -->
+-    <dimen name="keyguard_carrier_text_margin">24dp</dimen>
+-
+     <!-- Screen pinning request width -->
+     <dimen name="screen_pinning_request_width">400dp</dimen>
+     <!-- Screen pinning request bottom button circle widths -->
+@@ -81,7 +78,7 @@
+     <dimen name="large_screen_shade_header_height">42dp</dimen>
+     <!-- start padding is smaller to account for status icon margins coming from drawable itself -->
+     <dimen name="hover_system_icons_container_padding_start">3dp</dimen>
+-    <dimen name="hover_system_icons_container_padding_end">4dp</dimen>
++    <dimen name="hover_system_icons_container_padding_end">0dp</dimen>
+     <dimen name="hover_system_icons_container_padding_top">2dp</dimen>
+     <dimen name="hover_system_icons_container_padding_bottom">2dp</dimen>
+ 
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index bb1b552ab1c1..a6b766f60d6f 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -172,7 +172,7 @@
+     <dimen name="status_bar_clock_size">14sp</dimen>
+ 
+     <!-- The starting padding for the clock in the status bar. -->
+-    <dimen name="status_bar_clock_starting_padding">7dp</dimen>
++    <dimen name="status_bar_clock_starting_padding">0dp</dimen>
+ 
+     <!-- The end padding for the clock in the status bar. -->
+     <dimen name="status_bar_clock_end_padding">0dp</dimen>
+@@ -384,7 +384,7 @@
+     <!-- padding start is a bit smaller than end to account for status icon margin-->
+     <dimen name="status_bar_icons_padding_start">3dp</dimen>
+ 
+-    <dimen name="status_bar_icons_padding_end">4dp</dimen>
++    <dimen name="status_bar_icons_padding_end">0dp</dimen>
+     <dimen name="status_bar_icons_padding_bottom">0dp</dimen>
+     <dimen name="status_bar_icons_padding_top">0dp</dimen>
+ 
+@@ -856,7 +856,7 @@
+     <dimen name="kg_framed_avatar_size">32dp</dimen>
+ 
+     <!-- Margin on the left side of the carrier text on Keyguard -->
+-    <dimen name="keyguard_carrier_text_margin">16dp</dimen>
++    <dimen name="keyguard_carrier_text_margin">@dimen/status_bar_padding_start</dimen>
+ 
+     <!-- Additional translation (downwards) for appearing notifications when going to the full shade
+          from Keyguard. -->
+diff --git a/packages/SystemUI/res/xml/qqs_header.xml b/packages/SystemUI/res/xml/qqs_header.xml
+index 50a388d0fa64..81d30c210770 100644
+--- a/packages/SystemUI/res/xml/qqs_header.xml
++++ b/packages/SystemUI/res/xml/qqs_header.xml
+@@ -44,7 +44,7 @@
+         <Layout
+             android:layout_width="wrap_content"
+             android:layout_height="@dimen/new_qs_header_non_clickable_element_height"
+-            android:layout_marginStart="8dp"
++            android:layout_marginStart="2dp"
+             app:layout_constrainedWidth="true"
+             app:layout_constraintStart_toEndOf="@id/clock"
+             app:layout_constraintEnd_toStartOf="@id/barrier"
+@@ -94,4 +94,4 @@
+             app:layout_constraintHorizontal_bias="1"
+         />
+     </Constraint>
+-</ConstraintSet>
+\ No newline at end of file
++</ConstraintSet>
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt b/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
+index 5a5cb792c10b..874579b83aca 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
++++ b/packages/SystemUI/src/com/android/systemui/shade/ShadeHeaderController.kt
+@@ -144,6 +144,8 @@ constructor(
+ 
+     private var roundedCorners = 0
+     private var cutout: DisplayCutout? = null
++    private var statusBarPaddingStart = 0
++    private var statusBarPaddingEnd = 0
+     private var lastInsets: WindowInsets? = null
+     private var nextAlarmIntent: PendingIntent? = null
+     private var textColorPrimary = Color.TRANSPARENT
+@@ -421,14 +423,17 @@ constructor(
+         val cutoutLeft = sbInsets.left
+         val cutoutRight = sbInsets.right
+         val hasCornerCutout: Boolean = insetsProvider.currentRotationHasCornerCutout()
++        roundedCorners = resources.getDimensionPixelSize(R.dimen.rounded_corner_content_padding)
++        statusBarPaddingStart = resources.getDimensionPixelSize(R.dimen.status_bar_padding_start)
++        statusBarPaddingEnd = resources.getDimensionPixelSize(R.dimen.status_bar_padding_end)
+         updateQQSPaddings()
+         // Set these guides as the left/right limits for content that lives in the top row, using
+         // cutoutLeft and cutoutRight
+         var changes =
+             combinedShadeHeadersConstraintManager.edgesGuidelinesConstraints(
+-                if (view.isLayoutRtl) cutoutRight else cutoutLeft,
++                (if (view.isLayoutRtl) cutoutRight else cutoutLeft) + statusBarPaddingStart,
+                 header.paddingStart,
+-                if (view.isLayoutRtl) cutoutLeft else cutoutRight,
++                (if (view.isLayoutRtl) cutoutLeft else cutoutRight) + statusBarPaddingEnd,
+                 header.paddingEnd
+             )
+ 
+@@ -549,7 +554,6 @@ constructor(
+     }
+ 
+     private fun updateResources() {
+-        roundedCorners = resources.getDimensionPixelSize(R.dimen.rounded_corner_content_padding)
+         val padding = resources.getDimensionPixelSize(R.dimen.qs_panel_padding)
+         header.setPadding(padding, header.paddingTop, padding, header.paddingBottom)
+         updateQQSPaddings()
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/OperatorNameViewController.java b/packages/SystemUI/src/com/android/systemui/statusbar/OperatorNameViewController.java
+index 8afc72f08656..fe66c21ae568 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/OperatorNameViewController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/OperatorNameViewController.java
+@@ -86,7 +86,7 @@ public class OperatorNameViewController extends ViewController<OperatorNameView>
+         boolean showOperatorName =
+                 mCarrierConfigTracker
+                         .getShowOperatorNameInStatusBarConfig(defaultSubInfo.getSubId())
+-                        && (mTunerService.getValue(KEY_SHOW_OPERATOR_NAME, 1) != 0);
++                        && (mTunerService.getValue(KEY_SHOW_OPERATOR_NAME, 0) != 0);
+         mView.update(showOperatorName, mTelephonyManager.isDataCapable(), getDefaultSubInfo());
+     }
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+index 50ce8a9a14e3..e3480f7a311e 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+@@ -179,14 +179,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
+         mCarrierLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                 getResources().getDimensionPixelSize(
+                         com.android.internal.R.dimen.text_size_small_material));
+-        lp = (MarginLayoutParams) mCarrierLabel.getLayoutParams();
+ 
+-        int marginStart = calculateMargin(
+-                getResources().getDimensionPixelSize(R.dimen.keyguard_carrier_text_margin),
+-                mPadding.left);
+-        lp.setMarginStart(marginStart);
+-
+-        mCarrierLabel.setLayoutParams(lp);
+         updateKeyguardStatusBarHeight();
+     }
+ 
+-- 
+2.34.1
+

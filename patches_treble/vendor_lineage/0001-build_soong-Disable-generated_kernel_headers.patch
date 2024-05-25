@@ -1,4 +1,4 @@
-From 3e4384c994002a3164ece52d9a942d6c3451feb1 Mon Sep 17 00:00:00 2001
+From 329e8930c11cd2a90dae2f127645ec2e830d3aa2 Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Sun, 3 Mar 2019 14:07:33 +0800
 Subject: [PATCH 1/2] build_soong: Disable generated_kernel_headers
@@ -11,7 +11,7 @@ Change-Id: I630857cec208f1830e776bf5031d7bb9bc4435d0
  1 file changed, 12 deletions(-)
 
 diff --git a/build/soong/Android.bp b/build/soong/Android.bp
-index 2a21c5c0..417fac02 100644
+index 5899c987..3846fa01 100644
 --- a/build/soong/Android.bp
 +++ b/build/soong/Android.bp
 @@ -20,9 +20,6 @@ bootstrap_go_package {
@@ -19,7 +19,7 @@ index 2a21c5c0..417fac02 100644
      name: "generated_kernel_includes",
  
 -    // The headers make command
--    cmd: "$(PATH_OVERRIDE_SOONG) $(KERNEL_MAKE_CMD) $(KERNEL_MAKE_FLAGS) -C $(TARGET_KERNEL_SOURCE) O=$(KERNEL_BUILD_OUT_PREFIX)$(genDir) ARCH=$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) headers_install",
+-    cmd: "$(PATH_OVERRIDE_SOONG) $(KERNEL_MAKE_CMD) $(KERNEL_MAKE_FLAGS) -C $(TARGET_KERNEL_SOURCE) O=$(KERNEL_BUILD_OUT_PREFIX)$(genDir) ARCH=$(KERNEL_ARCH) $(KERNEL_CROSS_COMPILE) headers_install && vendor/lineage/tools/clean_headers.sh $(KERNEL_BUILD_OUT_PREFIX)$(genDir)",
 -
      // Directories that can be imported by a cc_* module generated_headers property
      export_include_dirs: [

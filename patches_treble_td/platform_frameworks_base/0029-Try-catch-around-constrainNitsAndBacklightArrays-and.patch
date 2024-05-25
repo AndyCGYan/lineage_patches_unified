@@ -1,4 +1,4 @@
-From 96803a190d0b605ac1f86c0d9c4698ba90f2ff55 Mon Sep 17 00:00:00 2001
+From b55da71220b0268eeb913f974dbf64dc9bff3e45 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 2 Jun 2023 19:19:31 -0400
 Subject: [PATCH 29/50] Try catch around constrainNitsAndBacklightArrays, and
@@ -9,10 +9,10 @@ Subject: [PATCH 29/50] Try catch around constrainNitsAndBacklightArrays, and
  1 file changed, 31 insertions(+), 25 deletions(-)
 
 diff --git a/services/core/java/com/android/server/display/DisplayDeviceConfig.java b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
-index b0ebab8e4002..77dafd5068d0 100644
+index 3dcb84dad786..9585bdc712cd 100644
 --- a/services/core/java/com/android/server/display/DisplayDeviceConfig.java
 +++ b/services/core/java/com/android/server/display/DisplayDeviceConfig.java
-@@ -1903,37 +1903,43 @@ public class DisplayDeviceConfig {
+@@ -2120,37 +2120,43 @@ public class DisplayDeviceConfig {
              return;
          }
  

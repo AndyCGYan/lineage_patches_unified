@@ -1,7 +1,7 @@
-From 9d54280afa329e036ba97cd5f39e1371c4beea0a Mon Sep 17 00:00:00 2001
+From 92d00894b0d84c8d3fd0a6ba253132ac96402251 Mon Sep 17 00:00:00 2001
 From: AndyCGYan <GeForce8800Ultra@gmail.com>
 Date: Fri, 22 Mar 2019 00:41:20 +0800
-Subject: [PATCH 01/31] Disable FP lockouts optionally
+Subject: [PATCH 01/34] Disable FP lockouts optionally
 
 Both timed and permanent lockouts - GET THE FUCK OUT
 Now targeting LockoutFramework, introduced in Android 12
@@ -13,7 +13,7 @@ Change-Id: I2d4b091f3546d4d7903bfb4d5585629212dc9915
  1 file changed, 17 insertions(+), 11 deletions(-)
 
 diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
-index 36d56c8a1544..7ee15e97a383 100644
+index 0730c672acd9..972421758223 100644
 --- a/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
 +++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/hidl/LockoutFrameworkImpl.java
 @@ -27,6 +27,7 @@ import android.content.IntentFilter;
@@ -32,10 +32,10 @@ index 36d56c8a1544..7ee15e97a383 100644
  
      private final class LockoutReceiver extends BroadcastReceiver {
          @Override
-@@ -105,23 +107,27 @@ public class LockoutFrameworkImpl implements LockoutTracker {
-     }
+@@ -107,24 +109,28 @@ public class LockoutFrameworkImpl implements LockoutTracker {
  
-     void addFailedAttemptForUser(int userId) {
+     @Override
+     public void addFailedAttemptForUser(int userId) {
 -        mFailedAttempts.put(userId, mFailedAttempts.get(userId, 0) + 1);
 -        mTimedLockoutCleared.put(userId, false);
 +        if (!SystemProperties.getBoolean(DISABLE_FP_LOCKOUTS_PROPERTY, false)) {
@@ -51,7 +51,8 @@ index 36d56c8a1544..7ee15e97a383 100644
      }
  
      @Override
-     public @LockoutMode int getLockoutModeForUser(int userId) {
+     @LockoutMode
+     public int getLockoutModeForUser(int userId) {
 -        final int failedAttempts = mFailedAttempts.get(userId, 0);
 -        if (failedAttempts >= MAX_FAILED_ATTEMPTS_LOCKOUT_PERMANENT) {
 -            return LOCKOUT_PERMANENT;

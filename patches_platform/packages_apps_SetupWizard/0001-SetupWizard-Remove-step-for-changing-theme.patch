@@ -1,0 +1,65 @@
+From 2194bcf5d390be451ff641a0d779a2a815d1d67a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 26 Feb 2024 08:41:08 +0800
+Subject: [PATCH] SetupWizard: Remove step for changing theme
+
+This partially reverts commit 554f63530a257db3194bd7c492e1c954eb11374d.
+
+Change-Id: Id83207c766d6b0b23cd240b35936289c44026db5
+---
+ res/raw/lineage_wizard_script.xml      | 6 ------
+ res/raw/lineage_wizard_script_user.xml | 6 ------
+ res/raw/wizard_script.xml              | 3 ---
+ 3 files changed, 15 deletions(-)
+
+diff --git a/res/raw/lineage_wizard_script.xml b/res/raw/lineage_wizard_script.xml
+index 0befc2b..ea342b6 100644
+--- a/res/raw/lineage_wizard_script.xml
++++ b/res/raw/lineage_wizard_script.xml
+@@ -82,12 +82,6 @@
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
+         id="biometric_settings">
+-        <result wizard:action="theme_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.THEME_SETTINGS;end"
+-        id="theme_settings">
+         <result wizard:action="navigation_settings" />
+     </WizardAction>
+ 
+diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
+index aef7f2e..af38520 100644
+--- a/res/raw/lineage_wizard_script_user.xml
++++ b/res/raw/lineage_wizard_script_user.xml
+@@ -34,12 +34,6 @@
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
+         id="biometric_settings">
+-        <result wizard:action="theme_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.THEME_SETTINGS;end"
+-        id="theme_settings">
+         <result wizard:action="navigation_settings" />
+     </WizardAction>
+ 
+diff --git a/res/raw/wizard_script.xml b/res/raw/wizard_script.xml
+index 38ec267..ba93494 100644
+--- a/res/raw/wizard_script.xml
++++ b/res/raw/wizard_script.xml
+@@ -112,9 +112,6 @@
+         <result wizard:action="lineage_settings" />
+     </WizardAction>
+     <WizardAction wizard:uri="intent:#Intent;package=org.lineageos.setupwizard;action=org.lineageos.setupwizard.LINEAGE_SETTINGS;end" id="lineage_settings">
+-        <result wizard:action="theme_settings" />
+-    </WizardAction>
+-    <WizardAction wizard:uri="intent:#Intent;package=org.lineageos.setupwizard;action=org.lineageos.setupwizard.THEME_SETTINGS;end" id="theme_settings">
+         <result wizard:action="navigation_settings" />
+     </WizardAction>
+     <WizardAction wizard:uri="intent:#Intent;package=org.lineageos.setupwizard;action=org.lineageos.setupwizard.NAVIGATION_SETTINGS;end" id="navigation_settings">
+-- 
+2.34.1
+

@@ -1,4 +1,4 @@
-From 10c70671dc889ac496c433ee312a5b7259bed22e Mon Sep 17 00:00:00 2001
+From 7b5af6750bdcfd107e607906b886a3034d52cb53 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Wed, 3 Mar 2021 06:31:17 -0500
 Subject: [PATCH] Restore /sbin for Magisk compatibility
@@ -30,10 +30,10 @@ index 0a534a2bd..81150a0fa 100644
  $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product_services.img)
  $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product_services)
 diff --git a/libcutils/fs_config.cpp b/libcutils/fs_config.cpp
-index 8aadc3bb7..5535425e2 100644
+index 9ab7f4305..c45317d0f 100644
 --- a/libcutils/fs_config.cpp
 +++ b/libcutils/fs_config.cpp
-@@ -80,6 +80,7 @@ static const struct fs_path_config android_dirs[] = {
+@@ -76,6 +76,7 @@ static const struct fs_path_config android_dirs[] = {
      { 00771, AID_SYSTEM,       AID_SYSTEM,       0, "data" },
      { 00755, AID_ROOT,         AID_SYSTEM,       0, "mnt" },
      { 00751, AID_ROOT,         AID_SHELL,        0, "product/bin" },
@@ -41,7 +41,7 @@ index 8aadc3bb7..5535425e2 100644
      { 00751, AID_ROOT,         AID_SHELL,        0, "product/apex/*/bin" },
      { 00777, AID_ROOT,         AID_ROOT,         0, "sdcard" },
      { 00751, AID_ROOT,         AID_SDCARD_R,     0, "storage" },
-@@ -168,6 +169,7 @@ static const struct fs_path_config android_files[] = {
+@@ -164,6 +165,7 @@ static const struct fs_path_config android_files[] = {
      { 00600, AID_ROOT,      AID_ROOT,      0, "system_ext/build.prop" },
      { 00444, AID_ROOT,      AID_ROOT,      0, system_ext_conf_dir + 1 },
      { 00444, AID_ROOT,      AID_ROOT,      0, system_ext_conf_file + 1 },
@@ -49,7 +49,7 @@ index 8aadc3bb7..5535425e2 100644
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/crash_dump32" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/crash_dump64" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/debuggerd" },
-@@ -222,6 +224,7 @@ static const struct fs_path_config android_files[] = {
+@@ -219,6 +221,7 @@ static const struct fs_path_config android_files[] = {
      { 00750, AID_ROOT,      AID_SHELL,     0, "init*" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "odm/bin/*" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "product/bin/*" },
@@ -58,20 +58,20 @@ index 8aadc3bb7..5535425e2 100644
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/*" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
 diff --git a/rootdir/Android.mk b/rootdir/Android.mk
-index 3362872c0..1b686c38f 100644
+index 7deb17324..aeeaad496 100644
 --- a/rootdir/Android.mk
 +++ b/rootdir/Android.mk
-@@ -91,7 +91,7 @@ endif
+@@ -96,7 +96,7 @@ endif
  #
  # create some directories (some are mount points) and symlinks
  LOCAL_POST_INSTALL_CMD := mkdir -p $(addprefix $(TARGET_ROOT_OUT)/, \
--    dev proc sys system data data_mirror odm oem acct config storage mnt apex debug_ramdisk \
-+    sbin dev proc sys system data data_mirror odm oem acct config storage mnt apex debug_ramdisk \
+-    dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
++    sbin dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
      linkerconfig second_stage_resources postinstall $(BOARD_ROOT_EXTRA_FOLDERS)); \
      ln -sf /system/bin $(TARGET_ROOT_OUT)/bin; \
      ln -sf /system/etc $(TARGET_ROOT_OUT)/etc; \
 diff --git a/rootdir/init.environ.rc.in b/rootdir/init.environ.rc.in
-index bf6e986c4..090fa5a78 100644
+index 7ba1f46e7..f54aa60f7 100644
 --- a/rootdir/init.environ.rc.in
 +++ b/rootdir/init.environ.rc.in
 @@ -10,6 +10,7 @@ on early-init

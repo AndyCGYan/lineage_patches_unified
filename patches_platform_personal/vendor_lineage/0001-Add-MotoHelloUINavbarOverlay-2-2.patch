@@ -1,0 +1,80 @@
+From 240e06c899c59d96de4764219c7f0e23b0d077c3 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 10 May 2024 01:25:37 +0800
+Subject: [PATCH 1/5] Add MotoHelloUINavbarOverlay (2/2)
+
+Redrawn after extracted SVGs, resized and adjusted stroke width
+
+Change-Id: Ifba5adfd10b3eee31e97baa52ce897db31f019d9
+---
+ .../res/drawable/ic_sysbar_back.xml           | 12 ++++++++++++
+ .../res/drawable/ic_sysbar_home.xml           | 11 +++++++++++
+ .../res/drawable/ic_sysbar_recent.xml         | 19 +++++++++++++++++++
+ 3 files changed, 42 insertions(+)
+ create mode 100644 overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_back.xml
+ create mode 100644 overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_home.xml
+ create mode 100644 overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_recent.xml
+
+diff --git a/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_back.xml b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_back.xml
+new file mode 100644
+index 00000000..2fe4ba43
+--- /dev/null
++++ b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_back.xml
+@@ -0,0 +1,12 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:height="24dp"
++    android:width="24dp"
++    android:autoMirrored="true"
++    android:viewportWidth="24.0"
++    android:viewportHeight="24.0">
++    <path
++        android:pathData="M 15.5 5.875 L 8.5 12 L 15.5 18.125"
++        android:strokeColor="#FFFFFFFF"
++        android:strokeWidth="1.75" />
++</vector>
+diff --git a/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_home.xml b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_home.xml
+new file mode 100644
+index 00000000..14110ab5
+--- /dev/null
++++ b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_home.xml
+@@ -0,0 +1,11 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:height="24dp"
++    android:width="24dp"
++    android:viewportWidth="24.0"
++    android:viewportHeight="24.0">
++    <path
++        android:pathData="M 5.875 12 a 6.125 6.125 90 1 0 12.25 0 a 6.125 6.125 90 1 0 -12.25 0"
++        android:strokeColor="#FFFFFFFF"
++        android:strokeWidth="1.75" />
++</vector>
+diff --git a/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_recent.xml b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_recent.xml
+new file mode 100644
+index 00000000..7436752d
+--- /dev/null
++++ b/overlay/rro_packages/TrebuchetOverlay/res/drawable/ic_sysbar_recent.xml
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="utf-8"?>
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:height="24dp"
++    android:width="24dp"
++    android:viewportWidth="24.0"
++    android:viewportHeight="24.0">
++    <path
++        android:pathData="M 5.56 5.56 V 18.44"
++        android:strokeColor="#FFFFFFFF"
++        android:strokeWidth="1.53" />
++    <path
++        android:pathData="M 12 6.48 H 9.24 V 17.52 H 14.76 V 6.48 H 12"
++        android:strokeColor="#FFFFFFFF"
++        android:strokeWidth="1.53" />
++    <path
++        android:pathData="M 18.44 5.56 V 18.44"
++        android:strokeColor="#FFFFFFFF"
++        android:strokeWidth="1.53" />
++</vector>
+-- 
+2.34.1
+

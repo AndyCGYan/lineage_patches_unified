@@ -1,4 +1,4 @@
-From 985159eedef9f48dececcef108b9bee809adef3b Mon Sep 17 00:00:00 2001
+From 74ec0afa2767a82f22e16d8499ef1a48ffa34f1c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 22 Mar 2023 23:37:05 +0000
 Subject: [PATCH 8/9] treble: Also use /data/adb for securize status
@@ -10,10 +10,10 @@ Change-Id: I778f2be5407ae0a548a098c72031cce9be83cf96
  2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/phh-prop-handler.sh b/phh-prop-handler.sh
-index 0020d21..750f1eb 100644
+index fe857b7..c21438c 100644
 --- a/phh-prop-handler.sh
 +++ b/phh-prop-handler.sh
-@@ -286,10 +286,13 @@ if [ "$1" == "persist.sys.phh.securize" ];then
+@@ -288,10 +288,13 @@ if [ "$1" == "persist.sys.phh.securize" ];then
      fi
  
      if [[ "$prop_value" == "true" ]]; then
@@ -29,10 +29,10 @@ index 0020d21..750f1eb 100644
      exit
  fi
 diff --git a/rw-system.sh b/rw-system.sh
-index e631b64..c5df982 100644
+index 4dd61f3..2817795 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -756,7 +756,7 @@ copyprop() {
+@@ -767,7 +767,7 @@ copyprop() {
          resetprop_phh "$1" "$(getprop "$2")"
      fi
  }

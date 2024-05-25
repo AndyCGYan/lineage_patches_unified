@@ -1,7 +1,7 @@
-From dc1b9d58a7f5522fb1c5b7155b52c733b9f5080d Mon Sep 17 00:00:00 2001
+From e492a141400c534bfc1f08b904e7e7f60e92164e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 21 Jan 2024 22:03:47 +0800
-Subject: [PATCH 03/31] Keyguard: Allow locking to any rotation mode
+Subject: [PATCH 03/34] Keyguard: Allow locking to any rotation mode
 
 Change-Id: I0f12c433f3547e9bfcdbc2cf50e2a4f3ec8ca311
 ---
@@ -9,10 +9,10 @@ Change-Id: I0f12c433f3547e9bfcdbc2cf50e2a4f3ec8ca311
  1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
-index 2ebe2bcf7099..6e51746c6ea7 100644
+index b4082694bbe5..f9f3dd911a74 100644
 --- a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
 +++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
-@@ -382,12 +382,9 @@ public class NotificationShadeWindowControllerImpl implements NotificationShadeW
+@@ -431,12 +431,9 @@ public class NotificationShadeWindowControllerImpl implements NotificationShadeW
      }
  
      private void adjustScreenOrientation(NotificationShadeWindowState state) {

@@ -1,7 +1,7 @@
-From 78487f8b35969298a76f61ae71651f537fe8e90e Mon Sep 17 00:00:00 2001
+From 5b8bc8a9cf51ed8fb40101b7a5234fccaee36327 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
-Subject: [PATCH 06/31] UI: Adjust split-screen divider
+Subject: [PATCH 06/34] UI: Adjust split-screen divider
 
 - Kill rounded corners - where two rectangles collide should be perfectly straight
 - Make it black (pre-Sv2) for phones
@@ -150,7 +150,7 @@ index 000000000000..8a1907da76e5
 +    <color name="split_divider_background">@color/taskbar_background</color>
 +</resources>
 diff --git a/libs/WindowManager/Shell/res/values/colors.xml b/libs/WindowManager/Shell/res/values/colors.xml
-index b2ec98bc1b15..b21a6f50c9ab 100644
+index fae71efe3b39..fb50f0119b43 100644
 --- a/libs/WindowManager/Shell/res/values/colors.xml
 +++ b/libs/WindowManager/Shell/res/values/colors.xml
 @@ -18,7 +18,7 @@
@@ -163,10 +163,10 @@ index b2ec98bc1b15..b21a6f50c9ab 100644
      <color name="minimize_dock_shadow_start">#60000000</color>
      <color name="minimize_dock_shadow_end">#00000000</color>
 diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-index 755dba0c895f..9a2c9bfdab5d 100644
+index 53caddb52f23..fae5008283cc 100644
 --- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
 +++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-@@ -157,23 +157,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+@@ -168,23 +168,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
      }
  
      private void updateDividerConfig(Context context) {

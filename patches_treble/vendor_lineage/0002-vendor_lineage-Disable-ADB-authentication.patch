@@ -1,4 +1,4 @@
-From c942de76b74fa53e3b3983d17444c051a8a38dcc Mon Sep 17 00:00:00 2001
+From 12793ea2bcf49d7ffa7231aa8560d5a629e48c88 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 15:48:43 +0000
 Subject: [PATCH 2/2] vendor_lineage: Disable ADB authentication
@@ -9,11 +9,11 @@ Change-Id: I4370583ecab1c88ef6f42e29d3eaa52c24d13f09
  1 file changed, 5 deletions(-)
 
 diff --git a/config/common.mk b/config/common.mk
-index 00d0a416..c9930600 100644
+index cc81102d..460a0085 100644
 --- a/config/common.mk
 +++ b/config/common.mk
-@@ -13,16 +13,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
-     ro.com.google.clientidbase=$(PRODUCT_GMS_CLIENTID_BASE)
+@@ -23,16 +23,11 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+ endif
  endif
  
 -ifeq ($(TARGET_BUILD_VARIANT),eng)

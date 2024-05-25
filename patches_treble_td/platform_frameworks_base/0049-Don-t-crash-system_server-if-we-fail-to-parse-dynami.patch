@@ -1,0 +1,42 @@
+From 08d6872962f964e285c631af4d28db9262eee00f Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 17 Apr 2024 04:49:18 -0400
+Subject: [PATCH 49/50] Don't crash system_server if we fail to parse dynamic
+ udfps position
+
+---
+ .../fingerprint/aidl/FingerprintProvider.java  | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintProvider.java b/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintProvider.java
+index 2bb568bedabc..73b502dca8c1 100644
+--- a/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintProvider.java
++++ b/services/core/java/com/android/server/biometrics/sensors/fingerprint/aidl/FingerprintProvider.java
+@@ -216,13 +216,17 @@ android.util.Log.e("PHH-Enroll", "Poping AIDL fp provider");
+                 android.util.Log.e("PHH-Enroll", " - " + loc.sensorLocationX + ", " + loc.sensorLocationY + ", " +loc.sensorRadius + ", disp =" + loc.display + ", shape " + loc.sensorShape);
+             }
+             if (locations.length == 1 && locations[0].sensorLocationX == 0) {
+-                int[] otherValues = com.android.server.biometrics.AuthService.dynamicUdfpsProps(context);
+-                if (otherValues.length > 0) {
+-                    SensorLocation loc = new SensorLocation();
+-                    loc.sensorLocationX = otherValues[0];
+-                    loc.sensorLocationY = otherValues[1];
+-                    loc.sensorRadius = otherValues[2];
+-                    locations[0] = loc;
++                try {
++                    int[] otherValues = com.android.server.biometrics.AuthService.dynamicUdfpsProps(context);
++                    if (otherValues.length > 0) {
++                        SensorLocation loc = new SensorLocation();
++                        loc.sensorLocationX = otherValues[0];
++                        loc.sensorLocationY = otherValues[1];
++                        loc.sensorRadius = otherValues[2];
++                        locations[0] = loc;
++                    }
++                } catch(Throwable t) {
++                    android.util.Log.e("PHH-Enroll", "FingerprintProvider dynamicUdfpsProps", t);
+                 }
+             }
+ 
+-- 
+2.34.1
+

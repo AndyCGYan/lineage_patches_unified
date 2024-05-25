@@ -1,0 +1,33 @@
+From 2ae2df9278711f93390bede651b69a56099af35b Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Wed, 6 Oct 2021 18:41:11 -0700
+Subject: [PATCH 19/34] Revert "Do not re-inflate QS and SB when
+ CONFIG_UI_MODE"
+
+This reverts commit 8a40ff855b86bc86e23367017002289920855a4e.
+
+This is a prerequisite for making the QS panel follow the light system
+mode setting.
+
+Change-Id: Ibad399ece587505559cc73febdda2f2d8558e94d
+---
+ .../com/android/systemui/fragments/FragmentHostManager.java    | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java b/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
+index 81a520661cfe..5e0b34db0965 100644
+--- a/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
++++ b/packages/SystemUI/src/com/android/systemui/fragments/FragmentHostManager.java
+@@ -59,7 +59,8 @@ public class FragmentHostManager {
+     private final LeakDetector mLeakDetector;
+     private final InterestingConfigChanges mConfigChanges = new InterestingConfigChanges(
+             ActivityInfo.CONFIG_FONT_SCALE | ActivityInfo.CONFIG_LOCALE
+-                    | ActivityInfo.CONFIG_ASSETS_PATHS);
++                    | ActivityInfo.CONFIG_ASSETS_PATHS
++                    | ActivityInfo.CONFIG_UI_MODE);
+     private final FragmentService mManager;
+     private final ExtensionFragmentManager mPlugins = new ExtensionFragmentManager();
+ 
+-- 
+2.34.1
+

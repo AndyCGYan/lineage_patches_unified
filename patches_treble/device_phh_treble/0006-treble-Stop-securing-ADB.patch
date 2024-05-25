@@ -1,4 +1,4 @@
-From 86cd9fa8131d6a7534b7ee7944e7ac177d032442 Mon Sep 17 00:00:00 2001
+From d0c31b8531c239d6c550ed14690496fa9d6b13d2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 22 Nov 2022 00:36:15 +0000
 Subject: [PATCH 6/9] treble: Stop securing ADB
@@ -13,17 +13,17 @@ Change-Id: I0215b3ed970dd53a124f48e30ca2cf4b0c6d2899
  1 file changed, 3 deletions(-)
 
 diff --git a/rw-system.sh b/rw-system.sh
-index 358f232..e631b64 100644
+index 968b903..4dd61f3 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
-@@ -793,13 +793,10 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
+@@ -804,13 +804,10 @@ if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
      resetprop_phh ro.boot.veritymode enforcing
      resetprop_phh ro.boot.warranty_bit 0
      resetprop_phh ro.warranty_bit 0
 -    resetprop_phh ro.debuggable 0
      resetprop_phh ro.secure 1
      resetprop_phh ro.build.type user
-     resetprop_phh ro.build.selinux 0
+     resetprop_phh --delete ro.build.selinux
  
 -    resetprop_phh ro.adb.secure 1
 -

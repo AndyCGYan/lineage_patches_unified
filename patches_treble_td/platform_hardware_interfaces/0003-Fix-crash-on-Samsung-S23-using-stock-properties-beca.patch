@@ -1,4 +1,4 @@
-From cd80c23bc3bd357946d679da60704a70757eaffd Mon Sep 17 00:00:00 2001
+From 7ba162ff1b80f5448afa91e41802f7f8dc89a20b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 24 Oct 2023 04:59:57 -0400
 Subject: [PATCH 3/3] Fix crash on Samsung S23 using stock properties, because
@@ -10,7 +10,7 @@ Subject: [PATCH 3/3] Fix crash on Samsung S23 using stock properties, because
  1 file changed, 3 insertions(+)
 
 diff --git a/sensors/aidl/convert/convert.cpp b/sensors/aidl/convert/convert.cpp
-index be3833dfa..c56b30475 100644
+index be3833dfa7..c56b30475c 100644
 --- a/sensors/aidl/convert/convert.cpp
 +++ b/sensors/aidl/convert/convert.cpp
 @@ -167,6 +167,9 @@ void convertToSensorEvent(const Event& src, sensors_event_t* dst) {

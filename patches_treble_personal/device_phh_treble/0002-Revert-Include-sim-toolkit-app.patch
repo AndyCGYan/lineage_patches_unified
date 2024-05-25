@@ -1,4 +1,4 @@
-From 2189f25680a7cfd966b4edf35031b50f9d4e5f88 Mon Sep 17 00:00:00 2001
+From 5e0cf531dacb7a8c6d112917fd69d67c3d978909 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 28 Oct 2021 01:51:27 +0000
 Subject: [PATCH 2/3] Revert "Include sim toolkit app"
@@ -11,7 +11,7 @@ Change-Id: I1eb7f4bb070eea649b4cea6280299e629d1edb3d
  1 file changed, 3 deletions(-)
 
 diff --git a/base.mk b/base.mk
-index 588511a..6f50cb0 100644
+index bb48831..27f74f3 100644
 --- a/base.mk
 +++ b/base.mk
 @@ -172,9 +172,6 @@ PRODUCT_PACKAGES += \

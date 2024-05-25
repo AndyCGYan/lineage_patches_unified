@@ -1,0 +1,2289 @@
+From 0986eff9b1f734268f330f13389cb9e7ee8798f9 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 9 Apr 2022 02:48:55 +0000
+Subject: [PATCH 5/5] vendor_lineage: Personal theme as SRO
+
+Last revised on 2024/02/26
+
+...
+
+I look forward to what LOS will look like in the future, when everything's ready
+
+Change-Id: I43164b7a4145616d162c6b4b4b84d1953cb483cc
+---
+ config/common.mk                              |   7 +-
+ .../res/drawable/ic_launcher_background.xml   |  24 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  24 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  39 ++++++
+ .../res/drawable/ic_launcher_background.xml   |  24 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  14 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  20 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  36 ++++++
+ .../res/drawable/ic_launcher_background.xml   |  23 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  39 ++++++
+ .../res/mipmap-anydpi/launcher_clock.xml      | 116 ++++++++++++++++++
+ .../apps/DeskClock/res/values/colors.xml      |   8 ++
+ .../res/drawable/ic_launcher_background.xml   |  14 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  41 +++++++
+ .../res/drawable/ic_launcher_background.xml   |  17 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  22 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  14 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  40 ++++++
+ .../res/drawable/logo_calendar_dyn_day_01.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_02.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_03.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_04.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_05.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_06.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_07.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_08.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_09.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_10.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_11.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_12.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_13.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_14.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_15.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_16.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_17.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_18.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_19.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_20.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_21.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_22.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_23.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_24.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_25.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_26.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_27.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_28.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_29.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_30.xml |  15 +++
+ .../res/drawable/logo_calendar_dyn_day_31.xml |  15 +++
+ .../res/drawable/logo_calendar_midlayer.xml   |  17 +++
+ .../res/drawable/ic_launcher_background.xml   |  14 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  60 +++++++++
+ .../res/drawable/ic_launcher_background.xml   |  24 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  24 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  17 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  18 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  23 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  18 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  33 +++++
+ .../res/drawable/ic_launcher_background.xml   |  23 ++++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ .../res/drawable/ic_launcher_background.xml   |  20 +++
+ .../res/drawable/ic_launcher_foreground.xml   |  34 +++++
+ 73 files changed, 1679 insertions(+), 2 deletions(-)
+ create mode 100644 overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/DeskClock/res/mipmap-anydpi/launcher_clock.xml
+ create mode 100644 overlay/personal/packages/apps/DeskClock/res/values/colors.xml
+ create mode 100644 overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_01.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_02.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_03.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_04.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_05.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_06.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_07.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_08.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_09.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_10.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_11.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_12.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_13.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_14.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_15.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_16.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_17.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_18.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_19.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_20.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_21.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_22.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_23.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_24.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_25.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_26.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_27.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_28.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_29.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_30.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_31.xml
+ create mode 100644 overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_midlayer.xml
+ create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+ create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+ create mode 100644 overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
+
+diff --git a/config/common.mk b/config/common.mk
+index 460a0085..f37187ad 100644
+--- a/config/common.mk
++++ b/config/common.mk
+@@ -219,10 +219,13 @@ PRODUCT_PRODUCT_PROPERTIES += \
+     setupwizard.theme=glif_v4 \
+     setupwizard.feature.day_night_mode_enabled=true
+ 
+-PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += vendor/lineage/overlay/no-rro
++PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
++    vendor/lineage/overlay/no-rro \
++    vendor/lineage/overlay/personal
+ PRODUCT_PACKAGE_OVERLAYS += \
+     vendor/lineage/overlay/common \
+-    vendor/lineage/overlay/no-rro
++    vendor/lineage/overlay/no-rro \
++    vendor/lineage/overlay/personal
+ 
+ PRODUCT_PACKAGES += \
+     DocumentsUIOverlay \
+diff --git a/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..db946c4e
+--- /dev/null
++++ b/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M52.472,34C50.957,34 49.572,34.856 48.894,36.211L47,40L33.084,43.274C31.277,43.7 30,45.312 30,47.168V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V46.599C78,45.019 77.069,43.586 75.625,42.944L69,40L67.106,36.211C66.428,34.856 65.043,34 63.528,34H52.472Z"
++      android:fillColor="#FFFFFF"
++      android:fillType="evenOdd"/>
++  <path
++      android:pathData="M30,47.171C30,45.314 31.278,43.701 33.086,43.277L38,42.124V70.001H34C31.791,70.001 30,68.21 30,66.001V47.171Z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M34,47m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..ca215f97
+--- /dev/null
++++ b/overlay/personal/packages/apps/Aperture/app/src/main/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M58,54m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"
++        android:fillColor="@android:color/system_accent1_600"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..9a30966d
+--- /dev/null
++++ b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M0,0h108v108h-108z"
++        android:fillColor="@android:color/system_accent1_800"/>
++    <path
++        android:pathData="M0,0L108,0L65.314,42.686C62.418,39.791 58.418,38 54,38C45.163,38 38,45.163 38,54C38,58.418 39.791,62.418 42.686,65.314L0,108L0,0Z"
++        android:fillColor="@android:color/system_accent1_500"/>
++    <path
++        android:pathData="M65.314,65.314L108,108L108,0L65.314,42.686C68.209,45.582 70,49.582 70,54C70,58.418 68.209,62.418 65.314,65.314Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..64ffa3df
+--- /dev/null
++++ b/overlay/personal/packages/apps/AudioFX/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M67.737,37.808L48.343,42.657L65.314,59.627L70.162,40.234C70.528,38.769 69.202,37.442 67.737,37.808Z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M54,54m-16,0a16,16 0,1 1,32 0a16,16 0,1 1,-32 0"
++        android:fillColor="@android:color/system_accent1_700"/>
++    <path
++        android:pathData="M54,54m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..db946c4e
+--- /dev/null
++++ b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M52.472,34C50.957,34 49.572,34.856 48.894,36.211L47,40L33.084,43.274C31.277,43.7 30,45.312 30,47.168V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V46.599C78,45.019 77.069,43.586 75.625,42.944L69,40L67.106,36.211C66.428,34.856 65.043,34 63.528,34H52.472Z"
++      android:fillColor="#FFFFFF"
++      android:fillType="evenOdd"/>
++  <path
++      android:pathData="M30,47.171C30,45.314 31.278,43.701 33.086,43.277L38,42.124V70.001H34C31.791,70.001 30,68.21 30,66.001V47.171Z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M34,47m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..ca215f97
+--- /dev/null
++++ b/overlay/personal/packages/apps/Camera2/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M58,54m-14,0a14,14 0,1 1,28 0a14,14 0,1 1,-28 0"
++        android:fillColor="@android:color/system_accent1_600"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..65b0e2db
+--- /dev/null
++++ b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..ae31cbef
+--- /dev/null
++++ b/overlay/personal/packages/apps/CellBroadcastReceiver/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M65,52.167V55.833H72.333V52.167H65ZM61.333,64.285C63.093,65.587 65.385,67.31 67.2,68.667C67.933,67.695 68.667,66.705 69.4,65.733C67.585,64.377 65.293,62.653 63.533,61.333C62.8,62.323 62.067,63.313 61.333,64.285ZM69.4,42.267C68.667,41.295 67.933,40.305 67.2,39.333C65.385,40.69 63.093,42.413 61.333,43.733C62.067,44.705 62.8,45.695 63.533,46.667C65.293,45.347 67.585,43.642 69.4,42.267ZM39.333,48.5C37.317,48.5 35.667,50.15 35.667,52.167V55.833C35.667,57.85 37.317,59.5 39.333,59.5H41.167V66.833H44.833V59.5H46.667L55.833,65V43L46.667,48.5H39.333ZM60.417,54C60.417,51.562 59.353,49.362 57.667,47.858V60.123C59.353,58.638 60.417,56.438 60.417,54Z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..00262be1
+--- /dev/null
++++ b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M77,51C77,59.837 70,63 61,63C52,63 45,59.837 45,51C45,38.163 52,31 61,31C70,31 77,38.163 77,51Z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M71,49C68.569,50.255 64.821,51 61,51C57.179,51 53.431,50.255 51,49C52.093,52.47 54.333,57 61,57C67.667,57 69.907,52.47 71,49Z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..2a374437
+--- /dev/null
++++ b/overlay/personal/packages/apps/Contacts/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,36 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M64,64C64,72.837 57,76 48,76C39,76 32,72.837 32,64C32,51.163 39,44 48,44C57,44 64,51.163 64,64Z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M58,62C55.569,63.255 51.821,64 48,64C44.179,64 40.431,63.255 38,62C39.093,65.47 41.333,70 48,70C54.667,70 56.907,65.47 58,62Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..fb1b75c1
+--- /dev/null
++++ b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M37.147,39.859C36.783,40.292 36.81,40.932 37.209,41.334L49.958,54.17C49.973,54.186 49.989,54.201 50.006,54.217C50.002,54.145 50,54.073 50,54C50,51.953 51.537,50.266 53.52,50.028C53.502,50.015 53.484,50.002 53.465,49.989L38.611,39.663C38.146,39.34 37.511,39.425 37.147,39.859Z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M75.449,36.002C75.087,35.57 74.453,35.492 73.997,35.822L54.501,49.942C54.466,49.967 54.432,49.993 54.399,50.02C56.421,50.22 58,51.925 58,54C58,54.1 57.996,54.2 57.989,54.298C58.021,54.27 58.052,54.241 58.083,54.211L75.374,37.464C75.779,37.071 75.812,36.433 75.449,36.002Z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M54,54m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"
++      android:fillColor="#98A7A7"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..f54da6b5
+--- /dev/null
++++ b/overlay/personal/packages/apps/DeskClock/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M54,79L54,54"
++        android:strokeWidth="2"
++        android:fillColor="#00000000"
++        android:strokeColor="#FFFFFF"
++        android:strokeLineCap="round"/>
++    <path
++        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/DeskClock/res/mipmap-anydpi/launcher_clock.xml b/overlay/personal/packages/apps/DeskClock/res/mipmap-anydpi/launcher_clock.xml
+new file mode 100644
+index 00000000..b353eae3
+--- /dev/null
++++ b/overlay/personal/packages/apps/DeskClock/res/mipmap-anydpi/launcher_clock.xml
+@@ -0,0 +1,116 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<adaptive-icon
++    xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt">
++    <background>
++        <!--
++        Base
++        -->
++        <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++            <path android:fillColor="@android:color/system_accent1_600" android:pathData="M0,0h108v108h-108z" />
++        </vector>
++    </background>
++    <foreground>
++        <layer-list>
++            <item>
++                <!--
++                Hour hand
++                -->
++                <rotate android:fromDegrees="310.0" android:toDegrees="5310.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:fillColor="@android:color/system_neutral1_100" android:pathData="M54.0001 32C53.4338 32 52.9609 32.4318 52.9096 32.9959L51.2717 51.0123C51.2697 51.0348 51.2679 51.0572 51.2664 51.0796C51.319 51.0305 51.3731 50.9825 51.4289 50.9358C52.9967 49.6202 55.2776 49.7129 56.7338 51.0794C56.7323 51.0571 56.7306 51.0347 56.7285 51.0123L55.0907 32.9959C55.0394 32.4318 54.5665 32 54.0001 32Z" />
++                        <path android:fillColor="#FF98A7A7" android:pathData="M56 54C56 55.1046 55.1046 56 54 56C52.8954 56 52 55.1046 52 54C52 52.8954 52.8954 52 54 52C55.1046 52 56 52.8954 56 54Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Minute hand
++                -->
++                <rotate android:fromDegrees="50.0" android:toDegrees="60050.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:fillColor="@android:color/system_neutral1_100" android:pathData="M54 25.9996C53.4365 25.9996 52.9689 26.435 52.9287 26.997L51.2137 51.0072C51.2106 51.0502 51.2085 51.093 51.2074 51.1356C52.6604 49.7155 54.9821 49.6022 56.5712 50.9356C56.648 51.0001 56.7218 51.0668 56.7925 51.1356C56.7914 51.093 56.7893 51.0502 56.7862 51.0072L55.0712 26.997C55.0311 26.435 54.5634 25.9996 54 25.9996Z" />
++                        <path android:fillColor="#FF98A7A7" android:pathData="M56 54C56 55.1046 55.1046 56 54 56C52.8954 56 52 55.1046 52 54C52 52.8954 52.8954 52 54 52C55.1046 52 56 52.8954 56 54Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Second hand
++                -->
++                <rotate android:fromDegrees="180.0" android:toDegrees="6180.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:strokeColor="#FFFFFFFF" android:strokeWidth="2" android:strokeLineCap="round" android:pathData="M54 29L54 54" />
++                        <path android:fillColor="#FFFFFFFF" android:pathData="M60 54C60 57.3137 57.3137 60 54 60C50.6863 60 48 57.3137 48 54C48 50.6863 50.6863 48 54 48C57.3137 48 60 50.6863 60 54Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Finish
++                -->
++                <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                    <path
++                        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++                        android:fillAlpha="0.6">
++                        <aapt:attr name="android:fillColor">
++                            <gradient
++                                android:gradientRadius="72"
++                                android:centerX="28.54"
++                                android:centerY="28.54"
++                                android:type="radial">
++                                <item android:offset="0" android:color="#19FFFFFF"/>
++                                <item android:offset="1" android:color="#00FFFFFF"/>
++                            </gradient>
++                        </aapt:attr>
++                    </path>
++                </vector>
++            </item>
++        </layer-list>
++    </foreground>
++    <monochrome>
++        <layer-list>
++            <item>
++                <!--
++                Hour hand
++                -->
++                <rotate android:fromDegrees="310.0" android:toDegrees="5310.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:fillColor="@android:color/white" android:pathData="M53.9998 35C53.4334 35 52.9605 35.4318 52.9092 35.9959L52.0718 45.2071C53.3459 44.9289 54.6633 44.9322 55.9278 45.2085L55.0903 35.9959C55.039 35.4318 54.5661 35 53.9998 35Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Minute hand
++                -->
++                <rotate android:fromDegrees="50.0" android:toDegrees="60050.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:fillColor="@android:color/white" android:pathData="M54.0002 29.0002C53.4368 29.0002 52.9691 29.4356 52.929 29.9976L51.8386 45.2629C53.2509 44.9147 54.7373 44.9103 56.1617 45.2615L55.0714 29.9976C55.0313 29.4356 54.5636 29.0002 54.0002 29.0002Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Second hand
++                -->
++                <rotate android:fromDegrees="180.0" android:toDegrees="6180.0" android:pivotX="50.0%" android:pivotY="50.0%">
++                    <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                        <path android:fillColor="@android:color/white" android:pathData="M53 45.0552C53.3283 45.0189 53.662 45.0002 54 45.0002C54.338 45.0002 54.6717 45.0189 55 45.0552L55 32.0002C55 31.448 54.5523 31.0002 54 31.0002C53.4477 31.0002 53 31.448 53 32.0002L53 45.0552Z" />
++                    </vector>
++                </rotate>
++            </item>
++            <item>
++                <!--
++                Center
++                -->
++                <vector android:height="108.0dp" android:width="108.0dp" android:viewportWidth="108.0" android:viewportHeight="108.0">
++                    <path android:fillColor="@android:color/white" android:pathData="M60 54C60 57.3137 57.3137 60 54 60C50.6863 60 48 57.3137 48 54C48 50.6863 50.6863 48 54 48C57.3137 48 60 50.6863 60 54Z" />
++                </vector>
++            </item>
++        </layer-list>
++    </monochrome>
++</adaptive-icon>
+diff --git a/overlay/personal/packages/apps/DeskClock/res/values/colors.xml b/overlay/personal/packages/apps/DeskClock/res/values/colors.xml
+new file mode 100644
+index 00000000..f147a9d1
+--- /dev/null
++++ b/overlay/personal/packages/apps/DeskClock/res/values/colors.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0" encoding="utf-8"?>
++<resources>
++    <color name="accent_color">@android:color/system_accent1_200</color>
++    <color name="accent_100">@android:color/system_accent1_100</color>
++    <color name="accent_200">@android:color/system_accent1_200</color>
++    <color name="accent_600">@android:color/system_accent1_600</color>
++    <color name="accent_900">@android:color/system_accent1_900</color>
++</resources>
+diff --git a/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..65b0e2db
+--- /dev/null
++++ b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..a6847e2c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Dialer/java/com/android/dialer/app/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,41 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M47.422,77.789C48.1,79.144 49.485,80 51,80H61C62.515,80 63.9,79.144 64.578,77.789L66.578,73.789C67.141,72.663 67.141,71.337 66.578,70.211L64.578,66.211C63.9,64.856 62.515,64 61,64H51C49.485,64 48.1,64.856 47.422,66.211L45.422,70.211C44.859,71.337 44.859,72.663 45.422,73.789L47.422,77.789Z"
++        android:fillColor="@android:color/system_neutral1_100"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M47.422,30.211C48.1,28.856 49.485,28 51,28H61C62.515,28 63.9,28.856 64.578,30.211L66.578,34.211C67.141,35.337 67.141,36.663 66.578,37.789L64.578,41.789C63.9,43.144 62.515,44 61,44H51C49.485,44 48.1,43.144 47.422,41.789L45.422,37.789C44.859,36.663 44.859,35.337 45.422,34.211L47.422,30.211Z"
++        android:fillColor="@android:color/system_neutral1_100"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M41,54C41,43.751 43.836,37.383 45.422,34.211L47.425,30.209C48.102,28.855 49.486,28 51,28H61C59.486,28 58.102,28.855 57.425,30.209L55.422,34.211C53.836,37.383 51,43.751 51,54C51,64.249 53.836,70.617 55.422,73.789L57.425,77.791C58.102,79.145 59.486,80 61,80H51C49.486,80 48.102,79.145 47.425,77.791L45.422,73.789C43.836,70.617 41,64.249 41,54Z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..4f313e32
+--- /dev/null
++++ b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M60,70m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"
++      android:fillColor="#FFFFFF"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..6d88a93d
+--- /dev/null
++++ b/overlay/personal/packages/apps/DocumentsUI/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M108,0H0V108H108V0ZM34,38C31.791,38 30,39.791 30,42V68C30,70.209 31.791,72 34,72H74C76.209,72 78,70.209 78,68V42C78,39.791 76.209,38 74,38H58L54.586,34.586C54.211,34.211 53.702,34 53.172,34H38.828C38.298,34 37.789,34.211 37.414,34.586L34,38Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..f969cf68
+--- /dev/null
++++ b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,22 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M45,44V55.515C43.57,54.558 41.85,54 40,54C35.029,54 31,58.029 31,63C31,67.971 35.029,72 40,72C44.971,72 49,67.971 49,63V48C49,45.791 50.791,44 53,44H67C69.209,44 71,45.791 71,48V55.515C69.57,54.558 67.85,54 66,54C61.029,54 57,58.029 57,63C57,67.971 61.029,72 66,72C70.971,72 75,67.971 75,63V44C75,39.582 71.418,36 67,36H53C48.582,36 45,39.582 45,44ZM71,63C71,60.239 68.761,58 66,58C63.239,58 61,60.239 61,63C61,65.761 63.239,68 66,68C68.761,68 71,65.761 71,63ZM40,68C42.761,68 45,65.761 45,63C45,60.239 42.761,58 40,58C37.239,58 35,60.239 35,63C35,65.761 37.239,68 40,68Z"
++      android:fillColor="@android:color/system_neutral1_100"
++      android:fillType="evenOdd"/>
++  <path
++      android:pathData="M40,68C42.761,68 45,65.761 45,63C45,60.239 42.761,58 40,58C37.239,58 35,60.239 35,63C35,65.761 37.239,68 40,68ZM66,68C68.761,68 71,65.761 71,63C71,60.239 68.761,58 66,58C63.239,58 61,60.239 61,63C61,65.761 63.239,68 66,68Z"
++      android:fillColor="@android:color/system_neutral1_100"
++      android:fillType="evenOdd"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..b2e98016
+--- /dev/null
++++ b/overlay/personal/packages/apps/Eleven/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M40,72C44.971,72 49,67.971 49,63C49,58.029 44.971,54 40,54C35.029,54 31,58.029 31,63C31,67.971 35.029,72 40,72ZM66,72C70.971,72 75,67.971 75,63C75,58.029 70.971,54 66,54C61.029,54 57,58.029 57,63C57,67.971 61.029,72 66,72Z"
++        android:fillColor="#FFFFFF"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..65b0e2db
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..18756857
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,40 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M34,42V70C34,72.209 35.791,74 38,74H70C72.209,74 74,72.209 74,70V42Z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M44,34H38C35.791,34 34,35.791 34,38V42H74V38C74,35.791 72.209,34 70,34H64Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++    <path
++        android:pathData="M43.672,56.072H46.078C46.849,56.072 47.484,55.942 47.984,55.681C48.484,55.41 48.854,55.035 49.094,54.556C49.344,54.067 49.469,53.499 49.469,52.853C49.469,52.27 49.354,51.754 49.125,51.306C48.906,50.848 48.568,50.494 48.109,50.244C47.651,49.983 47.073,49.853 46.375,49.853C45.823,49.853 45.313,49.963 44.844,50.181C44.375,50.4 44,50.707 43.719,51.103C43.438,51.499 43.297,51.978 43.297,52.541H38.781C38.781,51.291 39.115,50.202 39.781,49.275C40.458,48.348 41.365,47.624 42.5,47.103C43.635,46.582 44.885,46.322 46.25,46.322C47.792,46.322 49.141,46.572 50.297,47.072C51.453,47.561 52.354,48.285 53,49.244C53.646,50.202 53.969,51.39 53.969,52.806C53.969,53.525 53.802,54.223 53.469,54.9C53.135,55.567 52.656,56.171 52.031,56.713C51.579,57.103 51.054,57.438 50.455,57.716C51.222,57.987 51.877,58.351 52.422,58.806C53.057,59.327 53.536,59.947 53.859,60.666C53.921,60.802 53.978,60.941 54.028,61.083C54.009,60.722 53.999,60.348 53.999,59.963V56.025C53.999,54.317 54.182,52.853 54.546,51.634C54.921,50.405 55.447,49.4 56.124,48.619C56.812,47.838 57.624,47.265 58.562,46.9C59.499,46.525 60.541,46.338 61.687,46.338C62.604,46.338 63.452,46.457 64.234,46.697C65.025,46.926 65.739,47.285 66.374,47.775C67.01,48.265 67.551,48.895 67.999,49.666C68.447,50.426 68.791,51.338 69.031,52.4C69.27,53.452 69.39,54.66 69.39,56.025V59.963C69.39,61.671 69.208,63.145 68.843,64.384C68.479,65.614 67.952,66.624 67.265,67.416C66.588,68.197 65.781,68.775 64.843,69.15C63.906,69.525 62.864,69.713 61.718,69.713C60.801,69.713 59.947,69.598 59.156,69.369C58.364,69.129 57.65,68.759 57.015,68.259C56.39,67.759 55.848,67.129 55.39,66.369C54.942,65.598 54.598,64.681 54.359,63.619C54.349,63.576 54.34,63.533 54.33,63.49C54.279,64.366 54.081,65.159 53.734,65.869C53.328,66.692 52.755,67.39 52.016,67.963C51.286,68.535 50.432,68.973 49.453,69.275C48.474,69.567 47.406,69.713 46.25,69.713C45.292,69.713 44.349,69.582 43.422,69.322C42.505,69.051 41.672,68.65 40.922,68.119C40.182,67.577 39.589,66.9 39.141,66.088C38.703,65.265 38.484,64.291 38.484,63.166H43C43,63.749 43.146,64.27 43.438,64.728C43.729,65.186 44.13,65.546 44.641,65.806C45.161,66.067 45.74,66.197 46.375,66.197C47.094,66.197 47.708,66.067 48.219,65.806C48.74,65.535 49.135,65.16 49.406,64.681C49.688,64.192 49.828,63.624 49.828,62.978C49.828,62.145 49.677,61.478 49.375,60.978C49.073,60.468 48.641,60.093 48.078,59.853C47.516,59.614 46.849,59.494 46.078,59.494H43.672V56.072ZM64.874,55.416V60.556C64.874,61.588 64.807,62.463 64.671,63.181C64.536,63.9 64.327,64.483 64.046,64.931C63.775,65.369 63.442,65.692 63.046,65.9C62.661,66.098 62.218,66.197 61.718,66.197C61.312,66.197 60.937,66.134 60.593,66.009C60.26,65.884 59.963,65.686 59.702,65.416C59.452,65.134 59.234,64.775 59.046,64.338C58.869,63.89 58.734,63.353 58.64,62.728C58.557,62.103 58.515,61.379 58.515,60.556V55.416C58.515,54.395 58.583,53.53 58.718,52.822C58.864,52.103 59.072,51.53 59.343,51.103C59.614,50.666 59.942,50.348 60.327,50.15C60.723,49.952 61.176,49.853 61.687,49.853C62.093,49.853 62.463,49.916 62.796,50.041C63.13,50.166 63.426,50.364 63.687,50.634C63.947,50.905 64.166,51.259 64.343,51.697C64.52,52.124 64.65,52.645 64.734,53.259C64.827,53.874 64.874,54.593 64.874,55.416Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_01.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_01.xml
+new file mode 100644
+index 00000000..912b3810
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_01.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 58.931 46.603 V 69.4 H 54.431 V 51.791 L 49.025 53.509 V 49.963 L 58.447 46.603 H 58.931 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_02.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_02.xml
+new file mode 100644
+index 00000000..adf71480
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_02.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 62.025 65.8844 V 69.4 H 46.4625 V 66.4 L 53.8219 58.5094 C 54.5615 57.6865 55.1448 56.9625 55.5719 56.3375 C 55.999 55.7021 56.3062 55.1344 56.4938 54.6344 C 56.6917 54.124 56.7906 53.6396 56.7906 53.1812 C 56.7906 52.4938 56.676 51.9052 56.4469 51.4156 C 56.2177 50.9156 55.8792 50.5302 55.4312 50.2594 C 54.9938 49.9885 54.4521 49.8531 53.8062 49.8531 C 53.1188 49.8531 52.525 50.0198 52.025 50.3531 C 51.5354 50.6865 51.1604 51.15 50.9 51.7438 C 50.65 52.3375 50.525 53.0094 50.525 53.7594 H 46.0094 C 46.0094 52.4052 46.3323 51.1656 46.9781 50.0406 C 47.624 48.9052 48.5354 48.0042 49.7125 47.3375 C 50.8896 46.6604 52.2854 46.3219 53.9 46.3219 C 55.4938 46.3219 56.8375 46.5823 57.9312 47.1031 C 59.0354 47.6135 59.8688 48.3531 60.4312 49.3219 C 61.0042 50.2802 61.2906 51.426 61.2906 52.7594 C 61.2906 53.5094 61.1708 54.2438 60.9312 54.9625 C 60.6917 55.6708 60.3479 56.3792 59.9 57.0875 C 59.4625 57.7854 58.9312 58.4938 58.3062 59.2125 C 57.6812 59.9312 56.9885 60.676 56.2281 61.4469 L 52.275 65.8844 H 62.025 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_03.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_03.xml
+new file mode 100644
+index 00000000..c4d7cda0
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_03.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 51.2719 56.0719 H 53.6781 C 54.449 56.0719 55.0844 55.9417 55.5844 55.6812 C 56.0844 55.4104 56.4542 55.0354 56.6938 54.5562 C 56.9438 54.0667 57.0688 53.499 57.0688 52.8531 C 57.0688 52.2698 56.9542 51.7542 56.725 51.3062 C 56.5062 50.8479 56.1677 50.4938 55.7094 50.2438 C 55.251 49.9833 54.6729 49.8531 53.975 49.8531 C 53.4229 49.8531 52.9125 49.9625 52.4438 50.1812 C 51.975 50.4 51.6 50.7073 51.3188 51.1031 C 51.0375 51.499 50.8969 51.9781 50.8969 52.5406 H 46.3812 C 46.3812 51.2906 46.7146 50.2021 47.3812 49.275 C 48.0583 48.3479 48.9646 47.624 50.1 47.1031 C 51.2354 46.5823 52.4854 46.3219 53.85 46.3219 C 55.3917 46.3219 56.7406 46.5719 57.8969 47.0719 C 59.0531 47.5615 59.9542 48.2854 60.6 49.2438 C 61.2458 50.2021 61.5688 51.3896 61.5688 52.8062 C 61.5688 53.525 61.4021 54.2229 61.0688 54.9 C 60.7354 55.5667 60.2562 56.1708 59.6312 56.7125 C 59.0167 57.2438 58.2667 57.6708 57.3812 57.9938 C 56.4958 58.3062 55.501 58.4625 54.3969 58.4625 H 51.2719 V 56.0719 Z M 51.2719 59.4938 V 57.1656 H 54.3969 C 55.6365 57.1656 56.725 57.3062 57.6625 57.5875 C 58.6 57.8688 59.3865 58.275 60.0219 58.8062 C 60.6573 59.3271 61.1365 59.9469 61.4594 60.6656 C 61.7823 61.374 61.9438 62.1604 61.9438 63.025 C 61.9438 64.0875 61.7406 65.0354 61.3344 65.8688 C 60.9281 66.6917 60.3552 67.3896 59.6156 67.9625 C 58.8865 68.5354 58.0323 68.9729 57.0531 69.275 C 56.074 69.5667 55.0062 69.7125 53.85 69.7125 C 52.8917 69.7125 51.949 69.5823 51.0219 69.3219 C 50.1052 69.051 49.2719 68.65 48.5219 68.1188 C 47.7823 67.5771 47.1885 66.9 46.7406 66.0875 C 46.3031 65.2646 46.0844 64.2906 46.0844 63.1656 H 50.6 C 50.6 63.749 50.7458 64.2698 51.0375 64.7281 C 51.3292 65.1865 51.7302 65.5458 52.2406 65.8062 C 52.7615 66.0667 53.3396 66.1969 53.975 66.1969 C 54.6938 66.1969 55.3083 66.0667 55.8188 65.8062 C 56.3396 65.5354 56.7354 65.1604 57.0062 64.6812 C 57.2875 64.1917 57.4281 63.624 57.4281 62.9781 C 57.4281 62.1448 57.2771 61.4781 56.975 60.9781 C 56.6729 60.4677 56.2406 60.0927 55.6781 59.8531 C 55.1156 59.6135 54.449 59.4938 53.6781 59.4938 H 51.2719 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_04.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_04.xml
+new file mode 100644
+index 00000000..1e9583e1
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_04.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 62.3 60.9 V 64.4312 H 45.9094 L 45.6906 61.6969 L 55.175 46.65 H 58.7531 L 54.8781 53.1344 L 50.1594 60.9 H 62.3 Z M 59.7219 46.65 V 69.4 H 55.2219 V 46.65 H 59.7219 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_05.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_05.xml
+new file mode 100644
+index 00000000..eee804b2
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_05.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.4969 59.0406 L 46.9031 58.1812 L 48.2 46.65 H 60.9812 V 50.2906 H 51.9031 L 51.3406 55.3375 C 51.6427 55.1604 52.101 54.9729 52.7156 54.775 C 53.3302 54.5667 54.0177 54.4625 54.7781 54.4625 C 55.8823 54.4625 56.8615 54.6344 57.7156 54.9781 C 58.5698 55.3219 59.2938 55.8219 59.8875 56.4781 C 60.4917 57.1344 60.95 57.9365 61.2625 58.8844 C 61.575 59.8323 61.7312 60.9052 61.7312 62.1031 C 61.7312 63.1135 61.575 64.0771 61.2625 64.9938 C 60.95 65.9 60.476 66.7125 59.8406 67.4312 C 59.2052 68.1396 58.4083 68.6969 57.45 69.1031 C 56.4917 69.5094 55.3562 69.7125 54.0438 69.7125 C 53.0646 69.7125 52.1167 69.5667 51.2 69.275 C 50.2938 68.9833 49.476 68.551 48.7469 67.9781 C 48.0281 67.4052 47.45 66.7125 47.0125 65.9 C 46.5854 65.0771 46.3615 64.1396 46.3406 63.0875 H 50.8094 C 50.8719 63.7333 51.0385 64.2906 51.3094 64.7594 C 51.5906 65.2177 51.9604 65.5719 52.4188 65.8219 C 52.8771 66.0719 53.4135 66.1969 54.0281 66.1969 C 54.601 66.1969 55.0906 66.0875 55.4969 65.8688 C 55.9031 65.65 56.2312 65.3479 56.4812 64.9625 C 56.7312 64.5667 56.9135 64.1083 57.0281 63.5875 C 57.1531 63.0562 57.2156 62.4833 57.2156 61.8688 C 57.2156 61.2542 57.1427 60.6969 56.9969 60.1969 C 56.851 59.6969 56.6271 59.2646 56.325 58.9 C 56.0229 58.5354 55.6375 58.2542 55.1688 58.0562 C 54.7104 57.8583 54.174 57.7594 53.5594 57.7594 C 52.726 57.7594 52.0802 57.8896 51.6219 58.15 C 51.174 58.4104 50.799 58.7073 50.4969 59.0406 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_06.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_06.xml
+new file mode 100644
+index 00000000..2596f406
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_06.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 57.7719 46.4156 H 58.4281 V 50.0094 H 58.1625 C 56.975 50.0094 55.9177 50.1865 54.9906 50.5406 C 54.0635 50.8948 53.2771 51.4 52.6312 52.0562 C 51.9958 52.7021 51.5062 53.4833 51.1625 54.4 C 50.8292 55.3167 50.6625 56.3427 50.6625 57.4781 V 61.2594 C 50.6625 62.0719 50.7406 62.7906 50.8969 63.4156 C 51.0635 64.0302 51.2979 64.5458 51.6 64.9625 C 51.9125 65.3688 52.2771 65.676 52.6938 65.8844 C 53.1104 66.0823 53.5792 66.1812 54.1 66.1812 C 54.5896 66.1812 55.0323 66.0771 55.4281 65.8688 C 55.8344 65.6604 56.1781 65.3688 56.4594 64.9938 C 56.751 64.6083 56.9698 64.1604 57.1156 63.65 C 57.2719 63.1292 57.35 62.5615 57.35 61.9469 C 57.35 61.3323 57.2719 60.7646 57.1156 60.2438 C 56.9698 59.7229 56.751 59.275 56.4594 58.9 C 56.1677 58.5146 55.8135 58.2177 55.3969 58.0094 C 54.9802 57.801 54.5115 57.6969 53.9906 57.6969 C 53.2823 57.6969 52.6573 57.8635 52.1156 58.1969 C 51.5844 58.5198 51.1677 58.9365 50.8656 59.4469 C 50.5635 59.9573 50.4021 60.4938 50.3812 61.0562 L 49.0219 60.1812 C 49.0531 59.3792 49.2198 58.6188 49.5219 57.9 C 49.8344 57.1812 50.2615 56.5458 50.8031 55.9938 C 51.3552 55.4312 52.0167 54.9938 52.7875 54.6812 C 53.5583 54.3583 54.4281 54.1969 55.3969 54.1969 C 56.4594 54.1969 57.3917 54.4 58.1938 54.8062 C 59.0062 55.2125 59.6833 55.7698 60.225 56.4781 C 60.7667 57.1865 61.1729 58.0042 61.4438 58.9312 C 61.7146 59.8583 61.85 60.8479 61.85 61.9 C 61.85 63.0042 61.6677 64.0302 61.3031 64.9781 C 60.949 65.926 60.4333 66.7542 59.7562 67.4625 C 59.0896 68.1708 58.2875 68.7229 57.35 69.1188 C 56.4125 69.5146 55.3604 69.7125 54.1938 69.7125 C 52.9854 69.7125 51.8865 69.4938 50.8969 69.0562 C 49.9177 68.6083 49.074 67.9833 48.3656 67.1812 C 47.6573 66.3792 47.1104 65.426 46.725 64.3219 C 46.35 63.2177 46.1625 62.0094 46.1625 60.6969 V 58.9469 C 46.1625 57.1135 46.4281 55.4365 46.9594 53.9156 C 47.501 52.3844 48.2771 51.0615 49.2875 49.9469 C 50.2979 48.8219 51.5167 47.9521 52.9438 47.3375 C 54.3708 46.7229 55.9802 46.4156 57.7719 46.4156 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_07.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_07.xml
+new file mode 100644
+index 00000000..ed1c7508
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_07.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 62.0156 46.65 V 49.0719 L 53.2188 69.4 H 48.4688 L 57.2656 50.1656 H 45.9375 V 46.65 H 62.0156 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_08.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_08.xml
+new file mode 100644
+index 00000000..4066e2e9
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_08.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 61.6906 63.1656 C 61.6906 64.5927 61.3573 65.7958 60.6906 66.775 C 60.024 67.7438 59.1073 68.4781 57.9406 68.9781 C 56.7844 69.4677 55.4719 69.7125 54.0031 69.7125 C 52.5344 69.7125 51.2167 69.4677 50.05 68.9781 C 48.8833 68.4781 47.9615 67.7438 47.2844 66.775 C 46.6073 65.7958 46.2688 64.5927 46.2688 63.1656 C 46.2688 62.2073 46.4615 61.3427 46.8469 60.5719 C 47.2323 59.7906 47.7688 59.124 48.4562 58.5719 C 49.1542 58.0094 49.9719 57.5823 50.9094 57.2906 C 51.8469 56.9885 52.8677 56.8375 53.9719 56.8375 C 55.451 56.8375 56.774 57.0979 57.9406 57.6188 C 59.1073 58.1396 60.024 58.874 60.6906 59.8219 C 61.3573 60.7698 61.6906 61.8844 61.6906 63.1656 Z M 57.1594 62.8688 C 57.1594 62.1708 57.024 61.5719 56.7531 61.0719 C 56.4927 60.5615 56.1229 60.1708 55.6438 59.9 C 55.1646 59.6292 54.6073 59.4938 53.9719 59.4938 C 53.3365 59.4938 52.7792 59.6292 52.3 59.9 C 51.8208 60.1708 51.4458 60.5615 51.175 61.0719 C 50.9146 61.5719 50.7844 62.1708 50.7844 62.8688 C 50.7844 63.5562 50.9146 64.15 51.175 64.65 C 51.4458 65.15 51.8208 65.5354 52.3 65.8062 C 52.7896 66.0667 53.3573 66.1969 54.0031 66.1969 C 54.649 66.1969 55.2062 66.0667 55.675 65.8062 C 56.1542 65.5354 56.5188 65.15 56.7688 64.65 C 57.0292 64.15 57.1594 63.5562 57.1594 62.8688 Z M 61.2062 52.6812 C 61.2062 53.8375 60.899 54.8635 60.2844 55.7594 C 59.6698 56.6448 58.8156 57.3375 57.7219 57.8375 C 56.6385 58.3375 55.399 58.5875 54.0031 58.5875 C 52.5969 58.5875 51.3469 58.3375 50.2531 57.8375 C 49.1594 57.3375 48.3052 56.6448 47.6906 55.7594 C 47.076 54.8635 46.7688 53.8375 46.7688 52.6812 C 46.7688 51.3062 47.076 50.15 47.6906 49.2125 C 48.3156 48.2646 49.1698 47.5458 50.2531 47.0562 C 51.3469 46.5667 52.5865 46.3219 53.9719 46.3219 C 55.3781 46.3219 56.6229 46.5667 57.7062 47.0562 C 58.8 47.5458 59.6542 48.2646 60.2688 49.2125 C 60.8938 50.15 61.2062 51.3062 61.2062 52.6812 Z M 56.7062 52.8844 C 56.7062 52.2698 56.5969 51.7385 56.3781 51.2906 C 56.1594 50.8323 55.8469 50.4781 55.4406 50.2281 C 55.0448 49.9781 54.5552 49.8531 53.9719 49.8531 C 53.4094 49.8531 52.925 49.9729 52.5188 50.2125 C 52.1229 50.4521 51.8156 50.801 51.5969 51.2594 C 51.3885 51.7073 51.2844 52.249 51.2844 52.8844 C 51.2844 53.499 51.3885 54.0406 51.5969 54.5094 C 51.8156 54.9677 52.1281 55.3271 52.5344 55.5875 C 52.9406 55.8479 53.4302 55.9781 54.0031 55.9781 C 54.576 55.9781 55.0604 55.8479 55.4562 55.5875 C 55.8625 55.3271 56.1698 54.9677 56.3781 54.5094 C 56.5969 54.0406 56.7062 53.499 56.7062 52.8844 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_09.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_09.xml
+new file mode 100644
+index 00000000..dc479d24
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_09.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 49.75 65.9781 H 50.0469 C 51.2969 65.9781 52.3698 65.8271 53.2656 65.525 C 54.1719 65.2125 54.9167 64.7646 55.5 64.1812 C 56.0833 63.5979 56.5156 62.8844 56.7969 62.0406 C 57.0781 61.1865 57.2188 60.2177 57.2188 59.1344 V 54.8219 C 57.2188 53.999 57.1354 53.275 56.9688 52.65 C 56.8125 52.025 56.5833 51.5094 56.2812 51.1031 C 55.9896 50.6865 55.6458 50.374 55.25 50.1656 C 54.8646 49.9573 54.4375 49.8531 53.9688 49.8531 C 53.4688 49.8531 53.026 49.9781 52.6406 50.2281 C 52.2552 50.4677 51.9271 50.7958 51.6562 51.2125 C 51.3958 51.6292 51.1927 52.1083 51.0469 52.65 C 50.9115 53.1812 50.8438 53.7385 50.8438 54.3219 C 50.8438 54.9052 50.9115 55.4625 51.0469 55.9938 C 51.1823 56.5146 51.3854 56.9781 51.6562 57.3844 C 51.9271 57.7802 52.2656 58.0979 52.6719 58.3375 C 53.0781 58.5667 53.5573 58.6812 54.1094 58.6812 C 54.6406 58.6812 55.1146 58.5823 55.5312 58.3844 C 55.9583 58.176 56.3177 57.9052 56.6094 57.5719 C 56.9115 57.2385 57.1406 56.8688 57.2969 56.4625 C 57.4635 56.0562 57.5469 55.6448 57.5469 55.2281 L 59.0312 56.0406 C 59.0312 56.7698 58.875 57.4885 58.5625 58.1969 C 58.25 58.9052 57.8125 59.551 57.25 60.1344 C 56.6979 60.7073 56.0573 61.1656 55.3281 61.5094 C 54.599 61.8531 53.8177 62.025 52.9844 62.025 C 51.9219 62.025 50.9792 61.8323 50.1562 61.4469 C 49.3333 61.051 48.6354 60.5094 48.0625 59.8219 C 47.5 59.124 47.0729 58.3115 46.7812 57.3844 C 46.4896 56.4573 46.3438 55.4521 46.3438 54.3688 C 46.3438 53.2646 46.5208 52.2281 46.875 51.2594 C 47.2396 50.2906 47.7552 49.4365 48.4219 48.6969 C 49.099 47.9573 49.9062 47.3792 50.8438 46.9625 C 51.7917 46.5354 52.8438 46.3219 54 46.3219 C 55.1562 46.3219 56.2083 46.5458 57.1562 46.9938 C 58.1042 47.4417 58.9167 48.0771 59.5938 48.9 C 60.2708 49.7125 60.7917 50.6865 61.1562 51.8219 C 61.5312 52.9573 61.7188 54.2177 61.7188 55.6031 V 57.1656 C 61.7188 58.6448 61.5573 60.0198 61.2344 61.2906 C 60.9219 62.5615 60.4479 63.7125 59.8125 64.7438 C 59.1875 65.7646 58.4062 66.6396 57.4688 67.3688 C 56.5417 68.0979 55.4635 68.6552 54.2344 69.0406 C 53.0052 69.426 51.6302 69.6188 50.1094 69.6188 H 49.75 V 65.9781 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_10.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_10.xml
+new file mode 100644
+index 00000000..bc783a67
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_10.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.8312 46.6031 V 69.4 H 46.3312 V 51.7906 L 40.925 53.5094 V 49.9625 L 50.3469 46.6031 H 50.8312 Z M 67.15 56.025 V 59.9625 C 67.15 61.6708 66.9677 63.1448 66.6031 64.3844 C 66.2385 65.6135 65.7125 66.624 65.025 67.4156 C 64.3479 68.1969 63.5406 68.775 62.6031 69.15 C 61.6656 69.525 60.624 69.7125 59.4781 69.7125 C 58.5615 69.7125 57.7073 69.5979 56.9156 69.3688 C 56.124 69.1292 55.4104 68.7594 54.775 68.2594 C 54.15 67.7594 53.6083 67.1292 53.15 66.3688 C 52.7021 65.5979 52.3583 64.6812 52.1188 63.6188 C 51.8792 62.5562 51.7594 61.3375 51.7594 59.9625 V 56.025 C 51.7594 54.3167 51.9417 52.8531 52.3063 51.6344 C 52.6813 50.4052 53.2073 49.4 53.8844 48.6188 C 54.5719 47.8375 55.3844 47.2646 56.3219 46.9 C 57.2594 46.525 58.301 46.3375 59.4469 46.3375 C 60.3635 46.3375 61.2125 46.4573 61.9938 46.6969 C 62.7854 46.926 63.499 47.2854 64.1344 47.775 C 64.7698 48.2646 65.3115 48.8948 65.7594 49.6656 C 66.2073 50.426 66.551 51.3375 66.7906 52.4 C 67.0302 53.4521 67.15 54.6604 67.15 56.025 Z M 62.6344 60.5562 V 55.4156 C 62.6344 54.5927 62.5875 53.874 62.4938 53.2594 C 62.4104 52.6448 62.2802 52.124 62.1031 51.6969 C 61.926 51.2594 61.7073 50.9052 61.4469 50.6344 C 61.1865 50.3635 60.8896 50.1656 60.5563 50.0406 C 60.2229 49.9156 59.8531 49.8531 59.4469 49.8531 C 58.9365 49.8531 58.4833 49.9521 58.0875 50.15 C 57.7021 50.3479 57.374 50.6656 57.1031 51.1031 C 56.8323 51.5302 56.624 52.1031 56.4781 52.8219 C 56.3427 53.5302 56.275 54.3948 56.275 55.4156 V 60.5562 C 56.275 61.3792 56.3167 62.1031 56.4 62.7281 C 56.4938 63.3531 56.6292 63.8896 56.8063 64.3375 C 56.9938 64.775 57.2125 65.1344 57.4625 65.4156 C 57.7229 65.6865 58.0198 65.8844 58.3531 66.0094 C 58.6969 66.1344 59.0719 66.1969 59.4781 66.1969 C 59.9781 66.1969 60.4208 66.0979 60.8063 65.9 C 61.2021 65.6917 61.5354 65.3688 61.8063 64.9312 C 62.0875 64.4833 62.2958 63.9 62.4313 63.1812 C 62.5667 62.4625 62.6344 61.5875 62.6344 60.5562 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_11.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_11.xml
+new file mode 100644
+index 00000000..f37c0768
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_11.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.0312 46.6031 V 69.4 H 49.5312 V 51.7906 L 44.125 53.5094 V 49.9625 L 53.5469 46.6031 H 54.0312 Z M 63.9263 46.6031 V 69.4 H 59.4263 V 51.7906 L 54.02 53.5094 V 49.9625 L 63.4419 46.6031 H 63.9263 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_12.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_12.xml
+new file mode 100644
+index 00000000..466b69ed
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_12.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.6312 46.6031 V 69.4 H 46.1312 V 51.7906 L 40.725 53.5094 V 49.9625 L 50.1469 46.6031 H 50.6312 Z M 67.2 65.8844 V 69.4 H 51.6375 V 66.4 L 58.9969 58.5094 C 59.7365 57.6865 60.3198 56.9625 60.7469 56.3375 C 61.174 55.7021 61.4813 55.1344 61.6688 54.6344 C 61.8667 54.124 61.9656 53.6396 61.9656 53.1812 C 61.9656 52.4938 61.851 51.9052 61.6219 51.4156 C 61.3927 50.9156 61.0542 50.5302 60.6063 50.2594 C 60.1688 49.9885 59.6271 49.8531 58.9813 49.8531 C 58.2938 49.8531 57.7 50.0198 57.2 50.3531 C 56.7104 50.6865 56.3354 51.15 56.075 51.7438 C 55.825 52.3375 55.7 53.0094 55.7 53.7594 H 51.1844 C 51.1844 52.4052 51.5073 51.1656 52.1531 50.0406 C 52.799 48.9052 53.7104 48.0042 54.8875 47.3375 C 56.0646 46.6604 57.4604 46.3219 59.075 46.3219 C 60.6688 46.3219 62.0125 46.5823 63.1063 47.1031 C 64.2104 47.6135 65.0438 48.3531 65.6063 49.3219 C 66.1792 50.2802 66.4656 51.426 66.4656 52.7594 C 66.4656 53.5094 66.3458 54.2438 66.1063 54.9625 C 65.8667 55.6708 65.5229 56.3792 65.075 57.0875 C 64.6375 57.7854 64.1063 58.4938 63.4813 59.2125 C 62.8563 59.9312 62.1635 60.676 61.4031 61.4469 L 57.45 65.8844 H 67.2 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_13.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_13.xml
+new file mode 100644
+index 00000000..2f16f68d
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_13.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 51.1312 46.6031 V 69.4 H 46.6312 V 51.7906 L 41.225 53.5094 V 49.9625 L 50.6469 46.6031 H 51.1312 Z M 56.1069 56.0719 H 58.5131 C 59.284 56.0719 59.9194 55.9417 60.4194 55.6812 C 60.9194 55.4104 61.2892 55.0354 61.5288 54.5562 C 61.7788 54.0667 61.9038 53.499 61.9038 52.8531 C 61.9038 52.2698 61.7892 51.7542 61.56 51.3062 C 61.3413 50.8479 61.0027 50.4938 60.5444 50.2438 C 60.086 49.9833 59.5079 49.8531 58.81 49.8531 C 58.2579 49.8531 57.7475 49.9625 57.2788 50.1812 C 56.81 50.4 56.435 50.7073 56.1538 51.1031 C 55.8725 51.499 55.7319 51.9781 55.7319 52.5406 H 51.2163 C 51.2163 51.2906 51.5496 50.2021 52.2163 49.275 C 52.8933 48.3479 53.7996 47.624 54.935 47.1031 C 56.0704 46.5823 57.3204 46.3219 58.685 46.3219 C 60.2267 46.3219 61.5756 46.5719 62.7319 47.0719 C 63.8881 47.5615 64.7892 48.2854 65.435 49.2438 C 66.0808 50.2021 66.4038 51.3896 66.4038 52.8062 C 66.4038 53.525 66.2371 54.2229 65.9038 54.9 C 65.5704 55.5667 65.0913 56.1708 64.4663 56.7125 C 63.8517 57.2438 63.1017 57.6708 62.2163 57.9938 C 61.3308 58.3062 60.336 58.4625 59.2319 58.4625 H 56.1069 V 56.0719 Z M 56.1069 59.4938 V 57.1656 H 59.2319 C 60.4715 57.1656 61.56 57.3062 62.4975 57.5875 C 63.435 57.8688 64.2215 58.275 64.8569 58.8062 C 65.4923 59.3271 65.9715 59.9469 66.2944 60.6656 C 66.6173 61.374 66.7788 62.1604 66.7788 63.025 C 66.7788 64.0875 66.5756 65.0354 66.1694 65.8688 C 65.7631 66.6917 65.1902 67.3896 64.4506 67.9625 C 63.7215 68.5354 62.8673 68.9729 61.8881 69.275 C 60.909 69.5667 59.8413 69.7125 58.685 69.7125 C 57.7267 69.7125 56.784 69.5823 55.8569 69.3219 C 54.9402 69.051 54.1069 68.65 53.3569 68.1188 C 52.6173 67.5771 52.0235 66.9 51.5756 66.0875 C 51.1381 65.2646 50.9194 64.2906 50.9194 63.1656 H 55.435 C 55.435 63.749 55.5808 64.2698 55.8725 64.7281 C 56.1642 65.1865 56.5652 65.5458 57.0756 65.8062 C 57.5965 66.0667 58.1746 66.1969 58.81 66.1969 C 59.5288 66.1969 60.1433 66.0667 60.6538 65.8062 C 61.1746 65.5354 61.5704 65.1604 61.8413 64.6812 C 62.1225 64.1917 62.2631 63.624 62.2631 62.9781 C 62.2631 62.1448 62.1121 61.4781 61.81 60.9781 C 61.5079 60.4677 61.0756 60.0927 60.5131 59.8531 C 59.9506 59.6135 59.284 59.4938 58.5131 59.4938 H 56.1069 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_14.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_14.xml
+new file mode 100644
+index 00000000..fb1e67a5
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_14.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.8312 46.6031 V 69.4 H 46.3312 V 51.7906 L 40.925 53.5094 V 49.9625 L 50.3469 46.6031 H 50.8312 Z M 67.135 60.9 V 64.4312 H 50.7444 L 50.5256 61.6969 L 60.01 46.65 H 63.5881 L 59.7131 53.1344 L 54.9944 60.9 H 67.135 Z M 64.5569 46.65 V 69.4 H 60.0569 V 46.65 H 64.5569 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_15.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_15.xml
+new file mode 100644
+index 00000000..daa1fb5c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_15.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 51.0312 46.6031 V 69.4 H 46.5312 V 51.7906 L 41.125 53.5094 V 49.9625 L 50.5469 46.6031 H 51.0312 Z M 55.6319 59.0406 L 52.0381 58.1812 L 53.335 46.65 H 66.1163 V 50.2906 H 57.0381 L 56.4756 55.3375 C 56.7777 55.1604 57.236 54.9729 57.8506 54.775 C 58.4652 54.5667 59.1527 54.4625 59.9131 54.4625 C 61.0173 54.4625 61.9965 54.6344 62.8506 54.9781 C 63.7048 55.3219 64.4288 55.8219 65.0225 56.4781 C 65.6267 57.1344 66.085 57.9365 66.3975 58.8844 C 66.71 59.8323 66.8663 60.9052 66.8663 62.1031 C 66.8663 63.1135 66.71 64.0771 66.3975 64.9938 C 66.085 65.9 65.611 66.7125 64.9756 67.4312 C 64.3402 68.1396 63.5433 68.6969 62.585 69.1031 C 61.6267 69.5094 60.4913 69.7125 59.1788 69.7125 C 58.1996 69.7125 57.2517 69.5667 56.335 69.275 C 55.4288 68.9833 54.611 68.551 53.8819 67.9781 C 53.1631 67.4052 52.585 66.7125 52.1475 65.9 C 51.7204 65.0771 51.4965 64.1396 51.4756 63.0875 H 55.9444 C 56.0069 63.7333 56.1735 64.2906 56.4444 64.7594 C 56.7256 65.2177 57.0954 65.5719 57.5538 65.8219 C 58.0121 66.0719 58.5485 66.1969 59.1631 66.1969 C 59.736 66.1969 60.2256 66.0875 60.6319 65.8688 C 61.0381 65.65 61.3663 65.3479 61.6163 64.9625 C 61.8663 64.5667 62.0485 64.1083 62.1631 63.5875 C 62.2881 63.0562 62.3506 62.4833 62.3506 61.8688 C 62.3506 61.2542 62.2777 60.6969 62.1319 60.1969 C 61.986 59.6969 61.7621 59.2646 61.46 58.9 C 61.1579 58.5354 60.7725 58.2542 60.3038 58.0562 C 59.8454 57.8583 59.309 57.7594 58.6944 57.7594 C 57.861 57.7594 57.2152 57.8896 56.7569 58.15 C 56.309 58.4104 55.934 58.7073 55.6319 59.0406 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_16.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_16.xml
+new file mode 100644
+index 00000000..93c7dd1c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_16.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.6312 46.6031 V 69.4 H 46.1312 V 51.7906 L 40.725 53.5094 V 49.9625 L 50.1469 46.6031 H 50.6312 Z M 63.2469 46.4156 H 63.9031 V 50.0094 H 63.6375 C 62.45 50.0094 61.3927 50.1865 60.4656 50.5406 C 59.5385 50.8948 58.7521 51.4 58.1063 52.0562 C 57.4708 52.7021 56.9813 53.4833 56.6375 54.4 C 56.3042 55.3167 56.1375 56.3427 56.1375 57.4781 V 61.2594 C 56.1375 62.0719 56.2156 62.7906 56.3719 63.4156 C 56.5385 64.0302 56.7729 64.5458 57.075 64.9625 C 57.3875 65.3688 57.7521 65.676 58.1688 65.8844 C 58.5854 66.0823 59.0542 66.1812 59.575 66.1812 C 60.0646 66.1812 60.5073 66.0771 60.9031 65.8688 C 61.3094 65.6604 61.6531 65.3688 61.9344 64.9938 C 62.226 64.6083 62.4448 64.1604 62.5906 63.65 C 62.7469 63.1292 62.825 62.5615 62.825 61.9469 C 62.825 61.3323 62.7469 60.7646 62.5906 60.2438 C 62.4448 59.7229 62.226 59.275 61.9344 58.9 C 61.6427 58.5146 61.2885 58.2177 60.8719 58.0094 C 60.4552 57.801 59.9865 57.6969 59.4656 57.6969 C 58.7573 57.6969 58.1323 57.8635 57.5906 58.1969 C 57.0594 58.5198 56.6427 58.9365 56.3406 59.4469 C 56.0385 59.9573 55.8771 60.4938 55.8563 61.0562 L 54.4969 60.1812 C 54.5281 59.3792 54.6948 58.6188 54.9969 57.9 C 55.3094 57.1812 55.7365 56.5458 56.2781 55.9938 C 56.8302 55.4312 57.4917 54.9938 58.2625 54.6812 C 59.0333 54.3583 59.9031 54.1969 60.8719 54.1969 C 61.9344 54.1969 62.8667 54.4 63.6688 54.8062 C 64.4813 55.2125 65.1583 55.7698 65.7 56.4781 C 66.2417 57.1865 66.6479 58.0042 66.9188 58.9312 C 67.1896 59.8583 67.325 60.8479 67.325 61.9 C 67.325 63.0042 67.1427 64.0302 66.7781 64.9781 C 66.424 65.926 65.9083 66.7542 65.2313 67.4625 C 64.5646 68.1708 63.7625 68.7229 62.825 69.1188 C 61.8875 69.5146 60.8354 69.7125 59.6688 69.7125 C 58.4604 69.7125 57.3615 69.4938 56.3719 69.0562 C 55.3927 68.6083 54.549 67.9833 53.8406 67.1812 C 53.1323 66.3792 52.5854 65.426 52.2 64.3219 C 51.825 63.2177 51.6375 62.0094 51.6375 60.6969 V 58.9469 C 51.6375 57.1135 51.9031 55.4365 52.4344 53.9156 C 52.976 52.3844 53.7521 51.0615 54.7625 49.9469 C 55.7729 48.8219 56.9917 47.9521 58.4188 47.3375 C 59.8458 46.7229 61.4552 46.4156 63.2469 46.4156 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_17.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_17.xml
+new file mode 100644
+index 00000000..af507ab8
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_17.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 50.1312 46.6031 V 69.4 H 45.6312 V 51.7906 L 40.225 53.5094 V 49.9625 L 49.6469 46.6031 H 50.1312 Z M 67.8706 46.65 V 49.0719 L 59.0738 69.4 H 54.3238 L 63.1206 50.1656 H 51.7925 V 46.65 H 67.8706 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_18.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_18.xml
+new file mode 100644
+index 00000000..6afb61ef
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_18.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 51.1312 46.6031 V 69.4 H 46.6312 V 51.7906 L 41.225 53.5094 V 49.9625 L 50.6469 46.6031 H 51.1312 Z M 66.8256 63.1656 C 66.8256 64.5927 66.4923 65.7958 65.8256 66.775 C 65.159 67.7438 64.2423 68.4781 63.0756 68.9781 C 61.9194 69.4677 60.6069 69.7125 59.1381 69.7125 C 57.6694 69.7125 56.3517 69.4677 55.185 68.9781 C 54.0183 68.4781 53.0965 67.7438 52.4194 66.775 C 51.7423 65.7958 51.4038 64.5927 51.4038 63.1656 C 51.4038 62.2073 51.5965 61.3427 51.9819 60.5719 C 52.3673 59.7906 52.9038 59.124 53.5913 58.5719 C 54.2892 58.0094 55.1069 57.5823 56.0444 57.2906 C 56.9819 56.9885 58.0027 56.8375 59.1069 56.8375 C 60.586 56.8375 61.909 57.0979 63.0756 57.6188 C 64.2423 58.1396 65.159 58.874 65.8256 59.8219 C 66.4923 60.7698 66.8256 61.8844 66.8256 63.1656 Z M 62.2944 62.8688 C 62.2944 62.1708 62.159 61.5719 61.8881 61.0719 C 61.6277 60.5615 61.2579 60.1708 60.7788 59.9 C 60.2996 59.6292 59.7423 59.4938 59.1069 59.4938 C 58.4715 59.4938 57.9142 59.6292 57.435 59.9 C 56.9558 60.1708 56.5808 60.5615 56.31 61.0719 C 56.0496 61.5719 55.9194 62.1708 55.9194 62.8688 C 55.9194 63.5562 56.0496 64.15 56.31 64.65 C 56.5808 65.15 56.9558 65.5354 57.435 65.8062 C 57.9246 66.0667 58.4923 66.1969 59.1381 66.1969 C 59.784 66.1969 60.3413 66.0667 60.81 65.8062 C 61.2892 65.5354 61.6538 65.15 61.9038 64.65 C 62.1642 64.15 62.2944 63.5562 62.2944 62.8688 Z M 66.3413 52.6812 C 66.3413 53.8375 66.034 54.8635 65.4194 55.7594 C 64.8048 56.6448 63.9506 57.3375 62.8569 57.8375 C 61.7735 58.3375 60.534 58.5875 59.1381 58.5875 C 57.7319 58.5875 56.4819 58.3375 55.3881 57.8375 C 54.2944 57.3375 53.4402 56.6448 52.8256 55.7594 C 52.211 54.8635 51.9038 53.8375 51.9038 52.6812 C 51.9038 51.3062 52.211 50.15 52.8256 49.2125 C 53.4506 48.2646 54.3048 47.5458 55.3881 47.0562 C 56.4819 46.5667 57.7215 46.3219 59.1069 46.3219 C 60.5131 46.3219 61.7579 46.5667 62.8413 47.0562 C 63.935 47.5458 64.7892 48.2646 65.4038 49.2125 C 66.0288 50.15 66.3413 51.3062 66.3413 52.6812 Z M 61.8413 52.8844 C 61.8413 52.2698 61.7319 51.7385 61.5131 51.2906 C 61.2944 50.8323 60.9819 50.4781 60.5756 50.2281 C 60.1798 49.9781 59.6902 49.8531 59.1069 49.8531 C 58.5444 49.8531 58.06 49.9729 57.6538 50.2125 C 57.2579 50.4521 56.9506 50.801 56.7319 51.2594 C 56.5235 51.7073 56.4194 52.249 56.4194 52.8844 C 56.4194 53.499 56.5235 54.0406 56.7319 54.5094 C 56.9506 54.9677 57.2631 55.3271 57.6694 55.5875 C 58.0756 55.8479 58.5652 55.9781 59.1381 55.9781 C 59.711 55.9781 60.1954 55.8479 60.5913 55.5875 C 60.9975 55.3271 61.3048 54.9677 61.5131 54.5094 C 61.7319 54.0406 61.8413 53.499 61.8413 52.8844 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_19.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_19.xml
+new file mode 100644
+index 00000000..c85da438
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_19.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 51.0312 46.6031 V 69.4 H 46.5312 V 51.7906 L 41.125 53.5094 V 49.9625 L 50.5469 46.6031 H 51.0312 Z M 54.905 65.9781 H 55.2019 C 56.4519 65.9781 57.5248 65.8271 58.4206 65.525 C 59.3269 65.2125 60.0717 64.7646 60.655 64.1812 C 61.2383 63.5979 61.6706 62.8844 61.9519 62.0406 C 62.2331 61.1865 62.3738 60.2177 62.3738 59.1344 V 54.8219 C 62.3738 53.999 62.2904 53.275 62.1238 52.65 C 61.9675 52.025 61.7383 51.5094 61.4363 51.1031 C 61.1446 50.6865 60.8008 50.374 60.405 50.1656 C 60.0196 49.9573 59.5925 49.8531 59.1238 49.8531 C 58.6238 49.8531 58.181 49.9781 57.7956 50.2281 C 57.4102 50.4677 57.0821 50.7958 56.8113 51.2125 C 56.5508 51.6292 56.3477 52.1083 56.2019 52.65 C 56.0665 53.1812 55.9988 53.7385 55.9988 54.3219 C 55.9988 54.9052 56.0665 55.4625 56.2019 55.9938 C 56.3373 56.5146 56.5404 56.9781 56.8113 57.3844 C 57.0821 57.7802 57.4206 58.0979 57.8269 58.3375 C 58.2331 58.5667 58.7123 58.6812 59.2644 58.6812 C 59.7956 58.6812 60.2696 58.5823 60.6863 58.3844 C 61.1133 58.176 61.4727 57.9052 61.7644 57.5719 C 62.0665 57.2385 62.2956 56.8688 62.4519 56.4625 C 62.6185 56.0562 62.7019 55.6448 62.7019 55.2281 L 64.1863 56.0406 C 64.1863 56.7698 64.03 57.4885 63.7175 58.1969 C 63.405 58.9052 62.9675 59.551 62.405 60.1344 C 61.8529 60.7073 61.2123 61.1656 60.4831 61.5094 C 59.754 61.8531 58.9727 62.025 58.1394 62.025 C 57.0769 62.025 56.1342 61.8323 55.3113 61.4469 C 54.4883 61.051 53.7904 60.5094 53.2175 59.8219 C 52.655 59.124 52.2279 58.3115 51.9363 57.3844 C 51.6446 56.4573 51.4988 55.4521 51.4988 54.3688 C 51.4988 53.2646 51.6758 52.2281 52.03 51.2594 C 52.3946 50.2906 52.9102 49.4365 53.5769 48.6969 C 54.254 47.9573 55.0613 47.3792 55.9988 46.9625 C 56.9467 46.5354 57.9988 46.3219 59.155 46.3219 C 60.3113 46.3219 61.3633 46.5458 62.3113 46.9938 C 63.2592 47.4417 64.0717 48.0771 64.7488 48.9 C 65.4258 49.7125 65.9467 50.6865 66.3113 51.8219 C 66.6863 52.9573 66.8738 54.2177 66.8738 55.6031 V 57.1656 C 66.8738 58.6448 66.7123 60.0198 66.3894 61.2906 C 66.0769 62.5615 65.6029 63.7125 64.9675 64.7438 C 64.3425 65.7646 63.5613 66.6396 62.6238 67.3688 C 61.6967 68.0979 60.6185 68.6552 59.3894 69.0406 C 58.1602 69.426 56.7852 69.6188 55.2644 69.6188 H 54.905 V 65.9781 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_20.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_20.xml
+new file mode 100644
+index 00000000..60e5a2e8
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_20.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.925 65.8844 V 69.4 H 39.3625 V 66.4 L 46.7219 58.5094 C 47.4615 57.6865 48.0448 56.9625 48.4719 56.3375 C 48.899 55.7021 49.2062 55.1344 49.3938 54.6344 C 49.5917 54.124 49.6906 53.6396 49.6906 53.1812 C 49.6906 52.4938 49.576 51.9052 49.3469 51.4156 C 49.1177 50.9156 48.7792 50.5302 48.3312 50.2594 C 47.8938 49.9885 47.3521 49.8531 46.7062 49.8531 C 46.0188 49.8531 45.425 50.0198 44.925 50.3531 C 44.4354 50.6865 44.0604 51.15 43.8 51.7438 C 43.55 52.3375 43.425 53.0094 43.425 53.7594 H 38.9094 C 38.9094 52.4052 39.2323 51.1656 39.8781 50.0406 C 40.524 48.9052 41.4354 48.0042 42.6125 47.3375 C 43.7896 46.6604 45.1854 46.3219 46.8 46.3219 C 48.3938 46.3219 49.7375 46.5823 50.8312 47.1031 C 51.9354 47.6135 52.7688 48.3531 53.3312 49.3219 C 53.9042 50.2802 54.1906 51.426 54.1906 52.7594 C 54.1906 53.5094 54.0708 54.2438 53.8312 54.9625 C 53.5917 55.6708 53.2479 56.3792 52.8 57.0875 C 52.3625 57.7854 51.8312 58.4938 51.2062 59.2125 C 50.5812 59.9312 49.8885 60.676 49.1281 61.4469 L 45.175 65.8844 H 54.925 Z M 69.05 56.025 V 59.9625 C 69.05 61.6708 68.8677 63.1448 68.5031 64.3844 C 68.1385 65.6135 67.6125 66.624 66.925 67.4156 C 66.2479 68.1969 65.4406 68.775 64.5031 69.15 C 63.5656 69.525 62.524 69.7125 61.3781 69.7125 C 60.4615 69.7125 59.6073 69.5979 58.8156 69.3688 C 58.024 69.1292 57.3104 68.7594 56.675 68.2594 C 56.05 67.7594 55.5083 67.1292 55.05 66.3688 C 54.6021 65.5979 54.2583 64.6812 54.0188 63.6188 C 53.7792 62.5562 53.6594 61.3375 53.6594 59.9625 V 56.025 C 53.6594 54.3167 53.8417 52.8531 54.2062 51.6344 C 54.5812 50.4052 55.1073 49.4 55.7844 48.6188 C 56.4719 47.8375 57.2844 47.2646 58.2219 46.9 C 59.1594 46.525 60.201 46.3375 61.3469 46.3375 C 62.2635 46.3375 63.1125 46.4573 63.8938 46.6969 C 64.6854 46.926 65.399 47.2854 66.0344 47.775 C 66.6698 48.2646 67.2115 48.8948 67.6594 49.6656 C 68.1073 50.426 68.451 51.3375 68.6906 52.4 C 68.9302 53.4521 69.05 54.6604 69.05 56.025 Z M 64.5344 60.5562 V 55.4156 C 64.5344 54.5927 64.4875 53.874 64.3938 53.2594 C 64.3104 52.6448 64.1802 52.124 64.0031 51.6969 C 63.826 51.2594 63.6073 50.9052 63.3469 50.6344 C 63.0865 50.3635 62.7896 50.1656 62.4562 50.0406 C 62.1229 49.9156 61.7531 49.8531 61.3469 49.8531 C 60.8365 49.8531 60.3833 49.9521 59.9875 50.15 C 59.6021 50.3479 59.274 50.6656 59.0031 51.1031 C 58.7323 51.5302 58.524 52.1031 58.3781 52.8219 C 58.2427 53.5302 58.175 54.3948 58.175 55.4156 V 60.5562 C 58.175 61.3792 58.2167 62.1031 58.3 62.7281 C 58.3938 63.3531 58.5292 63.8896 58.7062 64.3375 C 58.8938 64.775 59.1125 65.1344 59.3625 65.4156 C 59.6229 65.6865 59.9198 65.8844 60.2531 66.0094 C 60.5969 66.1344 60.9719 66.1969 61.3781 66.1969 C 61.8781 66.1969 62.3208 66.0979 62.7062 65.9 C 63.1021 65.6917 63.4354 65.3688 63.7062 64.9312 C 63.9875 64.4833 64.1958 63.9 64.3312 63.1812 C 64.4667 62.4625 64.5344 61.5875 64.5344 60.5562 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_21.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_21.xml
+new file mode 100644
+index 00000000..1298bccd
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_21.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 57.525 65.8844 V 69.4 H 41.9625 V 66.4 L 49.3219 58.5094 C 50.0615 57.6865 50.6448 56.9625 51.0719 56.3375 C 51.499 55.7021 51.8062 55.1344 51.9938 54.6344 C 52.1917 54.124 52.2906 53.6396 52.2906 53.1812 C 52.2906 52.4938 52.176 51.9052 51.9469 51.4156 C 51.7177 50.9156 51.3792 50.5302 50.9312 50.2594 C 50.4938 49.9885 49.9521 49.8531 49.3062 49.8531 C 48.6188 49.8531 48.025 50.0198 47.525 50.3531 C 47.0354 50.6865 46.6604 51.15 46.4 51.7438 C 46.15 52.3375 46.025 53.0094 46.025 53.7594 H 41.5094 C 41.5094 52.4052 41.8323 51.1656 42.4781 50.0406 C 43.124 48.9052 44.0354 48.0042 45.2125 47.3375 C 46.3896 46.6604 47.7854 46.3219 49.4 46.3219 C 50.9938 46.3219 52.3375 46.5823 53.4312 47.1031 C 54.5354 47.6135 55.3688 48.3531 55.9312 49.3219 C 56.5042 50.2802 56.7906 51.426 56.7906 52.7594 C 56.7906 53.5094 56.6708 54.2438 56.4312 54.9625 C 56.1917 55.6708 55.8479 56.3792 55.4 57.0875 C 54.9625 57.7854 54.4312 58.4938 53.8062 59.2125 C 53.1812 59.9312 52.4885 60.676 51.7281 61.4469 L 47.775 65.8844 H 57.525 Z M 66.5062 46.6031 V 69.4 H 62.0062 V 51.7906 L 56.6 53.5094 V 49.9625 L 66.0219 46.6031 H 66.5062 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_22.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_22.xml
+new file mode 100644
+index 00000000..09d5574f
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_22.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.225 65.8844 V 69.4 H 38.6625 V 66.4 L 46.0219 58.5094 C 46.7615 57.6865 47.3448 56.9625 47.7719 56.3375 C 48.199 55.7021 48.5062 55.1344 48.6938 54.6344 C 48.8917 54.124 48.9906 53.6396 48.9906 53.1812 C 48.9906 52.4938 48.876 51.9052 48.6469 51.4156 C 48.4177 50.9156 48.0792 50.5302 47.6312 50.2594 C 47.1938 49.9885 46.6521 49.8531 46.0062 49.8531 C 45.3188 49.8531 44.725 50.0198 44.225 50.3531 C 43.7354 50.6865 43.3604 51.15 43.1 51.7438 C 42.85 52.3375 42.725 53.0094 42.725 53.7594 H 38.2094 C 38.2094 52.4052 38.5323 51.1656 39.1781 50.0406 C 39.824 48.9052 40.7354 48.0042 41.9125 47.3375 C 43.0896 46.6604 44.4854 46.3219 46.1 46.3219 C 47.6938 46.3219 49.0375 46.5823 50.1312 47.1031 C 51.2354 47.6135 52.0688 48.3531 52.6312 49.3219 C 53.2042 50.2802 53.4906 51.426 53.4906 52.7594 C 53.4906 53.5094 53.3708 54.2438 53.1312 54.9625 C 52.8917 55.6708 52.5479 56.3792 52.1 57.0875 C 51.6625 57.7854 51.1312 58.4938 50.5062 59.2125 C 49.8812 59.9312 49.1885 60.676 48.4281 61.4469 L 44.475 65.8844 H 54.225 Z M 69.72 65.8844 V 69.4 H 54.1575 V 66.4 L 61.5169 58.5094 C 62.2565 57.6865 62.8398 56.9625 63.2669 56.3375 C 63.694 55.7021 64.0012 55.1344 64.1887 54.6344 C 64.3867 54.124 64.4856 53.6396 64.4856 53.1812 C 64.4856 52.4938 64.371 51.9052 64.1419 51.4156 C 63.9127 50.9156 63.5742 50.5302 63.1262 50.2594 C 62.6887 49.9885 62.1471 49.8531 61.5012 49.8531 C 60.8137 49.8531 60.22 50.0198 59.72 50.3531 C 59.2304 50.6865 58.8554 51.15 58.595 51.7438 C 58.345 52.3375 58.22 53.0094 58.22 53.7594 H 53.7044 C 53.7044 52.4052 54.0273 51.1656 54.6731 50.0406 C 55.319 48.9052 56.2304 48.0042 57.4075 47.3375 C 58.5846 46.6604 59.9804 46.3219 61.595 46.3219 C 63.1887 46.3219 64.5325 46.5823 65.6262 47.1031 C 66.7304 47.6135 67.5637 48.3531 68.1262 49.3219 C 68.6992 50.2802 68.9856 51.426 68.9856 52.7594 C 68.9856 53.5094 68.8658 54.2438 68.6262 54.9625 C 68.3867 55.6708 68.0429 56.3792 67.595 57.0875 C 67.1575 57.7854 66.6262 58.4938 66.0012 59.2125 C 65.3762 59.9312 64.6835 60.676 63.9231 61.4469 L 59.97 65.8844 H 69.72 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_23.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_23.xml
+new file mode 100644
+index 00000000..ee65e25a
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_23.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.625 65.8844 V 69.4 H 39.0625 V 66.4 L 46.4219 58.5094 C 47.1615 57.6865 47.7448 56.9625 48.1719 56.3375 C 48.599 55.7021 48.9062 55.1344 49.0938 54.6344 C 49.2917 54.124 49.3906 53.6396 49.3906 53.1812 C 49.3906 52.4938 49.276 51.9052 49.0469 51.4156 C 48.8177 50.9156 48.4792 50.5302 48.0312 50.2594 C 47.5938 49.9885 47.0521 49.8531 46.4062 49.8531 C 45.7188 49.8531 45.125 50.0198 44.625 50.3531 C 44.1354 50.6865 43.7604 51.15 43.5 51.7438 C 43.25 52.3375 43.125 53.0094 43.125 53.7594 H 38.5 C 38.6094 52.4052 38.9323 51.1656 39.5781 50.0406 C 40.224 48.9052 41.1354 48.0042 42.3125 47.3375 C 43.4896 46.6604 44.8854 46.3219 46.5 46.3219 C 48.0938 46.3219 49.4375 46.5823 50.5312 47.1031 C 51.6354 47.6135 52.4688 48.3531 53.0312 49.3219 C 53.6042 50.2802 53.8906 51.426 53.8906 52.7594 C 53.8906 53.5094 53.7708 54.2438 53.5312 54.9625 C 53.2917 55.6708 52.9479 56.3792 52.5 57.0875 C 52.0625 57.7854 51.5312 58.4938 50.9062 59.2125 C 50.2812 59.9312 49.5885 60.676 48.8281 61.4469 L 44.875 65.8844 H 54.625 Z M 58.8469 56.0719 H 61.2531 C 62.024 56.0719 62.6594 55.9417 63.1594 55.6812 C 63.6594 55.4104 64.0292 55.0354 64.2688 54.5562 C 64.5188 54.0667 64.6438 53.499 64.6438 52.8531 C 64.6438 52.2698 64.5292 51.7542 64.3 51.3062 C 64.0813 50.8479 63.7427 50.4938 63.2844 50.2438 C 62.826 49.9833 62.2479 49.8531 61.55 49.8531 C 60.9979 49.8531 60.4875 49.9625 60.0188 50.1812 C 59.55 50.4 59.175 50.7073 58.8938 51.1031 C 58.6125 51.499 58.4719 51.9781 58.4719 52.5406 H 53.9563 C 53.9563 51.2906 54.2896 50.2021 54.9563 49.275 C 55.6333 48.3479 56.5396 47.624 57.675 47.1031 C 58.8104 46.5823 60.0604 46.3219 61.425 46.3219 C 62.9667 46.3219 64.3156 46.5719 65.4719 47.0719 C 66.6281 47.5615 67.5292 48.2854 68.175 49.2438 C 68.8208 50.2021 69.1438 51.3896 69.1438 52.8062 C 69.1438 53.525 68.9771 54.2229 68.6438 54.9 C 68.3104 55.5667 67.8313 56.1708 67.2063 56.7125 C 66.5917 57.2438 65.8417 57.6708 64.9563 57.9938 C 64.0708 58.3062 63.076 58.4625 61.9719 58.4625 H 58.8469 V 56.0719 Z M 58.8469 59.4938 V 57.1656 H 61.9719 C 63.2115 57.1656 64.3 57.3062 65.2375 57.5875 C 66.175 57.8688 66.9615 58.275 67.5969 58.8062 C 68.2323 59.3271 68.7115 59.9469 69.0344 60.6656 C 69.3573 61.374 69.5188 62.1604 69.5188 63.025 C 69.5188 64.0875 69.3156 65.0354 68.9094 65.8688 C 68.5031 66.6917 67.9302 67.3896 67.1906 67.9625 C 66.4615 68.5354 65.6073 68.9729 64.6281 69.275 C 63.649 69.5667 62.5813 69.7125 61.425 69.7125 C 60.4667 69.7125 59.524 69.5823 58.5969 69.3219 C 57.6802 69.051 56.8469 68.65 56.0969 68.1188 C 55.3573 67.5771 54.7635 66.9 54.3156 66.0875 C 53.8781 65.2646 53.6594 64.2906 53.6594 63.1656 H 58.175 C 58.175 63.749 58.3208 64.2698 58.6125 64.7281 C 58.9042 65.1865 59.3052 65.5458 59.8156 65.8062 C 60.3365 66.0667 60.9146 66.1969 61.55 66.1969 C 62.2688 66.1969 62.8833 66.0667 63.3938 65.8062 C 63.9146 65.5354 64.3104 65.1604 64.5813 64.6812 C 64.8625 64.1917 65.0031 63.624 65.0031 62.9781 C 65.0031 62.1448 64.8521 61.4781 64.55 60.9781 C 64.2479 60.4677 63.8156 60.0927 63.2531 59.8531 C 62.6906 59.6135 62.024 59.4938 61.2531 59.4938 H 58.8469 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_24.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_24.xml
+new file mode 100644
+index 00000000..3567ccc2
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_24.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 55.325 65.8844 V 69.4 H 39.7625 V 66.4 L 47.1219 58.5094 C 47.8615 57.6865 48.4448 56.9625 48.8719 56.3375 C 49.299 55.7021 49.6062 55.1344 49.7938 54.6344 C 49.9917 54.124 50.0906 53.6396 50.0906 53.1812 C 50.0906 52.4938 49.976 51.9052 49.7469 51.4156 C 49.5177 50.9156 49.1792 50.5302 48.7312 50.2594 C 48.2938 49.9885 47.7521 49.8531 47.1062 49.8531 C 46.4188 49.8531 45.825 50.0198 45.325 50.3531 C 44.8354 50.6865 44.4604 51.15 44.2 51.7438 C 43.95 52.3375 43.825 53.0094 43.825 53.7594 H 39.3094 C 39.3094 52.4052 39.6323 51.1656 40.2781 50.0406 C 40.924 48.9052 41.8354 48.0042 43.0125 47.3375 C 44.1896 46.6604 45.5854 46.3219 47.2 46.3219 C 48.7938 46.3219 50.1375 46.5823 51.2312 47.1031 C 52.3354 47.6135 53.1688 48.3531 53.7312 49.3219 C 54.3042 50.2802 54.5906 51.426 54.5906 52.7594 C 54.5906 53.5094 54.4708 54.2438 54.2312 54.9625 C 53.9917 55.6708 53.6479 56.3792 53.2 57.0875 C 52.7625 57.7854 52.2312 58.4938 51.6062 59.2125 C 50.9812 59.9312 50.2885 60.676 49.5281 61.4469 L 45.575 65.8844 H 55.325 Z M 68.635 60.9 V 64.4312 H 52.2444 L 52.0256 61.6969 L 61.51 46.65 H 65.0881 L 61.2131 53.1344 L 56.4944 60.9 H 68.635 Z M 66.0569 46.65 V 69.4 H 61.5569 V 46.65 H 66.0569 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_25.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_25.xml
+new file mode 100644
+index 00000000..88c64ea2
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_25.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.825 65.8844 V 69.4 H 39.2625 V 66.4 L 46.6219 58.5094 C 47.3615 57.6865 47.9448 56.9625 48.3719 56.3375 C 48.799 55.7021 49.1062 55.1344 49.2938 54.6344 C 49.4917 54.124 49.5906 53.6396 49.5906 53.1812 C 49.5906 52.4938 49.476 51.9052 49.2469 51.4156 C 49.0177 50.9156 48.6792 50.5302 48.2312 50.2594 C 47.7938 49.9885 47.2521 49.8531 46.6062 49.8531 C 45.9188 49.8531 45.325 50.0198 44.825 50.3531 C 44.3354 50.6865 43.9604 51.15 43.7 51.7438 C 43.45 52.3375 43.325 53.0094 43.325 53.7594 H 38.8094 C 38.8094 52.4052 39.1323 51.1656 39.7781 50.0406 C 40.424 48.9052 41.3354 48.0042 42.5125 47.3375 C 43.6896 46.6604 45.0854 46.3219 46.7 46.3219 C 48.2938 46.3219 49.6375 46.5823 50.7312 47.1031 C 51.8354 47.6135 52.6688 48.3531 53.2312 49.3219 C 53.8042 50.2802 54.0906 51.426 54.0906 52.7594 C 54.0906 53.5094 53.9708 54.2438 53.7312 54.9625 C 53.4917 55.6708 53.1479 56.3792 52.7 57.0875 C 52.2625 57.7854 51.7312 58.4938 51.1062 59.2125 C 50.4812 59.9312 49.7885 60.676 49.0281 61.4469 L 45.075 65.8844 H 54.825 Z M 58.0319 59.0406 L 54.4381 58.1812 L 55.735 46.65 H 68.5162 V 50.2906 H 59.4381 L 58.8756 55.3375 C 59.1777 55.1604 59.636 54.9729 60.2506 54.775 C 60.8652 54.5667 61.5527 54.4625 62.3131 54.4625 C 63.4173 54.4625 64.3965 54.6344 65.2506 54.9781 C 66.1048 55.3219 66.8287 55.8219 67.4225 56.4781 C 68.0267 57.1344 68.485 57.9365 68.7975 58.8844 C 69.11 59.8323 69.2662 60.9052 69.2662 62.1031 C 69.2662 63.1135 69.11 64.0771 68.7975 64.9938 C 68.485 65.9 68.011 66.7125 67.3756 67.4312 C 66.7402 68.1396 65.9433 68.6969 64.985 69.1031 C 64.0267 69.5094 62.8912 69.7125 61.5787 69.7125 C 60.5996 69.7125 59.6517 69.5667 58.735 69.275 C 57.8287 68.9833 57.011 68.551 56.2819 67.9781 C 55.5631 67.4052 54.985 66.7125 54.5475 65.9 C 54.1204 65.0771 53.8965 64.1396 53.8756 63.0875 H 58.3444 C 58.4069 63.7333 58.5735 64.2906 58.8444 64.7594 C 59.1256 65.2177 59.4954 65.5719 59.9537 65.8219 C 60.4121 66.0719 60.9485 66.1969 61.5631 66.1969 C 62.136 66.1969 62.6256 66.0875 63.0319 65.8688 C 63.4381 65.65 63.7662 65.3479 64.0162 64.9625 C 64.2662 64.5667 64.4485 64.1083 64.5631 63.5875 C 64.6881 63.0562 64.7506 62.4833 64.7506 61.8688 C 64.7506 61.2542 64.6777 60.6969 64.5319 60.1969 C 64.386 59.6969 64.1621 59.2646 63.86 58.9 C 63.5579 58.5354 63.1725 58.2542 62.7037 58.0562 C 62.2454 57.8583 61.709 57.7594 61.0944 57.7594 C 60.261 57.7594 59.6152 57.8896 59.1569 58.15 C 58.709 58.4104 58.334 58.7073 58.0319 59.0406 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_26.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_26.xml
+new file mode 100644
+index 00000000..a9bb39b5
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_26.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.725 65.8844 V 69.4 H 39.1625 V 66.4 L 46.5219 58.5094 C 47.2615 57.6865 47.8448 56.9625 48.2719 56.3375 C 48.699 55.7021 49.0062 55.1344 49.1938 54.6344 C 49.3917 54.124 49.4906 53.6396 49.4906 53.1812 C 49.4906 52.4938 49.376 51.9052 49.1469 51.4156 C 48.9177 50.9156 48.5792 50.5302 48.1312 50.2594 C 47.6938 49.9885 47.1521 49.8531 46.5062 49.8531 C 45.8188 49.8531 45.225 50.0198 44.725 50.3531 C 44.2354 50.6865 43.8604 51.15 43.6 51.7438 C 43.35 52.3375 43.225 53.0094 43.225 53.7594 H 38.7094 C 38.7094 52.4052 39.0323 51.1656 39.6781 50.0406 C 40.324 48.9052 41.2354 48.0042 42.4125 47.3375 C 43.5896 46.6604 44.9854 46.3219 46.6 46.3219 C 48.1938 46.3219 49.5375 46.5823 50.6312 47.1031 C 51.7354 47.6135 52.5688 48.3531 53.1312 49.3219 C 53.7042 50.2802 53.9906 51.426 53.9906 52.7594 C 53.9906 53.5094 53.8708 54.2438 53.6312 54.9625 C 53.3917 55.6708 53.0479 56.3792 52.6 57.0875 C 52.1625 57.7854 51.6312 58.4938 51.0062 59.2125 C 50.3812 59.9312 49.6885 60.676 48.9281 61.4469 L 44.975 65.8844 H 54.725 Z M 65.3069 46.4156 H 65.9631 V 50.0094 H 65.6975 C 64.51 50.0094 63.4527 50.1865 62.5256 50.5406 C 61.5985 50.8948 60.8121 51.4 60.1662 52.0562 C 59.5308 52.7021 59.0412 53.4833 58.6975 54.4 C 58.3642 55.3167 58.1975 56.3427 58.1975 57.4781 V 61.2594 C 58.1975 62.0719 58.2756 62.7906 58.4319 63.4156 C 58.5985 64.0302 58.8329 64.5458 59.135 64.9625 C 59.4475 65.3688 59.8121 65.676 60.2287 65.8844 C 60.6454 66.0823 61.1142 66.1812 61.635 66.1812 C 62.1246 66.1812 62.5673 66.0771 62.9631 65.8688 C 63.3694 65.6604 63.7131 65.3688 63.9944 64.9938 C 64.286 64.6083 64.5048 64.1604 64.6506 63.65 C 64.8069 63.1292 64.885 62.5615 64.885 61.9469 C 64.885 61.3323 64.8069 60.7646 64.6506 60.2438 C 64.5048 59.7229 64.286 59.275 63.9944 58.9 C 63.7027 58.5146 63.3485 58.2177 62.9319 58.0094 C 62.5152 57.801 62.0465 57.6969 61.5256 57.6969 C 60.8173 57.6969 60.1923 57.8635 59.6506 58.1969 C 59.1194 58.5198 58.7027 58.9365 58.4006 59.4469 C 58.0985 59.9573 57.9371 60.4938 57.9162 61.0562 L 56.5569 60.1812 C 56.5881 59.3792 56.7548 58.6188 57.0569 57.9 C 57.3694 57.1812 57.7965 56.5458 58.3381 55.9938 C 58.8902 55.4312 59.5517 54.9938 60.3225 54.6812 C 61.0933 54.3583 61.9631 54.1969 62.9319 54.1969 C 63.9944 54.1969 64.9267 54.4 65.7287 54.8062 C 66.5412 55.2125 67.2183 55.7698 67.76 56.4781 C 68.3017 57.1865 68.7079 58.0042 68.9787 58.9312 C 69.2496 59.8583 69.385 60.8479 69.385 61.9 C 69.385 63.0042 69.2027 64.0302 68.8381 64.9781 C 68.484 65.926 67.9683 66.7542 67.2912 67.4625 C 66.6246 68.1708 65.8225 68.7229 64.885 69.1188 C 63.9475 69.5146 62.8954 69.7125 61.7287 69.7125 C 60.5204 69.7125 59.4215 69.4938 58.4319 69.0562 C 57.4527 68.6083 56.609 67.9833 55.9006 67.1812 C 55.1923 66.3792 54.6454 65.426 54.26 64.3219 C 53.885 63.2177 53.6975 62.0094 53.6975 60.6969 V 58.9469 C 53.6975 57.1135 53.9631 55.4365 54.4944 53.9156 C 55.036 52.3844 55.8121 51.0615 56.8225 49.9469 C 57.8329 48.8219 59.0517 47.9521 60.4787 47.3375 C 61.9058 46.7229 63.5152 46.4156 65.3069 46.4156 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_27.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_27.xml
+new file mode 100644
+index 00000000..a648a673
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_27.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.625 65.8844 V 69.4 H 39.0625 V 66.4 L 46.4219 58.5094 C 47.1615 57.6865 47.7448 56.9625 48.1719 56.3375 C 48.599 55.7021 48.9062 55.1344 49.0938 54.6344 C 49.2917 54.124 49.3906 53.6396 49.3906 53.1812 C 49.3906 52.4938 49.276 51.9052 49.0469 51.4156 C 48.8177 50.9156 48.4792 50.5302 48.0312 50.2594 C 47.5938 49.9885 47.0521 49.8531 46.4062 49.8531 C 45.7188 49.8531 45.125 50.0198 44.625 50.3531 C 44.1354 50.6865 43.7604 51.15 43.5 51.7438 C 43.25 52.3375 43.125 53.0094 43.125 53.7594 H 38.6094 C 38.6094 52.4052 38.9323 51.1656 39.5781 50.0406 C 40.224 48.9052 41.1354 48.0042 42.3125 47.3375 C 43.4896 46.6604 44.8854 46.3219 46.5 46.3219 C 48.0938 46.3219 49.4375 46.5823 50.5312 47.1031 C 51.6354 47.6135 52.4688 48.3531 53.0312 49.3219 C 53.6042 50.2802 53.8906 51.426 53.8906 52.7594 C 53.8906 53.5094 53.7708 54.2438 53.5312 54.9625 C 53.2917 55.6708 52.9479 56.3792 52.5 57.0875 C 52.0625 57.7854 51.5312 58.4938 50.9062 59.2125 C 50.2812 59.9312 49.5885 60.676 48.8281 61.4469 L 44.875 65.8844 H 54.625 Z M 69.3706 46.65 V 49.0719 L 60.5737 69.4 H 55.8237 L 64.6206 50.1656 H 53.2925 V 46.65 H 69.3706 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_28.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_28.xml
+new file mode 100644
+index 00000000..86fdba68
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_28.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.725 65.8844 V 69.4 H 39.1625 V 66.4 L 46.5219 58.5094 C 47.2615 57.6865 47.8448 56.9625 48.2719 56.3375 C 48.699 55.7021 49.0062 55.1344 49.1938 54.6344 C 49.3917 54.124 49.4906 53.6396 49.4906 53.1812 C 49.4906 52.4938 49.376 51.9052 49.1469 51.4156 C 48.9177 50.9156 48.5792 50.5302 48.1312 50.2594 C 47.6938 49.9885 47.1521 49.8531 46.5062 49.8531 C 45.8188 49.8531 45.225 50.0198 44.725 50.3531 C 44.2354 50.6865 43.8604 51.15 43.6 51.7438 C 43.35 52.3375 43.225 53.0094 43.225 53.7594 H 38.7094 C 38.7094 52.4052 39.0323 51.1656 39.6781 50.0406 C 40.324 48.9052 41.2354 48.0042 42.4125 47.3375 C 43.5896 46.6604 44.9854 46.3219 46.6 46.3219 C 48.1938 46.3219 49.5375 46.5823 50.6312 47.1031 C 51.7354 47.6135 52.5688 48.3531 53.1312 49.3219 C 53.7042 50.2802 53.9906 51.426 53.9906 52.7594 C 53.9906 53.5094 53.8708 54.2438 53.6312 54.9625 C 53.3917 55.6708 53.0479 56.3792 52.6 57.0875 C 52.1625 57.7854 51.6312 58.4938 51.0062 59.2125 C 50.3812 59.9312 49.6885 60.676 48.9281 61.4469 L 44.975 65.8844 H 54.725 Z M 69.3456 63.1656 C 69.3456 64.5927 69.0123 65.7958 68.3456 66.775 C 67.679 67.7438 66.7623 68.4781 65.5956 68.9781 C 64.4394 69.4677 63.1269 69.7125 61.6581 69.7125 C 60.1894 69.7125 58.8717 69.4677 57.705 68.9781 C 56.5383 68.4781 55.6165 67.7438 54.9394 66.775 C 54.2623 65.7958 53.9237 64.5927 53.9237 63.1656 C 53.9237 62.2073 54.1165 61.3427 54.5019 60.5719 C 54.8873 59.7906 55.4237 59.124 56.1112 58.5719 C 56.8092 58.0094 57.6269 57.5823 58.5644 57.2906 C 59.5019 56.9885 60.5227 56.8375 61.6269 56.8375 C 63.106 56.8375 64.429 57.0979 65.5956 57.6188 C 66.7623 58.1396 67.679 58.874 68.3456 59.8219 C 69.0123 60.7698 69.3456 61.8844 69.3456 63.1656 Z M 64.8144 62.8688 C 64.8144 62.1708 64.679 61.5719 64.4081 61.0719 C 64.1477 60.5615 63.7779 60.1708 63.2987 59.9 C 62.8196 59.6292 62.2623 59.4938 61.6269 59.4938 C 60.9915 59.4938 60.4342 59.6292 59.955 59.9 C 59.4758 60.1708 59.1008 60.5615 58.83 61.0719 C 58.5696 61.5719 58.4394 62.1708 58.4394 62.8688 C 58.4394 63.5562 58.5696 64.15 58.83 64.65 C 59.1008 65.15 59.4758 65.5354 59.955 65.8062 C 60.4446 66.0667 61.0123 66.1969 61.6581 66.1969 C 62.304 66.1969 62.8612 66.0667 63.33 65.8062 C 63.8092 65.5354 64.1737 65.15 64.4237 64.65 C 64.6842 64.15 64.8144 63.5562 64.8144 62.8688 Z M 68.8612 52.6812 C 68.8612 53.8375 68.554 54.8635 67.9394 55.7594 C 67.3248 56.6448 66.4706 57.3375 65.3769 57.8375 C 64.2935 58.3375 63.054 58.5875 61.6581 58.5875 C 60.2519 58.5875 59.0019 58.3375 57.9081 57.8375 C 56.8144 57.3375 55.9602 56.6448 55.3456 55.7594 C 54.731 54.8635 54.4237 53.8375 54.4237 52.6812 C 54.4237 51.3062 54.731 50.15 55.3456 49.2125 C 55.9706 48.2646 56.8248 47.5458 57.9081 47.0562 C 59.0019 46.5667 60.2415 46.3219 61.6269 46.3219 C 63.0331 46.3219 64.2779 46.5667 65.3612 47.0562 C 66.455 47.5458 67.3092 48.2646 67.9237 49.2125 C 68.5487 50.15 68.8612 51.3062 68.8612 52.6812 Z M 64.3612 52.8844 C 64.3612 52.2698 64.2519 51.7385 64.0331 51.2906 C 63.8144 50.8323 63.5019 50.4781 63.0956 50.2281 C 62.6998 49.9781 62.2102 49.8531 61.6269 49.8531 C 61.0644 49.8531 60.58 49.9729 60.1737 50.2125 C 59.7779 50.4521 59.4706 50.801 59.2519 51.2594 C 59.0435 51.7073 58.9394 52.249 58.9394 52.8844 C 58.9394 53.499 59.0435 54.0406 59.2519 54.5094 C 59.4706 54.9677 59.7831 55.3271 60.1894 55.5875 C 60.5956 55.8479 61.0852 55.9781 61.6581 55.9781 C 62.231 55.9781 62.7154 55.8479 63.1112 55.5875 C 63.5175 55.3271 63.8248 54.9677 64.0331 54.5094 C 64.2519 54.0406 64.3612 53.499 64.3612 52.8844 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_29.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_29.xml
+new file mode 100644
+index 00000000..cd4d9a7e
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_29.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 54.825 65.8844 V 69.4 H 39.2625 V 66.4 L 46.6219 58.5094 C 47.3615 57.6865 47.9448 56.9625 48.3719 56.3375 C 48.799 55.7021 49.1062 55.1344 49.2938 54.6344 C 49.4917 54.124 49.5906 53.6396 49.5906 53.1812 C 49.5906 52.4938 49.476 51.9052 49.2469 51.4156 C 49.0177 50.9156 48.6792 50.5302 48.2312 50.2594 C 47.7938 49.9885 47.2521 49.8531 46.6062 49.8531 C 45.9188 49.8531 45.325 50.0198 44.825 50.3531 C 44.3354 50.6865 43.9604 51.15 43.7 51.7438 C 43.45 52.3375 43.325 53.0094 43.325 53.7594 H 38.8094 C 38.8094 52.4052 39.1323 51.1656 39.7781 50.0406 C 40.424 48.9052 41.3354 48.0042 42.5125 47.3375 C 43.6896 46.6604 45.0854 46.3219 46.7 46.3219 C 48.2938 46.3219 49.6375 46.5823 50.7312 47.1031 C 51.8354 47.6135 52.6688 48.3531 53.2312 49.3219 C 53.8042 50.2802 54.0906 51.426 54.0906 52.7594 C 54.0906 53.5094 53.9708 54.2438 53.7312 54.9625 C 53.4917 55.6708 53.1479 56.3792 52.7 57.0875 C 52.2625 57.7854 51.7312 58.4938 51.1062 59.2125 C 50.4812 59.9312 49.7885 60.676 49.0281 61.4469 L 45.075 65.8844 H 54.825 Z M 57.305 65.9781 H 57.6019 C 58.8519 65.9781 59.9248 65.8271 60.8206 65.525 C 61.7269 65.2125 62.4717 64.7646 63.055 64.1812 C 63.6383 63.5979 64.0706 62.8844 64.3519 62.0406 C 64.6331 61.1865 64.7737 60.2177 64.7737 59.1344 V 54.8219 C 64.7737 53.999 64.6904 53.275 64.5237 52.65 C 64.3675 52.025 64.1383 51.5094 63.8362 51.1031 C 63.5446 50.6865 63.2008 50.374 62.805 50.1656 C 62.4196 49.9573 61.9925 49.8531 61.5237 49.8531 C 61.0237 49.8531 60.581 49.9781 60.1956 50.2281 C 59.8102 50.4677 59.4821 50.7958 59.2112 51.2125 C 58.9508 51.6292 58.7477 52.1083 58.6019 52.65 C 58.4665 53.1812 58.3987 53.7385 58.3987 54.3219 C 58.3987 54.9052 58.4665 55.4625 58.6019 55.9938 C 58.7373 56.5146 58.9404 56.9781 59.2112 57.3844 C 59.4821 57.7802 59.8206 58.0979 60.2269 58.3375 C 60.6331 58.5667 61.1123 58.6812 61.6644 58.6812 C 62.1956 58.6812 62.6696 58.5823 63.0862 58.3844 C 63.5133 58.176 63.8727 57.9052 64.1644 57.5719 C 64.4665 57.2385 64.6956 56.8688 64.8519 56.4625 C 65.0185 56.0562 65.1019 55.6448 65.1019 55.2281 L 66.5862 56.0406 C 66.5862 56.7698 66.43 57.4885 66.1175 58.1969 C 65.805 58.9052 65.3675 59.551 64.805 60.1344 C 64.2529 60.7073 63.6123 61.1656 62.8831 61.5094 C 62.154 61.8531 61.3727 62.025 60.5394 62.025 C 59.4769 62.025 58.5342 61.8323 57.7112 61.4469 C 56.8883 61.051 56.1904 60.5094 55.6175 59.8219 C 55.055 59.124 54.6279 58.3115 54.3362 57.3844 C 54.0446 56.4573 53.8987 55.4521 53.8987 54.3688 C 53.8987 53.2646 54.0758 52.2281 54.43 51.2594 C 54.7946 50.2906 55.3102 49.4365 55.9769 48.6969 C 56.654 47.9573 57.4612 47.3792 58.3987 46.9625 C 59.3467 46.5354 60.3987 46.3219 61.555 46.3219 C 62.7112 46.3219 63.7633 46.5458 64.7112 46.9938 C 65.6592 47.4417 66.4717 48.0771 67.1487 48.9 C 67.8258 49.7125 68.3467 50.6865 68.7112 51.8219 C 69.0862 52.9573 69.2737 54.2177 69.2737 55.6031 V 57.1656 C 69.2737 58.6448 69.1123 60.0198 68.7894 61.2906 C 68.4769 62.5615 68.0029 63.7125 67.3675 64.7438 C 66.7425 65.7646 65.9612 66.6396 65.0237 67.3688 C 64.0967 68.0979 63.0185 68.6552 61.7894 69.0406 C 60.5602 69.426 59.1852 69.6188 57.6644 69.6188 H 57.305 V 65.9781 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_30.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_30.xml
+new file mode 100644
+index 00000000..8cc3bbcb
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_30.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 43.6719 56.0719 H 46.0781 C 46.849 56.0719 47.4844 55.9417 47.9844 55.6812 C 48.4844 55.4104 48.8542 55.0354 49.0938 54.5562 C 49.3438 54.0667 49.4688 53.499 49.4688 52.8531 C 49.4688 52.2698 49.3542 51.7542 49.125 51.3062 C 48.9062 50.8479 48.5677 50.4938 48.1094 50.2438 C 47.651 49.9833 47.0729 49.8531 46.375 49.8531 C 45.8229 49.8531 45.3125 49.9625 44.8438 50.1812 C 44.375 50.4 44 50.7073 43.7188 51.1031 C 43.4375 51.499 43.2969 51.9781 43.2969 52.5406 H 38.7812 C 38.7812 51.2906 39.1146 50.2021 39.7812 49.275 C 40.4583 48.3479 41.3646 47.624 42.5 47.1031 C 43.6354 46.5823 44.8854 46.3219 46.25 46.3219 C 47.7917 46.3219 49.1406 46.5719 50.2969 47.0719 C 51.4531 47.5615 52.3542 48.2854 53 49.2438 C 53.6458 50.2021 53.9688 51.3896 53.9688 52.8062 C 53.9688 53.525 53.8021 54.2229 53.4688 54.9 C 53.1354 55.5667 52.6562 56.1708 52.0312 56.7125 C 51.4167 57.2438 50.6667 57.6708 49.7812 57.9938 C 48.8958 58.3062 47.901 58.4625 46.7969 58.4625 H 43.6719 V 56.0719 Z M 43.6719 59.4938 V 57.1656 H 46.7969 C 48.0365 57.1656 49.125 57.3062 50.0625 57.5875 C 51 57.8688 51.7865 58.275 52.4219 58.8062 C 53.0573 59.3271 53.5365 59.9469 53.8594 60.6656 C 54.1823 61.374 54.3438 62.1604 54.3438 63.025 C 54.3438 64.0875 54.1406 65.0354 53.7344 65.8688 C 53.3281 66.6917 52.7552 67.3896 52.0156 67.9625 C 51.2865 68.5354 50.4323 68.9729 49.4531 69.275 C 48.474 69.5667 47.4062 69.7125 46.25 69.7125 C 45.2917 69.7125 44.349 69.5823 43.4219 69.3219 C 42.5052 69.051 41.6719 68.65 40.9219 68.1188 C 40.1823 67.5771 39.5885 66.9 39.1406 66.0875 C 38.7031 65.2646 38.4844 64.2906 38.4844 63.1656 H 43 C 43 63.749 43.1458 64.2698 43.4375 64.7281 C 43.7292 65.1865 44.1302 65.5458 44.6406 65.8062 C 45.1615 66.0667 45.7396 66.1969 46.375 66.1969 C 47.0938 66.1969 47.7083 66.0667 48.2188 65.8062 C 48.7396 65.5354 49.1354 65.1604 49.4062 64.6812 C 49.6875 64.1917 49.8281 63.624 49.8281 62.9781 C 49.8281 62.1448 49.6771 61.4781 49.375 60.9781 C 49.0729 60.4677 48.6406 60.0927 48.0781 59.8531 C 47.5156 59.6135 46.849 59.4938 46.0781 59.4938 H 43.6719 Z M 69.39 56.025 V 59.9625 C 69.39 61.6708 69.2077 63.1448 68.8431 64.3844 C 68.4785 65.6135 67.9525 66.624 67.265 67.4156 C 66.5879 68.1969 65.7806 68.775 64.8431 69.15 C 63.9056 69.525 62.864 69.7125 61.7181 69.7125 C 60.8015 69.7125 59.9473 69.5979 59.1556 69.3688 C 58.364 69.1292 57.6504 68.7594 57.015 68.2594 C 56.39 67.7594 55.8483 67.1292 55.39 66.3688 C 54.9421 65.5979 54.5983 64.6812 54.3588 63.6188 C 54.1192 62.5562 53.9994 61.3375 53.9994 59.9625 V 56.025 C 53.9994 54.3167 54.1817 52.8531 54.5463 51.6344 C 54.9213 50.4052 55.4473 49.4 56.1244 48.6188 C 56.8119 47.8375 57.6244 47.2646 58.5619 46.9 C 59.4994 46.525 60.541 46.3375 61.6869 46.3375 C 62.6035 46.3375 63.4525 46.4573 64.2338 46.6969 C 65.0254 46.926 65.739 47.2854 66.3744 47.775 C 67.0098 48.2646 67.5515 48.8948 67.9994 49.6656 C 68.4473 50.426 68.791 51.3375 69.0306 52.4 C 69.2702 53.4521 69.39 54.6604 69.39 56.025 Z M 64.8744 60.5562 V 55.4156 C 64.8744 54.5927 64.8275 53.874 64.7338 53.2594 C 64.6504 52.6448 64.5202 52.124 64.3431 51.6969 C 64.166 51.2594 63.9473 50.9052 63.6869 50.6344 C 63.4265 50.3635 63.1296 50.1656 62.7963 50.0406 C 62.4629 49.9156 62.0931 49.8531 61.6869 49.8531 C 61.1765 49.8531 60.7233 49.9521 60.3275 50.15 C 59.9421 50.3479 59.614 50.6656 59.3431 51.1031 C 59.0723 51.5302 58.864 52.1031 58.7181 52.8219 C 58.5827 53.5302 58.515 54.3948 58.515 55.4156 V 60.5562 C 58.515 61.3792 58.5567 62.1031 58.64 62.7281 C 58.7338 63.3531 58.8692 63.8896 59.0463 64.3375 C 59.2338 64.775 59.4525 65.1344 59.7025 65.4156 C 59.9629 65.6865 60.2598 65.8844 60.5931 66.0094 C 60.9369 66.1344 61.3119 66.1969 61.7181 66.1969 C 62.2181 66.1969 62.6608 66.0979 63.0463 65.9 C 63.4421 65.6917 63.7754 65.3688 64.0463 64.9312 C 64.3275 64.4833 64.5358 63.9 64.6713 63.1812 C 64.8067 62.4625 64.8744 61.5875 64.8744 60.5562 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_31.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_31.xml
+new file mode 100644
+index 00000000..5d62c419
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_dyn_day_31.xml
+@@ -0,0 +1,15 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M 46.5719 56.0719 H 48.9781 C 49.749 56.0719 50.3844 55.9417 50.8844 55.6812 C 51.3844 55.4104 51.7542 55.0354 51.9938 54.5562 C 52.2438 54.0667 52.3688 53.499 52.3688 52.8531 C 52.3688 52.2698 52.2542 51.7542 52.025 51.3062 C 51.8062 50.8479 51.4677 50.4938 51.0094 50.2438 C 50.551 49.9833 49.9729 49.8531 49.275 49.8531 C 48.7229 49.8531 48.2125 49.9625 47.7438 50.1812 C 47.275 50.4 46.9 50.7073 46.6188 51.1031 C 46.3375 51.499 46.1969 51.9781 46.1969 52.5406 H 41.6812 C 41.6812 51.2906 42.0146 50.2021 42.6812 49.275 C 43.3583 48.3479 44.2646 47.624 45.4 47.1031 C 46.5354 46.5823 47.7854 46.3219 49.15 46.3219 C 50.6917 46.3219 52.0406 46.5719 53.1969 47.0719 C 54.3531 47.5615 55.2542 48.2854 55.9 49.2438 C 56.5458 50.2021 56.8688 51.3896 56.8688 52.8062 C 56.8688 53.525 56.7021 54.2229 56.3688 54.9 C 56.0354 55.5667 55.5562 56.1708 54.9312 56.7125 C 54.3167 57.2438 53.5667 57.6708 52.6812 57.9938 C 51.7958 58.3062 50.801 58.4625 49.6969 58.4625 H 46.5719 V 56.0719 Z M 46.5719 59.4938 V 57.1656 H 49.6969 C 50.9365 57.1656 52.025 57.3062 52.9625 57.5875 C 53.9 57.8688 54.6865 58.275 55.3219 58.8062 C 55.9573 59.3271 56.4365 59.9469 56.7594 60.6656 C 57.0823 61.374 57.2438 62.1604 57.2438 63.025 C 57.2438 64.0875 57.0406 65.0354 56.6344 65.8688 C 56.2281 66.6917 55.6552 67.3896 54.9156 67.9625 C 54.1865 68.5354 53.3323 68.9729 52.3531 69.275 C 51.374 69.5667 50.3062 69.7125 49.15 69.7125 C 48.1917 69.7125 47.249 69.5823 46.3219 69.3219 C 45.4052 69.051 44.5719 68.65 43.8219 68.1188 C 43.0823 67.5771 42.4885 66.9 42.0406 66.0875 C 41.6031 65.2646 41.3844 64.2906 41.4 63.4 H 45.9 C 45.9 63.749 46.0458 64.2698 46.3375 64.7281 C 46.6292 65.1865 47.0302 65.5458 47.5406 65.8062 C 48.0615 66.0667 48.6396 66.1969 49.275 66.1969 C 49.9938 66.1969 50.6083 66.0667 51.1188 65.8062 C 51.6396 65.5354 52.0354 65.1604 52.3062 64.6812 C 52.5875 64.1917 52.7281 63.624 52.7281 62.9781 C 52.7281 62.1448 52.5771 61.4781 52.275 60.9781 C 51.9729 60.4677 51.5406 60.0927 50.9781 59.8531 C 50.4156 59.6135 49.749 59.4938 48.9781 59.4938 H 46.5719 Z M 66.6663 46.6031 V 69.4 H 62.1663 V 51.7906 L 56.76 53.5094 V 49.9625 L 66.1819 46.6031 H 66.6663 Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_midlayer.xml b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_midlayer.xml
+new file mode 100644
+index 00000000..ae694d29
+--- /dev/null
++++ b/overlay/personal/packages/apps/Etar/app/src/main/res/drawable/logo_calendar_midlayer.xml
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2023 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++    <path
++        android:pathData="M34,42V70C34,72.209 35.791,74 38,74H70C72.209,74 74,72.209 74,70V42Z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M44,34H38C35.791,34 34,35.791 34,38V42H74V38C74,35.791 72.209,34 70,34H64Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..65b0e2db
+--- /dev/null
++++ b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..faf2caf4
+--- /dev/null
++++ b/overlay/personal/packages/apps/ExactCalculator/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,60 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M42,32H66C67.105,32 68,32.895 68,34V45A1,1 0,0 1,67 46H41A1,1 0,0 1,40 45V34C40,32.895 40.895,32 42,32z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M41,48L47,48A1,1 0,0 1,48 49L48,55A1,1 0,0 1,47 56L41,56A1,1 0,0 1,40 55L40,49A1,1 0,0 1,41 48z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M41,58L47,58A1,1 0,0 1,48 59L48,65A1,1 0,0 1,47 66L41,66A1,1 0,0 1,40 65L40,59A1,1 0,0 1,41 58z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M40,69C40,68.448 40.448,68 41,68H47C47.552,68 48,68.448 48,69V75C48,75.552 47.552,76 47,76H42C40.895,76 40,75.105 40,74V69Z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M51,48L57,48A1,1 0,0 1,58 49L58,55A1,1 0,0 1,57 56L51,56A1,1 0,0 1,50 55L50,49A1,1 0,0 1,51 48z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M61,48L67,48A1,1 0,0 1,68 49L68,55A1,1 0,0 1,67 56L61,56A1,1 0,0 1,60 55L60,49A1,1 0,0 1,61 48z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++    <path
++        android:pathData="M51,58L57,58A1,1 0,0 1,58 59L58,65A1,1 0,0 1,57 66L51,66A1,1 0,0 1,50 65L50,59A1,1 0,0 1,51 58z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M61,58L67,58A1,1 0,0 1,68 59L68,65A1,1 0,0 1,67 66L61,66A1,1 0,0 1,60 65L60,59A1,1 0,0 1,61 58z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++    <path
++        android:pathData="M51,68L57,68A1,1 0,0 1,58 69L58,75A1,1 0,0 1,57 76L51,76A1,1 0,0 1,50 75L50,69A1,1 0,0 1,51 68z"
++        android:fillColor="#ffffff"/>
++    <path
++        android:pathData="M60,69C60,68.448 60.448,68 61,68H67C67.552,68 68,68.448 68,69V74C68,75.105 67.105,76 66,76H61C60.448,76 60,75.552 60,75V69Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..32abe0b8
+--- /dev/null
++++ b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M0,0h108v108h-108z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M15,108L78,45L141,108H15Z"
++        android:fillColor="@android:color/system_neutral1_200"/>
++    <path
++        android:pathData="M-18,108L45,45L108,108H-18Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..03b51d0c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Gallery2/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M108,0H0V108H108V0ZM34,38C31.791,38 30,39.791 30,42V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V42C78,39.791 76.209,38 74,38H34Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..32abe0b8
+--- /dev/null
++++ b/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M0,0h108v108h-108z"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M15,108L78,45L141,108H15Z"
++        android:fillColor="@android:color/system_neutral1_200"/>
++    <path
++        android:pathData="M-18,108L45,45L108,108H-18Z"
++        android:fillColor="@android:color/system_neutral1_100"/>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..03b51d0c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Glimpse/app/src/main/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M108,0H0V108H108V0ZM34,38C31.791,38 30,39.791 30,42V66C30,68.209 31.791,70 34,70H74C76.209,70 78,68.209 78,66V42C78,39.791 76.209,38 74,38H34Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..bf75b615
+--- /dev/null
++++ b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,17 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M50.856,71.087C48.735,64.459 43.541,59.265 36.913,57.144L33.497,56.05C31.501,55.412 31.501,52.588 33.497,51.95L36.913,50.856C43.541,48.735 48.735,43.541 50.856,36.913L51.95,33.497C52.588,31.501 55.412,31.501 56.05,33.497L57.144,36.913C59.265,43.541 64.459,48.735 71.087,50.856L74.503,51.95C76.499,52.588 76.499,55.412 74.503,56.05L71.087,57.144C64.459,59.265 59.265,64.459 57.144,71.087L56.05,74.503C55.412,76.499 52.588,76.499 51.95,74.503L50.856,71.087Z"
++      android:fillColor="#ffffff"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..7f152b9c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Jelly/app/src/main/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M53.229,61.503C51.872,58.519 49.481,56.128 46.497,54.771C45.834,54.47 45.834,53.53 46.497,53.229C49.481,51.872 51.872,49.481 53.229,46.497C53.53,45.834 54.47,45.834 54.771,46.497C56.128,49.481 58.519,51.872 61.503,53.229C62.166,53.53 62.166,54.47 61.503,54.771C58.519,56.128 56.128,58.519 54.771,61.503C54.47,62.166 53.53,62.166 53.229,61.503Z"
++        android:fillColor="@android:color/system_accent1_600"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..b9256675
+--- /dev/null
++++ b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M54,76C66.15,76 76,66.15 76,54C76,49.769 74.806,45.817 72.736,42.463L74.327,36.098C74.693,34.634 73.366,33.307 71.902,33.673L65.537,35.264C62.183,33.194 58.231,32 54,32C41.85,32 32,41.85 32,54C32,66.15 41.85,76 54,76Z"
++      android:fillColor="#ffffff"
++      android:fillType="evenOdd"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..ab598892
+--- /dev/null
++++ b/overlay/personal/packages/apps/Messaging/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M54,66C60.75,66 66,63.627 66,57C66,47.373 60.75,42 54,42C47.25,42 42,47.373 42,57C42,63.627 47.25,66 54,66ZM54,57.5C57.057,57.5 60.055,56.942 62,56C61.125,58.603 59.333,62 54,62C48.667,62 46.875,58.603 46,56C47.945,56.942 50.943,57.5 54,57.5Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..afc988fc
+--- /dev/null
++++ b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M34,43L34,43A2,2 0,0 1,36 45L36,63A2,2 0,0 1,34 65L34,65A2,2 0,0 1,32 63L32,45A2,2 0,0 1,34 43z"
++      android:fillColor="#ffffff"/>
++  <path
++      android:pathData="M42,48L42,48A2,2 0,0 1,44 50L44,58A2,2 0,0 1,42 60L42,60A2,2 0,0 1,40 58L40,50A2,2 0,0 1,42 48z"
++      android:fillColor="#ffffff"/>
++  <path
++      android:pathData="M49,53L51,53A1,1 0,0 1,52 54L52,54A1,1 0,0 1,51 55L49,55A1,1 0,0 1,48 54L48,54A1,1 0,0 1,49 53z"
++      android:fillColor="#ffffff"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..1a699688
+--- /dev/null
++++ b/overlay/personal/packages/apps/Recorder/app/src/main/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M68,54m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..19d7e4f0
+--- /dev/null
++++ b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M58.148,28C59.193,28 60.062,28.805 60.142,29.847L60.254,31.303C60.431,33.606 62.018,35.527 64.017,36.685C66.016,37.844 68.441,38.236 70.525,37.237L71.846,36.604C72.789,36.153 73.92,36.503 74.443,37.408L78.59,44.592C79.113,45.497 78.851,46.652 77.988,47.243L76.782,48.068C74.876,49.374 74,51.689 74,54C74,56.311 74.876,58.626 76.782,59.932L77.988,60.757C78.851,61.348 79.113,62.503 78.59,63.408L74.443,70.592C73.92,71.497 72.789,71.847 71.846,71.396L70.525,70.763C68.441,69.764 66.016,70.156 64.017,71.315C62.018,72.473 60.431,74.394 60.254,76.697L60.142,78.153C60.062,79.195 59.193,80 58.148,80H49.852C48.807,80 47.938,79.195 47.858,78.153L47.746,76.697C47.569,74.394 45.981,72.473 43.983,71.315C41.984,70.156 39.558,69.764 37.475,70.763L36.153,71.396C35.211,71.847 34.08,71.497 33.557,70.592L29.409,63.408C28.887,62.503 29.149,61.348 30.011,60.757L31.218,59.931C33.124,58.626 34,56.311 34,54C34,51.689 33.124,49.374 31.218,48.068L30.011,47.242C29.149,46.652 28.887,45.497 29.409,44.592L33.557,37.408C34.08,36.503 35.211,36.153 36.153,36.604L37.475,37.237C39.558,38.236 41.984,37.844 43.983,36.685C45.982,35.527 47.569,33.606 47.746,31.303L47.858,29.847C47.938,28.805 48.807,28 49.852,28H58.148ZM54,66C60.627,66 66,60.627 66,54C66,47.373 60.627,42 54,42C47.373,42 42,47.373 42,54C42,60.627 47.373,66 54,66Z"
++      android:fillColor="#FFFFFF"
++      android:fillType="evenOdd"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..8cd7953c
+--- /dev/null
++++ b/overlay/personal/packages/apps/Settings/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0"
++        android:fillColor="#FFFFFF"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..791bba6b
+--- /dev/null
++++ b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="#FFFFFF"/>
++  <path
++      android:pathData="M66,66m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M42,66m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_100"/>
++  <path
++      android:pathData="M54,62m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"
++      android:fillColor="@android:color/system_neutral1_200"/>
++</vector>
+diff --git a/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..138b559b
+--- /dev/null
++++ b/overlay/personal/packages/apps/Trebuchet/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M108,0H0V108H108V0ZM42,30C39.791,30 38,31.791 38,34V74C38,76.209 39.791,78 42,78H66C68.209,78 70,76.209 70,74V34C70,31.791 68.209,30 66,30H42Z"
++        android:fillColor="@android:color/system_accent1_600"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+diff --git a/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+new file mode 100644
+index 00000000..b70d3060
+--- /dev/null
++++ b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_background.xml
+@@ -0,0 +1,20 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <path
++      android:pathData="M0,0h108v108h-108z"
++      android:fillColor="@android:color/system_accent1_600"/>
++  <path
++      android:pathData="M30,61C30,60.448 30.448,60 31,60H37C37.552,60 38,60.448 38,61V67C38,67.552 37.552,68 37,68H32C30.895,68 30,67.105 30,66V61Z"
++      android:fillColor="@android:color/system_accent1_10"/>
++  <path
++      android:pathData="M70,61C70,60.448 70.448,60 71,60H77C77.552,60 78,60.448 78,61V66C78,67.105 77.105,68 76,68H71C70.448,68 70,67.552 70,67V61Z"
++      android:fillColor="@android:color/system_accent1_10"/>
++</vector>
+diff --git a/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
+new file mode 100644
+index 00000000..4e86fe3d
+--- /dev/null
++++ b/overlay/personal/packages/inputmethods/LatinIME/java/res/drawable/ic_launcher_foreground.xml
+@@ -0,0 +1,34 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     SPDX-FileCopyrightText: 2022 The LineageOS Project
++     SPDX-License-Identifier: Apache-2.0
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:aapt="http://schemas.android.com/aapt"
++    android:width="108dp"
++    android:height="108dp"
++    android:viewportWidth="108"
++    android:viewportHeight="108">
++  <group>
++    <clip-path
++        android:pathData="M0,0h108v108h-108z"/>
++    <path
++        android:pathData="M30,42C30,40.895 30.895,40 32,40H37C37.552,40 38,40.448 38,41V47C38,47.552 37.552,48 37,48H31C30.448,48 30,47.552 30,47V42ZM40,51C40,50.448 40.448,50 41,50H47C47.552,50 48,50.448 48,51V57C48,57.552 47.552,58 47,58H41C40.448,58 40,57.552 40,57V51ZM41,40C40.448,40 40,40.448 40,41V47C40,47.552 40.448,48 41,48H47C47.552,48 48,47.552 48,47V41C48,40.448 47.552,40 47,40H41ZM50,51C50,50.448 50.448,50 51,50H57C57.552,50 58,50.448 58,51V57C58,57.552 57.552,58 57,58H51C50.448,58 50,57.552 50,57V51ZM51,40C50.448,40 50,40.448 50,41V47C50,47.552 50.448,48 51,48H57C57.552,48 58,47.552 58,47V41C58,40.448 57.552,40 57,40H51ZM40,61C40,60.448 40.448,60 41,60H67C67.552,60 68,60.448 68,61V67C68,67.552 67.552,68 67,68H41C40.448,68 40,67.552 40,67V61ZM61,50C60.448,50 60,50.448 60,51V57C60,57.552 60.448,58 61,58H67C67.552,58 68,57.552 68,57V51C68,50.448 67.552,50 67,50H61ZM60,41C60,40.448 60.448,40 61,40H67C67.552,40 68,40.448 68,41V47C68,47.552 67.552,48 67,48H61C60.448,48 60,47.552 60,47V41ZM71,40C70.448,40 70,40.448 70,41V47C70,47.552 70.448,48 71,48H77C77.552,48 78,47.552 78,47V42C78,40.895 77.105,40 76,40H71Z"
++        android:fillColor="#FFFFFF"
++        android:fillType="evenOdd"/>
++    <path
++        android:pathData="M28.54,28.54m-72,0a72,72 0,1 1,144 0a72,72 0,1 1,-144 0"
++        android:fillAlpha="0.6">
++      <aapt:attr name="android:fillColor">
++        <gradient
++            android:gradientRadius="72"
++            android:centerX="28.54"
++            android:centerY="28.54"
++            android:type="radial">
++          <item android:offset="0" android:color="#19FFFFFF"/>
++          <item android:offset="1" android:color="#00FFFFFF"/>
++        </gradient>
++      </aapt:attr>
++    </path>
++  </group>
++</vector>
+-- 
+2.34.1
+

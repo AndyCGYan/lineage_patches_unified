@@ -1,4 +1,4 @@
-From 7548d2465b542b0b24609900b57e0eab433e6eb6 Mon Sep 17 00:00:00 2001
+From 8716b7ebe29b4b66fc7a085f3244164140672ffa Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
 Subject: [PATCH 22/50] backlight: Fix backlight control on Galaxy S9(+)
@@ -53,18 +53,18 @@ Change-Id: I4e85178327d2bb63d5d0a37786058843662a89ba
  1 file changed, 46 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index fea6b29d9260..caf9eba7d9a8 100644
+index 4d26f43307b2..c94d334b280b 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
-@@ -32,6 +32,7 @@ import android.os.IBinder;
- import android.os.Looper;
+@@ -32,6 +32,7 @@ import android.os.Looper;
+ import android.os.PermissionEnforcer;
  import android.os.RemoteException;
  import android.os.ServiceManager;
 +import android.os.SystemProperties;
  import android.os.Trace;
  import android.provider.Settings;
  import android.util.Slog;
-@@ -295,6 +296,51 @@ public class LightsService extends SystemService {
+@@ -298,6 +299,51 @@ public class LightsService extends SystemService {
                      return;
                  }
                  int brightnessInt = BrightnessSynchronizer.brightnessFloatToInt(brightness);

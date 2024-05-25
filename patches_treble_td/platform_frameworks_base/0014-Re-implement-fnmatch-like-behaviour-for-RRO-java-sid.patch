@@ -1,4 +1,4 @@
-From 6f924b3312017fc5eb84d50eaf544d2e79d90fbf Mon Sep 17 00:00:00 2001
+From 69281cf6072b7290c232b1877460fcf2c2ba5e93 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 25 Oct 2020 23:57:26 +0100
 Subject: [PATCH 14/50] Re-implement fnmatch-like behaviour for RRO java-side
@@ -11,7 +11,7 @@ Change-Id: Id38292a9a1453aa87b8401c1fdb390fa4e63c7d1
  1 file changed, 11 insertions(+), 2 deletions(-)
 
 diff --git a/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java b/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
-index b75ba82ad091..b344f7232190 100644
+index fc06dd8de3b6..41da26bff956 100644
 --- a/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
 +++ b/core/java/android/content/pm/parsing/FrameworkParsingPackageUtils.java
 @@ -223,8 +223,17 @@ public class FrameworkParsingPackageUtils {

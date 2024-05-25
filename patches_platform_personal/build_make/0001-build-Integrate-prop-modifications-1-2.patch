@@ -1,4 +1,4 @@
-From 2a644e6a7d3dbdea344fc24408c86e0676811333 Mon Sep 17 00:00:00 2001
+From 6c64bd7235f1c7b080fd95dc7a199350c740d8b0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 09:08:43 +0000
 Subject: [PATCH 1/2] build: Integrate prop modifications (1/2)
@@ -9,15 +9,15 @@ Change-Id: I24f54937e3e542b7c29ea86d24e3f523583a0c61
  1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/tools/buildinfo.sh b/tools/buildinfo.sh
-index 4c82ec9edc..c01872c369 100755
+index e68162a6fe..ba29698719 100755
 --- a/tools/buildinfo.sh
 +++ b/tools/buildinfo.sh
 @@ -9,7 +9,7 @@ if [ "$BOARD_USE_VBMETA_DIGTEST_IN_FINGERPRINT" = "true" ] ; then
  else
-   echo "ro.build.id=$BUILD_ID"
+   echo "ro.build.id?=$BUILD_ID"
  fi
--echo "ro.build.display.id=$BUILD_DISPLAY_ID"
-+echo "ro.build.display.id=$BUILD_ID"
+-echo "ro.build.display.id?=$BUILD_DISPLAY_ID"
++echo "ro.build.display.id?=$BUILD_ID"
  echo "ro.build.version.incremental=$BUILD_NUMBER"
  echo "ro.build.version.sdk=$PLATFORM_SDK_VERSION"
  echo "ro.build.version.preview_sdk=$PLATFORM_PREVIEW_SDK_VERSION"
@@ -30,7 +30,7 @@ index 4c82ec9edc..c01872c369 100755
  echo "ro.build.date.utc=`$DATE +%s`"
  echo "ro.build.type=$TARGET_BUILD_TYPE"
  echo "ro.build.user=$BUILD_USERNAME"
-@@ -55,5 +55,10 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
+@@ -57,5 +57,10 @@ if [ -n "$BUILD_THUMBPRINT" ] ; then
  fi
  
  echo "ro.lineage.device=$LINEAGE_DEVICE"

@@ -1,7 +1,7 @@
-From de1f17d9c94ecb56f2f0e6c59ee6f3fb8d4c45b5 Mon Sep 17 00:00:00 2001
+From 74130e716bea3cd9b49e755976d51a5321c7fa4f Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 26 Oct 2022 18:10:04 -0400
-Subject: [PATCH 1/5] Allow failing to load bpf programs, for BPF-less devices
+Subject: [PATCH 1/6] Allow failing to load bpf programs, for BPF-less devices
 
 Change-Id: I68ba3be2e15c188e56e32a6ecf844e1ca64d560f
 ---
@@ -9,10 +9,10 @@ Change-Id: I68ba3be2e15c188e56e32a6ecf844e1ca64d560f
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/netd/BpfHandler.cpp b/netd/BpfHandler.cpp
-index 64093743f8..3eb7419a02 100644
+index 2252e07fc9..b8333526d8 100644
 --- a/netd/BpfHandler.cpp
 +++ b/netd/BpfHandler.cpp
-@@ -87,8 +87,14 @@ static Status initPrograms(const char* cg2_path) {
+@@ -115,8 +115,14 @@ static Status initPrograms(const char* cg2_path) {
      RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_DENYLIST_PROG_PATH));
      RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_EGRESS_PROG_PATH));
      RETURN_IF_NOT_OK(checkProgramAccessible(XT_BPF_INGRESS_PROG_PATH));

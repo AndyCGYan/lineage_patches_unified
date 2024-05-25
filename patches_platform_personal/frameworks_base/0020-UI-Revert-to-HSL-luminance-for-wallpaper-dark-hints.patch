@@ -1,0 +1,47 @@
+From 92e809ecdc3cb63ad9d4aa107dd959896cb6024c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 30 Sep 2022 16:02:16 +0000
+Subject: [PATCH 20/20] UI: Revert to HSL luminance for wallpaper dark hints
+
+Y U no test for consistency, Google?
+
+Change-Id: Ie5663bdf518b4ef93d6deb634e707a32d052ac55
+---
+ core/java/android/app/WallpaperColors.java | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/core/java/android/app/WallpaperColors.java b/core/java/android/app/WallpaperColors.java
+index 1adce321012b..477dbc827672 100644
+--- a/core/java/android/app/WallpaperColors.java
++++ b/core/java/android/app/WallpaperColors.java
+@@ -568,15 +568,15 @@ public final class WallpaperColors implements Parcelable {
+         float[] tmpHsl = new float[3];
+         for (int i = 0; i < pixels.length; i++) {
+             int pixelColor = pixels[i];
+-            ColorUtils.colorToHSL(pixelColor, tmpHsl);
+             final int alpha = Color.alpha(pixelColor);
+ 
+             // Apply composite colors where the foreground is a black layer with an alpha value of
+             // the dim amount and the background is the wallpaper pixel color.
+             int compositeColors = ColorUtils.compositeColors(blackTransparent, pixelColor);
+ 
+-            // Calculate the adjusted luminance of the dimmed wallpaper pixel color.
+-            double adjustedLuminance = ColorUtils.calculateLuminance(compositeColors);
++            // Calculate the luminance of the dimmed wallpaper pixel color.
++            ColorUtils.colorToHSL(compositeColors, tmpHsl);
++            double luminance = tmpHsl[2];
+ 
+             // Make sure we don't have a dark pixel mass that will
+             // make text illegible.
+@@ -588,7 +588,7 @@ public final class WallpaperColors implements Parcelable {
+                     pixels[i] = Color.RED;
+                 }
+             }
+-            totalLuminance += adjustedLuminance;
++            totalLuminance += luminance;
+         }
+ 
+         int hints = 0;
+-- 
+2.34.1
+

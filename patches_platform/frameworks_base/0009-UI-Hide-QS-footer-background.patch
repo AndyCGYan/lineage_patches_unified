@@ -1,0 +1,40 @@
+From 17eb4477f1607ea91917ddce4137d7e337d3037b Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 4 Apr 2024 18:19:19 +0800
+Subject: [PATCH 09/34] UI: Hide QS footer background
+
+Change-Id: I4d83037e9206dec4181f9b0acd302114fa4a98c1
+---
+ .../com/android/systemui/qs/footer/ui/compose/FooterActions.kt  | 2 +-
+ packages/SystemUI/res/drawable/qs_footer_actions_background.xml | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt b/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
+index eb71490f049a..8242afefc56b 100644
+--- a/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
++++ b/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
+@@ -119,7 +119,7 @@ fun FooterActions(
+         }
+     }
+ 
+-    val backgroundColor = colorAttr(R.attr.underSurface)
++    val backgroundColor = colorAttr(android.R.color.transparent)
+     val contentColor = LocalAndroidColorScheme.current.onSurface
+     val backgroundTopRadius = dimensionResource(R.dimen.qs_corner_radius)
+     val backgroundModifier =
+diff --git a/packages/SystemUI/res/drawable/qs_footer_actions_background.xml b/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
+index a7e8762a2593..6bfa8f75de03 100644
+--- a/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
++++ b/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
+@@ -15,7 +15,7 @@
+ -->
+ <inset xmlns:android="http://schemas.android.com/apk/res/android">
+     <shape>
+-        <solid android:color="?attr/underSurface"/>
++        <solid android:color="@android:color/transparent"/>
+         <corners android:topLeftRadius="@dimen/qs_corner_radius"
+                  android:topRightRadius="@dimen/qs_corner_radius"/>
+     </shape>
+-- 
+2.34.1
+

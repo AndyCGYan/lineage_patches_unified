@@ -1,4 +1,4 @@
-From ca2daaa7257fed79965afe595742fb8f394827da Mon Sep 17 00:00:00 2001
+From 4897371a2b91eb8179cdc35abf12e380bb5675dc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 20 Dec 2021 15:01:41 -0500
 Subject: [PATCH 25/50] Dynamically resize boot animation to match screen size
@@ -9,10 +9,10 @@ Change-Id: I54e49fc6b8c670103852e212d1416e27ff976205
  1 file changed, 22 insertions(+)
 
 diff --git a/cmds/bootanimation/BootAnimation.cpp b/cmds/bootanimation/BootAnimation.cpp
-index 528ac1d19603..337e9eba702d 100644
+index f5271aca5c59..560f73bf7e35 100644
 --- a/cmds/bootanimation/BootAnimation.cpp
 +++ b/cmds/bootanimation/BootAnimation.cpp
-@@ -622,6 +622,28 @@ status_t BootAnimation::readyToRun() {
+@@ -635,6 +635,28 @@ status_t BootAnimation::readyToRun() {
      mFlingerSurface = s;
      mTargetInset = -1;
  

@@ -1,4 +1,4 @@
-From a9e368d503270ae8988dce4c6c8927a4fbffe45d Mon Sep 17 00:00:00 2001
+From 9b75172e57381886f96fa52bdbd7441622bc9f91 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 5 Jul 2023 10:50:36 -0400
 Subject: [PATCH 31/50] Detect Moto dynamic hardware feature
@@ -14,10 +14,10 @@ NFC-less variants
  1 file changed, 19 insertions(+)
 
 diff --git a/services/core/java/com/android/server/SystemConfig.java b/services/core/java/com/android/server/SystemConfig.java
-index 7fae31c0bb4b..6da8e9397829 100644
+index 40b29d7b09d5..38e82d8cac36 100644
 --- a/services/core/java/com/android/server/SystemConfig.java
 +++ b/services/core/java/com/android/server/SystemConfig.java
-@@ -939,6 +939,25 @@ public class SystemConfig {
+@@ -946,6 +946,25 @@ public class SystemConfig {
                          }
                          XmlUtils.skipCurrentTag(parser);
                      } break;

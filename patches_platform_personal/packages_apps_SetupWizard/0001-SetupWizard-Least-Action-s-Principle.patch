@@ -1,163 +1,189 @@
-From 7f78c8c7ea3b7aad4c234338263ed88eef8485e7 Mon Sep 17 00:00:00 2001
+From 132abfada735742924b1d02a044fb56072d43f0d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 23 Nov 2023 23:21:58 +0800
 Subject: [PATCH] SetupWizard: Least Action(s) Principle
 
 Change-Id: I892634b8ffc7beafa5a223de0afdc64276efd2f5
 ---
- res/raw/lineage_wizard_script.xml             | 43 +------------------
- .../lineage_wizard_script_managed_profile.xml | 15 +------
- res/raw/lineage_wizard_script_user.xml        | 27 +-----------
- 3 files changed, 5 insertions(+), 80 deletions(-)
+ res/raw/lineage_wizard_script.xml             | 62 +------------------
+ .../lineage_wizard_script_managed_profile.xml | 22 +------
+ res/raw/lineage_wizard_script_user.xml        | 39 +-----------
+ 3 files changed, 3 insertions(+), 120 deletions(-)
 
 diff --git a/res/raw/lineage_wizard_script.xml b/res/raw/lineage_wizard_script.xml
-index 616f6ed..e7c9b7f 100644
+index 511ac7b..21cd2ef 100644
 --- a/res/raw/lineage_wizard_script.xml
 +++ b/res/raw/lineage_wizard_script.xml
-@@ -18,21 +18,13 @@
+@@ -5,13 +5,7 @@
+      SPDX-License-Identifier: Apache-2.0
  -->
- 
  <WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
 -    wizard:firstAction="bluetooth_setup">
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BLUETOOTH_SETUP;end" id="bluetooth_setup">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BLUETOOTH_SETUP;end"
+-        id="bluetooth_setup">
 -        <result wizard:action="welcome" />
 -    </WizardAction>
 +    wizard:firstAction="welcome">
  
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end" id="welcome">
-         <result wizard:action="locale" />
-     </WizardAction>
- 
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCALE;end" id="locale">
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
+@@ -23,12 +17,6 @@
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCALE;end"
+         id="locale">
 -        <result wizard:action="sim_missing" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SIM_MISSING;end" id="sim_missing">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SIM_MISSING;end"
+-        id="sim_missing">
          <result wizard:action="network_setup" />
      </WizardAction>
  
-@@ -41,44 +33,13 @@
-     </WizardAction>
- 
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_DATETIME;end" id="datetime">
+@@ -41,54 +29,6 @@
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_DATETIME;end"
+         id="datetime">
+-        <result wizard:action="restore" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end"
+-        id="restore">
 -        <result wizard:action="location_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end" id="location_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end"
+-        id="location_settings">
 -        <result wizard:action="device_specific" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.DEVICE_SPECIFIC;end" id="device_specific">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.DEVICE_SPECIFIC;end"
+-        id="device_specific">
 -        <result wizard:action="recovery_update" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RECOVERY_UPDATE;end" id="recovery_update">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RECOVERY_UPDATE;end"
+-        id="recovery_update">
 -        <result wizard:action="lineage_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETTINGS;end" id="lineage_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETTINGS;end"
+-        id="lineage_settings">
 -        <result wizard:action="lockscreen_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end" id="lockscreen_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end" id="biometric_settings">
--        <result wizard:action="restore" />
--    </WizardAction>
--
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end" id="restore">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
+-        id="biometric_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.NAVIGATION_SETTINGS;end" id="navigation_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.NAVIGATION_SETTINGS;end"
+-        id="navigation_settings">
          <result wizard:action="finish" />
      </WizardAction>
  
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end" id="finish">
-         <result wizard:action="exit" />
-     </WizardAction>
-+
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.EXIT;end" id="exit" />
- 
- </WizardScript>
 diff --git a/res/raw/lineage_wizard_script_managed_profile.xml b/res/raw/lineage_wizard_script_managed_profile.xml
-index 00a66e3..4f8b867 100644
+index 36f80c6..47e99c5 100644
 --- a/res/raw/lineage_wizard_script_managed_profile.xml
 +++ b/res/raw/lineage_wizard_script_managed_profile.xml
-@@ -2,7 +2,6 @@
- 
+@@ -1,31 +1,11 @@
+ <?xml version="1.0" encoding="utf-8"?>
  <!--
-      Copyright (C) 2016 The CyanogenMod Project
--     Copyright (C) 2021 The Calyx Institute
- 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-@@ -18,19 +17,7 @@
+      SPDX-FileCopyrightText: 2016 The CyanogenMod Project
+-     SPDX-FileCopyrightText: 2021 The Calyx Institute
+      SPDX-FileCopyrightText: 2021-2024 The LineageOS Project
+      SPDX-License-Identifier: Apache-2.0
  -->
- 
  <WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
--              wizard:firstAction="welcome">
+-    wizard:firstAction="welcome">
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end" id="welcome">
--        <result wizard:action="location_settings" />
--    </WizardAction>
--
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end" id="location_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
+-        id="welcome">
+-        <result wizard:name="skip" wizard:resultCode="1" />
 -        <result wizard:action="restore" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end" id="restore">
--        <result wizard:action="finish" />
--    </WizardAction>
-+              wizard:firstAction="finish">
- 
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end" id="finish">
-         <result wizard:action="exit" />
-diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
-index d480901..4f8b867 100644
---- a/res/raw/lineage_wizard_script_user.xml
-+++ b/res/raw/lineage_wizard_script_user.xml
-@@ -17,35 +17,12 @@
- -->
- 
- <WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
--              wizard:firstAction="welcome">
--
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end" id="welcome">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end"
+-        id="restore">
 -        <result wizard:action="location_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end" id="location_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end"
+-        id="location_settings">
+-        <result wizard:action="finish" />
+-    </WizardAction>
++    wizard:firstAction="finish">
+ 
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end"
+diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
+index 7f52c6f..47e99c5 100644
+--- a/res/raw/lineage_wizard_script_user.xml
++++ b/res/raw/lineage_wizard_script_user.xml
+@@ -5,44 +5,7 @@
+      SPDX-License-Identifier: Apache-2.0
+ -->
+ <WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
+-    wizard:firstAction="welcome">
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
+-        id="welcome">
+-        <result wizard:name="skip" wizard:resultCode="1" />
+-        <result wizard:action="restore" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end"
+-        id="restore">
+-        <result wizard:action="location_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end"
+-        id="location_settings">
 -        <result wizard:action="lockscreen_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end" id="lockscreen_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end" id="biometric_settings">
--        <result wizard:action="restore" />
--    </WizardAction>
--
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_RESTORE_BACKUP;end" id="restore">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
+-        id="biometric_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -
--    <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.NAVIGATION_SETTINGS;end" id="navigation_settings">
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.NAVIGATION_SETTINGS;end"
+-        id="navigation_settings">
 -        <result wizard:action="finish" />
 -    </WizardAction>
-+              wizard:firstAction="finish">
++    wizard:firstAction="finish">
  
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end" id="finish">
-         <result wizard:action="exit" />
-     </WizardAction>
-+
-     <WizardAction wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.EXIT;end" id="exit" />
- 
- </WizardScript>
+     <WizardAction
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end"
 -- 
 2.34.1
 

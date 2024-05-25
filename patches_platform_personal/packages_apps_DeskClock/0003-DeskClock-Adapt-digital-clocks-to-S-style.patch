@@ -1,4 +1,4 @@
-From 57684772d748887b4eca93d6fb5c35ee1dff72eb Mon Sep 17 00:00:00 2001
+From 2bbdf8a6e96e5f6fe14da94eddf729e374c681b4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
 Subject: [PATCH 3/4] DeskClock: Adapt digital clocks to S style
@@ -432,7 +432,7 @@ index 8c6364344..159f24766 100644
 +    </style>
  </resources>
 diff --git a/src/com/android/alarmclock/DigitalAppWidgetProvider.java b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
-index b54a500c5..fb1b30aa7 100644
+index 709835ebc..621b39132 100644
 --- a/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 +++ b/src/com/android/alarmclock/DigitalAppWidgetProvider.java
 @@ -223,7 +223,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
@@ -540,7 +540,7 @@ index c3739bac8..5b931a46d 100644
          return (String) DateFormat.format(pattern, time);
      }
 diff --git a/src/com/android/deskclock/ClockFragment.java b/src/com/android/deskclock/ClockFragment.java
-index bf53584e4..7a0e3ae0b 100644
+index 2a1f2770f..eaf796659 100644
 --- a/src/com/android/deskclock/ClockFragment.java
 +++ b/src/com/android/deskclock/ClockFragment.java
 @@ -123,7 +123,6 @@ public final class ClockFragment extends DeskClockFragment {

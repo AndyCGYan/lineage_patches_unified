@@ -1,4 +1,4 @@
-From 61630e83287a097f512b03203722f7385100bd5f Mon Sep 17 00:00:00 2001
+From ed635e14cc220e49b736c8071f368201931dd4b0 Mon Sep 17 00:00:00 2001
 From: Daniel Micay <danielmicay@gmail.com>
 Date: Sat, 6 Jun 2015 10:40:51 -0400
 Subject: [PATCH] NfcService: Disable NFC by default
@@ -9,18 +9,18 @@ Change-Id: Ibe6abec7fa84c6fde476b8a083f57a3f61b50909
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/src/com/android/nfc/NfcService.java b/src/com/android/nfc/NfcService.java
-index f22dc9da..28aedc59 100644
+index f74e78ab..a4654977 100644
 --- a/src/com/android/nfc/NfcService.java
 +++ b/src/com/android/nfc/NfcService.java
-@@ -141,7 +141,7 @@ public class NfcService implements DeviceHostListener, ForegroundUtils.Callback
+@@ -144,7 +144,7 @@ public class NfcService implements DeviceHostListener, ForegroundUtils.Callback
      public static final String PREF_TAG_APP_LIST = "TagIntentAppPreferenceListPrefs";
  
      static final String PREF_NFC_ON = "nfc_on";
 -    static final boolean NFC_ON_DEFAULT = true;
 +    static final boolean NFC_ON_DEFAULT = false;
-     static final String PREF_SECURE_NFC_ON = "secure_nfc_on";
-     static final boolean SECURE_NFC_ON_DEFAULT = false;
-     static final String PREF_FIRST_BOOT = "first_boot";
+ 
+     static final String PREF_NFC_READER_OPTION_ON = "nfc_reader_on";
+     static final boolean NFC_READER_OPTION_DEFAULT = true;
 -- 
 2.34.1
 
