@@ -1,4 +1,4 @@
-From 2194bcf5d390be451ff641a0d779a2a815d1d67a Mon Sep 17 00:00:00 2001
+From fb1a8efb48bd9aa11b1dfdab6ca7701a130e9bca Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 26 Feb 2024 08:41:08 +0800
 Subject: [PATCH] SetupWizard: Remove step for changing theme
@@ -13,13 +13,13 @@ Change-Id: Id83207c766d6b0b23cd240b35936289c44026db5
  3 files changed, 15 deletions(-)
 
 diff --git a/res/raw/lineage_wizard_script.xml b/res/raw/lineage_wizard_script.xml
-index 0befc2b..ea342b6 100644
+index 7c87abd..af3df01 100644
 --- a/res/raw/lineage_wizard_script.xml
 +++ b/res/raw/lineage_wizard_script.xml
-@@ -82,12 +82,6 @@
+@@ -83,12 +83,6 @@
      <WizardAction
-         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
-         id="biometric_settings">
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+         id="lockscreen_settings">
 -        <result wizard:action="theme_settings" />
 -    </WizardAction>
 -
@@ -30,13 +30,13 @@ index 0befc2b..ea342b6 100644
      </WizardAction>
  
 diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
-index aef7f2e..af38520 100644
+index 15325c6..1522eda 100644
 --- a/res/raw/lineage_wizard_script_user.xml
 +++ b/res/raw/lineage_wizard_script_user.xml
-@@ -34,12 +34,6 @@
+@@ -35,12 +35,6 @@
      <WizardAction
-         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
-         id="biometric_settings">
+         wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+         id="lockscreen_settings">
 -        <result wizard:action="theme_settings" />
 -    </WizardAction>
 -

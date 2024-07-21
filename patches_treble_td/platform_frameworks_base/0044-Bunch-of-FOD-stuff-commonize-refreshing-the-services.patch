@@ -1,7 +1,7 @@
-From a3ae2f7a7aa63c58a0b43fb39a056e0a24d131de Mon Sep 17 00:00:00 2001
+From 2c6fee0675db102440d32b4e55f38faf672f24ac Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 29 Jan 2024 17:15:38 -0500
-Subject: [PATCH 44/50] Bunch of FOD stuff -- commonize refreshing the
+Subject: [PATCH 44/51] Bunch of FOD stuff -- commonize refreshing the
  services, start supporting AIDL Samsung
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 44/50] Bunch of FOD stuff -- commonize refreshing the
  1 file changed, 138 insertions(+), 19 deletions(-)
 
 diff --git a/services/core/java/com/android/server/biometrics/AuthService.java b/services/core/java/com/android/server/biometrics/AuthService.java
-index f6f0fea8e3e7..62c8bcf37960 100644
+index b1f06482dc19..62f6a7125b6a 100644
 --- a/services/core/java/com/android/server/biometrics/AuthService.java
 +++ b/services/core/java/com/android/server/biometrics/AuthService.java
-@@ -47,6 +47,7 @@ import android.hardware.biometrics.IAuthService;
+@@ -48,6 +48,7 @@ import android.hardware.biometrics.IAuthService;
  import android.hardware.biometrics.IBiometricEnabledOnKeyguardCallback;
  import android.hardware.biometrics.IBiometricService;
  import android.hardware.biometrics.IBiometricServiceReceiver;
@@ -20,7 +20,7 @@ index f6f0fea8e3e7..62c8bcf37960 100644
  import android.hardware.biometrics.IInvalidationCallback;
  import android.hardware.biometrics.ITestSession;
  import android.hardware.biometrics.ITestSessionCallback;
-@@ -96,6 +97,7 @@ import android.os.Build;
+@@ -101,6 +102,7 @@ import android.os.Build;
  import vendor.samsung.hardware.biometrics.fingerprint.V3_0.ISehBiometricsFingerprint;
  import vendor.goodix.hardware.biometrics.fingerprint.V2_1.IGoodixFingerprintDaemon;
  import vendor.samsung.hardware.sysinput.V1_0.ISehSysInputDev;
@@ -28,7 +28,7 @@ index f6f0fea8e3e7..62c8bcf37960 100644
  
  import vendor.xiaomi.hardware.fingerprintextension.V1_0.IXiaomiFingerprint;
  
-@@ -119,6 +121,8 @@ public class AuthService extends SystemService {
+@@ -124,6 +126,8 @@ public class AuthService extends SystemService {
  
      private FileObserver fodFileObserver = null;
      private ISehBiometricsFingerprint mSamsungFingerprint = null;
@@ -37,7 +37,7 @@ index f6f0fea8e3e7..62c8bcf37960 100644
  
      private IXiaomiFingerprint mXiaomiFingerprint = null;
  
-@@ -719,6 +723,101 @@ public class AuthService extends SystemService {
+@@ -780,6 +784,101 @@ public class AuthService extends SystemService {
       *                 └── for (s : p.sensors)
       *                     └── BiometricService.registerAuthenticator(s)
       */
@@ -139,9 +139,9 @@ index f6f0fea8e3e7..62c8bcf37960 100644
      @Override
      public void onStart() {
          mBiometricService = mInjector.getBiometricService();
-@@ -746,20 +845,11 @@ public class AuthService extends SystemService {
-         // Registers HIDL and AIDL authenticators, but only HIDL configs need to be provided.
-         registerAuthenticators(hidlConfigs);
+@@ -811,20 +910,11 @@ public class AuthService extends SystemService {
+             registerAuthenticators(hidlConfigs);
+         }
  
 +        refreshVendorServices();
 +
@@ -164,7 +164,7 @@ index f6f0fea8e3e7..62c8bcf37960 100644
              samsungCmd("fod_enable,1,1,0");
              String actualMaskBrightnessPath = "/sys/class/lcd/panel/actual_mask_brightness";
              android.util.Log.e("PHH-Enroll", "Reading actual brightness file gives " + readFile(actualMaskBrightnessPath));
-@@ -767,9 +857,7 @@ public class AuthService extends SystemService {
+@@ -832,9 +922,7 @@ public class AuthService extends SystemService {
                  @Override
                  public void onEvent(int event, String path) {
                      String actualMask = readFile(actualMaskBrightnessPath);
@@ -175,7 +175,7 @@ index f6f0fea8e3e7..62c8bcf37960 100644
                      Slog.d("PHH-Enroll", "New actual mask brightness is " + actualMask);
                      try {
                          int eventReq = 0;
-@@ -1014,22 +1102,53 @@ public class AuthService extends SystemService {
+@@ -1207,22 +1295,53 @@ public class AuthService extends SystemService {
              udfpsProps[2] = (int)mW;
  
              try {

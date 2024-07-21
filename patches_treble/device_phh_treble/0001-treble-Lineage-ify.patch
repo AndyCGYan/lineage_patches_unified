@@ -1,7 +1,7 @@
-From e50480813b4a96cb3f3105dc5b1ccb7e5928ac68 Mon Sep 17 00:00:00 2001
+From 7b512450f9a8b4d65bda3daccd5d76b6d86722d3 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 8 Aug 2021 01:43:40 +0000
-Subject: [PATCH 1/9] treble: Lineage-ify
+Subject: [PATCH 1/7] treble: Lineage-ify
 
 Squash of:
 - Proper target names
@@ -31,7 +31,7 @@ Change-Id: I25eee7a3804f335430a447ae1424402d7e37851b
  create mode 100644 overlay-lineage/lineage-sdk/lineage/res/res/values/config.xml
 
 diff --git a/base.mk b/base.mk
-index 22525cd..e40af53 100644
+index 43e261b..1c2fe3d 100644
 --- a/base.mk
 +++ b/base.mk
 @@ -18,7 +18,13 @@ PRODUCT_COPY_FILES += \

@@ -1,4 +1,4 @@
-From 7d501facc77ebb625927748e30fbaffbfdf87b96 Mon Sep 17 00:00:00 2001
+From 68bee34347886f4cc278ec00729d0105a08defc6 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 10 Feb 2024 09:30:19 -0500
 Subject: [PATCH 24/24] Allow using camera modes declared in Samsung
@@ -9,7 +9,7 @@ Subject: [PATCH 24/24] Allow using camera modes declared in Samsung
  1 file changed, 53 insertions(+), 26 deletions(-)
 
 diff --git a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
-index f03ebd84fe..7ead9b194f 100644
+index b4adf3e5b4..d4d9c433a1 100644
 --- a/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 +++ b/services/camera/libcameraservice/utils/SessionConfigurationUtils.cpp
 @@ -168,35 +168,62 @@ bool roundBufferDimensionNearest(int32_t width, int32_t height,

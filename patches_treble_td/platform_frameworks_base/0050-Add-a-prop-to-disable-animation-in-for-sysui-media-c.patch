@@ -1,26 +1,26 @@
-From 6923bfc96d529de7620b0652adeadac4f4612710 Mon Sep 17 00:00:00 2001
+From c0fe31ff8a4ebc3372d0e50eb082991ec32da9d7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 8 May 2024 11:55:07 -0400
-Subject: [PATCH 50/50] Add a prop to disable animation in for sysui media
+Subject: [PATCH 50/51] Add a prop to disable animation in for sysui media
  carousel
 
 ---
- .../systemui/media/controls/ui/MediaCarouselController.kt      | 3 ++-
+ .../media/controls/ui/controller/MediaCarouselController.kt    | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/packages/SystemUI/src/com/android/systemui/media/controls/ui/MediaCarouselController.kt b/packages/SystemUI/src/com/android/systemui/media/controls/ui/MediaCarouselController.kt
-index 992eeca77e54..f8fed58d2553 100644
---- a/packages/SystemUI/src/com/android/systemui/media/controls/ui/MediaCarouselController.kt
-+++ b/packages/SystemUI/src/com/android/systemui/media/controls/ui/MediaCarouselController.kt
+diff --git a/packages/SystemUI/src/com/android/systemui/media/controls/ui/controller/MediaCarouselController.kt b/packages/SystemUI/src/com/android/systemui/media/controls/ui/controller/MediaCarouselController.kt
+index b721236eab01..8da1ddc2010f 100644
+--- a/packages/SystemUI/src/com/android/systemui/media/controls/ui/controller/MediaCarouselController.kt
++++ b/packages/SystemUI/src/com/android/systemui/media/controls/ui/controller/MediaCarouselController.kt
 @@ -22,6 +22,7 @@ import android.content.Intent
  import android.content.res.ColorStateList
  import android.content.res.Configuration
  import android.database.ContentObserver
-+import android.os.SystemProperties;
++import android.os.SystemProperties
  import android.provider.Settings
  import android.provider.Settings.ACTION_MEDIA_CONTROLS_SETTINGS
  import android.util.Log
-@@ -1047,7 +1048,7 @@ constructor(
+@@ -1050,7 +1051,7 @@ constructor(
                          desiredHostState.showsOnlyActiveMedia
  
                  for (mediaPlayer in MediaPlayerData.players()) {

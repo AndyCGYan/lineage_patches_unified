@@ -1,18 +1,18 @@
-From f3e0b506e8e331083d1813d1da2f2e037da44ca0 Mon Sep 17 00:00:00 2001
+From a042fe78740afde7893770b3b33df3453620d624 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 13 Oct 2021 10:56:52 -0400
 Subject: [PATCH] Support no-bpf usecase
 
 Change-Id: I75a427a2a41aa4ab1104ad88a891bef0dc2d9c91
 ---
- bpfloader/BpfLoader.cpp | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ bpfloader/BpfLoader.cpp | 20 ++++++++++++--------
+ 1 file changed, 12 insertions(+), 8 deletions(-)
 
 diff --git a/bpfloader/BpfLoader.cpp b/bpfloader/BpfLoader.cpp
-index 29da777..37a2a19 100644
+index 08fd72d..07bf6f3 100644
 --- a/bpfloader/BpfLoader.cpp
 +++ b/bpfloader/BpfLoader.cpp
-@@ -206,7 +206,9 @@ int main(int argc, char** argv) {
+@@ -196,19 +196,15 @@ int main(int argc, char** argv) {
      //  which could otherwise fail with ENOENT during object pinning or renaming,
      //  due to ordering issues)
      for (const auto& location : locations) {
@@ -21,17 +21,6 @@ index 29da777..37a2a19 100644
 +            goto fail;
 +        }
      }
- 
-     // Note: there's no actual src dir for fs_bpf_loader .o's,
-@@ -214,18 +216,15 @@ int main(int argc, char** argv) {
-     // This is because this is primarily meant for triggering genfscon rules,
-     // and as such this will likely always be the case.
-     // Thus we need to manually create the /sys/fs/bpf/loader subdirectory.
--    if (createSysFsBpfSubDir("loader")) return 1;
-+    if (createSysFsBpfSubDir("loader")) {
-+        goto fail;
-+        return 1;
-+    }
  
      // Load all ELF objects, create programs and maps, and pin them
      for (const auto& location : locations) {
@@ -47,7 +36,7 @@ index 29da777..37a2a19 100644
          }
      }
  
-@@ -234,5 +233,13 @@ int main(int argc, char** argv) {
+@@ -217,5 +213,13 @@ int main(int argc, char** argv) {
          return 1;
      }
  

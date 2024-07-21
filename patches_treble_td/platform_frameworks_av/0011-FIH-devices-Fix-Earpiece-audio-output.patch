@@ -1,4 +1,4 @@
-From 2770f16ee043c697256171eef02146114ce70890 Mon Sep 17 00:00:00 2001
+From ab29ebc6a1d51718ee60d28921ce53241433d66c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 24 Apr 2018 00:14:28 +0200
 Subject: [PATCH 11/24] FIH devices: Fix "Earpiece" audio output

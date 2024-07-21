@@ -1,7 +1,7 @@
-From eb49ecb179bed79bf47cd23c003b89451a75b018 Mon Sep 17 00:00:00 2001
+From ff686d23404fd88ae37148da50a7b1504d9ce7b1 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 25 Nov 2023 08:15:28 -0500
-Subject: [PATCH 09/12] Add MTK GED KPI support to fix broken Mediatek gpufreq
+Subject: [PATCH 09/13] Add MTK GED KPI support to fix broken Mediatek gpufreq
 
 Mediatek GPU scheduler likes to have the timestamps of the frames to be
 able to adjust DVFS.
@@ -22,7 +22,7 @@ well)
  2 files changed, 205 insertions(+)
 
 diff --git a/libs/gui/Surface.cpp b/libs/gui/Surface.cpp
-index 07a0cfed63..1d527c089f 100644
+index 086544e48a..6e73c38a63 100644
 --- a/libs/gui/Surface.cpp
 +++ b/libs/gui/Surface.cpp
 @@ -24,6 +24,9 @@
@@ -131,7 +131,7 @@ index 07a0cfed63..1d527c089f 100644
  }
  
  Surface::~Surface() {
-@@ -647,6 +725,36 @@ int Surface::dequeueBuffer(android_native_buffer_t** buffer, int* fenceFd) {
+@@ -668,6 +746,36 @@ int Surface::dequeueBuffer(android_native_buffer_t** buffer, int* fenceFd) {
          }
      }
  
@@ -168,7 +168,7 @@ index 07a0cfed63..1d527c089f 100644
      if (fence->isValid()) {
          *fenceFd = fence->dup();
          if (*fenceFd == -1) {
-@@ -1090,6 +1198,60 @@ void Surface::onBufferQueuedLocked(int slot, sp<Fence> fence,
+@@ -1111,6 +1219,60 @@ void Surface::onBufferQueuedLocked(int slot, sp<Fence> fence,
      }
  
      mQueueBufferCondition.broadcast();
@@ -229,7 +229,7 @@ index 07a0cfed63..1d527c089f 100644
  
      if (CC_UNLIKELY(atrace_is_tag_enabled(ATRACE_TAG_GRAPHICS))) {
          static gui::FenceMonitor gpuCompletionThread("GPU completion");
-@@ -1857,6 +2019,46 @@ int Surface::connect(
+@@ -1878,6 +2040,46 @@ int Surface::connect(
  
          mConsumerRunningBehind = (output.numPendingBuffers >= 2);
      }

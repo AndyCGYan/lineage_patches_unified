@@ -1,7 +1,7 @@
-From 197b3fc43e8728854b48218e7fe46ec960a05119 Mon Sep 17 00:00:00 2001
+From 0ea1b1e75dbb31fa21beda1d7b2f52f71c8377d3 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 11 Dec 2020 14:41:09 +0100
-Subject: [PATCH 15/50] Remove useless notification about "console" service
+Subject: [PATCH 15/51] Remove useless notification about "console" service
  being running
 
 ---
@@ -9,10 +9,10 @@ Subject: [PATCH 15/50] Remove useless notification about "console" service
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
-index 89b53aab1539..90d0666189c8 100644
+index 7f5a865935b4..48bf47a910ef 100644
 --- a/services/core/java/com/android/server/am/ActivityManagerService.java
 +++ b/services/core/java/com/android/server/am/ActivityManagerService.java
-@@ -5222,7 +5222,7 @@ public class ActivityManagerService extends IActivityManager.Stub
+@@ -5247,7 +5247,7 @@ public class ActivityManagerService extends IActivityManager.Stub
      }
  
      private void showConsoleNotificationIfActive() {

@@ -1,4 +1,4 @@
-From 132abfada735742924b1d02a044fb56072d43f0d Mon Sep 17 00:00:00 2001
+From b1e1d47aa6510c69b45112dcc59c83d3297b14a1 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 23 Nov 2023 23:21:58 +0800
 Subject: [PATCH] SetupWizard: Least Action(s) Principle
@@ -11,7 +11,7 @@ Change-Id: I892634b8ffc7beafa5a223de0afdc64276efd2f5
  3 files changed, 3 insertions(+), 120 deletions(-)
 
 diff --git a/res/raw/lineage_wizard_script.xml b/res/raw/lineage_wizard_script.xml
-index 511ac7b..21cd2ef 100644
+index af3df01..21cd2ef 100644
 --- a/res/raw/lineage_wizard_script.xml
 +++ b/res/raw/lineage_wizard_script.xml
 @@ -5,13 +5,7 @@
@@ -76,18 +76,18 @@ index 511ac7b..21cd2ef 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETTINGS;end"
 -        id="lineage_settings">
--        <result wizard:action="lockscreen_settings" />
--    </WizardAction>
--
--    <WizardAction
--        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
--        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
 -        id="biometric_settings">
+-        <result wizard:action="lockscreen_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -
@@ -135,7 +135,7 @@ index 36f80c6..47e99c5 100644
      <WizardAction
          wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end"
 diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
-index 7f52c6f..47e99c5 100644
+index 1522eda..47e99c5 100644
 --- a/res/raw/lineage_wizard_script_user.xml
 +++ b/res/raw/lineage_wizard_script_user.xml
 @@ -5,44 +5,7 @@
@@ -160,18 +160,18 @@ index 7f52c6f..47e99c5 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end"
 -        id="location_settings">
--        <result wizard:action="lockscreen_settings" />
--    </WizardAction>
--
--    <WizardAction
--        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
--        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
 -        id="biometric_settings">
+-        <result wizard:action="lockscreen_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -

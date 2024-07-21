@@ -1,4 +1,4 @@
-From 5137588e22d194c87da0000ba6642f17fe37516a Mon Sep 17 00:00:00 2001
+From c30884fb18fcfe440cbaaaffd441f9164027511c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 18 Mar 2022 08:42:18 +0000
 Subject: [PATCH 2/3] Trebuchet: Kill haptics in recents
@@ -13,10 +13,10 @@ Change-Id: Ie3b0eabe8cc0421e696720740edc492cae2f5153
  3 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-index 968faf07c7..bb93664b46 100644
+index 3a1c42dc89..0e0397be39 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-@@ -437,14 +437,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
+@@ -441,14 +441,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
              nonOverviewAnim.setFloatValues(startProgress, endProgress);
              mNonOverviewAnim.dispatchOnStart();
          }
@@ -29,30 +29,30 @@ index 968faf07c7..bb93664b46 100644
 -                    RecentsView.SCROLL_VIBRATION_FALLBACK);
 -        } else {
 +        if (targetState != QUICK_SWITCH_FROM_HOME) {
-             InteractionJankMonitorWrapper.cancel(InteractionJankMonitorWrapper.CUJ_QUICK_SWITCH);
+             InteractionJankMonitorWrapper.cancel(Cuj.CUJ_LAUNCHER_QUICK_SWITCH);
          }
  
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-index 19bfe069c8..f6cb2c7024 100644
+index e9f2d4f019..5487414660 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/TaskViewTouchController.java
-@@ -370,11 +370,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
-         mCurrentAnimation.startWithVelocity(mActivity, goingToEnd,
-                 velocity * orientationHandler.getSecondaryTranslationDirectionFactor(),
+@@ -374,11 +374,6 @@ public abstract class TaskViewTouchController<T extends BaseDraggingActivity>
+         mCurrentAnimation.setEndAction(this::clearState);
+         mCurrentAnimation.startWithVelocity(mActivity, goingToEnd, Math.abs(velocity),
                  mEndDisplacement, animationDuration);
 -        if (goingUp && goingToEnd && !mIsDismissHapticRunning) {
 -            VibratorWrapper.INSTANCE.get(mActivity).vibrate(TASK_DISMISS_VIBRATION_PRIMITIVE,
 -                    TASK_DISMISS_VIBRATION_PRIMITIVE_SCALE, TASK_DISMISS_VIBRATION_FALLBACK);
 -            mIsDismissHapticRunning = true;
 -        }
-     }
  
-     private void clearState() {
+         mDraggingEnabled = true;
+     }
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index e1ab7311dd..c2f848c71a 100644
+index 80f884b4a9..8dc8c20ff7 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -1583,25 +1583,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+@@ -1604,25 +1604,6 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
          }
      }
  

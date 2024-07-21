@@ -1,0 +1,27 @@
+From 0529a4ad0958c1a82739bcfbf7b19604c3cea4ed Mon Sep 17 00:00:00 2001
+From: Pranav Vashi <neobuddy89@gmail.com>
+Date: Mon, 4 Mar 2024 01:11:13 +0530
+Subject: [PATCH 36/43] SystemUI: Fix QS tile dialog background color
+
+Fixes: https://github.com/crdroidandroid/issue_tracker/issues/309
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ packages/SystemUI/res/values/styles.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index a8447df43d0c..e4f2cf70b0d3 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -479,7 +479,7 @@
+         <item name="android:buttonBarPositiveButtonStyle">@style/Widget.Dialog.Button</item>
+         <item name="android:buttonBarNegativeButtonStyle">@style/Widget.Dialog.Button.BorderButton</item>
+         <item name="android:buttonBarNeutralButtonStyle">@style/Widget.Dialog.Button.BorderButton</item>
+-        <item name="android:colorBackground">?androidprv:attr/materialColorSurfaceBright</item>
++        <item name="android:colorBackground">@color/notification_divider_color</item>
+         <item name="android:alertDialogStyle">@style/ScrollableAlertDialogStyle</item>
+         <item name="android:buttonBarStyle">@style/ButtonBarStyle</item>
+         <item name="android:buttonBarButtonStyle">@style/Widget.Dialog.Button.Large</item>
+-- 
+2.34.1
+

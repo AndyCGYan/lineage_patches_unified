@@ -1,4 +1,4 @@
-From eb64dd5efa54edaa5d7df987c4bf14ec75e6ba4e Mon Sep 17 00:00:00 2001
+From 7aa80f37fe7a8cdbe8f0c7384a152b3624f6b360 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 21 Feb 2024 16:21:51 -0500
 Subject: [PATCH 13/14] Initialize Samsung HIDL ISehRadio. Fixes 5G on S20
@@ -12,10 +12,10 @@ Subject: [PATCH 13/14] Initialize Samsung HIDL ISehRadio. Fixes 5G on S20
  4 files changed, 127 insertions(+), 4 deletions(-)
 
 diff --git a/Android.bp b/Android.bp
-index a0bd665338..09857353ca 100644
+index 6e2c045bd1..2370555150 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -83,6 +83,7 @@ java_library {
+@@ -82,6 +82,7 @@ java_library {
          "android.hardware.radio-V1.4-java",
          "android.hardware.radio-V1.5-java",
          "android.hardware.radio-V1.6-java",
@@ -24,18 +24,18 @@ index a0bd665338..09857353ca 100644
          "android.hardware.radio.data-V3-java",
          "android.hardware.radio.ims-V2-java",
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index b55a373e11..0c60785a81 100644
+index 0514c18e3f..d530d92239 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -795,6 +795,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
-                         + HIDL_SERVICE_NAME[mPhoneId] + " is disabled");
+@@ -810,6 +810,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+                 return null;
              } else {
                  IBinder binder;
 +                serviceProxy.setServiceName(HIDL_SERVICE_NAME[mPhoneId]);
                  switch (service) {
                      case HAL_SERVICE_DATA:
                          if (mMockModem == null) {
-@@ -853,7 +854,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -868,7 +869,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                              mHalVersion.put(service, ((RadioNetworkProxy) serviceProxy).setAidl(
                                      mHalVersion.get(service),
                                      android.hardware.radio.network.IRadioNetwork.Stub

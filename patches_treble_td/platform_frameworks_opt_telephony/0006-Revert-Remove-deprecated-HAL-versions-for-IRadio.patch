@@ -1,4 +1,4 @@
-From 3cbbcd5899aaf29fd03367e88813208c69e52d9b Mon Sep 17 00:00:00 2001
+From 95dac4dadfb5ffacefb1d24b59c0bc7638cd830d Mon Sep 17 00:00:00 2001
 From: Daniel Zhang <danielzhang130@gmail.com>
 Date: Sat, 30 Mar 2024 14:44:57 -0400
 Subject: [PATCH 06/14] Revert "Remove deprecated HAL versions for IRadio"
@@ -11,7 +11,7 @@ Change-Id: Ia3aa57286fb5cce42065f7db8133fa3caf1fcd61
  .../telephony/CellularNetworkService.java     |  105 +-
  .../internal/telephony/NetworkIndication.java |    5 +-
  .../internal/telephony/NetworkResponse.java   |   19 +
- .../com/android/internal/telephony/RIL.java   | 2374 +++++++++++------
+ .../com/android/internal/telephony/RIL.java   | 2373 +++++++++++------
  .../android/internal/telephony/RILUtils.java  |  399 ++-
  .../internal/telephony/RadioConfig.java       |    9 +-
  .../internal/telephony/RadioConfigProxy.java  |   22 +-
@@ -26,13 +26,13 @@ Change-Id: Ia3aa57286fb5cce42065f7db8133fa3caf1fcd61
  .../internal/telephony/RadioVoiceProxy.java   |    8 +-
  .../android/internal/telephony/RILTest.java   | 1382 +++++-----
  .../internal/telephony/SimulatedCommands.java |   31 +-
- 19 files changed, 3395 insertions(+), 1676 deletions(-)
+ 19 files changed, 3395 insertions(+), 1675 deletions(-)
 
 diff --git a/Android.bp b/Android.bp
-index 121236aa4d..a94ae98208 100644
+index c3b43735f1..331b722ace 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -100,6 +100,7 @@ java_library {
+@@ -99,6 +99,7 @@ java_library {
          "android.hardware.radio.config-V1.1-java-shallow",
          "android.hardware.radio.config-V1.2-java-shallow",
          "android.hardware.radio.config-V1.3-java-shallow",
@@ -186,10 +186,10 @@ index bff1d41327..41cbb662e4 100644
  
          private @NonNull NetworkRegistrationInfo getNetworkRegistrationInfo(
 diff --git a/src/java/com/android/internal/telephony/NetworkIndication.java b/src/java/com/android/internal/telephony/NetworkIndication.java
-index d86c09090a..091783d3d2 100644
+index 5c492349cd..0d5d871020 100644
 --- a/src/java/com/android/internal/telephony/NetworkIndication.java
 +++ b/src/java/com/android/internal/telephony/NetworkIndication.java
-@@ -131,7 +131,7 @@ public class NetworkIndication extends IRadioNetworkIndication.Stub {
+@@ -132,7 +132,7 @@ public class NetworkIndication extends IRadioNetworkIndication.Stub {
              android.hardware.radio.network.LinkCapacityEstimate lce) {
          mRil.processIndication(HAL_SERVICE_NETWORK, indicationType);
  
@@ -198,7 +198,7 @@ index d86c09090a..091783d3d2 100644
  
          if (mRil.isLogOrTrace()) mRil.unsljLogRet(RIL_UNSOL_LCEDATA_RECV, response);
  
-@@ -210,8 +210,9 @@ public class NetworkIndication extends IRadioNetworkIndication.Stub {
+@@ -211,8 +211,9 @@ public class NetworkIndication extends IRadioNetworkIndication.Stub {
              android.hardware.radio.network.SignalStrength signalStrength) {
          mRil.processIndication(HAL_SERVICE_NETWORK, indicationType);
  
@@ -210,13 +210,13 @@ index d86c09090a..091783d3d2 100644
          if (mRil.isLogvOrTrace()) mRil.unsljLogvRet(RIL_UNSOL_SIGNAL_STRENGTH, ss);
  
 diff --git a/src/java/com/android/internal/telephony/NetworkResponse.java b/src/java/com/android/internal/telephony/NetworkResponse.java
-index eb2cd16cca..7501e50f56 100644
+index b4a37b3d60..b2571d981a 100644
 --- a/src/java/com/android/internal/telephony/NetworkResponse.java
 +++ b/src/java/com/android/internal/telephony/NetworkResponse.java
 @@ -25,10 +25,12 @@ import android.os.AsyncResult;
  import android.telephony.BarringInfo;
  import android.telephony.CellInfo;
- import android.telephony.EmergencyRegResult;
+ import android.telephony.EmergencyRegistrationResult;
 +import android.telephony.LinkCapacityEstimate;
  import android.telephony.RadioAccessSpecifier;
  import android.telephony.SignalStrength;
@@ -251,10 +251,10 @@ index eb2cd16cca..7501e50f56 100644
       * @param responseInfo Response info struct containing response type, serial no. and error
       */
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index 2c6fbdaa91..3a8ce141ae 100644
+index a84e9fc1c2..503110ebc6 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -59,6 +59,13 @@ import android.telephony.AccessNetworkConstants;
+@@ -60,6 +60,13 @@ import android.telephony.AccessNetworkConstants;
  import android.telephony.AccessNetworkConstants.AccessNetworkType;
  import android.telephony.BarringInfo;
  import android.telephony.CarrierRestrictionRules;
@@ -268,7 +268,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
  import android.telephony.ClientRequestStats;
  import android.telephony.DomainSelectionService;
  import android.telephony.ImsiEncryptionInfo;
-@@ -67,6 +74,8 @@ import android.telephony.NeighboringCellInfo;
+@@ -68,6 +75,8 @@ import android.telephony.NeighboringCellInfo;
  import android.telephony.NetworkScanRequest;
  import android.telephony.RadioAccessFamily;
  import android.telephony.RadioAccessSpecifier;
@@ -277,7 +277,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
  import android.telephony.SignalThresholdInfo;
  import android.telephony.SubscriptionManager;
  import android.telephony.TelephonyHistogram;
-@@ -116,6 +125,7 @@ import java.util.concurrent.atomic.AtomicLong;
+@@ -117,6 +126,7 @@ import java.util.concurrent.atomic.AtomicLong;
  
  /**
   * RIL implementation of the CommandsInterface.
@@ -285,7 +285,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
   * {@hide}
   */
  public class RIL extends BaseCommands implements CommandsInterface {
-@@ -128,7 +138,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -129,7 +139,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      static final int RIL_HISTOGRAM_BUCKET_COUNT = 5;
  
      /**
@@ -295,7 +295,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
       */
      private static final int DEFAULT_WAKE_LOCK_TIMEOUT_MS = 60000;
  
-@@ -149,6 +160,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -150,6 +161,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
      /** @hide */
      public static final HalVersion RADIO_HAL_VERSION_UNKNOWN = HalVersion.UNKNOWN;
  
@@ -314,7 +314,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      /** @hide */
      public static final HalVersion RADIO_HAL_VERSION_1_4 = new HalVersion(1, 4);
  
-@@ -179,7 +202,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -180,7 +203,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public final WakeLock mAckWakeLock;        // Wake lock associated with ack sent
      final int mWakeLockTimeout;         // Timeout associated with request/response
      final int mAckWakeLockTimeout;      // Timeout associated with ack sent
@@ -324,7 +324,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      int mWakeLockCount;
  
      // Variables used to identify releasing of WL on wakelock timeouts
-@@ -314,10 +338,11 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -322,10 +346,11 @@ public class RIL extends BaseCommands implements CommandsInterface {
                              }
                              if (RILJ_LOGD) {
                                  int count = mRequestList.size();
@@ -338,7 +338,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                                              + RILUtils.requestToString(rr.mRequest));
                                  }
                              }
-@@ -328,7 +353,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -336,7 +361,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  case EVENT_ACK_WAKE_LOCK_TIMEOUT:
                      if (msg.arg1 == mAckWlSequenceNum && clearWakeLock(FOR_ACK_WAKELOCK)) {
                          if (RILJ_LOGV) {
@@ -347,7 +347,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                          }
                      }
                      break;
-@@ -587,10 +612,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -595,10 +620,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @VisibleForTesting
      public void setCompatVersion(int rilRequest, @NonNull HalVersion halVersion) {
          HalVersion oldVersion = getCompatVersion(rilRequest);
@@ -361,7 +361,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
          mCompatOverrides.put(rilRequest, halVersion);
-@@ -650,7 +675,39 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -659,7 +684,39 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  }
  
                  if (mRadioProxy == null) {
@@ -402,7 +402,16 @@ index 2c6fbdaa91..3a8ce141ae 100644
                  }
  
                  if (mRadioProxy != null) {
-@@ -881,7 +938,46 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -730,7 +787,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+     public synchronized RadioServiceProxy getRadioServiceProxy(int service) {
+         if (!SubscriptionManager.isValidPhoneId(mPhoneId)) return mServiceProxies.get(service);
+         if ((service >= HAL_SERVICE_IMS) && !isRadioServiceSupported(service)) {
+-            riljLogw("getRadioServiceProxy: " + serviceToString(service) + " for "
++            Rlog.w(RILJ_LOG_TAG, "getRadioServiceProxy: " + serviceToString(service) + " for "
+                     + HIDL_SERVICE_NAME[mPhoneId] + " is not supported\n"
+                     + android.util.Log.getStackTraceString(new RuntimeException()));
+             return mServiceProxies.get(service);
+@@ -896,7 +953,46 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
                  if (serviceProxy.isEmpty()
                          && mHalVersion.get(service).less(RADIO_HAL_VERSION_2_0)) {
@@ -450,7 +459,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                  }
  
                  if (!serviceProxy.isEmpty()) {
-@@ -931,7 +1027,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -946,7 +1042,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
                                  break;
                          }
                      } else {
@@ -460,7 +469,15 @@ index 2c6fbdaa91..3a8ce141ae 100644
                              throw new AssertionError("serviceProxy shouldn't be HIDL with HAL 2.0");
                          }
                          if (!mIsRadioProxyInitialized) {
-@@ -1269,14 +1366,34 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1270,6 +1367,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+         }
+     }
+ 
++
+     private boolean canMakeRequest(String request, RadioServiceProxy proxy, Message result,
+             HalVersion version) {
+         int service = HAL_SERVICE_RADIO;
+@@ -1312,14 +1410,34 @@ public class RIL extends BaseCommands implements CommandsInterface {
          return true;
      }
  
@@ -497,7 +514,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
  
          if (RILJ_LOGD) {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
-@@ -1289,12 +1406,24 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1332,12 +1450,24 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void getIccSlotsStatus(Message result) {
@@ -524,7 +541,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      @Override
-@@ -1305,7 +1434,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1348,7 +1478,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplyIccPinForApp(String pin, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -534,7 +551,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1330,7 +1460,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1373,7 +1504,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplyIccPukForApp(String puk, String newPin, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -544,7 +561,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1357,7 +1488,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1400,7 +1532,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplyIccPin2ForApp(String pin, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -554,7 +571,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1382,7 +1514,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1425,7 +1558,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplyIccPuk2ForApp(String puk, String newPin2, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -564,7 +581,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1408,7 +1541,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1451,7 +1585,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void changeIccPinForApp(String oldPin, String newPin, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -574,7 +591,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1435,7 +1569,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1478,7 +1613,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void changeIccPin2ForApp(String oldPin2, String newPin2, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -584,7 +601,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1457,8 +1592,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1500,8 +1636,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplyNetworkDepersonalization(String netpin, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -595,7 +612,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1479,35 +1614,45 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1522,35 +1658,45 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void supplySimDepersonalization(PersoSubState persoType, String controlKey,
              Message result) {
@@ -659,7 +676,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1532,93 +1677,131 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1575,93 +1721,131 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void enableModem(boolean enable, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -832,7 +849,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1637,21 +1820,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1680,21 +1864,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
      private void emergencyDial(String address, EmergencyNumber emergencyNumberInfo,
              boolean hasKnownUserIntentEmergency, int clirMode, UUSInfo uusInfo, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -869,7 +886,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      @Override
-@@ -1662,7 +1850,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1705,7 +1894,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getIMSIForApp(String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -879,7 +896,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1680,7 +1869,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1723,7 +1913,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void hangupConnection(int gsmIndex, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -889,7 +906,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1700,11 +1890,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1743,11 +1934,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void hangupWaitingOrBackground(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -903,7 +920,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          RILRequest rr = obtainRequest(RIL_REQUEST_HANGUP_WAITING_OR_BACKGROUND, result,
                  mRILDefaultWorkSource);
  
-@@ -1721,8 +1910,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1764,8 +1954,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void hangupForegroundResumeBackground(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -914,7 +931,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1741,8 +1930,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1784,8 +1974,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void switchWaitingOrHoldingAndActive(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -925,7 +942,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1761,10 +1950,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1804,10 +1994,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void conference(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -938,7 +955,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          RILRequest rr = obtainRequest(RIL_REQUEST_CONFERENCE, result, mRILDefaultWorkSource);
  
          if (RILJ_LOGD) {
-@@ -1779,7 +1968,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1822,7 +2012,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void rejectCall(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -948,7 +965,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1797,7 +1987,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1840,7 +2031,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getLastCallFailCause(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -958,7 +975,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1816,7 +2007,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1859,7 +2051,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getSignalStrength(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -968,7 +985,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1834,8 +2026,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1877,8 +2070,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getVoiceRegistrationState(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -979,7 +996,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1859,8 +2051,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1902,8 +2095,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getDataRegistrationState(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -990,7 +1007,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1884,7 +2076,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1927,7 +2120,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getOperator(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1000,7 +1017,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1904,7 +2097,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1947,7 +2141,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setRadioPower(boolean on, boolean forEmergencyCall,
              boolean preferredForEmergencyCall, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -1010,7 +1027,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1925,7 +2119,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1968,7 +2163,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendDtmf(char c, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1020,7 +1037,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1943,8 +2138,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -1986,8 +2182,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendSMS(String smscPdu, String pdu, Message result) {
@@ -1033,7 +1050,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -1982,8 +2179,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2025,8 +2223,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendSMSExpectMore(String smscPdu, String pdu, Message result) {
@@ -1046,7 +1063,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2003,12 +2202,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2046,12 +2246,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
      }
  
      @Override
@@ -1065,7 +1082,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2018,16 +2218,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2061,16 +2262,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest)
                      + ",reason=" + RILUtils.setupDataReasonToString(reason)
                      + ",accessNetworkType=" + AccessNetworkType.toString(accessNetworkType)
@@ -1087,7 +1104,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          });
      }
  
-@@ -2041,7 +2242,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2084,7 +2286,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void iccIOForApp(int command, int fileId, String path, int p1, int p2, int p3,
              String data, String pin2, String aid, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1097,7 +1114,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2070,8 +2272,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2113,8 +2316,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendUSSD(String ussd, Message result) {
@@ -1110,7 +1127,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2091,8 +2295,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2134,8 +2339,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void cancelPendingUssd(Message result) {
@@ -1123,7 +1140,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2110,7 +2316,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2153,7 +2360,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getCLIR(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1133,7 +1150,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2128,7 +2335,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2171,7 +2379,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setCLIR(int clirMode, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1143,7 +1160,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2148,7 +2356,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2191,7 +2400,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void queryCallForwardStatus(int cfReason, int serviceClass, String number,
              Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1153,7 +1170,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2157,7 +2366,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2200,7 +2410,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
          if (RILJ_LOGD) {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest)
@@ -1162,7 +1179,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_VOICE, rr, "queryCallForwardStatus", () -> {
-@@ -2169,7 +2378,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2212,7 +2422,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setCallForward(int action, int cfReason, int serviceClass, String number,
              int timeSeconds, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1172,7 +1189,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2190,7 +2400,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2233,7 +2444,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void queryCallWaiting(int serviceClass, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1182,7 +1199,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2210,7 +2421,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2253,7 +2465,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setCallWaiting(boolean enable, int serviceClass, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1192,7 +1209,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2228,9 +2440,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2271,9 +2484,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void acknowledgeLastIncomingGsmSms(boolean success, int cause, Message result) {
@@ -1206,7 +1223,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2241,15 +2454,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2284,15 +2498,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      + " success = " + success + " cause = " + cause);
          }
  
@@ -1228,7 +1245,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2268,7 +2483,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2311,7 +2527,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void deactivateDataCall(int cid, int reason, Message result) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -1238,7 +1255,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2297,7 +2513,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2340,7 +2557,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void queryFacilityLockForApp(String facility, String password, int serviceClass,
              String appId, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1248,7 +1265,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2313,8 +2530,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2356,8 +2574,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "queryFacilityLockForApp", () -> {
              simProxy.getFacilityLockForApp(rr.mSerial,
                      RILUtils.convertNullToEmptyString(facility),
@@ -1259,7 +1276,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          });
  
      }
-@@ -2329,7 +2546,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2372,7 +2590,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setFacilityLockForApp(String facility, boolean lockState, String password,
              int serviceClass, String appId, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1269,7 +1286,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2353,7 +2571,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2396,7 +2615,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void changeBarringPassword(String facility, String oldPwd, String newPwd,
              Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1279,7 +1296,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2377,8 +2596,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2420,8 +2640,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getNetworkSelectionMode(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1290,7 +1307,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2397,8 +2616,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2440,8 +2660,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setNetworkSelectionModeAutomatic(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1301,7 +1318,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2409,8 +2628,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2452,8 +2672,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
          }
  
@@ -1312,7 +1329,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                      networkProxy.setNetworkSelectionModeAutomatic(rr.mSerial);
                  });
      }
-@@ -2418,8 +2637,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2461,8 +2681,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setNetworkSelectionModeManual(String operatorNumeric, int ran, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1323,7 +1340,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2446,7 +2665,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2489,7 +2709,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getAvailableNetworks(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1333,7 +1350,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2471,50 +2691,70 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2514,50 +2735,70 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void startNetworkScan(NetworkScanRequest networkScanRequest, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1427,7 +1444,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2533,7 +2773,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2576,7 +2817,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void stopDtmf(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1437,7 +1454,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2551,7 +2792,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2594,7 +2836,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void separateConnection(int gsmIndex, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1447,7 +1464,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2571,7 +2813,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2614,7 +2857,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getBasebandVersion(Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -1457,7 +1474,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2589,7 +2832,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2632,7 +2876,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setMute(boolean enableMute, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1467,7 +1484,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2608,7 +2852,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2651,7 +2896,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getMute(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1477,7 +1494,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2626,7 +2871,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2669,7 +2915,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void queryCLIP(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1487,7 +1504,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2647,14 +2893,14 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2690,14 +2937,14 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      @Deprecated
      public void getPDPContextList(Message result) {
@@ -1504,7 +1521,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2669,22 +2915,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2712,22 +2959,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
          });
      }
  
@@ -1531,7 +1548,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2703,8 +2949,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2746,8 +2993,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void writeSmsToSim(int status, String smsc, String pdu, Message result) {
@@ -1544,7 +1561,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2724,8 +2972,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2767,8 +3016,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void deleteSmsOnSim(int index, Message result) {
@@ -1557,7 +1574,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2744,7 +2994,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2787,7 +3038,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setBandMode(int bandMode, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1567,7 +1584,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2763,8 +3014,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2806,8 +3058,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void queryAvailableBandMode(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1578,7 +1595,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2783,7 +3034,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2826,7 +3078,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendEnvelope(String contents, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1588,7 +1605,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2803,7 +3055,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2846,7 +3099,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendTerminalResponse(String contents, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1598,7 +1615,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2825,7 +3078,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2868,7 +3122,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendEnvelopeWithStatus(String contents, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -1608,7 +1625,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2846,7 +3100,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2889,7 +3144,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void explicitCallTransfer(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1618,7 +1635,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2865,8 +3120,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2908,8 +3164,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setPreferredNetworkType(@PrefNetworkMode int networkType , Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1629,7 +1646,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2888,8 +3143,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2931,8 +3187,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getPreferredNetworkType(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1640,7 +1657,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2908,18 +3163,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2951,18 +3207,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setAllowedNetworkTypesBitmap(
              @TelephonyManager.NetworkTypeBitMask int networkTypeBitmask, Message result) {
@@ -1664,7 +1681,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          RILRequest rr = obtainRequest(RIL_REQUEST_SET_ALLOWED_NETWORK_TYPES_BITMAP, result,
                  mRILDefaultWorkSource);
  
-@@ -2936,8 +3190,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2979,8 +3234,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getAllowedNetworkTypesBitmap(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1675,7 +1692,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2956,7 +3210,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -2999,7 +3254,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setLocationUpdates(boolean enable, WorkSource workSource, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1685,7 +1702,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -2979,21 +3234,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3022,21 +3278,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void isNrDualConnectivityEnabled(Message result, WorkSource workSource) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1727,7 +1744,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -3011,22 +3276,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3054,22 +3320,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setNrDualConnectivityState(int nrDualConnectivityState, Message result,
              WorkSource workSource) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1769,7 +1786,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      private void setVoNrEnabled(boolean enabled) {
-@@ -3043,26 +3316,28 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3086,26 +3360,28 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void isVoNrEnabled(Message result, WorkSource workSource) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1790,17 +1807,12 @@ index 2c6fbdaa91..3a8ce141ae 100644
  
 -        RILRequest rr = obtainRequest(RIL_REQUEST_IS_VONR_ENABLED, result,
 -                getDefaultWorkSourceIfInvalid(workSource));
--
--        if (RILJ_LOGD) {
--            riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
--        }
 +            if (RILJ_LOGD) {
 +                riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
 +            }
  
--        radioServiceInvokeHelper(HAL_SERVICE_VOICE, rr, "isVoNrEnabled", () -> {
--            voiceProxy.isVoNrEnabled(rr.mSerial);
--        });
+-        if (RILJ_LOGD) {
+-            riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
 +            radioServiceInvokeHelper(HAL_SERVICE_VOICE, rr, "isVoNrEnabled", () -> {
 +                voiceProxy.isVoNrEnabled(rr.mSerial);
 +            });
@@ -1810,11 +1822,15 @@ index 2c6fbdaa91..3a8ce141ae 100644
 +                AsyncResult.forMessage(result, isEnabled, null);
 +                result.sendToTarget();
 +            }
-+        }
+         }
+-
+-        radioServiceInvokeHelper(HAL_SERVICE_VOICE, rr, "isVoNrEnabled", () -> {
+-            voiceProxy.isVoNrEnabled(rr.mSerial);
+-        });
      }
  
      /**
-@@ -3073,8 +3348,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3116,8 +3392,22 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setVoNrEnabled(boolean enabled, Message result, WorkSource workSource) {
          setVoNrEnabled(enabled);
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1839,19 +1855,19 @@ index 2c6fbdaa91..3a8ce141ae 100644
              /* calling a query api to let HAL know that VoNREnabled state is updated.
                 This is a work around as new AIDL API is not allowed for older HAL version devices.
                 HAL can check the value of PROPERTY_IS_VONR_ENABLED property to determine
-@@ -3085,25 +3374,14 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3128,25 +3418,14 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  AsyncResult.forMessage(result, null, null);
                  result.sendToTarget();
              }
 -            return;
--        }
+         }
 -
 -        RILRequest rr = obtainRequest(RIL_REQUEST_ENABLE_VONR, result,
 -                getDefaultWorkSourceIfInvalid(workSource));
 -
 -        if (RILJ_LOGD) {
 -            riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
-         }
+-        }
 -
 -        radioServiceInvokeHelper(HAL_SERVICE_VOICE, rr, "setVoNrEnabled", () -> {
 -            voiceProxy.setVoNrEnabled(rr.mSerial, enabled);
@@ -1867,7 +1883,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3123,8 +3401,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3166,8 +3445,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void queryCdmaRoamingPreference(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1878,7 +1894,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3143,8 +3421,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3186,8 +3465,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setCdmaRoamingPreference(int cdmaRoamingType, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -1889,7 +1905,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3164,7 +3442,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3207,7 +3486,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void queryTTYMode(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1899,7 +1915,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3182,7 +3461,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3225,7 +3505,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setTTYMode(int ttyMode, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1909,7 +1925,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3201,8 +3481,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3244,8 +3525,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setPreferredVoicePrivacy(boolean enable, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1920,7 +1936,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3222,8 +3502,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3265,8 +3546,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getPreferredVoicePrivacy(Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1931,7 +1947,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3242,7 +3522,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3285,7 +3566,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendCDMAFeatureCode(String featureCode, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1941,7 +1957,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3262,7 +3543,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3305,7 +3587,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendBurstDtmf(String dtmfString, int on, int off, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -1951,7 +1967,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3281,9 +3563,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3324,9 +3607,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendCdmaSMSExpectMore(byte[] pdu, Message result) {
@@ -1965,7 +1981,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3307,8 +3590,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3350,8 +3634,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendCdmaSms(byte[] pdu, Message result) {
@@ -1978,7 +1994,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3328,9 +3613,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3371,9 +3657,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void acknowledgeLastIncomingCdmaSms(boolean success, int cause, Message result) {
@@ -1992,7 +2008,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3342,17 +3628,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3385,17 +3672,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      + " success = " + success + " cause = " + cause);
          }
  
@@ -2016,7 +2032,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3370,9 +3657,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3413,9 +3701,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void setGsmBroadcastConfig(SmsBroadcastConfigInfo[] config, Message result) {
@@ -2030,7 +2046,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3394,9 +3682,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3437,9 +3726,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void setGsmBroadcastActivation(boolean activate, Message result) {
@@ -2044,7 +2060,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3415,9 +3704,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3458,9 +3748,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void getCdmaBroadcastConfig(Message result) {
@@ -2058,7 +2074,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3435,9 +3725,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3478,9 +3769,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void setCdmaBroadcastConfig(CdmaSmsBroadcastConfigInfo[] configs, Message result) {
@@ -2072,7 +2088,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3459,9 +3750,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3502,9 +3794,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void setCdmaBroadcastActivation(boolean activate, Message result) {
@@ -2086,7 +2102,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3481,7 +3773,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3524,7 +3817,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getCDMASubscription(Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2096,7 +2112,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3498,8 +3791,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3541,8 +3835,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void writeSmsToRuim(int status, byte[] pdu, Message result) {
@@ -2109,7 +2125,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3518,8 +3813,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3561,8 +3857,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void deleteSmsOnRuim(int index, Message result) {
@@ -2122,7 +2138,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3539,11 +3836,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3582,11 +3880,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getDeviceIdentity(Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2138,7 +2154,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
  
          if (RILJ_LOGD) {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
-@@ -3557,26 +3856,38 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3600,26 +3900,38 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getImei(Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2187,7 +2203,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3594,12 +3905,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3637,12 +3949,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void getSmscAddress(Message result) {
@@ -2206,7 +2222,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
  
          if (RILJ_LOGD) {
              riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
-@@ -3612,8 +3926,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3655,8 +3970,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void setSmscAddress(String address, Message result) {
@@ -2219,7 +2235,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3625,15 +3941,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3668,15 +3985,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_MESSAGING, rr, "setSmscAddress", () -> {
@@ -2241,7 +2257,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3653,7 +3971,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3696,7 +4015,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void reportStkServiceIsRunning(Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2251,7 +2267,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3672,7 +3991,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3715,7 +4035,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getCdmaSubscriptionSource(Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2261,7 +2277,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3690,9 +4010,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3733,9 +4054,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void acknowledgeIncomingGsmSmsWithPdu(boolean success, String ackPdu, Message result) {
@@ -2275,7 +2291,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3704,8 +4025,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3747,8 +4069,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      + " success = " + success);
          }
  
@@ -2286,7 +2302,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                      messagingProxy.acknowledgeIncomingGsmSmsWithPdu(rr.mSerial, success,
                              RILUtils.convertNullToEmptyString(ackPdu));
                  });
-@@ -3714,8 +4035,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3757,8 +4079,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getVoiceRadioTechnology(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2297,7 +2313,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3733,7 +4054,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3776,7 +4098,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getCellInfoList(Message result, WorkSource workSource) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2307,7 +2323,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3752,7 +4074,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3795,7 +4118,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setCellInfoListRate(int rateInMillis, Message result, WorkSource workSource) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2317,7 +2333,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3770,10 +4093,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3813,10 +4137,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      }
  
      @Override
@@ -2331,7 +2347,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3781,19 +4104,20 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3824,19 +4148,20 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  mRILDefaultWorkSource);
  
          if (RILJ_LOGD) {
@@ -2356,7 +2372,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3812,8 +4136,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3855,8 +4180,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendImsGsmSms(String smscPdu, String pdu, int retry, int messageRef,
              Message result) {
@@ -2369,7 +2385,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3833,8 +4159,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3876,8 +4203,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void sendImsCdmaSms(byte[] pdu, int retry, int messageRef, Message result) {
@@ -2382,7 +2398,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3856,8 +4184,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3899,8 +4228,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void iccTransmitApduBasicChannel(int cla, int instruction, int p1, int p2, int p3,
              String data, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2393,7 +2409,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3876,14 +4204,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3919,14 +4248,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "iccTransmitApduBasicChannel", () -> {
@@ -2412,7 +2428,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3899,14 +4229,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3942,14 +4273,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "iccOpenLogicalChannel", () -> {
@@ -2431,7 +2447,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3930,8 +4262,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3973,8 +4306,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2442,7 +2458,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3952,15 +4284,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -3995,15 +4328,16 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "iccTransmitApduLogicalChannel", () -> {
@@ -2462,7 +2478,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -3980,7 +4313,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4023,7 +4357,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void nvWriteItem(int itemId, String itemValue, Message result, WorkSource workSource) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2472,7 +2488,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4001,7 +4335,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4044,7 +4379,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void nvWriteCdmaPrl(byte[] preferredRoamingList, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2482,7 +2498,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4021,7 +4356,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4064,7 +4400,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void nvResetConfig(int resetType, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2492,7 +2508,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4041,7 +4377,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4084,7 +4421,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setUiccSubscription(int slotId, int appIndex, int subId, int subStatus,
              Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2502,7 +2518,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4066,14 +4403,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4109,14 +4447,17 @@ public class RIL extends BaseCommands implements CommandsInterface {
       */
      @Override
      public boolean supportsEid() {
@@ -2523,7 +2539,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4092,7 +4432,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4135,7 +4476,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getHardwareConfig(Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2533,7 +2549,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4113,8 +4454,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4156,8 +4498,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void requestIccSimAuthentication(int authContext, String data, String aid,
              Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2544,7 +2560,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4134,9 +4475,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4177,9 +4519,10 @@ public class RIL extends BaseCommands implements CommandsInterface {
      }
  
      @Override
@@ -2557,7 +2573,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4151,14 +4493,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4194,14 +4537,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_DATA, rr, "setDataProfile", () -> {
@@ -2575,7 +2591,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4176,7 +4519,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4219,7 +4563,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getRadioCapability(Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2585,7 +2601,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4195,7 +4539,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4238,7 +4583,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setRadioCapability(RadioCapability rc, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2595,7 +2611,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4214,12 +4559,65 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4257,12 +4603,65 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
      @Override
      public void startLceService(int reportIntervalMs, boolean pullMode, Message result) {
@@ -2663,7 +2679,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4235,23 +4633,33 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4278,23 +4677,33 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setDataThrottling(Message result, WorkSource workSource, int dataThrottlingAction,
              long completionWindowMillis) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -2709,7 +2725,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4267,13 +4675,40 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4310,13 +4719,40 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Deprecated
      @Override
      public void pullLceData(Message result) {
@@ -2752,7 +2768,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4286,7 +4721,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4329,7 +4765,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
          radioServiceInvokeHelper(HAL_SERVICE_MODEM, rr, "getModemActivityInfo", () -> {
              modemProxy.getModemActivityInfo(rr.mSerial);
@@ -2762,7 +2778,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              mRilHandler.sendMessageDelayed(msg, DEFAULT_BLOCKING_MESSAGE_RESPONSE_TIMEOUT_MS);
          });
      }
-@@ -4297,7 +4733,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4340,7 +4777,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
          Objects.requireNonNull(carrierRestrictionRules, "Carrier restriction cannot be null.");
  
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2772,7 +2788,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4310,14 +4747,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4353,14 +4791,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "setAllowedCarriers", () -> {
@@ -2790,7 +2806,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4336,7 +4774,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4379,7 +4818,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void sendDeviceState(int stateType, boolean state, Message result) {
          RadioModemProxy modemProxy = getRadioServiceProxy(RadioModemProxy.class);
@@ -2800,7 +2816,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4355,8 +4794,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4398,8 +4838,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setUnsolResponseFilter(int filter, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2811,7 +2827,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4377,23 +4816,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4420,23 +4860,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setSignalStrengthReportingCriteria(
              @NonNull List<SignalThresholdInfo> signalThresholdInfos, @Nullable Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2850,7 +2866,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      @Override
-@@ -4401,30 +4843,35 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4444,30 +4887,35 @@ public class RIL extends BaseCommands implements CommandsInterface {
              int hysteresisUlKbps, int[] thresholdsDlKbps, int[] thresholdsUlKbps, int ran,
              Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -2900,7 +2916,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4437,7 +4884,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4480,7 +4928,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
          }
  
          radioServiceInvokeHelper(HAL_SERVICE_SIM, rr, "setSimCardPower", () -> {
@@ -2909,7 +2925,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          });
      }
  
-@@ -4446,20 +4893,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4489,20 +4937,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
              Message result) {
          Objects.requireNonNull(imsiEncryptionInfo, "ImsiEncryptionInfo cannot be null.");
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -2950,7 +2966,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      @Override
-@@ -4467,47 +4924,67 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4510,47 +4968,67 @@ public class RIL extends BaseCommands implements CommandsInterface {
              int intervalMillis, Message result) {
          Objects.requireNonNull(packetData, "KeepaliveRequest cannot be null.");
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3036,7 +3052,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4516,7 +4993,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4559,7 +5037,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Deprecated
      @Override
      public void getLastPdpFailCause(Message result) {
@@ -3045,7 +3061,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4524,7 +5001,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4567,7 +5045,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
       */
      @Override
      public void getLastDataCallFailCause(Message result) {
@@ -3054,7 +3070,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4536,21 +5013,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4579,21 +5057,30 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void enableUiccApplications(boolean enable, Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -3095,7 +3111,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4561,21 +5047,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4604,21 +5091,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void areUiccApplicationsEnabled(Message result) {
          RadioSimProxy simProxy = getRadioServiceProxy(RadioSimProxy.class);
@@ -3137,7 +3153,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4583,13 +5079,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4626,13 +5123,13 @@ public class RIL extends BaseCommands implements CommandsInterface {
       */
      @Override
      public boolean canToggleUiccApplicationsEnablement() {
@@ -3154,7 +3170,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4598,8 +5094,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4641,8 +5138,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void handleCallSetupRequestFromSim(boolean accept, Message result) {
          RadioVoiceProxy voiceProxy = getRadioServiceProxy(RadioVoiceProxy.class);
@@ -3165,7 +3181,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return;
          }
  
-@@ -4621,19 +5117,29 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4664,19 +5161,29 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getBarringInfo(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3203,7 +3219,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4642,19 +5148,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4685,19 +5192,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void allocatePduSessionId(Message result) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3239,7 +3255,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4663,19 +5176,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4706,19 +5220,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void releasePduSessionId(Message result, int pduSessionId) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3275,7 +3291,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4684,18 +5204,28 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4727,18 +5248,28 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void startHandover(Message result, int callId) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3294,11 +3310,6 @@ index 2c6fbdaa91..3a8ce141ae 100644
 -        RILRequest rr = obtainRequest(RIL_REQUEST_START_HANDOVER, result, mRILDefaultWorkSource);
 -        if (RILJ_LOGD) {
 -            riljLog(rr.serialString() + "> " + RILUtils.requestToString(rr.mRequest));
--        }
--
--        radioServiceInvokeHelper(HAL_SERVICE_DATA, rr, "startHandover", () -> {
--            dataProxy.startHandover(rr.mSerial, callId);
--        });
 +            radioServiceInvokeHelper(HAL_SERVICE_DATA, rr, "startHandover", () -> {
 +                dataProxy.startHandover(rr.mSerial, callId);
 +            });
@@ -3309,11 +3320,15 @@ index 2c6fbdaa91..3a8ce141ae 100644
 +                        CommandException.fromRilErrno(REQUEST_NOT_SUPPORTED));
 +                result.sendToTarget();
 +            }
-+        }
+         }
+-
+-        radioServiceInvokeHelper(HAL_SERVICE_DATA, rr, "startHandover", () -> {
+-            dataProxy.startHandover(rr.mSerial, callId);
+-        });
      }
  
      /**
-@@ -4704,18 +5234,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4747,18 +5278,26 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void cancelHandover(Message result, int callId) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3348,7 +3363,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4724,78 +5262,118 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4767,78 +5306,118 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getSlicingConfig(Message result) {
          RadioDataProxy dataProxy = getRadioServiceProxy(RadioDataProxy.class);
@@ -3504,7 +3519,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4808,19 +5386,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4851,19 +5430,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      public void setUsageSetting(Message result,
              /* @TelephonyManager.UsageSetting */ int usageSetting) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3544,7 +3559,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4831,39 +5421,63 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4874,39 +5465,63 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void getUsageSetting(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3626,7 +3641,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      @Override
-@@ -4873,108 +5487,168 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -4916,108 +5531,168 @@ public class RIL extends BaseCommands implements CommandsInterface {
              @RegistrationManager.SuggestedAction int suggestedAction,
              int capabilities, Message result) {
          RadioImsProxy imsProxy = getRadioServiceProxy(RadioImsProxy.class);
@@ -3854,7 +3869,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -4983,21 +5657,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5026,21 +5701,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setEmergencyMode(int emcMode, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3897,7 +3912,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5008,24 +5693,34 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5051,24 +5737,34 @@ public class RIL extends BaseCommands implements CommandsInterface {
              @NonNull @AccessNetworkConstants.RadioAccessNetworkType int[] accessNetwork,
              @DomainSelectionService.EmergencyScanType int scanType, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3945,7 +3960,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5034,22 +5729,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5077,22 +5773,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void cancelEmergencyNetworkScan(boolean resetScan, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -3989,7 +4004,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5058,20 +5763,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5101,20 +5807,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void exitEmergencyMode(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -4030,7 +4045,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5083,22 +5799,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5126,22 +5843,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setNullCipherAndIntegrityEnabled(boolean enabled, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -4074,7 +4089,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5109,21 +5835,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5152,21 +5879,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void isNullCipherAndIntegrityEnabled(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -4118,7 +4133,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5132,20 +5868,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5175,20 +5912,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void updateImsCallStatus(@NonNull List<ImsCallInfo> imsCallInfo, Message result) {
          RadioImsProxy imsProxy = getRadioServiceProxy(RadioImsProxy.class);
@@ -4160,7 +4175,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5154,21 +5901,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5197,21 +5945,32 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void setN1ModeEnabled(boolean enable, Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -4203,7 +4218,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5177,20 +5935,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5220,20 +5979,31 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @Override
      public void isN1ModeEnabled(Message result) {
          RadioNetworkProxy networkProxy = getRadioServiceProxy(RadioNetworkProxy.class);
@@ -4244,7 +4259,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5254,7 +6023,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5297,7 +6067,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  });
      }
  
@@ -4253,7 +4268,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
       * {@inheritDoc}
       */
      @Override
-@@ -5279,7 +6048,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5322,7 +6092,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
          radioServiceInvokeHelper(HAL_SERVICE_NETWORK, rr, "setSecurityAlgorithmsUpdatedEnabled",
                  () -> {
                      networkProxy.setSecurityAlgorithmsUpdatedEnabled(rr.mSerial, enable);
@@ -4262,7 +4277,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
      }
  
      /**
-@@ -5331,7 +6100,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5374,7 +6144,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
              rr = mRequestList.get(serial);
          }
          if (rr == null) {
@@ -4272,7 +4287,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
          } else {
              decrementWakeLock(rr);
              if (RILJ_LOGD) {
-@@ -5389,7 +6159,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5432,7 +6203,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  rr = mRequestList.get(serial);
              }
              if (rr == null) {
@@ -4281,7 +4296,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              } else {
                  decrementWakeLock(rr);
                  if (mRadioBugDetector != null) {
-@@ -5405,8 +6175,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5448,8 +6219,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
  
          rr = findAndRemoveRequestFromList(serial);
          if (rr == null) {
@@ -4292,7 +4307,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              return null;
          }
          Trace.asyncTraceForTrackEnd(Trace.TRACE_TAG_NETWORK, "RIL", rr.mSerial);
-@@ -5592,7 +6362,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5635,7 +6406,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      riljLoge("sendAck: " + e);
                  }
              } else {
@@ -4301,7 +4316,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              }
          } else {
              RadioServiceProxy serviceProxy = getRadioServiceProxy(service);
-@@ -5604,7 +6374,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5647,7 +6418,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      riljLoge("sendAck: " + e);
                  }
              } else {
@@ -4310,7 +4325,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              }
          }
          rr.release();
-@@ -5631,11 +6401,11 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5674,11 +6445,11 @@ public class RIL extends BaseCommands implements CommandsInterface {
      private void acquireWakeLock(RILRequest rr, int wakeLockType) {
          synchronized (rr) {
              if (rr.mWakeLockType != INVALID_WAKELOCK) {
@@ -4324,7 +4339,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                  case FOR_WAKELOCK:
                      synchronized (mWakeLock) {
                          mWakeLock.acquire();
-@@ -5667,7 +6437,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5710,7 +6481,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                      }
                      break;
                  default: //WTF
@@ -4333,7 +4348,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                      return;
              }
              rr.mWakeLockType = wakeLockType;
-@@ -5721,7 +6491,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5764,7 +6535,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                  case INVALID_WAKELOCK:
                      break;
                  default:
@@ -4342,7 +4357,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              }
              rr.mWakeLockType = INVALID_WAKELOCK;
          }
-@@ -5732,7 +6502,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5775,7 +6546,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
          if (wakeLockType == FOR_WAKELOCK) {
              synchronized (mWakeLock) {
                  if (mWakeLockCount == 0 && !mWakeLock.isHeld()) return false;
@@ -4352,7 +4367,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                  mWakeLockCount = 0;
                  mWakeLock.release();
                  mClientWakelockTracker.stopTrackingAll();
-@@ -5759,14 +6530,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -5802,14 +6574,15 @@ public class RIL extends BaseCommands implements CommandsInterface {
          synchronized (mRequestList) {
              int count = mRequestList.size();
              if (RILJ_LOGD && loggable) {
@@ -4371,7 +4386,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
                  }
                  rr.onError(error, null);
                  decrementWakeLock(rr);
-@@ -6044,22 +6816,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6087,22 +6860,18 @@ public class RIL extends BaseCommands implements CommandsInterface {
          Rlog.v(RILJ_LOG_TAG, msg + (" [PHONE" + mPhoneId + "]"));
      }
  
@@ -4397,7 +4412,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              riljLog("[UNSL]< " + logStr);
          }
          Trace.instantForTrack(Trace.TRACE_TAG_NETWORK, "RIL", logStr);
-@@ -6068,7 +6836,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6111,7 +6880,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @UnsupportedAppUsage
      void unsljLogMore(int response, String more) {
          String logStr = RILUtils.responseToString(response) + " " + more;
@@ -4406,7 +4421,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              riljLog("[UNSL]< " + logStr);
          }
          Trace.instantForTrack(Trace.TRACE_TAG_NETWORK, "RIL", logStr);
-@@ -6077,7 +6845,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6120,7 +6889,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @UnsupportedAppUsage
      void unsljLogRet(int response, Object ret) {
          String logStr = RILUtils.responseToString(response) + " " + retToString(response, ret);
@@ -4415,7 +4430,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              riljLog("[UNSL]< " + logStr);
          }
          Trace.instantForTrack(Trace.TRACE_TAG_NETWORK, "RIL", logStr);
-@@ -6086,7 +6854,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6129,7 +6898,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
      @UnsupportedAppUsage
      void unsljLogvRet(int response, Object ret) {
          String logStr = RILUtils.responseToString(response) + " " + retToString(response, ret);
@@ -4424,7 +4439,7 @@ index 2c6fbdaa91..3a8ce141ae 100644
              riljLogv("[UNSL]< " + logStr);
          }
          Trace.instantForTrack(Trace.TRACE_TAG_NETWORK, "RIL", logStr);
-@@ -6139,6 +6907,58 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -6182,6 +6951,58 @@ public class RIL extends BaseCommands implements CommandsInterface {
          return mClientWakelockTracker.getClientRequestStats();
      }
  
@@ -4484,10 +4499,10 @@ index 2c6fbdaa91..3a8ce141ae 100644
          mLastBarringInfo = barringInfo;
          mBarringInfoChangedRegistrants.notifyRegistrants(new AsyncResult(null, barringInfo, null));
 diff --git a/src/java/com/android/internal/telephony/RILUtils.java b/src/java/com/android/internal/telephony/RILUtils.java
-index 94f2e962ee..5f61159a4e 100644
+index 8897db4e45..04e90f7f83 100644
 --- a/src/java/com/android/internal/telephony/RILUtils.java
 +++ b/src/java/com/android/internal/telephony/RILUtils.java
-@@ -876,6 +876,41 @@ public class RILUtils {
+@@ -886,6 +886,41 @@ public class RILUtils {
          return new SmsMessage(addr, env);
      }
  
@@ -4529,7 +4544,7 @@ index 94f2e962ee..5f61159a4e 100644
      /**
       * Convert to DataProfileInfo defined in radio/1.4/types.hal
       * @param dp Data profile
-@@ -2170,15 +2205,21 @@ public class RILUtils {
+@@ -2180,15 +2215,21 @@ public class RILUtils {
      }
  
      /**
@@ -4556,7 +4571,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.LinkCapacityEstimate lce =
                      (android.hardware.radio.V1_2.LinkCapacityEstimate) lceObj;
              lceList.add(new LinkCapacityEstimate(LinkCapacityEstimate.LCE_TYPE_COMBINED,
-@@ -2206,13 +2247,26 @@ public class RILUtils {
+@@ -2216,13 +2257,26 @@ public class RILUtils {
          return lceList;
      }
  
@@ -4584,7 +4599,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.network.LinkCapacityEstimate lce) {
          final List<LinkCapacityEstimate> lceList = new ArrayList<>();
          int primaryDownlinkCapacityKbps = lce.downlinkCapacityKbps;
-@@ -2236,9 +2290,9 @@ public class RILUtils {
+@@ -2246,9 +2300,9 @@ public class RILUtils {
  
  
      /**
@@ -4596,7 +4611,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @return The converted list of CellInfos
       */
      public static ArrayList<CellInfo> convertHalCellInfoList(ArrayList<Object> records) {
-@@ -2268,8 +2322,8 @@ public class RILUtils {
+@@ -2278,8 +2332,8 @@ public class RILUtils {
      }
  
      /**
@@ -4607,7 +4622,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @param nanotime time the CellInfo was created
       * @return The converted CellInfo
       */
-@@ -2291,7 +2345,87 @@ public class RILUtils {
+@@ -2301,7 +2355,87 @@ public class RILUtils {
          CellSignalStrengthTdscdma tdscdmaSs = null;
          CellIdentityNr nrCi = null;
          CellSignalStrengthNr nrSs = null;
@@ -4696,7 +4711,7 @@ index 94f2e962ee..5f61159a4e 100644
              final android.hardware.radio.V1_4.CellInfo record =
                      (android.hardware.radio.V1_4.CellInfo) cellInfo;
              connectionStatus = record.connectionStatus;
-@@ -2521,13 +2655,43 @@ public class RILUtils {
+@@ -2531,13 +2665,43 @@ public class RILUtils {
      }
  
      /**
@@ -4743,7 +4758,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentity ci =
                      (android.hardware.radio.V1_2.CellIdentity) halCi;
              switch (ci.cellInfoType) {
-@@ -2604,13 +2768,19 @@ public class RILUtils {
+@@ -2614,13 +2778,19 @@ public class RILUtils {
      }
  
      /**
@@ -4766,7 +4781,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentityGsm ci =
                      (android.hardware.radio.V1_2.CellIdentityGsm) gsm;
              return new CellIdentityGsm(ci.base.lac, ci.base.cid, ci.base.arfcn,
-@@ -2643,13 +2813,18 @@ public class RILUtils {
+@@ -2653,13 +2823,18 @@ public class RILUtils {
      }
  
      /**
@@ -4788,7 +4803,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentityCdma ci =
                      (android.hardware.radio.V1_2.CellIdentityCdma) cdma;
              return new CellIdentityCdma(ci.base.networkId, ci.base.systemId, ci.base.baseStationId,
-@@ -2672,13 +2847,18 @@ public class RILUtils {
+@@ -2682,13 +2857,18 @@ public class RILUtils {
      }
  
      /**
@@ -4810,7 +4825,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentityLte ci =
                      (android.hardware.radio.V1_2.CellIdentityLte) lte;
              return new CellIdentityLte(ci.base.ci, ci.base.pci, ci.base.tac, ci.base.earfcn,
-@@ -2712,13 +2892,18 @@ public class RILUtils {
+@@ -2722,13 +2902,18 @@ public class RILUtils {
      }
  
      /**
@@ -4832,7 +4847,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentityWcdma ci =
                      (android.hardware.radio.V1_2.CellIdentityWcdma) wcdma;
              return new CellIdentityWcdma(ci.base.lac, ci.base.cid, ci.base.psc, ci.base.uarfcn,
-@@ -2750,13 +2935,18 @@ public class RILUtils {
+@@ -2760,13 +2945,18 @@ public class RILUtils {
      }
  
      /**
@@ -4854,7 +4869,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_2.CellIdentityTdscdma ci =
                      (android.hardware.radio.V1_2.CellIdentityTdscdma) tdscdma;
              return new CellIdentityTdscdma(ci.base.mcc, ci.base.mnc, ci.base.lac, ci.base.cid,
-@@ -2776,7 +2966,7 @@ public class RILUtils {
+@@ -2786,7 +2976,7 @@ public class RILUtils {
  
      /**
       * Convert a CellIdentityTdscdma defined in CellIdentityTdscdma.aidl to CellIdentityTdscdma
@@ -4863,7 +4878,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @return The converted CellIdentityTdscdma
       */
      public static CellIdentityTdscdma convertHalCellIdentityTdscdma(
-@@ -2825,13 +3015,31 @@ public class RILUtils {
+@@ -2835,13 +3025,31 @@ public class RILUtils {
      }
  
      /**
@@ -4898,7 +4913,7 @@ index 94f2e962ee..5f61159a4e 100644
              android.hardware.radio.V1_4.SignalStrength signalStrength =
                      (android.hardware.radio.V1_4.SignalStrength) ss;
              return new SignalStrength(
-@@ -2979,19 +3187,29 @@ public class RILUtils {
+@@ -2989,19 +3197,29 @@ public class RILUtils {
      }
  
      /**
@@ -4937,7 +4952,7 @@ index 94f2e962ee..5f61159a4e 100644
              ret.setDefaultValues();
              ret.updateLevel(null, null);
          }
-@@ -3017,18 +3235,29 @@ public class RILUtils {
+@@ -3027,18 +3245,29 @@ public class RILUtils {
      }
  
      /**
@@ -4975,7 +4990,7 @@ index 94f2e962ee..5f61159a4e 100644
              ret.setDefaultValues();
              ret.updateLevel(null, null);
          }
-@@ -3213,9 +3442,9 @@ public class RILUtils {
+@@ -3223,9 +3452,9 @@ public class RILUtils {
      }
  
      /**
@@ -4987,7 +5002,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @return The converted DataCallResponse
       */
      @VisibleForTesting
-@@ -3226,10 +3455,10 @@ public class RILUtils {
+@@ -3236,10 +3465,10 @@ public class RILUtils {
          long suggestedRetryTime;
          String ifname;
          int protocolType;
@@ -5002,7 +5017,7 @@ index 94f2e962ee..5f61159a4e 100644
          Qos defaultQos = null;
          @DataCallResponse.HandoverFailureMode
          int handoverFailureMode = DataCallResponse.HANDOVER_FAILURE_MODE_LEGACY;
-@@ -3239,7 +3468,34 @@ public class RILUtils {
+@@ -3249,7 +3478,34 @@ public class RILUtils {
          NetworkSliceInfo sliceInfo = null;
          List<TrafficDescriptor> trafficDescriptors = new ArrayList<>();
  
@@ -5038,7 +5053,7 @@ index 94f2e962ee..5f61159a4e 100644
              final android.hardware.radio.V1_4.SetupDataCallResult result =
                      (android.hardware.radio.V1_4.SetupDataCallResult) dcResult;
              cause = result.cause;
-@@ -3792,10 +4048,10 @@ public class RILUtils {
+@@ -3802,10 +4058,10 @@ public class RILUtils {
      }
  
      /**
@@ -5051,7 +5066,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @return The converted list of DataCallResponses
       */
      @VisibleForTesting
-@@ -3885,8 +4141,8 @@ public class RILUtils {
+@@ -3895,8 +4151,8 @@ public class RILUtils {
      }
  
      /**
@@ -5062,7 +5077,7 @@ index 94f2e962ee..5f61159a4e 100644
       * @return The converted DriverCall
       */
      public static DriverCall convertToDriverCall(Object halCall) {
-@@ -3902,13 +4158,17 @@ public class RILUtils {
+@@ -3912,13 +4168,17 @@ public class RILUtils {
              call16 = null;
              call12 = (android.hardware.radio.V1_2.Call) halCall;
              call10 = call12.base;
@@ -5081,7 +5096,7 @@ index 94f2e962ee..5f61159a4e 100644
              dc.index = call10.index;
              dc.TOA = call10.toa;
              dc.isMpty = call10.isMpty;
-@@ -3917,9 +4177,10 @@ public class RILUtils {
+@@ -3927,9 +4187,10 @@ public class RILUtils {
              dc.isVoice = call10.isVoice;
              dc.isVoicePrivacy = call10.isVoicePrivacy;
              dc.number = call10.number;
@@ -5094,7 +5109,7 @@ index 94f2e962ee..5f61159a4e 100644
              if (call10.uusInfo.size() == 1) {
                  dc.uusInfo = new UUSInfo();
                  dc.uusInfo.setType(call10.uusInfo.get(0).uusType);
-@@ -3933,7 +4194,7 @@ public class RILUtils {
+@@ -3943,7 +4204,7 @@ public class RILUtils {
              dc.number = PhoneNumberUtils.stringFromStringAndTOA(dc.number, dc.TOA);
          }
          if (call12 != null) {
@@ -5103,7 +5118,7 @@ index 94f2e962ee..5f61159a4e 100644
          }
          if (call16 != null) {
              dc.forwardedNumber = call16.forwardedNumber;
-@@ -3948,7 +4209,7 @@ public class RILUtils {
+@@ -3958,7 +4219,7 @@ public class RILUtils {
       */
      public static DriverCall convertToDriverCall(android.hardware.radio.voice.Call halCall) {
          DriverCall dc = new DriverCall();
@@ -5112,7 +5127,7 @@ index 94f2e962ee..5f61159a4e 100644
          dc.index = halCall.index;
          dc.TOA = halCall.toa;
          dc.isMpty = halCall.isMpty;
-@@ -3957,9 +4218,9 @@ public class RILUtils {
+@@ -3967,9 +4228,9 @@ public class RILUtils {
          dc.isVoice = halCall.isVoice;
          dc.isVoicePrivacy = halCall.isVoicePrivacy;
          dc.number = halCall.number;
@@ -5124,7 +5139,7 @@ index 94f2e962ee..5f61159a4e 100644
          if (halCall.uusInfo.length == 1) {
              dc.uusInfo = new UUSInfo();
              dc.uusInfo.setType(halCall.uusInfo[0].uusType);
-@@ -3970,7 +4231,7 @@ public class RILUtils {
+@@ -3980,7 +4241,7 @@ public class RILUtils {
          }
          // Make sure there's a leading + on addresses with a TOA of 145
          dc.number = PhoneNumberUtils.stringFromStringAndTOA(dc.number, dc.TOA);
@@ -5134,10 +5149,10 @@ index 94f2e962ee..5f61159a4e 100644
          return dc;
      }
 diff --git a/src/java/com/android/internal/telephony/RadioConfig.java b/src/java/com/android/internal/telephony/RadioConfig.java
-index 6bf0203cb8..3e2be1d6ae 100644
+index 13f65028b6..1b8b15628e 100644
 --- a/src/java/com/android/internal/telephony/RadioConfig.java
 +++ b/src/java/com/android/internal/telephony/RadioConfig.java
-@@ -61,6 +61,7 @@ public class RadioConfig extends Handler {
+@@ -62,6 +62,7 @@ public class RadioConfig extends Handler {
      static final int EVENT_HIDL_SERVICE_DEAD = 1;
      static final int EVENT_AIDL_SERVICE_DEAD = 2;
      static final HalVersion RADIO_CONFIG_HAL_VERSION_UNKNOWN = new HalVersion(-1, -1);
@@ -5145,7 +5160,7 @@ index 6bf0203cb8..3e2be1d6ae 100644
      static final HalVersion RADIO_CONFIG_HAL_VERSION_1_1 = new HalVersion(1, 1);
      static final HalVersion RADIO_CONFIG_HAL_VERSION_1_3 = new HalVersion(1, 3);
      static final HalVersion RADIO_CONFIG_HAL_VERSION_2_0 = new HalVersion(2, 0);
-@@ -316,7 +317,13 @@ public class RadioConfig extends Handler {
+@@ -319,7 +320,13 @@ public class RadioConfig extends Handler {
          }
  
          if (mRadioConfigProxy.isEmpty()) {
@@ -5161,7 +5176,7 @@ index 6bf0203cb8..3e2be1d6ae 100644
  
          if (!mRadioConfigProxy.isEmpty()) {
 diff --git a/src/java/com/android/internal/telephony/RadioConfigProxy.java b/src/java/com/android/internal/telephony/RadioConfigProxy.java
-index 9d05fc5fc3..edeb558b5d 100644
+index b6c6d68470..79f3d70b9e 100644
 --- a/src/java/com/android/internal/telephony/RadioConfigProxy.java
 +++ b/src/java/com/android/internal/telephony/RadioConfigProxy.java
 @@ -35,7 +35,7 @@ public class RadioConfigProxy {
@@ -5221,7 +5236,7 @@ index 9d05fc5fc3..edeb558b5d 100644
                      RILUtils.convertSlotMappingToList(slotMapping));
          }
      }
-@@ -257,13 +265,13 @@ public class RadioConfigProxy {
+@@ -267,13 +275,13 @@ public class RadioConfigProxy {
          private static final String TAG = "RadioConfigHidlSDR";
  
          private final RadioConfig mRadioConfig;

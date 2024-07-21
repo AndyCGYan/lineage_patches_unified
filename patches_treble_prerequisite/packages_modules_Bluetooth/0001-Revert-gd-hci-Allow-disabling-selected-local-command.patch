@@ -1,4 +1,4 @@
-From cd3589bfec212ae631772e0fdc984f21fc2bafe7 Mon Sep 17 00:00:00 2001
+From 3ddebb45d3e48e581c0ac739b0b35b11f4737acc Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 20 Nov 2023 21:59:29 +0800
 Subject: [PATCH] Revert "gd: hci: Allow disabling selected local commands"
@@ -9,7 +9,7 @@ This reverts commit 543afb3dd2e2b5aa4f1931a973eb7c7df634aa69.
  1 file changed, 12 deletions(-)
 
 diff --git a/system/gd/hci/controller.cc b/system/gd/hci/controller.cc
-index 5576293017..c08ecab9d5 100644
+index 6facfef4c3..a6c16a9061 100644
 --- a/system/gd/hci/controller.cc
 +++ b/system/gd/hci/controller.cc
 @@ -16,7 +16,6 @@
@@ -17,10 +17,10 @@ index 5576293017..c08ecab9d5 100644
  #include "hci/controller.h"
  
 -#include <android-base/strings.h>
+ #include <android_bluetooth_flags.h>
+ 
  #include <future>
- #include <memory>
- #include <string>
-@@ -37,8 +36,6 @@ constexpr uint8_t kMinEncryptionKeySize = 7;  // #define MIN_ENCRYPTION_KEY_SIZE
+@@ -43,8 +42,6 @@ constexpr uint8_t kMinEncryptionKeySize = 7;  // #define MIN_ENCRYPTION_KEY_SIZE
  constexpr bool kDefaultVendorCapabilitiesEnabled = true;
  static const std::string kPropertyVendorCapabilitiesEnabled =
      "bluetooth.core.le.vendor_capabilities.enabled";
@@ -29,7 +29,7 @@ index 5576293017..c08ecab9d5 100644
  
  using os::Handler;
  
-@@ -301,15 +298,6 @@ struct Controller::impl {
+@@ -317,15 +314,6 @@ struct Controller::impl {
      ErrorCode status = complete_view.GetStatus();
      ASSERT_LOG(status == ErrorCode::SUCCESS, "Status 0x%02hhx, %s", status, ErrorCodeText(status).c_str());
      local_supported_commands_ = complete_view.GetSupportedCommands();

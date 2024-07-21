@@ -1,7 +1,7 @@
-From c5f9230959c480e46c95dd5a7dbdd6e236d80801 Mon Sep 17 00:00:00 2001
+From f010b259dfdcb010248580dd9ec6fcd1f309e91b Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 10 Dec 2023 18:04:49 -0500
-Subject: [PATCH 42/50] Add support for Samsung full brightness on their AIDL
+Subject: [PATCH 42/51] Add support for Samsung full brightness on their AIDL
  HAL
 
 ---
@@ -10,10 +10,10 @@ Subject: [PATCH 42/50] Add support for Samsung full brightness on their AIDL
  2 files changed, 44 insertions(+)
 
 diff --git a/services/core/Android.bp b/services/core/Android.bp
-index bf0b5d92db7f..848512dc7835 100644
+index ef02e6eeec79..5e8a5bc0916c 100644
 --- a/services/core/Android.bp
 +++ b/services/core/Android.bp
-@@ -213,6 +213,10 @@ java_library_static {
+@@ -264,6 +264,10 @@ java_library_static {
          "vendor.oplus.hardware.biometrics.fingerprint-V2.1-java",
          "vendor.oppo.hardware.biometrics.fingerprint-V2.1-java",
          "vendor.xiaomi.hardware.fingerprintextension-V1.0-java",
@@ -25,7 +25,7 @@ index bf0b5d92db7f..848512dc7835 100644
      javac_shard_size: 50,
      javacflags: [
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index c94d334b280b..9d9e905fdf48 100644
+index 39c4e361e00d..57d824d5720c 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
 @@ -45,8 +45,10 @@ import com.android.internal.util.DumpUtils;
@@ -77,7 +77,7 @@ index c94d334b280b..9d9e905fdf48 100644
                      String fp = SystemProperties.get("ro.vendor.build.fingerprint", "hello");
                      if(fp.matches(".*astarqlte.*")) {
                          int newBrightness = brightnessInt;
-@@ -516,6 +535,27 @@ public class LightsService extends SystemService {
+@@ -525,6 +544,27 @@ public class LightsService extends SystemService {
          mH = new Handler(looper);
          mVintfLights = service.get() != null ? service : null;
  

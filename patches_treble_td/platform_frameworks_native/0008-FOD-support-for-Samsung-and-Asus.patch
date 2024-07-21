@@ -1,7 +1,7 @@
-From 08b5b5e7445ec5ae2e9d5c80f5b150a0a058d07a Mon Sep 17 00:00:00 2001
+From 69fd045a02add4fb326f46b36a8b9f57a721b57c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sun, 18 Dec 2022 18:17:30 -0500
-Subject: [PATCH 08/12] FOD support for Samsung and Asus
+Subject: [PATCH 08/13] FOD support for Samsung and Asus
 
 ---
  libs/gui/BLASTBufferQueue.cpp                 | 20 ++++++++++++++--
@@ -65,7 +65,7 @@ index f317a2eea0..6a55bb3f70 100644
      static std::atomic<uint32_t> nextId = 0;
      mProducerId = nextId++;
 diff --git a/libs/ui/Gralloc2.cpp b/libs/ui/Gralloc2.cpp
-index 877b46908e..78e71c7ffa 100644
+index 41306b51f6..3badc79606 100644
 --- a/libs/ui/Gralloc2.cpp
 +++ b/libs/ui/Gralloc2.cpp
 @@ -115,7 +115,6 @@ status_t Gralloc2Mapper::validateBufferDescriptorInfo(
@@ -77,7 +77,7 @@ index 877b46908e..78e71c7ffa 100644
  
      // Gralloc2 implementations never understand non-BLOB with GPU_DATA_BUFFER
 diff --git a/libs/ui/Gralloc3.cpp b/libs/ui/Gralloc3.cpp
-index d2b92bb221..eff02330d8 100644
+index e9aa9c8d54..f29ce686c2 100644
 --- a/libs/ui/Gralloc3.cpp
 +++ b/libs/ui/Gralloc3.cpp
 @@ -106,7 +106,6 @@ status_t Gralloc3Mapper::validateBufferDescriptorInfo(
@@ -89,7 +89,7 @@ index d2b92bb221..eff02330d8 100644
  
      // Gralloc3 implementations never understand non-BLOB with GPU_DATA_BUFFER
 diff --git a/libs/ui/Gralloc4.cpp b/libs/ui/Gralloc4.cpp
-index 7e6802d1e0..1ce29dc8e4 100644
+index f1322f1e4c..c3ff48a262 100644
 --- a/libs/ui/Gralloc4.cpp
 +++ b/libs/ui/Gralloc4.cpp
 @@ -129,7 +129,6 @@ static status_t validateBufferDescriptorInfo(IMapper::BufferDescriptorInfo* desc
@@ -101,7 +101,7 @@ index 7e6802d1e0..1ce29dc8e4 100644
  
      // Combinations that are only allowed with gralloc 4.1.
 diff --git a/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp b/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
-index 7fe3369f88..afd9942d5e 100644
+index 091c207464..60e095c49b 100644
 --- a/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
 +++ b/services/surfaceflinger/CompositionEngine/src/OutputLayer.cpp
 @@ -26,6 +26,7 @@
@@ -122,7 +122,7 @@ index 7fe3369f88..afd9942d5e 100644
  using aidl::android::hardware::graphics::composer3::Composition;
  
  namespace android::compositionengine {
-@@ -442,6 +446,26 @@ void OutputLayer::writeOutputDependentGeometryStateToHWC(HWC2::Layer* hwcLayer,
+@@ -441,6 +445,26 @@ void OutputLayer::writeOutputDependentGeometryStateToHWC(HWC2::Layer* hwcLayer,
                                                       ->getHeight()));
      }
  
@@ -150,10 +150,10 @@ index 7fe3369f88..afd9942d5e 100644
            displayFrame.right, displayFrame.bottom);
  
 diff --git a/services/surfaceflinger/DisplayHardware/AidlComposerHal.cpp b/services/surfaceflinger/DisplayHardware/AidlComposerHal.cpp
-index 64a8ae7fcd..b7da02cdcc 100644
+index 362ab9c39e..62c2ed8f8d 100644
 --- a/services/surfaceflinger/DisplayHardware/AidlComposerHal.cpp
 +++ b/services/surfaceflinger/DisplayHardware/AidlComposerHal.cpp
-@@ -1680,5 +1680,13 @@ void AidlComposer::addDisplay(Display display) {
+@@ -1686,5 +1686,13 @@ void AidlComposer::addDisplay(Display display) {
  void AidlComposer::onHotplugConnect(Display display) {
      addDisplay(display);
  }
@@ -195,10 +195,10 @@ index bc067a0e5d..c0fcff6a7d 100644
  
  } // namespace Hwc2
 diff --git a/services/surfaceflinger/DisplayHardware/HWC2.cpp b/services/surfaceflinger/DisplayHardware/HWC2.cpp
-index 24a9e22a2b..52777b1e74 100644
+index 84f668d9df..7f867c10c7 100644
 --- a/services/surfaceflinger/DisplayHardware/HWC2.cpp
 +++ b/services/surfaceflinger/DisplayHardware/HWC2.cpp
-@@ -1014,6 +1014,14 @@ Error Layer::setBlockingRegion(const Region& region) {
+@@ -1030,6 +1030,14 @@ Error Layer::setBlockingRegion(const Region& region) {
      return static_cast<Error>(intError);
  }
  
@@ -214,10 +214,10 @@ index 24a9e22a2b..52777b1e74 100644
  } // namespace HWC2
  } // namespace android
 diff --git a/services/surfaceflinger/DisplayHardware/HWC2.h b/services/surfaceflinger/DisplayHardware/HWC2.h
-index f907061774..04513ae0fe 100644
+index de044e0b76..09454e26e2 100644
 --- a/services/surfaceflinger/DisplayHardware/HWC2.h
 +++ b/services/surfaceflinger/DisplayHardware/HWC2.h
-@@ -349,6 +349,9 @@ public:
+@@ -353,6 +353,9 @@ public:
      // AIDL HAL
      [[nodiscard]] virtual hal::Error setBrightness(float brightness) = 0;
      [[nodiscard]] virtual hal::Error setBlockingRegion(const android::Region& region) = 0;
@@ -227,7 +227,7 @@ index f907061774..04513ae0fe 100644
  };
  
  namespace impl {
-@@ -400,6 +403,8 @@ public:
+@@ -404,6 +407,8 @@ public:
      hal::Error setBrightness(float brightness) override;
      hal::Error setBlockingRegion(const android::Region& region) override;
  
@@ -237,10 +237,10 @@ index f907061774..04513ae0fe 100644
      // These are references to data owned by HWComposer, which will outlive
      // this HWC2::Layer, so these references are guaranteed to be valid for
 diff --git a/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp b/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
-index c4ff9cc6be..bd158ad5ad 100644
+index 12ab2c284a..d34ed04127 100644
 --- a/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
 +++ b/services/surfaceflinger/DisplayHardware/HidlComposerHal.cpp
-@@ -1434,6 +1434,13 @@ Error HidlComposer::getPhysicalDisplayOrientation(Display, AidlTransform*) {
+@@ -1435,6 +1435,13 @@ Error HidlComposer::getPhysicalDisplayOrientation(Display, AidlTransform*) {
                       "OptionalFeature::PhysicalDisplayOrientation is not supported on HIDL");
  }
  

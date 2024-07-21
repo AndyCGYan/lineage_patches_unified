@@ -1,0 +1,27 @@
+From 68142f99e88fbbf08b0acb9d4c544e7827dab2ef Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 30 Jun 2024 14:45:48 +0800
+Subject: [PATCH 12/22] Revert "SystemUI: Match keyguard carrier text font with
+ system"
+
+This reverts commit 0abcf0db0b50d270a849b6179083008c25325cc1.
+---
+ .../android/systemui/statusbar/phone/KeyguardStatusBarView.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+index 3c25d5d83afc..3f0a8a387e19 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+@@ -419,7 +419,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
+     /** Should only be called from {@link KeyguardStatusBarViewController}. */
+     void onOverlayChanged() {
+         int theme = Utils.getThemeAttr(mContext, com.android.internal.R.attr.textAppearanceSmall);
+-        mCarrierLabel.setTextAppearance(R.style.TextAppearance_StatusBar_Clock);
++        mCarrierLabel.setTextAppearance(theme);
+         mBatteryView.updatePercentView();
+ 
+         TextView userSwitcherName = mUserSwitcherContainer.findViewById(R.id.current_user_name);
+-- 
+2.34.1
+

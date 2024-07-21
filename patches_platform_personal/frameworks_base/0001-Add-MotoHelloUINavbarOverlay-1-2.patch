@@ -1,13 +1,13 @@
-From e1866ef3ab91a394c0a810675df59a9c328ce0b2 Mon Sep 17 00:00:00 2001
+From ed95d24fc0033ae71a55d5177699ffdf51e9ee29 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 22 Apr 2024 23:34:04 +0800
-Subject: [PATCH 01/20] Add MotoHelloUINavbarOverlay (1/2)
+Subject: [PATCH 01/22] Add MotoHelloUINavbarOverlay (1/2)
 
 Redrawn after extracted SVGs, resized and adjusted stroke width
 
 Change-Id: Idd8deb529ab39444737676d7bdba1c52555d6661
 ---
- packages/overlays/Android.mk                  |  1 +
+ packages/overlays/Android.bp                  |  1 +
  .../MotoHelloUINavbarOverlay/Android.bp       | 28 +++++++++++++++++++
  .../AndroidManifest.xml                       | 22 +++++++++++++++
  .../res/drawable/ic_sysbar_back.xml           | 12 ++++++++
@@ -20,18 +20,18 @@ Change-Id: Idd8deb529ab39444737676d7bdba1c52555d6661
  create mode 100644 packages/overlays/MotoHelloUINavbarOverlay/res/drawable/ic_sysbar_home.xml
  create mode 100644 packages/overlays/MotoHelloUINavbarOverlay/res/drawable/ic_sysbar_recent.xml
 
-diff --git a/packages/overlays/Android.mk b/packages/overlays/Android.mk
-index a41d0e57cd21..c0573b2a9c16 100644
---- a/packages/overlays/Android.mk
-+++ b/packages/overlays/Android.mk
-@@ -26,6 +26,7 @@ LOCAL_REQUIRED_MODULES := \
- 	DisplayCutoutEmulationTallOverlay \
- 	DisplayCutoutEmulationWaterfallOverlay \
- 	FontNotoSerifSourceOverlay \
-+	MotoHelloUINavbarOverlay \
- 	NavigationBarMode3ButtonOverlay \
- 	NavigationBarModeGesturalOverlay \
- 	NavigationBarModeGesturalOverlayNarrowBack \
+diff --git a/packages/overlays/Android.bp b/packages/overlays/Android.bp
+index 5e001fba6aa1..8913b58807e6 100644
+--- a/packages/overlays/Android.bp
++++ b/packages/overlays/Android.bp
+@@ -28,6 +28,7 @@ phony {
+         "DisplayCutoutEmulationTallOverlay",
+         "DisplayCutoutEmulationWaterfallOverlay",
+         "FontNotoSerifSourceOverlay",
++        "MotoHelloUINavbarOverlay",
+         "NavigationBarMode3ButtonOverlay",
+         "NavigationBarModeGesturalOverlay",
+         "NavigationBarModeGesturalOverlayNarrowBack",
 diff --git a/packages/overlays/MotoHelloUINavbarOverlay/Android.bp b/packages/overlays/MotoHelloUINavbarOverlay/Android.bp
 new file mode 100644
 index 000000000000..06515997990a

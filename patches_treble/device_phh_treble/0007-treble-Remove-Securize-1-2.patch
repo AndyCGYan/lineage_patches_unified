@@ -1,0 +1,166 @@
+From 6049d780bfdddc2d11a0b3f1bca6b6de6a761ed5 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 15 Jul 2024 22:30:54 +0800
+Subject: [PATCH 7/7] treble: Remove Securize (1/2)
+
+Leave this Play Integrity mess to the professionals
+
+Change-Id: Ic4ef0512d8b555b85e7497464a07913101fcc819
+---
+ base.mk         |  1 -
+ files/ota.sh    |  3 ---
+ phh-securize.sh | 38 -----------------------------
+ rw-system.sh    | 63 ++++++-------------------------------------------
+ 4 files changed, 7 insertions(+), 98 deletions(-)
+ delete mode 100644 phh-securize.sh
+
+diff --git a/base.mk b/base.mk
+index 1c2fe3d..dea8d2d 100644
+--- a/base.mk
++++ b/base.mk
+@@ -178,7 +178,6 @@ PRODUCT_PACKAGES += \
+ 	resetprop_phh
+ 
+ PRODUCT_COPY_FILES += \
+-	device/phh/treble/phh-securize.sh:system/bin/phh-securize.sh \
+ 	device/phh/treble/files/ota.sh:system/bin/ota.sh \
+ 
+ PRODUCT_COPY_FILES += \
+diff --git a/files/ota.sh b/files/ota.sh
+index a43ce81..78fea95 100644
+--- a/files/ota.sh
++++ b/files/ota.sh
+@@ -8,9 +8,6 @@ if ! [ "$(getprop ro.boot.dynamic_partitions)" = true ];then
+ fi
+ 
+ flavor=$(getprop ro.product.product.name)
+-if [ -f /system/phh/secure ];then
+-	flavor=${flavor}-secure
+-fi
+ nextVersion=$(curl --silent -L https://raw.githubusercontent.com/phhusson/treble_experimentations/master/ota/squeak/$flavor/date)
+ if [ -z "$nextVersion" ];then
+     echo "Couldn't find any OTA for $flavor"
+diff --git a/phh-securize.sh b/phh-securize.sh
+deleted file mode 100644
+index 80b46d7..0000000
+--- a/phh-securize.sh
++++ /dev/null
+@@ -1,38 +0,0 @@
+-#!/system/bin/sh
+-
+-if [ -e /system/bin/magisk ]
+-then
+-    # remove bind-mount of phh-su overriding /system/bin/su -> ./magisk
+-    umount -l /system/bin/magisk
+-    # we need to modify the real system partition
+-    MAGISK_MIRROR="$(magisk --path)/.magisk/mirror"
+-    SYSTEM=$MAGISK_MIRROR/system
+-    MOUNTPOINT_LIST="$MAGISK_MIRROR/system_root $MAGISK_MIRROR/system"
+-else
+-    SYSTEM=/system
+-    MOUNTPOINT_LIST="/system /"
+-fi
+-
+-# remove bind-mount of phh-su (preventing $SYSTEM/xbin/su to be removed)
+-umount -l /system/xbin/su
+-
+-for MOUNTPOINT in $MOUNTPOINT_LIST
+-do
+-    [ -d $MOUNTPOINT ] && mountpoint -q $MOUNTPOINT && break
+-done
+-
+-mount -o remount,rw $MOUNTPOINT
+-remount
+-
+-touch $SYSTEM/phh/secure
+-rm $SYSTEM/xbin/su
+-rm $SYSTEM/bin/phh-su
+-rm $SYSTEM/etc/init/su.rc
+-rm $SYSTEM/bin/phh-securize.sh
+-rm -Rf $SYSTEM/{app,priv-app}/me.phh.superuser/
+-rm -Rf /data/su || true
+-mount -o remount,ro $MOUNTPOINT
+-sync
+-mkdir /metadata/phh
+-touch /metadata/phh/secure
+-reboot
+diff --git a/rw-system.sh b/rw-system.sh
+index 3ddfdda..7546fae 100644
+--- a/rw-system.sh
++++ b/rw-system.sh
+@@ -779,65 +779,16 @@ copyprop() {
+         resetprop_phh "$1" "$(getprop "$2")"
+     fi
+ }
+-if [ -f /system/phh/secure ] || [ -f /metadata/phh/secure ];then
+-    copyprop ro.build.device ro.vendor.build.device
+-    copyprop ro.system.build.fingerprint ro.vendor.build.fingerprint
+-    copyprop ro.bootimage.build.fingerprint ro.vendor.build.fingerprint
+-    copyprop ro.build.fingerprint ro.vendor.build.fingerprint
+-    copyprop ro.build.device ro.vendor.product.device
+-    copyprop ro.product.system.device ro.vendor.product.device
+-    copyprop ro.product.device ro.vendor.product.device
+-    copyprop ro.product.system.device ro.product.vendor.device
+-    copyprop ro.product.device ro.product.vendor.device
+-    copyprop ro.product.system.name ro.vendor.product.name
+-    copyprop ro.product.name ro.vendor.product.name
+-    copyprop ro.product.system.name ro.product.vendor.device
+-    copyprop ro.product.name ro.product.vendor.device
+-    copyprop ro.system.product.brand ro.vendor.product.brand
+-    copyprop ro.product.brand ro.vendor.product.brand
+-    copyprop ro.product.system.model ro.vendor.product.model
+-    copyprop ro.product.model ro.vendor.product.model
+-    copyprop ro.product.system.model ro.product.vendor.model
+-    copyprop ro.product.model ro.product.vendor.model
+-    copyprop ro.build.product ro.vendor.product.model
+-    copyprop ro.build.product ro.product.vendor.model
+-    copyprop ro.system.product.manufacturer ro.vendor.product.manufacturer
+-    copyprop ro.product.manufacturer ro.vendor.product.manufacturer
+-    copyprop ro.system.product.manufacturer ro.product.vendor.manufacturer
+-    copyprop ro.product.manufacturer ro.product.vendor.manufacturer
+-    (getprop ro.vendor.build.security_patch; getprop ro.keymaster.xxx.security_patch) |sort |tail -n 1 |while read v;do
+-        [ -n "$v" ] && resetprop_phh ro.build.version.security_patch "$v"
+-    done
+ 
+-    resetprop_phh ro.build.tags release-keys
+-    resetprop_phh ro.boot.vbmeta.device_state locked
+-    resetprop_phh ro.boot.verifiedbootstate green
+-    resetprop_phh ro.boot.flash.locked 1
+-    resetprop_phh ro.boot.veritymode enforcing
+-    resetprop_phh ro.boot.warranty_bit 0
+-    resetprop_phh ro.warranty_bit 0
+-    resetprop_phh ro.debuggable 0
+-    resetprop_phh ro.secure 1
+-    resetprop_phh ro.build.type user
+-    resetprop_phh --delete ro.build.selinux
+-
+-    resetprop_phh ro.adb.secure 1
+-
+-    # Hide system/xbin/su
+-    mount /mnt/phh/empty_dir /system/xbin
+-    mount /mnt/phh/empty_dir /system/app/me.phh.superuser
+-    mount /system/phh/empty /system/xbin/phh-su
+-else
+-    mkdir /mnt/phh/xbin
+-    chmod 0755 /mnt/phh/xbin
+-    chcon u:object_r:system_file:s0 /mnt/phh/xbin
++mkdir /mnt/phh/xbin
++chmod 0755 /mnt/phh/xbin
++chcon u:object_r:system_file:s0 /mnt/phh/xbin
+ 
+-    #phh-su will bind over this empty file to make a real su
+-    touch /mnt/phh/xbin/su
+-    chcon u:object_r:system_file:s0 /mnt/phh/xbin/su
++#phh-su will bind over this empty file to make a real su
++touch /mnt/phh/xbin/su
++chcon u:object_r:system_file:s0 /mnt/phh/xbin/su
+ 
+-    mount -o bind /mnt/phh/xbin /system/xbin
+-fi
++mount -o bind /mnt/phh/xbin /system/xbin
+ 
+ for abi in "" 64;do
+     f=/vendor/lib$abi/libstagefright_foundation.so
+-- 
+2.34.1
+

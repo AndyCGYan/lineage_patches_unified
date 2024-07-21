@@ -1,7 +1,7 @@
-From 3d14aac0ee3a37ed0fcad87c1eae170300b92326 Mon Sep 17 00:00:00 2001
+From 760a17ba02bbab91feb31c26f692b6871d1e3b95 Mon Sep 17 00:00:00 2001
 From: Raphael Mounier <mounierr07@gmail.com>
 Date: Sat, 6 Aug 2022 18:08:36 +0200
-Subject: [PATCH 02/50] Fix env empty string - ANDROID_STORAGE
+Subject: [PATCH 02/51] Fix env empty string - ANDROID_STORAGE
 
 Huawei hi6250 define in init.hi6250.rc ANDROID_STORAGE to "", so check empty string and replace with default path. Apply change for all env directory
 ---
@@ -9,10 +9,10 @@ Huawei hi6250 define in init.hi6250.rc ANDROID_STORAGE to "", so check empty str
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/core/java/android/os/Environment.java b/core/java/android/os/Environment.java
-index 536ef31f334a..bebab95189d7 100644
+index a459aaa42930..168825411139 100644
 --- a/core/java/android/os/Environment.java
 +++ b/core/java/android/os/Environment.java
-@@ -1523,7 +1523,7 @@ public class Environment {
+@@ -1526,7 +1526,7 @@ public class Environment {
  
      static File getDirectory(String variableName, String defaultPath) {
          String path = System.getenv(variableName);

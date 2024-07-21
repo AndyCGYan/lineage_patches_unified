@@ -1,4 +1,4 @@
-From 7b5af6750bdcfd107e607906b886a3034d52cb53 Mon Sep 17 00:00:00 2001
+From 82927d1019eddeb325ea689cdf493717eab7bb49 Mon Sep 17 00:00:00 2001
 From: Victor Bo <bvoid@yandex.ru>
 Date: Wed, 3 Mar 2021 06:31:17 -0500
 Subject: [PATCH] Restore /sbin for Magisk compatibility
@@ -58,7 +58,7 @@ index 9ab7f4305..c45317d0f 100644
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/*" },
      { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
 diff --git a/rootdir/Android.mk b/rootdir/Android.mk
-index 7deb17324..aeeaad496 100644
+index 7444f963f..b74887c43 100644
 --- a/rootdir/Android.mk
 +++ b/rootdir/Android.mk
 @@ -96,7 +96,7 @@ endif
@@ -67,7 +67,7 @@ index 7deb17324..aeeaad496 100644
  LOCAL_POST_INSTALL_CMD := mkdir -p $(addprefix $(TARGET_ROOT_OUT)/, \
 -    dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
 +    sbin dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
-     linkerconfig second_stage_resources postinstall $(BOARD_ROOT_EXTRA_FOLDERS)); \
+     linkerconfig second_stage_resources postinstall tmp $(BOARD_ROOT_EXTRA_FOLDERS)); \
      ln -sf /system/bin $(TARGET_ROOT_OUT)/bin; \
      ln -sf /system/etc $(TARGET_ROOT_OUT)/etc; \
 diff --git a/rootdir/init.environ.rc.in b/rootdir/init.environ.rc.in

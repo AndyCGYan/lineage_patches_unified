@@ -1,4 +1,4 @@
-From 5266372262a0d48bbb6251c6f8af75c01c76ab5c Mon Sep 17 00:00:00 2001
+From 45dd8686e204f58063348a9ba5caeb2249ae85a5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 16 Oct 2021 00:39:15 +0000
 Subject: [PATCH 2/2] build: Remove Stk (1/2)
@@ -9,7 +9,7 @@ Change-Id: I24ef17c74c3137a11b463cde96c74d0edc853edd
  1 file changed, 1 deletion(-)
 
 diff --git a/target/product/generic_system.mk b/target/product/generic_system.mk
-index 08a7cdf83e..5afb9a3a99 100644
+index 7aff62c39f..b5bf7b3a57 100644
 --- a/target/product/generic_system.mk
 +++ b/target/product/generic_system.mk
 @@ -33,7 +33,6 @@ PRODUCT_PACKAGES += \
@@ -19,7 +19,7 @@ index 08a7cdf83e..5afb9a3a99 100644
 -    Stk \
      Tag \
  
- # OTA support
+ ifeq ($(RELEASE_AVATAR_PICKER_APP),true)
 -- 
 2.34.1
 

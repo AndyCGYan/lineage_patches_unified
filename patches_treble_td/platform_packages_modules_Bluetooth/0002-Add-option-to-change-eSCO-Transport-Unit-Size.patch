@@ -1,4 +1,4 @@
-From 88705e8292e41191c83e04e3b9598eb6cad39d82 Mon Sep 17 00:00:00 2001
+From de841af176614fd7561763c4d810b494ad025374 Mon Sep 17 00:00:00 2001
 From: Alberto Ponces <ponces26@gmail.com>
 Date: Thu, 17 Jun 2021 15:48:53 +0100
 Subject: [PATCH 2/7] Add option to change eSCO Transport Unit Size
@@ -15,11 +15,11 @@ Change-Id: I3e5897c2ce983042b9a4bef9def6744ba4253bcb
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/system/device/src/esco_parameters.cc b/system/device/src/esco_parameters.cc
-index 684450a80b..5bf31289bc 100644
+index 15f1397087..21590782a6 100644
 --- a/system/device/src/esco_parameters.cc
 +++ b/system/device/src/esco_parameters.cc
 @@ -25,7 +25,8 @@
- #include "hci/controller.h"
+ #include "hci/controller_interface.h"
  #include "main/shim/entry.h"
  
 -static const enh_esco_params_t default_esco_parameters[ESCO_NUM_CODECS] = {

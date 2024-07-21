@@ -1,7 +1,7 @@
-From 511b30e50770302215590d22dc7f02217bdbb653 Mon Sep 17 00:00:00 2001
+From 8be4d9e18eb9dd627d77a3e80849b1c7f73c1cf9 Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Wed, 16 Dec 2020 21:24:12 +0800
-Subject: [PATCH 16/50] Revert "Remove unused SystemProperties.set"
+Subject: [PATCH 16/51] Revert "Remove unused SystemProperties.set"
 
 This reverts commit debb4616ef67f9ed5054eca51ec58592358ff55f.
 
@@ -11,10 +11,10 @@ This reverts commit debb4616ef67f9ed5054eca51ec58592358ff55f.
  1 file changed, 69 insertions(+)
 
 diff --git a/telephony/java/android/telephony/TelephonyManager.java b/telephony/java/android/telephony/TelephonyManager.java
-index f206987ddbf6..73c957c47892 100644
+index 88acbabc0e0f..9d2ea48dce30 100644
 --- a/telephony/java/android/telephony/TelephonyManager.java
 +++ b/telephony/java/android/telephony/TelephonyManager.java
-@@ -8152,6 +8152,75 @@ public class TelephonyManager {
+@@ -8504,6 +8504,75 @@ public class TelephonyManager {
          }
      }
  

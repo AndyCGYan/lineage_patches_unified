@@ -1,4 +1,4 @@
-From 8fa52ed942a235456b35af8133f41d385a9a9ac0 Mon Sep 17 00:00:00 2001
+From 61c7bac42a783f4e7fc1ef6d6e33a37bd45414d2 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 21 Feb 2024 12:50:28 -0500
 Subject: [PATCH 12/14] Initialize Samsung AIDL ISehRadioNetwork. Fixes 5G on
@@ -11,10 +11,10 @@ Subject: [PATCH 12/14] Initialize Samsung AIDL ISehRadioNetwork. Fixes 5G on
  3 files changed, 144 insertions(+), 2 deletions(-)
 
 diff --git a/Android.bp b/Android.bp
-index a94ae98208..a0bd665338 100644
+index 331b722ace..6e2c045bd1 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -91,6 +91,7 @@ java_library {
+@@ -90,6 +90,7 @@ java_library {
          "android.hardware.radio.network-V3-java",
          "android.hardware.radio.sim-V3-java",
          "android.hardware.radio.voice-V3-java",
@@ -23,10 +23,10 @@ index a94ae98208..a0bd665338 100644
          "ims-common",
          "unsupportedappusage",
 diff --git a/src/java/com/android/internal/telephony/RIL.java b/src/java/com/android/internal/telephony/RIL.java
-index ef6aa6499f..b55a373e11 100644
+index c857697f9f..0514c18e3f 100644
 --- a/src/java/com/android/internal/telephony/RIL.java
 +++ b/src/java/com/android/internal/telephony/RIL.java
-@@ -853,7 +853,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
+@@ -868,7 +868,7 @@ public class RIL extends BaseCommands implements CommandsInterface {
                              mHalVersion.put(service, ((RadioNetworkProxy) serviceProxy).setAidl(
                                      mHalVersion.get(service),
                                      android.hardware.radio.network.IRadioNetwork.Stub
