@@ -1,7 +1,7 @@
-From 7dbc3c83213b1dacce2eaa90835721b13f504781 Mon Sep 17 00:00:00 2001
+From 4b4182708a6c183a52f5459d357f341ea6c99e1b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 19 Nov 2023 23:07:03 +0800
-Subject: [PATCH 5/5] Restore getPhysicalDisplayIds in SurfaceControl
+Subject: [PATCH 5/6] Restore getPhysicalDisplayIds in SurfaceControl
 
 For convenience of accessing DynamicDisplayInfo from Settings
 Copy over the updated implementation from DisplayControl while we're at it
@@ -15,10 +15,10 @@ Change-Id: Ie056ecaf76acbc70d73e1c26cc4542088fcda18d
  2 files changed, 26 insertions(+)
 
 diff --git a/core/java/android/view/SurfaceControl.java b/core/java/android/view/SurfaceControl.java
-index cbbe7856178d..253eb492bd8b 100644
+index eff35c0c0f03..5cc1d0817688 100644
 --- a/core/java/android/view/SurfaceControl.java
 +++ b/core/java/android/view/SurfaceControl.java
-@@ -181,6 +181,7 @@ public final class SurfaceControl implements Parcelable {
+@@ -176,6 +176,7 @@ public final class SurfaceControl implements Parcelable {
      private static native boolean nativeClearAnimationFrameStats();
      private static native boolean nativeGetAnimationFrameStats(WindowAnimationFrameStats outStats);
  
@@ -26,8 +26,8 @@ index cbbe7856178d..253eb492bd8b 100644
      private static native void nativeSetDisplaySurface(long transactionObj,
              IBinder displayToken, long nativeSurfaceObject);
      private static native void nativeSetDisplayLayerStack(long transactionObj,
-@@ -2440,6 +2441,13 @@ public final class SurfaceControl implements Parcelable {
-                 IVirtualDisplayCallback.Stub.asInterface(displayToken));
+@@ -2379,6 +2380,13 @@ public final class SurfaceControl implements Parcelable {
+         nativeSetGameContentType(displayToken, on);
      }
  
 +    /**
@@ -41,7 +41,7 @@ index cbbe7856178d..253eb492bd8b 100644
       * Returns whether protected content is supported in GPU composition.
       * @hide
 diff --git a/core/jni/android_view_SurfaceControl.cpp b/core/jni/android_view_SurfaceControl.cpp
-index db42246ca76c..0be04bb380d8 100644
+index 6fec527aaa16..8c908aa3d451 100644
 --- a/core/jni/android_view_SurfaceControl.cpp
 +++ b/core/jni/android_view_SurfaceControl.cpp
 @@ -36,6 +36,7 @@
@@ -52,7 +52,7 @@ index db42246ca76c..0be04bb380d8 100644
  #include <nativehelper/ScopedUtfChars.h>
  #include <private/gui/ComposerService.h>
  #include <stdio.h>
-@@ -1010,6 +1011,21 @@ static void nativeSetDestinationFrame(JNIEnv* env, jclass clazz, jlong transacti
+@@ -1075,6 +1076,21 @@ static void nativeSetDestinationFrame(JNIEnv* env, jclass clazz, jlong transacti
      transaction->setDestinationFrame(ctrl, crop);
  }
  
@@ -74,7 +74,7 @@ index db42246ca76c..0be04bb380d8 100644
  static jobject nativeGetDisplayedContentSamplingAttributes(JNIEnv* env, jclass clazz,
          jobject tokenObj) {
      sp<IBinder> token(ibinderForJavaObject(env, tokenObj));
-@@ -2187,6 +2203,8 @@ static const JNINativeMethod sSurfaceControlMethods[] = {
+@@ -2269,6 +2285,8 @@ static const JNINativeMethod sSurfaceControlMethods[] = {
              (void*)nativeSetFrameRateCategory},
      {"nativeSetFrameRateSelectionStrategy", "(JJI)V",
              (void*)nativeSetFrameRateSelectionStrategy},

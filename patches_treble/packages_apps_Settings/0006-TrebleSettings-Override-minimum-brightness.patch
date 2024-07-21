@@ -1,7 +1,7 @@
-From f41885c3103b205838b186ca47c38da3d1aa837e Mon Sep 17 00:00:00 2001
+From 0640b1aa050f80bc8b095e2d78a134402fb0c0de Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 10:29:05 +0000
-Subject: [PATCH 6/8] TrebleSettings: Override minimum brightness
+Subject: [PATCH 6/9] TrebleSettings: Override minimum brightness
 
 Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
 ---
@@ -13,10 +13,10 @@ Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
  create mode 100644 src/com/android/settings/treble/OverrideMinimumBrightnessPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 62478ec1a6c..724b0393626 100644
+index 08b953b9ccf..2dd1ddeb5a8 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -7201,6 +7201,8 @@
+@@ -7368,6 +7368,8 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>

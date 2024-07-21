@@ -1,0 +1,26 @@
+From b9eaf93d2d87ff6cd436d3b456c8e572a1b6f83f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 5 Mar 2022 01:43:37 +0000
+Subject: [PATCH 18/22] UI: Reconfigure quick settings tiles
+
+Change-Id: I743f52ef3a95db0ca2c02ae973faa4629e41885d
+---
+ packages/SystemUI/res/values/config.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/packages/SystemUI/res/values/config.xml b/packages/SystemUI/res/values/config.xml
+index 0286cc65c8e2..d23be6427019 100644
+--- a/packages/SystemUI/res/values/config.xml
++++ b/packages/SystemUI/res/values/config.xml
+@@ -88,7 +88,7 @@
+ 
+     <!-- The default tiles to display in QuickSettings -->
+     <string name="quick_settings_tiles_default" translatable="false">
+-        internet,bt,flashlight,dnd,alarm,airplane,controls,wallet,rotation,battery,cast,screenrecord,mictoggle,cameratoggle,custom(com.android.permissioncontroller/.permission.service.v33.SafetyCenterQsTileService)
++        wifi,cell,hotspot,location,rotation,flashlight
+     </string>
+ 
+     <!-- The class path of the Safety Quick Settings Tile -->
+-- 
+2.34.1
+

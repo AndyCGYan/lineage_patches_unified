@@ -1,4 +1,4 @@
-From 3123bcedf9a080c651e9f009f14111585c7f1f38 Mon Sep 17 00:00:00 2001
+From 6e812922a39bb8c279a7935d03141e34bf54c052 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 20 Nov 2023 14:09:32 +0800
 Subject: [PATCH 3/3] Trebuchet: Kill inverted rounded corners above the
@@ -12,10 +12,10 @@ Change-Id: Ibf03a84cb8f3866b5151b02fe8a0e74167cf90ce
  1 file changed, 7 deletions(-)
 
 diff --git a/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt b/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
-index d6016f1304..c77fadb9aa 100644
+index e290c3fa3d..a3e4e1835e 100644
 --- a/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
 +++ b/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
-@@ -159,13 +159,6 @@ class TaskbarBackgroundRenderer(private val context: TaskbarActivityContext) {
+@@ -158,13 +158,6 @@ class TaskbarBackgroundRenderer(private val context: TaskbarActivityContext) {
              // Draw the background behind taskbar content.
              canvas.drawRect(0f, 0f, canvas.width.toFloat(), persistentTaskbarHeight, paint)
          }

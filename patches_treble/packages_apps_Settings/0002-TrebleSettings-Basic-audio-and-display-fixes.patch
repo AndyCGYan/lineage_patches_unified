@@ -1,7 +1,7 @@
-From 7cff85caaabd92c499d24c2915d7735d0b5cad4d Mon Sep 17 00:00:00 2001
+From 2ddbe3a19b8775a02dfb933033d71e9e0b138260 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 03:38:41 +0000
-Subject: [PATCH 2/8] TrebleSettings: Basic audio and display fixes
+Subject: [PATCH 2/9] TrebleSettings: Basic audio and display fixes
 
 - Alternative audio policy
 - Disable soundvolume effect
@@ -21,10 +21,10 @@ Change-Id: I4f22dcd9c59c40b3fd70ba642db35b9466467b7d
  create mode 100644 src/com/android/settings/treble/UseAlternativeBacklightScalePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 48f0b763431..0961c045330 100644
+index 5a5edf00ebf..366194bf500 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -7182,11 +7182,19 @@
+@@ -7349,11 +7349,19 @@
      <string name="treble_settings">Treble settings</string>
      <!-- Summary for Treble settings [CHAR LIMIT=NONE]-->
      <string name="treble_settings_summary">Fixes &amp; tweaks for GSIs</string>

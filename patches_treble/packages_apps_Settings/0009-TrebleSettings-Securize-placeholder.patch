@@ -1,0 +1,61 @@
+From e6f53c10e76522ec31519264c40d95d872542f47 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 17 Jul 2024 22:35:50 +0800
+Subject: [PATCH 9/9] TrebleSettings: Securize placeholder
+
+Leave this Play Integrity mess to the professionals
+
+Change-Id: Ic30a78f5417925e1c8899ce91c37fa41b2ff15c2
+---
+ res/values/strings.xml      |  6 ++++++
+ res/xml/treble_settings.xml | 10 ++++++++++
+ 2 files changed, 16 insertions(+)
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index b9bed8d56b5..f55ee2a048d 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -7355,6 +7355,8 @@
+     <string name="treble_settings_category_name_display">Display</string>
+     <!-- IMS category name [CHAR LIMIT=none] -->
+     <string name="treble_settings_category_name_ims">IMS</string>
++    <!-- System category name [CHAR LIMIT=none] -->
++    <string name="treble_settings_category_name_system">System</string>
+     <!-- UI category name [CHAR LIMIT=none] -->
+     <string name="treble_settings_category_name_ui">UI</string>
+ 
+@@ -7383,6 +7385,10 @@
+     <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
+     <!-- Treble settings screen, override VoLTE availability title -->
+     <string name="override_volte_availability_title">Override VoLTE availability</string>
++    <!-- Treble settings screen, securize title -->
++    <string name="securize_title">Securize</string>
++    <!-- Treble settings screen, securize summary -->
++    <string name="securize_summary">Unsupported - please try other methods\n(e.g. PlayIntegrityFix module)</string>
+     <!-- Treble settings screen, override navbar availability title -->
+     <string name="override_navbar_availability_title">Override navigation bar availability</string>
+ 
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 4e3bef9b644..13e74ee4f6c 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -62,6 +62,16 @@
+ 
+     </PreferenceCategory>
+ 
++    <PreferenceCategory
++        android:title="@string/treble_settings_category_name_system">
++
++        <Preference
++            android:enabled="false"
++            android:title="@string/securize_title"
++            android:summary="@string/securize_summary" />
++
++    </PreferenceCategory>
++
+     <PreferenceCategory
+         android:title="@string/treble_settings_category_name_ui">
+ 
+-- 
+2.34.1
+

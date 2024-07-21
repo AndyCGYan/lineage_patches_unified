@@ -1,7 +1,7 @@
-From 06799a1be4a78be284b530b009b9edd67bb1aae7 Mon Sep 17 00:00:00 2001
+From 522bbc14ea6cd6d17bd93fd3139b77d22362090c Mon Sep 17 00:00:00 2001
 From: Hikari-no-Tenshi <kyryljan.serhij@gmail.com>
 Date: Thu, 30 Jan 2020 22:20:54 +0200
-Subject: [PATCH 02/20] Disable Bluetooth by default
+Subject: [PATCH 02/22] Disable Bluetooth by default
 
 Change-Id: Iea5d24f977928bf01cd7a46b98c75c0a4bd6a23c
 ---
@@ -9,7 +9,7 @@ Change-Id: Iea5d24f977928bf01cd7a46b98c75c0a4bd6a23c
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/packages/SettingsProvider/res/values/defaults.xml b/packages/SettingsProvider/res/values/defaults.xml
-index 89a8dd95d3c3..576c85caf2e2 100644
+index 17d9f1b87fac..75686e96e201 100644
 --- a/packages/SettingsProvider/res/values/defaults.xml
 +++ b/packages/SettingsProvider/res/values/defaults.xml
 @@ -38,7 +38,7 @@

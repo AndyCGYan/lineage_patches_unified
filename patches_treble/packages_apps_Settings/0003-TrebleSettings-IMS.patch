@@ -1,25 +1,25 @@
-From fb208d5ca890f31bfff228836a548f3aacf3b061 Mon Sep 17 00:00:00 2001
+From e588ad066e470f910d44877bf506b2ecae1cbc59 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:29:36 +0000
-Subject: [PATCH 3/8] TrebleSettings: IMS
+Subject: [PATCH 3/9] TrebleSettings: IMS
 
 Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
 ---
  Android.bp                                    |   1 +
  res/values/strings.xml                        |   9 +
  res/xml/treble_settings.xml                   |  13 ++
- .../InstallImsApkPreferenceController.java    | 209 ++++++++++++++++++
+ .../InstallImsApkPreferenceController.java    | 203 ++++++++++++++++++
  ...VolteAvailabilityPreferenceController.java |  59 +++++
  .../settings/treble/TrebleSettings.java       |   2 +
- 6 files changed, 293 insertions(+)
+ 6 files changed, 287 insertions(+)
  create mode 100644 src/com/android/settings/treble/InstallImsApkPreferenceController.java
  create mode 100644 src/com/android/settings/treble/OverrideVolteAvailabilityPreferenceController.java
 
 diff --git a/Android.bp b/Android.bp
-index 7b7f7f42453..ab2d10cdb08 100644
+index b5018960056..d545aecda9e 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -109,6 +109,7 @@ android_library {
+@@ -117,6 +117,7 @@ android_library {
          "org.lineageos.platform.internal",
          "LineagePreferenceLib",
          "vendor.lineage.fastcharge-V1.0-java",
@@ -28,10 +28,10 @@ index 7b7f7f42453..ab2d10cdb08 100644
  
      plugins: ["androidx.room_room-compiler-plugin"],
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 0961c045330..029308db35b 100644
+index 366194bf500..ff534fe0152 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -7186,6 +7186,8 @@
+@@ -7353,6 +7353,8 @@
      <string name="treble_settings_category_name_audio">Audio</string>
      <!-- Display category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_display">Display</string>
@@ -40,7 +40,7 @@ index 0961c045330..029308db35b 100644
  
      <!-- Treble settings screen, use alternative audio policy title -->
      <string name="use_alternative_audio_policy_title">Use alternative audio policy</string>
-@@ -7195,6 +7197,13 @@
+@@ -7362,6 +7364,13 @@
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
      <!-- Treble settings screen, use alternative backlight scale title -->
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
@@ -78,10 +78,10 @@ index 336137c95f1..09e6bc5d006 100644
  </PreferenceScreen>
 diff --git a/src/com/android/settings/treble/InstallImsApkPreferenceController.java b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
 new file mode 100644
-index 00000000000..6a63cbf1bf3
+index 00000000000..e86884e86cd
 --- /dev/null
 +++ b/src/com/android/settings/treble/InstallImsApkPreferenceController.java
-@@ -0,0 +1,209 @@
+@@ -0,0 +1,203 @@
 +package com.android.settings.treble;
 +
 +import android.app.DownloadManager;
@@ -167,11 +167,8 @@ index 00000000000..6a63cbf1bf3
 +                case "mtk_q":
 +                    summary += "MediaTek Q";
 +                    break;
-+                case "mtk_r":
-+                    summary += "MediaTek R";
-+                    break;
-+                case "mtk_s":
-+                    summary += "MediaTek S";
++                case "mtk_r+":
++                    summary += "MediaTek R+";
 +                    break;
 +                default:
 +                    break;
@@ -186,19 +183,16 @@ index 00000000000..6a63cbf1bf3
 +    public boolean onPreferenceClick(Preference preference) {
 +        switch (mImsType) {
 +            case "qcom":
-+                mImsApkUrl = "https://treble.phh.me/ims-caf-u.apk";
++                mImsApkUrl = "https://treble.phh.me/ims-caf-u-resigned.apk";
 +                break;
 +            case "mtk_p":
-+                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-p.apk";
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-p-resigned.apk";
 +                break;
 +            case "mtk_q":
-+                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-q.apk";
++                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-q-resigned.apk";
 +                break;
-+            case "mtk_r":
-+                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-r.apk";
-+                break;
-+            case "mtk_s":
-+                mImsApkUrl = "https://treble.phh.me/stable/ims-mtk-s.apk";
++            case "mtk_r+":
++                mImsApkUrl = "https://treble.phh.me/ims-mtk-u-resigned.apk";
 +                break;
 +            default:
 +                break;
@@ -279,10 +273,10 @@ index 00000000000..6a63cbf1bf3
 +                    return "mtk_p";
 +                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@1.0::IMtkRadioEx", slot) != null) {
 +                    return "mtk_q";
-+                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@2.0::IMtkRadioEx", slot) != null) {
-+                    return "mtk_r";
-+                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@3.0::IMtkRadioEx", slot) != null) {
-+                    return "mtk_s";
++                } else if (hidlManager.get("vendor.mediatek.hardware.mtkradioex@2.0::IMtkRadioEx", slot) != null
++                        || hidlManager.get("vendor.mediatek.hardware.mtkradioex@3.0::IMtkRadioEx", slot) != null
++                        || ServiceManager.getService("vendor.mediatek.hardware.mtkradioex.ims.IMtkRadioExIms/" + slot) != null) {
++                    return "mtk_r+";
 +                }
 +            }
 +        } catch (RemoteException ex) {}

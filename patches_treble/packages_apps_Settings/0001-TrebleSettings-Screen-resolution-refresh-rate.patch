@@ -1,7 +1,7 @@
-From e76618742f7398aa64c1e45b27a2dbcbcb3f20e1 Mon Sep 17 00:00:00 2001
+From 8162af1310582494ce99ee502abacb1f937d5596 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 22 Sep 2022 12:37:50 +0000
-Subject: [PATCH 1/8] TrebleSettings: Screen resolution & refresh rate
+Subject: [PATCH 1/9] TrebleSettings: Screen resolution & refresh rate
 
 Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
 ---
@@ -20,10 +20,10 @@ Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
  create mode 100644 src/com/android/settings/treble/TrebleSettings.java
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index deb24592737..e5edf4977df 100644
+index a6bb19fe58c..6fafd10f702 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
-@@ -248,6 +248,14 @@
+@@ -252,6 +252,14 @@
                  android:value="com.android.settings.shortcut.CreateShortcut" />
          </activity>
  
@@ -67,10 +67,10 @@ index 27e9639122a..ef25f9971c4 100755
      <string name="menu_key_communal" translatable="false">top_level_communal</string>
      <string name="menu_key_connected_devices" translatable="false">top_level_connected_devices</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 8fcbcbf6b49..48f0b763431 100644
+index 61aa1b265e6..5a5edf00ebf 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -7178,6 +7178,16 @@
+@@ -7345,6 +7345,16 @@
      <!-- Text to describe the dashboard fragment title [CHAR LIMIT=16] -->
      <string name="dashboard_title">Settings</string>
  
@@ -88,7 +88,7 @@ index 8fcbcbf6b49..48f0b763431 100644
      <string name="network_dashboard_title">Network &amp; internet</string>
      <!-- Summary for Network and Internet settings, explaining it contains mobile, wifi setting and data usage settings [CHAR LIMIT=NONE]-->
 diff --git a/res/xml/top_level_settings.xml b/res/xml/top_level_settings.xml
-index d050a1f2747..258a567f561 100644
+index 31c6af3c40b..7fb404789ad 100644
 --- a/res/xml/top_level_settings.xml
 +++ b/res/xml/top_level_settings.xml
 @@ -20,6 +20,15 @@

@@ -1,0 +1,26 @@
+From 20bdd1f747da317d1e277f333f19d6a7a126f7fc Mon Sep 17 00:00:00 2001
+From: elluzion <dyrex2004@gmail.com>
+Date: Mon, 7 Dec 2020 20:39:40 +0100
+Subject: [PATCH 37/43] SystemUI: Use proper Resolver background color
+
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ core/res/res/values-night/themes_device_defaults.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/res/res/values-night/themes_device_defaults.xml b/core/res/res/values-night/themes_device_defaults.xml
+index 7cfdba7a65be..970dba3d844c 100644
+--- a/core/res/res/values-night/themes_device_defaults.xml
++++ b/core/res/res/values-night/themes_device_defaults.xml
+@@ -87,7 +87,7 @@ easier.
+ 
+     <style name="Theme.DeviceDefault.Resolver" parent="Theme.DeviceDefault.ResolverCommon">
+         <item name="windowLightNavigationBar">false</item>
+-        <item name="colorBackgroundFloating">@android:color/GM2_grey_800</item>
++        <item name="colorBackgroundFloating">?android:attr/colorPrimary</item>
+         <item name="textColorSecondary">@android:color/resolver_text_color_secondary_dark</item>
+     </style>
+ 
+-- 
+2.34.1
+

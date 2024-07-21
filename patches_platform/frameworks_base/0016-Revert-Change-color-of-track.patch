@@ -1,0 +1,54 @@
+From 2f0cb797274c27772f923c7a07ef830c12ddbfd4 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 30 Jun 2024 16:49:47 +0800
+Subject: [PATCH 16/43] Revert "Change color of track"
+
+This reverts commit 9ba91db9836625e5f45367b38b76cf08615cce00.
+---
+ .../res/color/brightness_slider_track.xml     | 19 -------------------
+ .../drawable/brightness_progress_drawable.xml |  2 +-
+ 2 files changed, 1 insertion(+), 20 deletions(-)
+ delete mode 100644 packages/SystemUI/res/color/brightness_slider_track.xml
+
+diff --git a/packages/SystemUI/res/color/brightness_slider_track.xml b/packages/SystemUI/res/color/brightness_slider_track.xml
+deleted file mode 100644
+index 6028769f3789..000000000000
+--- a/packages/SystemUI/res/color/brightness_slider_track.xml
++++ /dev/null
+@@ -1,19 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?><!--
+-  ~ Copyright (C) 2024 The Android Open Source Project
+-  ~
+-  ~ Licensed under the Apache License, Version 2.0 (the "License");
+-  ~ you may not use this file except in compliance with the License.
+-  ~ You may obtain a copy of the License at
+-  ~
+-  ~      http://www.apache.org/licenses/LICENSE-2.0
+-  ~
+-  ~ Unless required by applicable law or agreed to in writing, software
+-  ~ distributed under the License is distributed on an "AS IS" BASIS,
+-  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+-  ~ See the License for the specific language governing permissions and
+-  ~ limitations under the License.
+-  -->
+-
+-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item android:color="@android:color/system_neutral2_500" android:lStar="40" />
+-</selector>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/drawable/brightness_progress_drawable.xml b/packages/SystemUI/res/drawable/brightness_progress_drawable.xml
+index cae9d6b0513e..95c7778c0e76 100644
+--- a/packages/SystemUI/res/drawable/brightness_progress_drawable.xml
++++ b/packages/SystemUI/res/drawable/brightness_progress_drawable.xml
+@@ -24,7 +24,7 @@
+             <shape>
+                 <size android:height="@dimen/rounded_slider_track_width" />
+                 <corners android:radius="@dimen/rounded_slider_track_corner_radius" />
+-                <solid android:color="@color/brightness_slider_track" />
++                <solid android:color="?attr/shadeInactive" />
+             </shape>
+         </inset>
+     </item>
+-- 
+2.34.1
+

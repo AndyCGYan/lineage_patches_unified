@@ -1,4 +1,4 @@
-From 81689aaba1afbba29c980f60b51c04da97c3d2a1 Mon Sep 17 00:00:00 2001
+From b1e1d47aa6510c69b45112dcc59c83d3297b14a1 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 23 Nov 2023 23:21:58 +0800
 Subject: [PATCH] SetupWizard: Least Action(s) Principle
@@ -6,12 +6,12 @@ Subject: [PATCH] SetupWizard: Least Action(s) Principle
 Change-Id: I892634b8ffc7beafa5a223de0afdc64276efd2f5
 ---
  res/raw/lineage_wizard_script.xml             | 62 +------------------
- .../lineage_wizard_script_managed_profile.xml | 21 +------
- res/raw/lineage_wizard_script_user.xml        | 38 +-----------
- 3 files changed, 3 insertions(+), 118 deletions(-)
+ .../lineage_wizard_script_managed_profile.xml | 22 +------
+ res/raw/lineage_wizard_script_user.xml        | 39 +-----------
+ 3 files changed, 3 insertions(+), 120 deletions(-)
 
 diff --git a/res/raw/lineage_wizard_script.xml b/res/raw/lineage_wizard_script.xml
-index ea342b6..43bb23f 100644
+index af3df01..21cd2ef 100644
 --- a/res/raw/lineage_wizard_script.xml
 +++ b/res/raw/lineage_wizard_script.xml
 @@ -5,13 +5,7 @@
@@ -29,7 +29,7 @@ index ea342b6..43bb23f 100644
  
      <WizardAction
          wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
-@@ -22,12 +16,6 @@
+@@ -23,12 +17,6 @@
      <WizardAction
          wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCALE;end"
          id="locale">
@@ -42,7 +42,7 @@ index ea342b6..43bb23f 100644
          <result wizard:action="network_setup" />
      </WizardAction>
  
-@@ -40,54 +28,6 @@
+@@ -41,54 +29,6 @@
      <WizardAction
          wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_DATETIME;end"
          id="datetime">
@@ -76,18 +76,18 @@ index ea342b6..43bb23f 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETTINGS;end"
 -        id="lineage_settings">
--        <result wizard:action="lockscreen_settings" />
--    </WizardAction>
--
--    <WizardAction
--        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
--        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
 -        id="biometric_settings">
+-        <result wizard:action="lockscreen_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -
@@ -98,10 +98,10 @@ index ea342b6..43bb23f 100644
      </WizardAction>
  
 diff --git a/res/raw/lineage_wizard_script_managed_profile.xml b/res/raw/lineage_wizard_script_managed_profile.xml
-index 6a4d1e5..47e99c5 100644
+index 36f80c6..47e99c5 100644
 --- a/res/raw/lineage_wizard_script_managed_profile.xml
 +++ b/res/raw/lineage_wizard_script_managed_profile.xml
-@@ -1,30 +1,11 @@
+@@ -1,31 +1,11 @@
  <?xml version="1.0" encoding="utf-8"?>
  <!--
       SPDX-FileCopyrightText: 2016 The CyanogenMod Project
@@ -115,6 +115,7 @@ index 6a4d1e5..47e99c5 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
 -        id="welcome">
+-        <result wizard:name="skip" wizard:resultCode="1" />
 -        <result wizard:action="restore" />
 -    </WizardAction>
 -
@@ -134,10 +135,10 @@ index 6a4d1e5..47e99c5 100644
      <WizardAction
          wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_SETUP_COMPLETE;end"
 diff --git a/res/raw/lineage_wizard_script_user.xml b/res/raw/lineage_wizard_script_user.xml
-index af38520..47e99c5 100644
+index 1522eda..47e99c5 100644
 --- a/res/raw/lineage_wizard_script_user.xml
 +++ b/res/raw/lineage_wizard_script_user.xml
-@@ -5,43 +5,7 @@
+@@ -5,44 +5,7 @@
       SPDX-License-Identifier: Apache-2.0
  -->
  <WizardScript xmlns:wizard="http://schemas.android.com/apk/res/com.google.android.setupwizard"
@@ -146,6 +147,7 @@ index af38520..47e99c5 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_WELCOME;end"
 -        id="welcome">
+-        <result wizard:name="skip" wizard:resultCode="1" />
 -        <result wizard:action="restore" />
 -    </WizardAction>
 -
@@ -158,18 +160,18 @@ index af38520..47e99c5 100644
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCATION_SETTINGS;end"
 -        id="location_settings">
--        <result wizard:action="lockscreen_settings" />
--    </WizardAction>
--
--    <WizardAction
--        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
--        id="lockscreen_settings">
 -        <result wizard:action="biometric_settings" />
 -    </WizardAction>
 -
 -    <WizardAction
 -        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_BIOMETRIC_SETTINGS;end"
 -        id="biometric_settings">
+-        <result wizard:action="lockscreen_settings" />
+-    </WizardAction>
+-
+-    <WizardAction
+-        wizard:uri="intent:#Intent;action=org.lineageos.setupwizard.LINEAGE_LOCKSCREEN_SETTINGS;end"
+-        id="lockscreen_settings">
 -        <result wizard:action="navigation_settings" />
 -    </WizardAction>
 -

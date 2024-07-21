@@ -1,7 +1,7 @@
-From cf5d89e76aa67ca83e682a9e091e6ddc7e43fd41 Mon Sep 17 00:00:00 2001
+From f2b671435968f7693c6950d58ee06b42c1f38aef Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
-Subject: [PATCH 2/5] LightsService: Alternative backlight scale
+Subject: [PATCH 2/6] LightsService: Alternative backlight scale
 
 Reserved a manual override just in case
 
@@ -11,7 +11,7 @@ Change-Id: I46ae69c758d1a4609d89cf1c293488ea5fc76787
  1 file changed, 13 insertions(+)
 
 diff --git a/services/core/java/com/android/server/lights/LightsService.java b/services/core/java/com/android/server/lights/LightsService.java
-index 4d26f43307b2..c5e672726d21 100644
+index 76cf1348d313..91c3c32fe835 100644
 --- a/services/core/java/com/android/server/lights/LightsService.java
 +++ b/services/core/java/com/android/server/lights/LightsService.java
 @@ -32,6 +32,7 @@ import android.os.Looper;
