@@ -1,7 +1,7 @@
-From fc976607621ac9a5a07e3a3b0a53eb4285221691 Mon Sep 17 00:00:00 2001
+From aa7ce5730c1f50dc78c1433051d5c84554491edc Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 11 Dec 2020 14:41:09 +0100
-Subject: [PATCH 14/34] Remove useless notification about "console" service
+Subject: [PATCH 14/35] Remove useless notification about "console" service
  being running
 
 ---

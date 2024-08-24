@@ -1,7 +1,7 @@
-From e270f843d51fd4f0e6c18ea81a060de5848eaa2a Mon Sep 17 00:00:00 2001
+From 8f4fd65d346418df5b5c2bc036f7f8fda26d2980 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 6 Jun 2020 18:21:56 +0200
-Subject: [PATCH 09/34] HOME deserves to wake-up devices just as well as back
+Subject: [PATCH 09/35] HOME deserves to wake-up devices just as well as back
  and menu
 
 Change-Id: Ia562bafd8c620d00c17e8eb338e4701c6c4a3c3a

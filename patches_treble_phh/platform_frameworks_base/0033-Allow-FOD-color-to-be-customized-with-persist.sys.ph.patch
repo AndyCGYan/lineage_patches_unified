@@ -1,7 +1,7 @@
-From 3bc7eca92f26aa92398b3554aa73b799e26c83ab Mon Sep 17 00:00:00 2001
+From b7cb67ce539c8206029213ede3de30f426eca307 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Thu, 9 Jun 2022 14:08:46 -0400
-Subject: [PATCH 33/34] Allow FOD color to be customized with
+Subject: [PATCH 33/35] Allow FOD color to be customized with
  persist.sys.phh.fod_color
 
 ---
