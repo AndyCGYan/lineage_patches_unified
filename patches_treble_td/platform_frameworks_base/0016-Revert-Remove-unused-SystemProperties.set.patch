@@ -1,7 +1,7 @@
-From b4532a5cfc7660f120afcf1b5ce569f2babb35f6 Mon Sep 17 00:00:00 2001
+From c98487cf41bc85f6c0dd5b32bae81b9255890a0a Mon Sep 17 00:00:00 2001
 From: Peter Cai <peter@typeblog.net>
 Date: Wed, 16 Dec 2020 21:24:12 +0800
-Subject: [PATCH 16/40] Revert "Remove unused SystemProperties.set"
+Subject: [PATCH 16/41] Revert "Remove unused SystemProperties.set"
 
 This reverts commit debb4616ef67f9ed5054eca51ec58592358ff55f.
 

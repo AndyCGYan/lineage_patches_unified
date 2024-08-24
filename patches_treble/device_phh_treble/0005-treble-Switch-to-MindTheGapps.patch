@@ -1,7 +1,7 @@
-From eec24080edaf13ebf8d4b58815a5ef7c22f88658 Mon Sep 17 00:00:00 2001
+From d11ff3b4fe9345700315f440df34c5ba2813249f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 5 Nov 2022 23:49:11 +0000
-Subject: [PATCH 5/9] treble: Switch to MindTheGapps
+Subject: [PATCH 5/7] treble: Switch to MindTheGapps
 
 Change-Id: I1b80d4c5176cbf4af21d147c71b0abce6027c7c7
 ---

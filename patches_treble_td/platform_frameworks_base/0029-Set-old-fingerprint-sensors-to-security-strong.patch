@@ -1,7 +1,7 @@
-From 31708c20e7a07b7dff260f3f9d0c4ce3c5e25624 Mon Sep 17 00:00:00 2001
+From 732a1809d44db60d3443a259700bbe8d42dbf6a7 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 3 Dec 2022 17:13:24 -0500
-Subject: [PATCH 29/40] Set old fingerprint sensors to security "strong"
+Subject: [PATCH 29/41] Set old fingerprint sensors to security "strong"
 
 This allows removing config_biometric_sensors from overlays, which led
 to Pixels not booting, because they are using AIDL biometric sensor, and

@@ -1,7 +1,7 @@
-From d49dca61169377d8a07d0a19148f431adba94ba7 Mon Sep 17 00:00:00 2001
+From 9ed77fe12979f4ecc847cc7bedffa751dd4ee8d9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 25 Sep 2022 02:20:20 +0000
-Subject: [PATCH 08/22] UI: Remove QS footer background
+Subject: [PATCH 08/14] UI: Remove QS footer background
 
 Change-Id: I68e82e0c5e3eddb2d3f767fe792b1436eae506ef
 ---

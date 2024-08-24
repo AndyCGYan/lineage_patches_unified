@@ -1,7 +1,7 @@
-From 97ffa12b05a61bf23af04c575dca064141ead52f Mon Sep 17 00:00:00 2001
+From dffdf00d4c7a4a38f6edcdd621a00a9f78683868 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 17 Jun 2023 08:31:55 -0400
-Subject: [PATCH 37/40] Add Mediatek power hints on touch
+Subject: [PATCH 37/41] Add Mediatek power hints on touch
 
 Mediatek has multiple HALs (which existed concurrently), so it is a bit
 of a mess.
@@ -39,7 +39,7 @@ index c4c8ee1f565a..8514ad55da09 100644
          "vendor.goodix.hardware.biometrics.fingerprint-V2.1-java",
          "vendor.samsung.hardware.biometrics.fingerprint-V3.0-java",
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index 41f84c05a749..024f27a42d76 100644
+index c9f0794a3201..bfcb78000d5b 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
 @@ -221,6 +221,9 @@ public class DisplayPolicy {

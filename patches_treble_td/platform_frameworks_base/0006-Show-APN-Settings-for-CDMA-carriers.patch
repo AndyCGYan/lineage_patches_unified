@@ -1,7 +1,7 @@
-From 1d2d5b9d635f06d8b686a326c33d893d441cd106 Mon Sep 17 00:00:00 2001
+From 1a175f98c8aa2e9ed9d2bf84301274516034ff0c Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 6 Aug 2018 12:49:00 +0200
-Subject: [PATCH 06/40] Show APN Settings for CDMA carriers
+Subject: [PATCH 06/41] Show APN Settings for CDMA carriers
 
 ---
  telephony/java/android/telephony/CarrierConfigManager.java | 2 +-

@@ -1,42 +1,29 @@
-From 66534cd4c678494e0aa0e74197a39fcee57e313a Mon Sep 17 00:00:00 2001
+From 5de486b70139a2dc66c38b0be6df5396b74391fc Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
-Date: Thu, 29 Dec 2022 15:08:49 +0000
-Subject: [PATCH] Simplify Securize to CheckBoxPreference and persist prop
+Date: Mon, 15 Jul 2024 22:14:09 +0800
+Subject: [PATCH] Remove Securize (2/2)
 
-For "Securize on-demand"
+Leave this Play Integrity mess to the professionals
+
+Change-Id: I36abaea9714ccdd5680be88e771143eee2a170cd
 ---
- app/src/main/java/me/phh/treble/app/Misc.kt   |  5 +++
- .../java/me/phh/treble/app/MiscSettings.kt    | 33 -------------------
- app/src/main/res/xml/pref_misc.xml            |  7 ++--
- 3 files changed, 10 insertions(+), 35 deletions(-)
+ .../java/me/phh/treble/app/MiscSettings.kt    | 34 -------------------
+ app/src/main/res/xml/pref_misc.xml            |  6 ++--
+ 2 files changed, 4 insertions(+), 36 deletions(-)
 
-diff --git a/app/src/main/java/me/phh/treble/app/Misc.kt b/app/src/main/java/me/phh/treble/app/Misc.kt
-index a56b460..8861d51 100644
---- a/app/src/main/java/me/phh/treble/app/Misc.kt
-+++ b/app/src/main/java/me/phh/treble/app/Misc.kt
-@@ -302,6 +302,10 @@ object Misc: EntryStartup {
-                 val value = sp.getString(key, "0")
-                 SystemProperties.set("persist.sys.bt.esco_transport_unit_size", value)
-             }
-+            MiscSettings.securize -> {
-+                val value = sp.getBoolean(key, false)
-+                SystemProperties.set("persist.sys.phh.securize", if (value) "true" else "false")
-+            }
-         }
-     }
- 
-@@ -328,5 +332,6 @@ object Misc: EntryStartup {
-         spListener.onSharedPreferenceChanged(sp, MiscSettings.noHwcomposer)
-         spListener.onSharedPreferenceChanged(sp, MiscSettings.storageFUSE)
-         spListener.onSharedPreferenceChanged(sp, MiscSettings.dt2w)
-+        spListener.onSharedPreferenceChanged(sp, MiscSettings.securize)
-     }
- }
 diff --git a/app/src/main/java/me/phh/treble/app/MiscSettings.kt b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
-index e3b5312..5fe481f 100644
+index 78556be..661abb2 100644
 --- a/app/src/main/java/me/phh/treble/app/MiscSettings.kt
 +++ b/app/src/main/java/me/phh/treble/app/MiscSettings.kt
-@@ -56,39 +56,6 @@ class MiscSettingsFragment : SettingsFragment() {
+@@ -21,7 +21,6 @@ object MiscSettings : Settings {
+     val disableButtonsBacklight = "key_misc_disable_buttons_backlight"
+     val forceNavbarOff = "key_misc_force_navbar_off"
+     val bluetooth = "key_misc_bluetooth"
+-    val securize = "key_misc_securize"
+     val removeTelephony = "key_misc_removetelephony"
+     val remotectl = "key_misc_remotectl"
+     val disableAudioEffects = "key_misc_disable_audio_effects"
+@@ -58,39 +57,6 @@ class MiscSettingsFragment : SettingsFragment() {
      override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
          super.onCreatePreferences(savedInstanceState, rootKey)
  
@@ -77,20 +64,19 @@ index e3b5312..5fe481f 100644
          removeTelephonyPref!!.setOnPreferenceClickListener {
  
 diff --git a/app/src/main/res/xml/pref_misc.xml b/app/src/main/res/xml/pref_misc.xml
-index e41659d..bdf1147 100644
+index dbd8b88..0e8706d 100644
 --- a/app/src/main/res/xml/pref_misc.xml
 +++ b/app/src/main/res/xml/pref_misc.xml
-@@ -193,8 +193,11 @@
+@@ -203,8 +203,10 @@
              android:entryValues="@array/pref_misc_fod_color_values"
              android:key="key_misc_fod_color"
              android:title="Under-display fp color" />
 -        <Preference android:title="Securize"
 -            android:key="key_misc_securize" />
-+        <CheckBoxPreference
-+            android:defaultValue="false"
-+            android:key="key_misc_securize"
-+            android:title="Spoof system properties"
-+            android:summary="For better chances of passing SafetyNet\nMight cause bootloop on some devices" />
++        <Preference
++            android:enabled="false"
++            android:title="Securize"
++            android:summary="Unsupported - please try other methods\n(e.g. PlayIntegrityFix module)" />
      </PreferenceCategory>
      <PreferenceCategory android:title="Debugging">
          <Preference android:title="Debug Sensors">

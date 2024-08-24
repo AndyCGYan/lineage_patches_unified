@@ -1,7 +1,7 @@
-From 8fe0669d57555ce564caa476bd0278bb208c2d94 Mon Sep 17 00:00:00 2001
+From cf7c1239a48b2a04006d9eae4209703a598eb143 Mon Sep 17 00:00:00 2001
 From: jgudec <jakov.gudec@gmail.com>
 Date: Fri, 18 Aug 2023 08:41:49 +0100
-Subject: [PATCH 39/40] Add initial Xiaomi FOD implementation for recent Xiaomi
+Subject: [PATCH 39/41] Add initial Xiaomi FOD implementation for recent Xiaomi
  devices
 
 Huge thanks to phhusson for the help and guidance.

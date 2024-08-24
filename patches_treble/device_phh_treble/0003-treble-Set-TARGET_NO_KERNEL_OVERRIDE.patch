@@ -1,7 +1,7 @@
-From 637b46fa0db205ba2b592e8a081680d3c281c792 Mon Sep 17 00:00:00 2001
+From b850ee2fbecb21472a286ea7aa471059972d9213 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 20 Oct 2021 11:30:25 +0000
-Subject: [PATCH 3/9] treble: Set TARGET_NO_KERNEL_OVERRIDE
+Subject: [PATCH 3/7] treble: Set TARGET_NO_KERNEL_OVERRIDE
 
 Taken from Lineage generic targets - skips building kernel cleanly
 
