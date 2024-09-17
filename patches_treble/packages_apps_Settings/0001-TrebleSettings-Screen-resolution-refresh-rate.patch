@@ -1,7 +1,7 @@
-From 8162af1310582494ce99ee502abacb1f937d5596 Mon Sep 17 00:00:00 2001
+From c418cfb680fe5e89393f94cd1e5ecad42c56de63 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 22 Sep 2022 12:37:50 +0000
-Subject: [PATCH 1/9] TrebleSettings: Screen resolution & refresh rate
+Subject: [PATCH 01/10] TrebleSettings: Screen resolution & refresh rate
 
 Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
 ---

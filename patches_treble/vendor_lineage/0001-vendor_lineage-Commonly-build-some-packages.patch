@@ -1,4 +1,4 @@
-From a931f5059d0f87508de975d855e38f0cef03ed46 Mon Sep 17 00:00:00 2001
+From da1058d3e5aa788e26dacdc353aeaa9c43da60fe Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 11:40:52 +0000
 Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
@@ -8,14 +8,29 @@ Contacts, DeskClock, Gallery2, SettingsIntelligence, fwb overlays
 
 Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
 ---
- config/common_full.mk   | 3 +++
- config/common_mobile.mk | 4 +++-
+ config/common_mobile.mk      | 4 +++-
+ config/common_mobile_full.mk | 3 +++
  2 files changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/config/common_full.mk b/config/common_full.mk
-index f7eecd84..51e1e022 100644
---- a/config/common_full.mk
-+++ b/config/common_full.mk
+diff --git a/config/common_mobile.mk b/config/common_mobile.mk
+index d11520ac..850e60ff 100644
+--- a/config/common_mobile.mk
++++ b/config/common_mobile.mk
+@@ -17,7 +17,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
+ PRODUCT_PACKAGES += \
+     Backgrounds \
+     Glimpse \
+-    LatinIME
++    LatinIME \
++    SettingsIntelligence \
++    frameworks-base-overlays
+ 
+ ifeq ($(PRODUCT_TYPE), go)
+ PRODUCT_PACKAGES += \
+diff --git a/config/common_mobile_full.mk b/config/common_mobile_full.mk
+index 84d800cf..996e543b 100644
+--- a/config/common_mobile_full.mk
++++ b/config/common_mobile_full.mk
 @@ -9,8 +9,11 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
  
  # Apps
@@ -28,21 +43,6 @@ index f7eecd84..51e1e022 100644
      Profiles \
      Recorder \
      Seedvault
-diff --git a/config/common_mobile.mk b/config/common_mobile.mk
-index 4e898b4b..8dc5bf5a 100644
---- a/config/common_mobile.mk
-+++ b/config/common_mobile.mk
-@@ -16,7 +16,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
- # Apps
- PRODUCT_PACKAGES += \
-     Backgrounds \
--    Glimpse
-+    Glimpse \
-+    SettingsIntelligence \
-+    frameworks-base-overlays
- 
- ifeq ($(PRODUCT_TYPE), go)
- PRODUCT_PACKAGES += \
 -- 
 2.34.1
 

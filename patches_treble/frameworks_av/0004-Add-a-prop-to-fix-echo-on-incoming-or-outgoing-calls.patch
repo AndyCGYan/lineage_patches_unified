@@ -1,0 +1,43 @@
+From 0a0cded96c1270bbde99dee4aea93ecf69f7f0ab Mon Sep 17 00:00:00 2001
+From: Alberto Ponces <ponces26@gmail.com>
+Date: Sun, 5 Nov 2023 15:18:03 +0000
+Subject: [PATCH 4/4] Add a prop to fix echo on incoming or outgoing calls
+
+May even fix audio calls altogether.
+
+Change-Id: I3a05608ad7b3f0876160d5f6a12b7c529b8f0961
+---
+ .../common/managerdefinitions/src/Serializer.cpp       | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+index 0f7c903909..475da3596f 100644
+--- a/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
++++ b/services/audiopolicy/common/managerdefinitions/src/Serializer.cpp
+@@ -629,6 +629,9 @@ std::variant<status_t, RouteTraits::Element> PolicySerializer::deserialize<Route
+     }
+     route->setSink(sink);
+ 
++    // This may fix echo or non-working audio on calls
++    bool disableVoiceCallIn = property_get_bool("persist.sys.treble.disable_voice_call_in", false);
++
+     std::string sourcesAttr = getXmlAttribute(cur, Attributes::sources);
+     if (sourcesAttr.empty()) {
+         ALOGE("%s: No %s found", __func__, Attributes::sources);
+@@ -642,6 +645,13 @@ std::variant<status_t, RouteTraits::Element> PolicySerializer::deserialize<Route
+     while (devTag != NULL) {
+         if (strlen(devTag) != 0) {
+             sp<PolicyAudioPort> source = ctx->findPortByTagName(devTag);
++
++            if (disableVoiceCallIn && strcmp(devTag, "Voice Call In") == 0 &&
++                      (sinkAttr == "voice tx" || sinkAttr == "voice_tx")) {
++                ALOGW("Skipping route source \"%s\" as it breaks audio on calls", devTag);
++                source = NULL;
++            }
++
+             if (source == NULL) {
+                 if (!mIgnoreVendorExtensions) {
+                     ALOGE("%s: no source found with name \"%s\"", __func__, devTag);
+-- 
+2.34.1
+

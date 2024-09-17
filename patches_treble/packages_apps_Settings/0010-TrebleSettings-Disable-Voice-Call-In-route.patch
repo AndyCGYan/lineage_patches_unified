@@ -1,0 +1,119 @@
+From 8f28f673ff603b08801e6728ab67288598637005 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 24 Aug 2024 23:07:53 +0800
+Subject: [PATCH 10/10] TrebleSettings: Disable "Voice Call In" route
+
+Change-Id: I51ff783fa1bd93e6d2bce24eac8eeb792274e37b
+---
+ res/values/strings.xml                        |  4 ++
+ res/xml/treble_settings.xml                   |  5 ++
+ ...isableVoiceCallInPreferenceController.java | 53 +++++++++++++++++++
+ .../settings/treble/TrebleSettings.java       |  1 +
+ 4 files changed, 63 insertions(+)
+ create mode 100644 src/com/android/settings/treble/DisableVoiceCallInPreferenceController.java
+
+diff --git a/res/values/strings.xml b/res/values/strings.xml
+index f55ee2a048d..d134e631ced 100644
+--- a/res/values/strings.xml
++++ b/res/values/strings.xml
+@@ -7368,6 +7368,10 @@
+     <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
+     <!-- Treble settings screen, use alternative audio jack detection title -->
+     <string name="use_alternative_audio_jack_detection_title">Use alternative audio jack detection</string>
++    <!-- Treble settings screen, disable "Voice Call In" route title -->
++    <string name="disable_voice_call_in_title">Disable \"Voice Call In\" route</string>
++    <!-- Treble settings screen, disable "Voice Call In" route summary -->
++    <string name="disable_voice_call_in_summary">Reboot required</string>
+     <!-- Treble settings screen, screen resolution and refresh rate settings title -->
+     <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
+     <!-- Treble settings screen, use alternative backlight scale title -->
+diff --git a/res/xml/treble_settings.xml b/res/xml/treble_settings.xml
+index 13e74ee4f6c..b8449913dfc 100644
+--- a/res/xml/treble_settings.xml
++++ b/res/xml/treble_settings.xml
+@@ -25,6 +25,11 @@
+             android:key="use_alternative_audio_jack_detection"
+             android:title="@string/use_alternative_audio_jack_detection_title" />
+ 
++        <SwitchPreference
++            android:key="disable_voice_call_in"
++            android:title="@string/disable_voice_call_in_title"
++            android:summary="@string/disable_voice_call_in_summary" />
++
+     </PreferenceCategory>
+ 
+     <PreferenceCategory
+diff --git a/src/com/android/settings/treble/DisableVoiceCallInPreferenceController.java b/src/com/android/settings/treble/DisableVoiceCallInPreferenceController.java
+new file mode 100644
+index 00000000000..e444366da9c
+--- /dev/null
++++ b/src/com/android/settings/treble/DisableVoiceCallInPreferenceController.java
+@@ -0,0 +1,53 @@
++package com.android.settings.treble;
++
++import android.content.Context;
++import android.os.SystemProperties;
++
++import androidx.preference.Preference;
++import androidx.preference.PreferenceScreen;
++import androidx.preference.SwitchPreference;
++
++import com.android.settings.core.BasePreferenceController;
++
++public class DisableVoiceCallInPreferenceController extends BasePreferenceController
++        implements Preference.OnPreferenceChangeListener {
++
++    private static final String DISABLE_VOICE_CALL_IN_KEY = "disable_voice_call_in";
++    private static final String TREBLE_DISABLE_VOICE_CALL_IN_PROPERTY = "persist.sys.treble.disable_voice_call_in";
++
++    private SwitchPreference mSwitchPreference;
++
++    public DisableVoiceCallInPreferenceController(Context context) {
++        super(context, DISABLE_VOICE_CALL_IN_KEY);
++    }
++
++    @Override
++    public int getAvailabilityStatus() {
++        return AVAILABLE;
++    }
++
++    @Override
++    public String getPreferenceKey() {
++        return DISABLE_VOICE_CALL_IN_KEY;
++    }
++
++    @Override
++    public void displayPreference(PreferenceScreen screen) {
++        mSwitchPreference = screen.findPreference(getPreferenceKey());
++        super.displayPreference(screen);
++    }
++
++    @Override
++    public void updateState(Preference preference) {
++        boolean checked = SystemProperties.getBoolean(TREBLE_DISABLE_VOICE_CALL_IN_PROPERTY, false);
++        mSwitchPreference.setChecked(checked);
++    }
++
++    @Override
++    public boolean onPreferenceChange(Preference preference, Object newValue) {
++        SystemProperties.set(TREBLE_DISABLE_VOICE_CALL_IN_PROPERTY, String.valueOf((boolean) newValue));
++        mSwitchPreference.setChecked((boolean) newValue);
++        return true;
++    }
++
++}
+diff --git a/src/com/android/settings/treble/TrebleSettings.java b/src/com/android/settings/treble/TrebleSettings.java
+index f72a3cb9ed7..b4c170773df 100644
+--- a/src/com/android/settings/treble/TrebleSettings.java
++++ b/src/com/android/settings/treble/TrebleSettings.java
+@@ -36,6 +36,7 @@ public class TrebleSettings extends DashboardFragment {
+         controllers.add(new DisableSoundvolumeEffectPreferenceController(context));
+         controllers.add(new DisableA2DPOffloadPreferenceController(context));
+         controllers.add(new UseAlternativeAudioJackDetectionPreferenceController(context));
++        controllers.add(new DisableVoiceCallInPreferenceController(context));
+         controllers.add(new ScreenResolutionRefreshRatePreferenceController(context));
+         controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
+         controllers.add(new OverrideMinimumBrightnessPreferenceController(context));
+-- 
+2.34.1
+

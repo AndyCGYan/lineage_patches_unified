@@ -1,7 +1,7 @@
-From 94c32f8dc4f427938340a1b5c704153561e44e06 Mon Sep 17 00:00:00 2001
+From 71a59fd205ce5fa1108362c9ae504566bb8db0e4 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 May 2024 21:32:44 +0800
-Subject: [PATCH 8/9] TrebleSettings: Disable SF HWC backpressure
+Subject: [PATCH 08/10] TrebleSettings: Disable SF HWC backpressure
 
 Change-Id: I4d6a1d43222a8e4dec202056a14b1b1ce41e33d3
 ---

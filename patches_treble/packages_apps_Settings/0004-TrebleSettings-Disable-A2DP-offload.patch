@@ -1,7 +1,7 @@
-From a15199ab73e7f205ef16a287afd973b062ae9ac6 Mon Sep 17 00:00:00 2001
+From 05e116a92edc916bec23718e07e34518e00491a9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 12:04:37 +0000
-Subject: [PATCH 4/9] TrebleSettings: Disable A2DP offload
+Subject: [PATCH 04/10] TrebleSettings: Disable A2DP offload
 
 Change-Id: I737f49d146f83d96793f4436850529e3c528acbe
 ---

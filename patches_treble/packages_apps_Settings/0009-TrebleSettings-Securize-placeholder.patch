@@ -1,7 +1,7 @@
-From e6f53c10e76522ec31519264c40d95d872542f47 Mon Sep 17 00:00:00 2001
+From 2728259bce2d2a44b24df3a53888ffba809a8961 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 17 Jul 2024 22:35:50 +0800
-Subject: [PATCH 9/9] TrebleSettings: Securize placeholder
+Subject: [PATCH 09/10] TrebleSettings: Securize placeholder
 
 Leave this Play Integrity mess to the professionals
 

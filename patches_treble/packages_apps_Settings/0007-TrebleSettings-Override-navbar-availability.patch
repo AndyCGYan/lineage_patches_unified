@@ -1,7 +1,7 @@
-From 36aebacf72f4366a1e6bc2c3e5f60c6596527752 Mon Sep 17 00:00:00 2001
+From 83f6d2773a8b6f71c207f93c5236e640f651e91e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 11:00:38 +0000
-Subject: [PATCH 7/9] TrebleSettings: Override navbar availability
+Subject: [PATCH 07/10] TrebleSettings: Override navbar availability
 
 Change-Id: I7c771caf6274543fed23a8cc47411bf8c369ac2c
 ---

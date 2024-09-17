@@ -1,7 +1,7 @@
-From 0640b1aa050f80bc8b095e2d78a134402fb0c0de Mon Sep 17 00:00:00 2001
+From f70b6b9d2132ad4007da6ea095c152976b74219e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 17 Dec 2022 10:29:05 +0000
-Subject: [PATCH 6/9] TrebleSettings: Override minimum brightness
+Subject: [PATCH 06/10] TrebleSettings: Override minimum brightness
 
 Change-Id: I6d621f7dd04b675b6e2e851a5e474dc9a9841eb0
 ---

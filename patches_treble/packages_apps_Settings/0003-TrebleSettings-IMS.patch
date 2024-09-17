@@ -1,7 +1,7 @@
-From e588ad066e470f910d44877bf506b2ecae1cbc59 Mon Sep 17 00:00:00 2001
+From 9ad38ba78c26c52ca5029e7889976adfa3297fc0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 11 Oct 2022 10:29:36 +0000
-Subject: [PATCH 3/9] TrebleSettings: IMS
+Subject: [PATCH 03/10] TrebleSettings: IMS
 
 Change-Id: Id7a12e150d4a3dc988f8ce1a888ad88443fa0ea4
 ---
