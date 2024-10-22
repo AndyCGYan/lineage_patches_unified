@@ -1,7 +1,7 @@
-From cd9dce39e233866ca047555b09a5d650a7ad9835 Mon Sep 17 00:00:00 2001
+From 00ce8a490784f8303a042a81d07e73508dc90639 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
-Subject: [PATCH 07/44] UI: Adjust split-screen divider
+Subject: [PATCH 07/45] UI: Adjust split-screen divider
 
 - Kill rounded corners - where two rectangles collide should be perfectly straight
 - Make it black (pre-Sv2) for phones

@@ -1,7 +1,7 @@
-From a951456a6f6b35177485a24c673bcc787faacda7 Mon Sep 17 00:00:00 2001
+From 866681350d2dbcb5370b5dbfd23cd7fd07342af5 Mon Sep 17 00:00:00 2001
 From: Pranav Vashi <neobuddy89@gmail.com>
 Date: Tue, 16 Apr 2024 21:32:43 +0530
-Subject: [PATCH 30/44] SystemUI: monet: Remove unused colorSchemeIsApplied
+Subject: [PATCH 31/45] SystemUI: monet: Remove unused colorSchemeIsApplied
 
 Usage for this was removed in
 https://github.com/crdroidandroid/android_frameworks_base/commit/e09dc531860bbe4e9c21e57a7eb59351078e1e4f

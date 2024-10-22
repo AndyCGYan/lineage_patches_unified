@@ -1,7 +1,7 @@
-From c4514a64db5a237fb2b32e51d352b6b22b8bfc4f Mon Sep 17 00:00:00 2001
+From 0ba37f07c78da8a08afe59b68f35ea7c009d6e2a Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Thu, 13 Oct 2022 15:07:22 +0800
-Subject: [PATCH 43/44] colors_device_defaults: Add chroma to light surface
+Subject: [PATCH 44/45] colors_device_defaults: Add chroma to light surface
  highlight color
 
 With dynamic Monet themes, most of the UI has at least a small amount

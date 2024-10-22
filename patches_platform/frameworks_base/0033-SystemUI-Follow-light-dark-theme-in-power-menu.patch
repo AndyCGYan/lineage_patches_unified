@@ -1,7 +1,7 @@
-From 14a1e00e32717c4b0a80262311b6b27d9defc6b7 Mon Sep 17 00:00:00 2001
+From 9883a29bc0ab551e78ab82a63bf65d3a869323aa Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 8 Mar 2022 20:37:33 -0800
-Subject: [PATCH 32/44] SystemUI: Follow light/dark theme in power menu
+Subject: [PATCH 33/45] SystemUI: Follow light/dark theme in power menu
 
 Now that we've modified the power menu to refresh on UI mode changes,
 make it follow the system light/dark theme for better integration in

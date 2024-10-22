@@ -1,7 +1,7 @@
-From af0cde80871d55660836134f5122877a9c0a2320 Mon Sep 17 00:00:00 2001
+From febd76b2a15a173e7a020d987374bec9908194f1 Mon Sep 17 00:00:00 2001
 From: Pranav Vashi <neobuddy89@gmail.com>
 Date: Wed, 17 Apr 2024 17:35:11 +0530
-Subject: [PATCH 29/44] SystemUI: Use transparent background for QS footer
+Subject: [PATCH 30/45] SystemUI: Use transparent background for QS footer
 
 Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
 ---

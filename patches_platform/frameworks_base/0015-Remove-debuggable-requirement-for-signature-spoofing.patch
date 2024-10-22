@@ -1,7 +1,7 @@
-From 1368c57568edfd64fe0cc49bafe80df7851d0c0d Mon Sep 17 00:00:00 2001
+From 229f40cdfbc7f1721b742571c484ebf3ad75a4ad Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 17 Mar 2024 17:10:38 +0800
-Subject: [PATCH 15/44] Remove debuggable requirement for signature spoofing
+Subject: [PATCH 15/45] Remove debuggable requirement for signature spoofing
 
 Change-Id: I8d637ddbbd117a9c5b1d9c5e462b0f4b30d98333
 ---

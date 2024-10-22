@@ -1,7 +1,7 @@
-From 8187d1614bac34adc612f86dcaa47c073757e390 Mon Sep 17 00:00:00 2001
+From 46317e08a2c9a1cd9cf9a7d6f790404d3eebeff5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 25 Sep 2022 02:20:52 +0000
-Subject: [PATCH 09/44] UI: Follow Monet and light/dark theme in user 1 icon
+Subject: [PATCH 09/45] UI: Follow Monet and light/dark theme in user 1 icon
 
 Change-Id: I755077c6003c39ddc9428da1defe6a6ddd0e5ff8
 ---

@@ -1,0 +1,34 @@
+From 45d2f321fd992af530d7bf92738887504bff149a Mon Sep 17 00:00:00 2001
+From: Andrew Cole <captaincole@google.com>
+Date: Tue, 7 May 2024 15:19:16 +0000
+Subject: [PATCH 16/45] Display Cutout Error
+
+Removing a historical unsupported exception for square display cutouts.
+This was causing falkiness in tests for the notifications team.
+
+Flag: None
+Test: SystemUIGoogleScreenshotTests
+Bug: 329438697
+Change-Id: I545b4b7531312ce4f5b0bdc2902002d96fbeca43
+---
+ core/java/android/view/DisplayCutout.java | 4 ----
+ 1 file changed, 4 deletions(-)
+
+diff --git a/core/java/android/view/DisplayCutout.java b/core/java/android/view/DisplayCutout.java
+index db665a92ec5c..c4becea462d5 100644
+--- a/core/java/android/view/DisplayCutout.java
++++ b/core/java/android/view/DisplayCutout.java
+@@ -1392,10 +1392,6 @@ public final class DisplayCutout {
+ 
+     private static Rect computeSafeInsets(int displayW, int displayH, Insets waterFallInsets,
+             Rect[] bounds) {
+-        if (displayW == displayH) {
+-            throw new UnsupportedOperationException("not implemented: display=" + displayW + "x"
+-                    + displayH + " bounding rects=" + Arrays.toString(bounds));
+-        }
+ 
+         int leftInset = Math.max(waterFallInsets.left, findCutoutInsetForSide(
+                 displayW, displayH, bounds[BOUNDS_POSITION_LEFT], Gravity.LEFT));
+-- 
+2.34.1
+

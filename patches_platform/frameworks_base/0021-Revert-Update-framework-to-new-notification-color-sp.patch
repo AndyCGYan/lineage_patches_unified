@@ -1,7 +1,7 @@
-From d7a26e3d174c2fa027329187c37b29291e4430d0 Mon Sep 17 00:00:00 2001
+From 40bb1385a5b6005fe922cf091bb93039125c0416 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 4 Apr 2024 18:26:08 +0800
-Subject: [PATCH 20/44] Revert "Update framework to new notification color
+Subject: [PATCH 21/45] Revert "Update framework to new notification color
  spec"
 
 This reverts commit 6063e254e0cc84243e3a3fb85fe1bff71b302a87.

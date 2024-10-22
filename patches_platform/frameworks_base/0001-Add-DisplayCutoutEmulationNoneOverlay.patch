@@ -1,7 +1,7 @@
-From 55b835669043ebc2605f9511baec8d976805aef6 Mon Sep 17 00:00:00 2001
+From 1c6ae8ea3a7075d1030d042057ab335817271683 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 13 Sep 2024 08:10:14 +0800
-Subject: [PATCH 01/44] Add DisplayCutoutEmulationNoneOverlay
+Subject: [PATCH 01/45] Add DisplayCutoutEmulationNoneOverlay
 
 Unlike AvoidAppsInCutoutOverlay or NoCutoutOverlay, this overlay simply
 removes cutout definitions, making full display area usable

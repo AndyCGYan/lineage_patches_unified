@@ -1,7 +1,7 @@
-From f91867d31a6eee256cec07ac935a6ffc48510fda Mon Sep 17 00:00:00 2001
+From 1ff389630a82996991bce5f4c8d10084cc93760c Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Mon, 11 Oct 2021 19:24:58 -0700
-Subject: [PATCH 23/44] SystemUI: Follow light/dark theme in quick settings
+Subject: [PATCH 24/45] SystemUI: Follow light/dark theme in quick settings
 
 Android 12's dual-tone style where the quick settings panel is always
 dark makes the light theme look like a second-class citizen. Pure black

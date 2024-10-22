@@ -1,7 +1,7 @@
-From 23cdec157accadc6ec16ef8f27bc8478bcdf9f84 Mon Sep 17 00:00:00 2001
+From a4d3bd4777ada3fd7c5d1063732559faa4194857 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 30 Jun 2024 15:53:25 +0800
-Subject: [PATCH 16/44] Revert "Adding ColorUpdateLogger to track color updates
+Subject: [PATCH 17/45] Revert "Adding ColorUpdateLogger to track color updates
  so that we demonstrate the root cause of our theme bugs"
 
 This reverts commit 3a819dee1225de25f0e228ef2c1b9447eb081661.

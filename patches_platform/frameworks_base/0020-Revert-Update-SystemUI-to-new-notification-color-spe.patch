@@ -1,7 +1,7 @@
-From f21341959c083514118042c73d1638d6350cc269 Mon Sep 17 00:00:00 2001
+From 1e3a4df97b8cbacb6bf659079c50df17ed6bd63d Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 4 Apr 2024 18:26:02 +0800
-Subject: [PATCH 19/44] Revert "Update SystemUI to new notification color spec"
+Subject: [PATCH 20/45] Revert "Update SystemUI to new notification color spec"
 
 This reverts commit db2c5554ac653567d1433d3ff99328c5d855c233.
 

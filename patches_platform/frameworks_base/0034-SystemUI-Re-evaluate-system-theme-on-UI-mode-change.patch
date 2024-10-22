@@ -1,7 +1,7 @@
-From 31bcb130aa7e04915acdb1869a07f42bef915bad Mon Sep 17 00:00:00 2001
+From c850241052cd0163d8c70daf06dbbbad846cf9e8 Mon Sep 17 00:00:00 2001
 From: althafvly <althafvly@gmail.com>
 Date: Tue, 26 May 2020 21:17:59 +0800
-Subject: [PATCH 33/44] SystemUI: Re-evaluate system theme on UI mode change
+Subject: [PATCH 34/45] SystemUI: Re-evaluate system theme on UI mode change
 
 - Need for power menu to set accurate colors
 

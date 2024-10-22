@@ -1,7 +1,7 @@
-From cf18a9baf0c37852ec4b326e8f037524da19cd3d Mon Sep 17 00:00:00 2001
+From 1b3b5d505912f8b0a13a4743effe429dd96639b6 Mon Sep 17 00:00:00 2001
 From: Adithya R <gh0strider.2k18.reborn@gmail.com>
 Date: Thu, 19 Jan 2023 14:37:43 +0530
-Subject: [PATCH 36/44] SystemUI: Remove visibility check in setting QSCarrier
+Subject: [PATCH 37/45] SystemUI: Remove visibility check in setting QSCarrier
  color
 
 This fixes a corner case where the signal icon color is incorrect:

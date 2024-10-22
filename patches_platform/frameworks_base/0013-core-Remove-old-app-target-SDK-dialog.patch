@@ -1,7 +1,7 @@
-From 694567893b844980dc1436ef0c0b6099b6b13f59 Mon Sep 17 00:00:00 2001
+From a0cbbb02a34dfb198b3e76585b10fb402e56577f Mon Sep 17 00:00:00 2001
 From: Danny Lin <danny@kdrag0n.dev>
 Date: Tue, 3 Nov 2020 22:43:12 -0800
-Subject: [PATCH 13/44] core: Remove old app target SDK dialog
+Subject: [PATCH 13/45] core: Remove old app target SDK dialog
 
 If an app is old, users should already know that, and there's usually no
 point in warning them about it because they would already be using a

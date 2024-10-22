@@ -1,7 +1,7 @@
-From 097408f3a4a0103505d738f27f2783f54f25e43e Mon Sep 17 00:00:00 2001
+From d0f71ba7a893c5b7e67a6c03b458e271d6a0dea6 Mon Sep 17 00:00:00 2001
 From: Pranav Vashi <neobuddy89@gmail.com>
 Date: Wed, 13 Dec 2023 23:24:29 +0530
-Subject: [PATCH 24/44] SystemUI: Use themewrapper for QSCustomizer and tune
+Subject: [PATCH 25/45] SystemUI: Use themewrapper for QSCustomizer and tune
  colorUnavailable
 
 * Restores behvavior from A13 for colorUnavailable, shadeDisabled is now unused.

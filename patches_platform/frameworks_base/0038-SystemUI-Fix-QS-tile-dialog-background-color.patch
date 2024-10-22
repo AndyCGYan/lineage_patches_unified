@@ -1,7 +1,7 @@
-From 4cbfed0c0dbd15dfc1bc1da68f49f3db3736dad3 Mon Sep 17 00:00:00 2001
+From 0ac9a0130bce07cbda6f585731f7560e778b933f Mon Sep 17 00:00:00 2001
 From: Pranav Vashi <neobuddy89@gmail.com>
 Date: Mon, 4 Mar 2024 01:11:13 +0530
-Subject: [PATCH 37/44] SystemUI: Fix QS tile dialog background color
+Subject: [PATCH 38/45] SystemUI: Fix QS tile dialog background color
 
 Fixes: https://github.com/crdroidandroid/issue_tracker/issues/309
 Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>

@@ -1,7 +1,7 @@
-From cd58e980a288d4bd598f1393436f2c24171a2ded Mon Sep 17 00:00:00 2001
+From 3b703fe6337569aac8fd4e917393261999ca7d14 Mon Sep 17 00:00:00 2001
 From: Pranav Vashi <neobuddy89@gmail.com>
 Date: Sat, 17 Sep 2022 12:20:38 +0530
-Subject: [PATCH 41/44] ThemeOverlayController: Remove repeated monet check
+Subject: [PATCH 42/45] ThemeOverlayController: Remove repeated monet check
 
 Change-Id: I6608df48c1a89a87eaf08d9f267e0a83e9bbd3d1
 Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>

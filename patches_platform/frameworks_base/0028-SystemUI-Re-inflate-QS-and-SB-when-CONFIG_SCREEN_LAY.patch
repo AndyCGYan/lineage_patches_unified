@@ -1,7 +1,7 @@
-From 2f6dd662a932d6f23b8b799546b225dc847792ec Mon Sep 17 00:00:00 2001
+From 84f0d4389c4343f4a1affdc478ae02e9c3bf6af8 Mon Sep 17 00:00:00 2001
 From: althafvly <althafvly@gmail.com>
 Date: Tue, 4 Oct 2022 18:34:08 +0530
-Subject: [PATCH 27/44] SystemUI: Re-inflate QS and SB when
+Subject: [PATCH 28/45] SystemUI: Re-inflate QS and SB when
  CONFIG_SCREEN_LAYOUT
 
 - It was removed in a13, needed for light theme change in landscape.

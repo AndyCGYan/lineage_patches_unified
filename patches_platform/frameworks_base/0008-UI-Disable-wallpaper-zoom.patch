@@ -1,7 +1,7 @@
-From afd26a21a291ef8bc46c22d7135dec21b02929e7 Mon Sep 17 00:00:00 2001
+From a47ab249f90e7c0019e97b7b62fb4359e6bfcc9e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 10 Jan 2021 11:44:29 +0000
-Subject: [PATCH 08/44] UI: Disable wallpaper zoom
+Subject: [PATCH 08/45] UI: Disable wallpaper zoom
 
 It does little more than inducing motion sickness
 

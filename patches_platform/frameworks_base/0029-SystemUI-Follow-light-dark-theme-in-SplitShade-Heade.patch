@@ -1,7 +1,7 @@
-From b7501c0ff22afeb5fc722e66fd4a8bcbcdaa5158 Mon Sep 17 00:00:00 2001
+From 61ed18ccaf6b1452a8010c8d71b64da0699c5861 Mon Sep 17 00:00:00 2001
 From: ReallySnow <reallysnow233@gmail.com>
 Date: Thu, 15 Sep 2022 13:38:48 +0800
-Subject: [PATCH 28/44] SystemUI: Follow light/dark theme in SplitShade Header
+Subject: [PATCH 29/45] SystemUI: Follow light/dark theme in SplitShade Header
 
 * Google's default implementation is dark, which means
   it doesn't need to follow the light/dark color change,

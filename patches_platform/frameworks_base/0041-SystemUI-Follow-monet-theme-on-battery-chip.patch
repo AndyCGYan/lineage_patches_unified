@@ -1,7 +1,7 @@
-From 10f5e77524e5e7c58744491c7b7b5c2467045d87 Mon Sep 17 00:00:00 2001
+From 37f6236572232a1bfd0e2d9829ed706ae87cdb09 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 10 Jan 2024 23:36:41 +0800
-Subject: [PATCH 40/44] SystemUI: Follow monet theme on battery chip
+Subject: [PATCH 41/45] SystemUI: Follow monet theme on battery chip
 
 Why does this chip even exist...
 

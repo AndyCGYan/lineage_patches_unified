@@ -1,7 +1,7 @@
-From d5788886572b43d2ecdd12210c05bcc62730e65f Mon Sep 17 00:00:00 2001
+From 8ac3e14870d86600b82b0e817697faf3db24a0c5 Mon Sep 17 00:00:00 2001
 From: Pulkit077 <pulkitagarwal2k1@gmail.com>
 Date: Fri, 16 Sep 2022 14:46:37 +0530
-Subject: [PATCH 31/44] SystemUI: Follow Dark/Light theme for Safe Mode dialog
+Subject: [PATCH 32/45] SystemUI: Follow Dark/Light theme for Safe Mode dialog
 
 Change-Id: Ia9864a45551e969abaccd351e8b6d65e21d99165
 Signed-off-by: Pulkit077 <pulkitagarwal2k1@gmail.com>

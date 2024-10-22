@@ -1,7 +1,7 @@
-From a61f2517e8bcd1d4d380ae6191a7129fb8e7b5f3 Mon Sep 17 00:00:00 2001
+From 5b3ac246627eed4b21368fb4c38a9565b350ec3f Mon Sep 17 00:00:00 2001
 From: elluzion <dyrex2004@gmail.com>
 Date: Mon, 7 Dec 2020 20:39:40 +0100
-Subject: [PATCH 38/44] SystemUI: Use proper Resolver background color
+Subject: [PATCH 39/45] SystemUI: Use proper Resolver background color
 
 Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
 ---

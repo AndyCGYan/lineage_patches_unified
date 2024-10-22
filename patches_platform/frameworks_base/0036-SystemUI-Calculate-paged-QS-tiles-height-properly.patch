@@ -1,7 +1,7 @@
-From d4df6ff6b80e4b21e089ab52639a73a8ce3dfae3 Mon Sep 17 00:00:00 2001
+From 8dd24d98840fa587be1552a3bc21c005f1665794 Mon Sep 17 00:00:00 2001
 From: Adithya R <gh0strider.2k18.reborn@gmail.com>
 Date: Mon, 30 May 2022 00:13:02 +0530
-Subject: [PATCH 35/44] SystemUI: Calculate paged QS tiles height properly
+Subject: [PATCH 36/45] SystemUI: Calculate paged QS tiles height properly
 
 When QS is re-inflated during UI mode change and we're on the
 3rd or higher QS page, the first QS page is misaligned and

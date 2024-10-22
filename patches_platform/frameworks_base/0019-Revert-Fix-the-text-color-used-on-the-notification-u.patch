@@ -1,7 +1,7 @@
-From 5615ebc255c1a033ce06f96b766961d3c0c3c4d7 Mon Sep 17 00:00:00 2001
+From fd5556279e9b68f6589342d49eb9cbb6f8ff1c31 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 30 Jun 2024 16:13:51 +0800
-Subject: [PATCH 18/44] Revert "Fix the text color used on the notification
+Subject: [PATCH 19/45] Revert "Fix the text color used on the notification
  unread indicator."
 
 This reverts commit aee60c49308a81125587ea0c53f40c9d5d60707e.

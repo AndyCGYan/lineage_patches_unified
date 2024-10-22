@@ -1,7 +1,7 @@
-From cd3e6cdd88aedbf30aa77dfbd4cd87833a761ea4 Mon Sep 17 00:00:00 2001
+From 8a050d13fe7128be39a4ae61adcb36a842ef10cb Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 30 Jun 2024 16:49:47 +0800
-Subject: [PATCH 17/44] Revert "Change color of track"
+Subject: [PATCH 18/45] Revert "Change color of track"
 
 This reverts commit 9ba91db9836625e5f45367b38b76cf08615cce00.
 ---

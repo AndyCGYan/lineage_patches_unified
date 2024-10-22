@@ -1,7 +1,7 @@
-From 01df1e221e6505b0f87942d2fc5a929aa510d805 Mon Sep 17 00:00:00 2001
+From d0e1bfd631894b015730c6d6e0eb94dcbbbd8ee9 Mon Sep 17 00:00:00 2001
 From: Genkzsz11 <genkzsz11@gmail.com>
 Date: Sat, 16 Apr 2022 00:18:51 +0700
-Subject: [PATCH 42/44] SystemUI: Use color accent for charging animation
+Subject: [PATCH 43/45] SystemUI: Use color accent for charging animation
 
 Change-Id: Ideade5e9375510a31496ad75c5b74f12444350c9
 Signed-off-by: Omkar Chandorkar <gotenksIN@aosip.dev>

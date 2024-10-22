@@ -1,7 +1,7 @@
-From be68fb03d215da987d2f2d43eebee52ecacf8c3c Mon Sep 17 00:00:00 2001
+From a461184ae8c96495bb9e85152d2884c2637b3e97 Mon Sep 17 00:00:00 2001
 From: Danny Baumann <dannybaumann@web.de>
 Date: Wed, 20 Jul 2022 15:53:13 +0200
-Subject: [PATCH 34/44] SystemUI: Fix QS header clock color
+Subject: [PATCH 35/45] SystemUI: Fix QS header clock color
 
 Now that we're flipping QS colors by theme (dark/light), we can no longer
 rely on wallpaper colors for QS clock. Instead, we now can rely on clock color
