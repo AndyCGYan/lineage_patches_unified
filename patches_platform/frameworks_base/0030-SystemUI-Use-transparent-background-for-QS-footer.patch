@@ -1,0 +1,49 @@
+From febd76b2a15a173e7a020d987374bec9908194f1 Mon Sep 17 00:00:00 2001
+From: Pranav Vashi <neobuddy89@gmail.com>
+Date: Wed, 17 Apr 2024 17:35:11 +0530
+Subject: [PATCH 30/45] SystemUI: Use transparent background for QS footer
+
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ .../android/systemui/qs/footer/ui/compose/FooterActions.kt    | 4 ++--
+ .../SystemUI/res/drawable/qs_footer_actions_background.xml    | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt b/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
+index eb71490f049a..d252ef7ffa06 100644
+--- a/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
++++ b/packages/SystemUI/compose/features/src/com/android/systemui/qs/footer/ui/compose/FooterActions.kt
+@@ -119,7 +119,7 @@ fun FooterActions(
+         }
+     }
+ 
+-    val backgroundColor = colorAttr(R.attr.underSurface)
++    val backgroundColor = Color.Transparent
+     val contentColor = LocalAndroidColorScheme.current.onSurface
+     val backgroundTopRadius = dimensionResource(R.dimen.qs_corner_radius)
+     val backgroundModifier =
+@@ -319,7 +319,7 @@ private fun TextButton(
+ ) {
+     Expandable(
+         shape = CircleShape,
+-        color = colorAttr(R.attr.underSurface),
++        color = Color.Transparent,
+         contentColor = LocalAndroidColorScheme.current.onSurfaceVariant,
+         borderStroke = BorderStroke(1.dp, colorAttr(R.attr.shadeInactive)),
+         modifier = modifier.padding(horizontal = 4.dp),
+diff --git a/packages/SystemUI/res/drawable/qs_footer_actions_background.xml b/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
+index a7e8762a2593..6bfa8f75de03 100644
+--- a/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
++++ b/packages/SystemUI/res/drawable/qs_footer_actions_background.xml
+@@ -15,7 +15,7 @@
+ -->
+ <inset xmlns:android="http://schemas.android.com/apk/res/android">
+     <shape>
+-        <solid android:color="?attr/underSurface"/>
++        <solid android:color="@android:color/transparent"/>
+         <corners android:topLeftRadius="@dimen/qs_corner_radius"
+                  android:topRightRadius="@dimen/qs_corner_radius"/>
+     </shape>
+-- 
+2.34.1
+

@@ -1,0 +1,30 @@
+From dd24b8192a96c950be3c7decd862a3ab708d612a Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Thu, 13 Oct 2022 15:07:59 +0800
+Subject: [PATCH 45/45] config_progress_background_tint: Use accent color for
+ progress bar background
+
+This matches the stock Pixel style and makes progress bars look more
+integrated, since the active (foreground) part is using the accent
+color.
+
+Change-Id: Ife7a79a390f6f9bdb2fd76722cd39adcfc182da1
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+---
+ core/res/res/color/config_progress_background_tint.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/res/res/color/config_progress_background_tint.xml b/core/res/res/color/config_progress_background_tint.xml
+index b086e20bf161..dfc914e76c8d 100644
+--- a/core/res/res/color/config_progress_background_tint.xml
++++ b/core/res/res/color/config_progress_background_tint.xml
+@@ -15,5 +15,5 @@
+ -->
+ 
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+-    <item android:color="?attr/colorControlNormal" />
++    <item android:color="?attr/colorControlActivated" />
+ </selector>
+-- 
+2.34.1
+

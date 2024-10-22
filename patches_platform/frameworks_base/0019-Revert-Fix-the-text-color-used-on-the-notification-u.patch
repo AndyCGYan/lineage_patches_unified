@@ -1,0 +1,27 @@
+From fd5556279e9b68f6589342d49eb9cbb6f8ff1c31 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 30 Jun 2024 16:13:51 +0800
+Subject: [PATCH 19/45] Revert "Fix the text color used on the notification
+ unread indicator."
+
+This reverts commit aee60c49308a81125587ea0c53f40c9d5d60707e.
+---
+ core/java/android/app/Notification.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/android/app/Notification.java b/core/java/android/app/Notification.java
+index 1129f9dbdfeb..baecf785a8af 100644
+--- a/core/java/android/app/Notification.java
++++ b/core/java/android/app/Notification.java
+@@ -5721,7 +5721,7 @@ public class Notification implements Parcelable
+                 pillColor = Colors.flattenAlpha(
+                         getColors(p).getTertiaryFixedDimAccentColor(), bgColor);
+                 textColor = Colors.flattenAlpha(
+-                        getColors(p).getOnTertiaryFixedAccentTextColor(), pillColor);
++                        getColors(p).getOnTertiaryAccentTextColor(), pillColor);
+             }
+             contentView.setInt(R.id.expand_button, "setHighlightTextColor", textColor);
+             contentView.setInt(R.id.expand_button, "setHighlightPillColor", pillColor);
+-- 
+2.34.1
+

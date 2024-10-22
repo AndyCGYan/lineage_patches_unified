@@ -1,0 +1,882 @@
+From 1e3a4df97b8cbacb6bf659079c50df17ed6bd63d Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Thu, 4 Apr 2024 18:26:02 +0800
+Subject: [PATCH 20/45] Revert "Update SystemUI to new notification color spec"
+
+This reverts commit db2c5554ac653567d1433d3ff99328c5d855c233.
+
+Change-Id: Iddbe46f4d01d05d6579c1e8b9dab266dd605e199
+---
+ ...ication_guts_priority_button_bg_stroke.xml |  5 ++--
+ .../notification_guts_priority_contents.xml   |  5 ++--
+ .../SystemUI/res/color/remote_input_hint.xml  |  5 ++--
+ .../SystemUI/res/color/remote_input_send.xml  |  7 ++---
+ .../SystemUI/res/color/remote_input_text.xml  |  7 ++---
+ .../drawable/notif_footer_btn_background.xml  |  2 +-
+ .../res/drawable/notification_guts_bg.xml     |  2 +-
+ .../res/drawable/notification_material_bg.xml |  2 +-
+ .../drawable/remote_input_view_text_bg.xml    |  5 ++--
+ ..._notification_section_header_clear_btn.xml |  3 +-
+ .../SystemUI/res/layout/notif_half_shelf.xml  |  3 +-
+ .../res/layout/notif_half_shelf_row.xml       |  5 ++--
+ .../layout/notification_children_divider.xml  |  3 +-
+ .../layout/notification_conversation_info.xml |  3 +-
+ .../SystemUI/res/layout/notification_info.xml |  5 ++--
+ .../res/layout/notification_snooze.xml        |  4 +--
+ .../res/layout/notification_snooze_option.xml |  3 +-
+ .../layout/status_bar_notification_footer.xml |  6 ++--
+ ...status_bar_notification_section_header.xml |  2 +-
+ packages/SystemUI/res/values-night/colors.xml |  2 +-
+ packages/SystemUI/res/values/colors.xml       |  2 +-
+ packages/SystemUI/res/values/styles.xml       | 30 ++++---------------
+ .../systemui/statusbar/EmptyShadeView.java    |  8 ++---
+ .../footer/ui/view/FooterView.java            | 29 +++++++++---------
+ .../row/ActivatableNotificationView.java      |  2 +-
+ .../row/HybridNotificationView.java           |  5 ++--
+ .../row/NotificationConversationInfo.java     |  9 +++---
+ .../row/wrapper/NotificationViewWrapper.java  |  3 +-
+ .../stack/NotificationChildrenContainer.java  |  2 +-
+ .../stack/NotificationSectionsManager.kt      |  8 ++---
+ .../stack/NotificationStackScrollLayout.java  | 23 +++++++-------
+ .../notification/stack/SectionHeaderView.java |  6 ++--
+ .../statusbar/phone/ScrimController.java      |  5 ++--
+ .../statusbar/phone/TapAgainView.java         |  7 ++---
+ .../statusbar/policy/RemoteInputView.java     | 15 +++++-----
+ .../row/ActivatableNotificationViewTest.kt    |  5 ++--
+ 36 files changed, 101 insertions(+), 137 deletions(-)
+
+diff --git a/packages/SystemUI/res/color/notification_guts_priority_button_bg_stroke.xml b/packages/SystemUI/res/color/notification_guts_priority_button_bg_stroke.xml
+index d1b8a064724d..015e9f99212d 100644
+--- a/packages/SystemUI/res/color/notification_guts_priority_button_bg_stroke.xml
++++ b/packages/SystemUI/res/color/notification_guts_priority_button_bg_stroke.xml
+@@ -14,9 +14,8 @@
+   ~ limitations under the License
+   -->
+ 
+-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item android:state_selected="true"
+-          android:color="?androidprv:attr/materialColorOnSurfaceVariant" />
++          android:color="?android:attr/colorAccent" />
+     <item android:color="@color/notification_guts_priority_button_bg_stroke_color" />
+ </selector>
+diff --git a/packages/SystemUI/res/color/notification_guts_priority_contents.xml b/packages/SystemUI/res/color/notification_guts_priority_contents.xml
+index cc8c25a2d1ec..42f01896d7a1 100644
+--- a/packages/SystemUI/res/color/notification_guts_priority_contents.xml
++++ b/packages/SystemUI/res/color/notification_guts_priority_contents.xml
+@@ -14,9 +14,8 @@
+   ~ limitations under the License.
+   -->
+ 
+-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item android:state_selected="true"
+-          android:color="?androidprv:attr/materialColorOnSurfaceVariant" />
++          android:color="?android:attr/colorAccent" />
+     <item android:color="@color/notification_guts_priority_button_content_color" />
+ </selector>
+diff --git a/packages/SystemUI/res/color/remote_input_hint.xml b/packages/SystemUI/res/color/remote_input_hint.xml
+index 0d90ee6b47c6..7fe58dbcf822 100644
+--- a/packages/SystemUI/res/color/remote_input_hint.xml
++++ b/packages/SystemUI/res/color/remote_input_hint.xml
+@@ -14,7 +14,6 @@
+   ~ limitations under the License.
+   -->
+ 
+-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+-    <item android:color="?androidprv:attr/materialColorOnSurfaceVariant" android:alpha=".6" />
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:color="?android:attr/textColorPrimary" android:alpha=".6" />
+ </selector>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/color/remote_input_send.xml b/packages/SystemUI/res/color/remote_input_send.xml
+index 0acc66b9050f..4dcd3dd229fb 100644
+--- a/packages/SystemUI/res/color/remote_input_send.xml
++++ b/packages/SystemUI/res/color/remote_input_send.xml
+@@ -15,8 +15,7 @@
+   ~ limitations under the License
+   -->
+ 
+-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+-    <item android:state_enabled="false" android:color="?androidprv:attr/materialColorPrimary" android:alpha=".3" />
+-    <item android:color="?androidprv:attr/materialColorPrimary" />
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:state_enabled="false" android:color="?android:attr/colorAccent" android:alpha=".3" />
++    <item android:color="?android:attr/colorAccent" />
+ </selector>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/color/remote_input_text.xml b/packages/SystemUI/res/color/remote_input_text.xml
+index bf2c198fe540..13bb1d7cbe7d 100644
+--- a/packages/SystemUI/res/color/remote_input_text.xml
++++ b/packages/SystemUI/res/color/remote_input_text.xml
+@@ -15,8 +15,7 @@
+   ~ limitations under the License
+   -->
+ 
+-<selector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+-    <item android:state_enabled="false" android:color="?androidprv:attr/materialColorOnSurfaceVariant" android:alpha=".6" />
+-    <item android:color="?androidprv:attr/materialColorOnSurfaceVariant" />
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:state_enabled="false" android:color="?android:attr/textColorPrimary" android:alpha=".6" />
++    <item android:color="?android:attr/textColorPrimary" />
+ </selector>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/drawable/notif_footer_btn_background.xml b/packages/SystemUI/res/drawable/notif_footer_btn_background.xml
+index b9597375c3df..e6266754c0af 100644
+--- a/packages/SystemUI/res/drawable/notif_footer_btn_background.xml
++++ b/packages/SystemUI/res/drawable/notif_footer_btn_background.xml
+@@ -26,7 +26,7 @@
+                 <padding
+                     android:left="20dp"
+                     android:right="20dp" />
+-                <solid android:color="?androidprv:attr/materialColorSurfaceContainerHigh" />
++                <solid android:color="?androidprv:attr/colorSurface" />
+             </shape>
+         </inset>
+     </item>
+diff --git a/packages/SystemUI/res/drawable/notification_guts_bg.xml b/packages/SystemUI/res/drawable/notification_guts_bg.xml
+index 84e2231738d4..bd9394bf9f8a 100644
+--- a/packages/SystemUI/res/drawable/notification_guts_bg.xml
++++ b/packages/SystemUI/res/drawable/notification_guts_bg.xml
+@@ -17,7 +17,7 @@
+ 
+ <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+-    <solid android:color="?androidprv:attr/materialColorSurfaceContainerHigh" />
++    <solid android:color="?androidprv:attr/colorSurface" />
+     <!--The radius is 1dp smaller than the notification one, to avoid aliasing bugs on the corners -->
+     <corners android:radius="1dp" />
+ </shape>
+diff --git a/packages/SystemUI/res/drawable/notification_material_bg.xml b/packages/SystemUI/res/drawable/notification_material_bg.xml
+index 3f903aece0b5..40b9238b5e87 100644
+--- a/packages/SystemUI/res/drawable/notification_material_bg.xml
++++ b/packages/SystemUI/res/drawable/notification_material_bg.xml
+@@ -20,7 +20,7 @@
+         android:color="?android:attr/colorControlHighlight">
+     <item>
+         <shape>
+-            <solid android:color="?androidprv:attr/materialColorSurfaceContainerHigh" />
++            <solid android:color="?androidprv:attr/colorSurface" />
+         </shape>
+     </item>
+     <item>
+diff --git a/packages/SystemUI/res/drawable/remote_input_view_text_bg.xml b/packages/SystemUI/res/drawable/remote_input_view_text_bg.xml
+index 45d1a530cd20..535b35497b5c 100644
+--- a/packages/SystemUI/res/drawable/remote_input_view_text_bg.xml
++++ b/packages/SystemUI/res/drawable/remote_input_view_text_bg.xml
+@@ -14,13 +14,12 @@
+   ~ limitations under the License.
+   -->
+ <shape xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:shape="rectangle">
+ 
+-    <solid android:color="?androidprv:attr/materialColorSurfaceDim" />
++    <solid android:color="?android:attr/colorBackgroundFloating" />
+     <stroke
+         android:width="@dimen/remote_input_view_text_stroke"
+-        android:color="?androidprv:attr/materialColorPrimary"/>
++        android:color="?android:attr/colorAccent"/>
+     <padding
+         android:bottom="0dp"
+         android:left="12dp"
+diff --git a/packages/SystemUI/res/drawable/status_bar_notification_section_header_clear_btn.xml b/packages/SystemUI/res/drawable/status_bar_notification_section_header_clear_btn.xml
+index 06bed001ae1a..8b3408048848 100644
+--- a/packages/SystemUI/res/drawable/status_bar_notification_section_header_clear_btn.xml
++++ b/packages/SystemUI/res/drawable/status_bar_notification_section_header_clear_btn.xml
+@@ -15,12 +15,11 @@
+      limitations under the License.
+ -->
+ <vector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:width="40dp"
+     android:height="40dp"
+     android:viewportWidth="40"
+     android:viewportHeight="40">
+     <path
+-        android:fillColor="?androidprv:attr/materialColorOnSurfaceVariant"
++        android:fillColor="@color/notification_section_clear_all_btn_color"
+         android:pathData="M24.6667 16.2733L23.7267 15.3333L20 19.06L16.2734 15.3333L15.3334 16.2733L19.06 20L15.3334 23.7267L16.2734 24.6667L20 20.94L23.7267 24.6667L24.6667 23.7267L20.94 20L24.6667 16.2733Z"/>
+ </vector>
+diff --git a/packages/SystemUI/res/layout/notif_half_shelf.xml b/packages/SystemUI/res/layout/notif_half_shelf.xml
+index 68c8dd96d188..c70f8e2b1c07 100644
+--- a/packages/SystemUI/res/layout/notif_half_shelf.xml
++++ b/packages/SystemUI/res/layout/notif_half_shelf.xml
+@@ -16,7 +16,6 @@
+ 
+ <FrameLayout
+         xmlns:android="http://schemas.android.com/apk/res/android"
+-        xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+         android:id="@+id/half_shelf_dialog"
+         android:orientation="vertical"
+         android:layout_width="wrap_content"
+@@ -66,7 +65,7 @@
+                     android:gravity="center_vertical|start"
+                     android:ellipsize="end"
+                     android:maxLines="2"
+-                    android:textColor="?androidprv:attr/materialColorOnSurface"
++                    android:textColor="?android:attr/textColorPrimary"
+                     android:fontFamily="@*android:string/config_headlineFontFamilyMedium"
+                     android:textSize="16sp"
+                 />
+diff --git a/packages/SystemUI/res/layout/notif_half_shelf_row.xml b/packages/SystemUI/res/layout/notif_half_shelf_row.xml
+index 9ef342ce5220..190f9994b1dc 100644
+--- a/packages/SystemUI/res/layout/notif_half_shelf_row.xml
++++ b/packages/SystemUI/res/layout/notif_half_shelf_row.xml
+@@ -16,7 +16,6 @@
+ 
+ <com.android.systemui.statusbar.notification.row.ChannelRow
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:id="@+id/half_shelf_row"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+@@ -60,7 +59,7 @@
+                 android:ellipsize="end"
+                 android:maxLines="1"
+                 android:fontFamily="@*android:string/config_headlineFontFamily"
+-                android:textColor="?androidprv:attr/materialColorOnSurface"
++                android:textColor="?android:attr/textColorPrimary"
+                 android:textSize="16sp"
+             />
+ 
+@@ -75,7 +74,7 @@
+                 android:maxLines="1"
+                 android:layout_below="@id/channel_name"
+                 android:fontFamily="@*android:string/config_bodyFontFamily"
+-                android:textColor="?androidprv:attr/materialColorOnSurfaceVariant"
++                android:textColor="?android:attr/textColorSecondary"
+                 android:textSize="14sp"
+             />
+         </RelativeLayout>
+diff --git a/packages/SystemUI/res/layout/notification_children_divider.xml b/packages/SystemUI/res/layout/notification_children_divider.xml
+index 13e24a9ea277..eb743067933d 100644
+--- a/packages/SystemUI/res/layout/notification_children_divider.xml
++++ b/packages/SystemUI/res/layout/notification_children_divider.xml
+@@ -17,8 +17,7 @@
+ 
+ <com.android.systemui.statusbar.AlphaOptimizedView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:id="@+id/notification_more_divider"
+     android:layout_width="match_parent"
+     android:layout_height="@dimen/notification_divider_height"
+-    android:background="?androidprv:attr/materialColorOnSurfaceVariant" />
++    android:background="@color/notification_divider_color" />
+diff --git a/packages/SystemUI/res/layout/notification_conversation_info.xml b/packages/SystemUI/res/layout/notification_conversation_info.xml
+index 3a752c81b95a..4f6e88c2266f 100644
+--- a/packages/SystemUI/res/layout/notification_conversation_info.xml
++++ b/packages/SystemUI/res/layout/notification_conversation_info.xml
+@@ -17,7 +17,6 @@
+ 
+ <com.android.systemui.statusbar.notification.row.NotificationConversationInfo
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:id="@+id/notification_guts"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+@@ -174,7 +173,7 @@
+             android:contentDescription="@string/notification_more_settings"
+             android:background="@drawable/ripple_drawable_20dp"
+             android:src="@drawable/ic_settings"
+-            android:tint="?androidprv:attr/materialColorPrimary"
++            android:tint="?android:attr/colorAccent"
+             android:layout_alignParentEnd="true" />
+ 
+     </LinearLayout>
+diff --git a/packages/SystemUI/res/layout/notification_info.xml b/packages/SystemUI/res/layout/notification_info.xml
+index 19a3f2fd521c..852db1b8fb91 100644
+--- a/packages/SystemUI/res/layout/notification_info.xml
++++ b/packages/SystemUI/res/layout/notification_info.xml
+@@ -17,7 +17,6 @@
+ 
+ <com.android.systemui.statusbar.notification.row.NotificationInfo
+     xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+     android:id="@+id/notification_guts"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+@@ -103,7 +102,7 @@ asked for it -->
+             android:contentDescription="@string/notification_app_settings"
+             android:src="@drawable/ic_info"
+             android:layout_toStartOf="@id/info"
+-            android:tint="?androidprv:attr/materialColorPrimary"/>
++            android:tint="@color/notification_guts_link_icon_tint"/>
+         <ImageButton
+             android:id="@+id/info"
+             android:layout_width="@dimen/notification_importance_toggle_size"
+@@ -112,7 +111,7 @@ asked for it -->
+             android:contentDescription="@string/notification_more_settings"
+             android:background="@drawable/ripple_drawable_20dp"
+             android:src="@drawable/ic_settings"
+-            android:tint="?androidprv:attr/materialColorPrimary"
++            android:tint="?android:attr/colorAccent"
+             android:layout_alignParentEnd="true" />
+ 
+     </LinearLayout>
+diff --git a/packages/SystemUI/res/layout/notification_snooze.xml b/packages/SystemUI/res/layout/notification_snooze.xml
+index ce09385eaf45..6608d8620f86 100644
+--- a/packages/SystemUI/res/layout/notification_snooze.xml
++++ b/packages/SystemUI/res/layout/notification_snooze.xml
+@@ -23,7 +23,7 @@
+     android:orientation="vertical"
+     android:paddingTop="2dp"
+     android:paddingBottom="2dp"
+-    android:background="?androidprv:attr/materialColorSurfaceContainerHigh"
++    android:background="?androidprv:attr/colorSurface"
+     android:theme="@style/Theme.SystemUI">
+ 
+     <RelativeLayout
+@@ -38,7 +38,7 @@
+             android:layout_alignParentStart="true"
+             android:layout_centerVertical="true"
+             android:paddingStart="@*android:dimen/notification_content_margin_end"
+-            android:textColor="?androidprv:attr/materialColorOnSurface"
++            android:textColor="?android:attr/textColorPrimary"
+             android:paddingEnd="4dp"/>
+ 
+         <ImageView
+diff --git a/packages/SystemUI/res/layout/notification_snooze_option.xml b/packages/SystemUI/res/layout/notification_snooze_option.xml
+index fa6f965198d4..d42cc0212fd8 100644
+--- a/packages/SystemUI/res/layout/notification_snooze_option.xml
++++ b/packages/SystemUI/res/layout/notification_snooze_option.xml
+@@ -16,11 +16,10 @@
+ -->
+ <TextView
+         xmlns:android="http://schemas.android.com/apk/res/android"
+-        xmlns:androidprv="http://schemas.android.com/apk/prv/res/android"
+         android:layout_width="match_parent"
+         android:layout_height="@*android:dimen/notification_headerless_min_height"
+         android:layout_marginStart="@*android:dimen/notification_content_margin_end"
+         android:layout_marginEnd="@*android:dimen/notification_content_margin_end"
+         android:gravity="center_vertical"
+         android:textSize="14sp"
+-        android:textColor="?androidprv:attr/materialColorOnSurfaceVariant"/>
+\ No newline at end of file
++        android:textColor="?android:attr/textColorSecondary"/>
+\ No newline at end of file
+diff --git a/packages/SystemUI/res/layout/status_bar_notification_footer.xml b/packages/SystemUI/res/layout/status_bar_notification_footer.xml
+index 72424a13d0f1..c1bac3151049 100644
+--- a/packages/SystemUI/res/layout/status_bar_notification_footer.xml
++++ b/packages/SystemUI/res/layout/status_bar_notification_footer.xml
+@@ -41,7 +41,7 @@
+             android:layout_height="wrap_content"
+             >
+             <com.android.systemui.statusbar.notification.row.FooterViewButton
+-                style="@style/TextAppearance.NotificationFooterButton"
++                style="@style/TextAppearance.NotificationSectionHeaderButton"
+                 android:id="@+id/manage_text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="48dp"
+@@ -54,11 +54,12 @@
+                 app:layout_constraintEnd_toStartOf="@id/dismiss_text"
+                 android:background="@drawable/notif_footer_btn_background"
+                 android:focusable="true"
++                android:textColor="@color/notif_pill_text"
+                 android:contentDescription="@string/manage_notifications_history_text"
+                 android:text="@string/manage_notifications_history_text"
+                 />
+             <com.android.systemui.statusbar.notification.row.FooterViewButton
+-                style="@style/TextAppearance.NotificationFooterButton"
++                style="@style/TextAppearance.NotificationSectionHeaderButton"
+                 android:id="@+id/dismiss_text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="48dp"
+@@ -69,6 +70,7 @@
+                 app:layout_constraintStart_toEndOf="@id/manage_text"
+                 android:background="@drawable/notif_footer_btn_background"
+                 android:focusable="true"
++                android:textColor="@color/notif_pill_text"
+                 android:contentDescription="@string/accessibility_clear_all"
+                 android:text="@string/clear_all_notifications_text"
+                 />
+diff --git a/packages/SystemUI/res/layout/status_bar_notification_section_header.xml b/packages/SystemUI/res/layout/status_bar_notification_section_header.xml
+index 53abe87e7c12..c4d8d55f74e2 100644
+--- a/packages/SystemUI/res/layout/status_bar_notification_section_header.xml
++++ b/packages/SystemUI/res/layout/status_bar_notification_section_header.xml
+@@ -40,7 +40,7 @@
+             android:layout_weight="1">
+ 
+             <TextView
+-                style="@style/TextAppearance.NotificationSectionHeaderLabel"
++                style="@style/TextAppearance.NotificationSectionHeaderButton"
+                 android:id="@+id/header_label"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+diff --git a/packages/SystemUI/res/values-night/colors.xml b/packages/SystemUI/res/values-night/colors.xml
+index 61a323d44dfc..ddf188e3f1d3 100644
+--- a/packages/SystemUI/res/values-night/colors.xml
++++ b/packages/SystemUI/res/values-night/colors.xml
+@@ -33,7 +33,7 @@
+     <!-- The color of the text inside a notification -->
+     <color name="notification_primary_text_color">@*android:color/notification_primary_text_color_dark</color>
+ 
+-    <color name="notif_pill_text">@android:color/system_on_surface_dark</color>
++    <color name="notif_pill_text">@color/material_dynamic_neutral95</color>
+ 
+     <color name="notification_guts_link_icon_tint">@color/GM2_grey_500</color>
+     <color name="notification_guts_sub_text_color">@color/GM2_grey_300</color>
+diff --git a/packages/SystemUI/res/values/colors.xml b/packages/SystemUI/res/values/colors.xml
+index 46364820c5d5..846fd5736590 100644
+--- a/packages/SystemUI/res/values/colors.xml
++++ b/packages/SystemUI/res/values/colors.xml
+@@ -121,7 +121,7 @@
+     <!-- Chosen so fill over background matches single tone -->
+     <color name="dark_mode_qs_icon_color_dual_tone_fill">#99000000</color>
+ 
+-    <color name="notif_pill_text">@android:color/system_on_surface_light</color>
++    <color name="notif_pill_text">@color/material_dynamic_neutral10</color>
+ 
+     <!-- Keyboard shortcuts colors -->
+     <color name="ksh_application_group_color">#fff44336</color>
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index ce08ca3e43af..ae354d634f67 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -625,34 +625,34 @@
+     <style name="TextAppearance.NotificationImportanceChannel">
+         <item name="android:textSize">@dimen/notification_importance_channel_text</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamilyMedium</item>
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
++        <item name="android:textColor">@color/notification_guts_header_text_color</item>
+         <item name="android:textSize">@dimen/notification_importance_channel_text</item>
+     </style>
+ 
+     <style name="TextAppearance.NotificationImportanceChannelGroup">
+         <item name="android:textSize">@dimen/notification_importance_channel_group_text</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
++        <item name="android:textColor">@color/notification_guts_header_text_color</item>
+         <item name="android:textSize">@dimen/notification_importance_channel_group_text</item>
+     </style>
+ 
+     <style name="TextAppearance.NotificationImportanceApp">
+         <item name="android:textSize">@dimen/notification_importance_channel_group_text</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurfaceVariant</item>
++        <item name="android:textColor">@color/notification_guts_sub_text_color</item>
+         <item name="android:textSize">@dimen/notification_importance_channel_group_text</item>
+     </style>
+ 
+     <style name="TextAppearance.NotificationImportanceHeader">
+         <item name="android:textSize">@dimen/notification_importance_header_text</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
++        <item name="android:textColor">@color/notification_guts_header_text_color</item>
+     </style>
+ 
+     <style name="TextAppearance.NotificationImportanceDetail">
+         <item name="android:textSize">@dimen/notification_importance_description_text</item>
+         <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurfaceVariant</item>
++        <item name="android:textColor">@color/notification_guts_sub_text_color</item>
+         <item name="android:gravity">center</item>
+     </style>
+ 
+@@ -663,28 +663,10 @@
+         <item name="android:gravity">center</item>
+     </style>
+ 
+-    <style
+-        name="TextAppearance.NotificationSectionHeaderLabel"
+-        parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
+-        <item name="android:textAllCaps">false</item>
+-        <item name="android:textSize">14sp</item>
+-        <item name="android:minWidth">0dp</item>
+-    </style>
+-
+     <style
+         name="TextAppearance.NotificationSectionHeaderButton"
+         parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
+-        <item name="android:textAllCaps">false</item>
+-        <item name="android:textSize">14sp</item>
+-        <item name="android:minWidth">0dp</item>
+-    </style>
+-
+-    <style
+-        name="TextAppearance.NotificationFooterButton"
+-        parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+-        <item name="android:textColor">?androidprv:attr/materialColorOnSurface</item>
++        <item name="android:textColor">?android:attr/textColorPrimary</item>
+         <item name="android:textAllCaps">false</item>
+         <item name="android:textSize">14sp</item>
+         <item name="android:minWidth">0dp</item>
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/EmptyShadeView.java b/packages/SystemUI/src/com/android/systemui/statusbar/EmptyShadeView.java
+index 2338be28d32c..c9758471a30e 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/EmptyShadeView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/EmptyShadeView.java
+@@ -72,10 +72,10 @@ public class EmptyShadeView extends StackScrollerDecorView {
+         return findViewById(R.id.no_notifications_footer);
+     }
+ 
+-    public void setTextColors(@ColorInt int onSurface, @ColorInt int onSurfaceVariant) {
+-        mEmptyText.setTextColor(onSurfaceVariant);
+-        mEmptyFooterText.setTextColor(onSurface);
+-        mEmptyFooterText.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
++    public void setTextColor(@ColorInt int color) {
++        mEmptyText.setTextColor(color);
++        mEmptyFooterText.setTextColor(color);
++        mEmptyFooterText.setCompoundDrawableTintList(ColorStateList.valueOf(color));
+     }
+ 
+     public void setText(@StringRes int text) {
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/footer/ui/view/FooterView.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/footer/ui/view/FooterView.java
+index 16f18a3c3fb6..17dc2a6ad815 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/footer/ui/view/FooterView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/footer/ui/view/FooterView.java
+@@ -361,25 +361,26 @@ public class FooterView extends StackScrollerDecorView {
+      */
+     public void updateColors() {
+         Resources.Theme theme = mContext.getTheme();
+-        final @ColorInt int onSurface = Utils.getColorAttrDefaultColor(mContext,
+-                com.android.internal.R.attr.materialColorOnSurface);
++        final @ColorInt int textColor = getResources().getColor(R.color.notif_pill_text, theme);
+         final Drawable clearAllBg = theme.getDrawable(R.drawable.notif_footer_btn_background);
+         final Drawable manageBg = theme.getDrawable(R.drawable.notif_footer_btn_background);
+-        if (!notificationBackgroundTintOptimization()) {
+-            final @ColorInt int scHigh = Utils.getColorAttrDefaultColor(mContext,
+-                    com.android.internal.R.attr.materialColorSurfaceContainerHigh);
+-            if (scHigh != 0) {
+-                final ColorFilter bgColorFilter = new PorterDuffColorFilter(scHigh, SRC_ATOP);
+-                clearAllBg.setColorFilter(bgColorFilter);
+-                manageBg.setColorFilter(bgColorFilter);
+-            }
++        // TODO(b/282173943): Remove redundant tinting once Resources are thread-safe
++        final @ColorInt int buttonBgColor =
++                Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.colorSurface);
++        final ColorFilter bgColorFilter = new PorterDuffColorFilter(buttonBgColor, SRC_ATOP);
++        if (buttonBgColor != 0) {
++            clearAllBg.setColorFilter(bgColorFilter);
++            manageBg.setColorFilter(bgColorFilter);
+         }
+         mClearAllButton.setBackground(clearAllBg);
+-        mClearAllButton.setTextColor(onSurface);
++        mClearAllButton.setTextColor(textColor);
+         mManageOrHistoryButton.setBackground(manageBg);
+-        mManageOrHistoryButton.setTextColor(onSurface);
+-        mSeenNotifsFooterTextView.setTextColor(onSurface);
+-        mSeenNotifsFooterTextView.setCompoundDrawableTintList(ColorStateList.valueOf(onSurface));
++        mManageOrHistoryButton.setTextColor(textColor);
++        final @ColorInt int labelTextColor =
++                Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
++        mSeenNotifsFooterTextView.setTextColor(labelTextColor);
++        mSeenNotifsFooterTextView.setCompoundDrawableTintList(
++                ColorStateList.valueOf(labelTextColor));
+     }
+ 
+     private void updateResources() {
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationView.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationView.java
+index 83c50f52af6f..455a286346e6 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationView.java
+@@ -122,7 +122,7 @@ public abstract class ActivatableNotificationView extends ExpandableOutlineView
+ 
+     private void updateColors() {
+         mNormalColor = Utils.getColorAttrDefaultColor(mContext,
+-                com.android.internal.R.attr.materialColorSurfaceContainerHigh);
++                com.android.internal.R.attr.colorSurface);
+         mTintedRippleColor = mContext.getColor(
+                 R.color.notification_ripple_tinted_color);
+         mNormalRippleColor = mContext.getColor(
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/HybridNotificationView.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/HybridNotificationView.java
+index da8c4dc08bf0..892a63505a71 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/HybridNotificationView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/HybridNotificationView.java
+@@ -28,6 +28,7 @@ import android.widget.TextView;
+ 
+ import androidx.annotation.ColorInt;
+ 
++import com.android.internal.util.ContrastColorUtil;
+ import com.android.keyguard.AlphaOptimizedLinearLayout;
+ import com.android.systemui.res.R;
+ import com.android.systemui.statusbar.CrossFadeHelper;
+@@ -97,8 +98,8 @@ public class HybridNotificationView extends AlphaOptimizedLinearLayout
+     private void resolveThemeTextColors() {
+         try (TypedArray ta = mContext.getTheme().obtainStyledAttributes(
+                 android.R.style.Theme_DeviceDefault_DayNight, new int[]{
+-                        com.android.internal.R.attr.materialColorOnSurface,
+-                        com.android.internal.R.attr.materialColorOnSurfaceVariant
++                        android.R.attr.textColorPrimary,
++                        android.R.attr.textColorSecondary
+                 })) {
+             if (ta != null) {
+                 mPrimaryTextColor = ta.getColor(0, mPrimaryTextColor);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/NotificationConversationInfo.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/NotificationConversationInfo.java
+index 14593cb1b381..62b268b90cf3 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/NotificationConversationInfo.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/NotificationConversationInfo.java
+@@ -65,10 +65,10 @@ import android.widget.TextView;
+ 
+ import com.android.internal.annotations.VisibleForTesting;
+ import com.android.settingslib.notification.ConversationIconFactory;
++import com.android.systemui.res.R;
+ import com.android.systemui.dagger.qualifiers.Background;
+ import com.android.systemui.dagger.qualifiers.Main;
+ import com.android.systemui.people.widget.PeopleSpaceWidgetManager;
+-import com.android.systemui.res.R;
+ import com.android.systemui.shade.ShadeController;
+ import com.android.systemui.statusbar.notification.NotificationChannelHelper;
+ import com.android.systemui.statusbar.notification.collection.NotificationEntry;
+@@ -336,11 +336,10 @@ public class NotificationConversationInfo extends LinearLayout implements
+         Drawable person =  mIconFactory.getBaseIconDrawable(mShortcutInfo);
+         if (person == null) {
+             person = mContext.getDrawable(R.drawable.ic_person).mutate();
+-            TypedArray ta = mContext.obtainStyledAttributes(
+-                    new int[]{com.android.internal.R.attr.materialColorPrimary});
+-            int colorPrimary = ta.getColor(0, 0);
++            TypedArray ta = mContext.obtainStyledAttributes(new int[]{android.R.attr.colorAccent});
++            int colorAccent = ta.getColor(0, 0);
+             ta.recycle();
+-            person.setTint(colorPrimary);
++            person.setTint(colorAccent);
+         }
+         ImageView image = findViewById(R.id.conversation_icon);
+         image.setImageDrawable(person);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/wrapper/NotificationViewWrapper.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/wrapper/NotificationViewWrapper.java
+index 50f3e7896442..6f602ff437eb 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/wrapper/NotificationViewWrapper.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/row/wrapper/NotificationViewWrapper.java
+@@ -337,8 +337,7 @@ public abstract class NotificationViewWrapper implements TransformableView {
+         if (customBackgroundColor != 0) {
+             return customBackgroundColor;
+         }
+-        return Utils.getColorAttr(mView.getContext(),
+-                        com.android.internal.R.attr.materialColorSurfaceContainerHigh)
++        return Utils.getColorAttr(mView.getContext(), android.R.attr.colorBackground)
+                 .getDefaultColor();
+     }
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationChildrenContainer.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationChildrenContainer.java
+index fa973001cec7..3ac14fc39065 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationChildrenContainer.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationChildrenContainer.java
+@@ -1504,7 +1504,7 @@ public class NotificationChildrenContainer extends ViewGroup
+         Resources.Theme theme = new ContextThemeWrapper(mContext,
+                 com.android.internal.R.style.Theme_DeviceDefault_DayNight).getTheme();
+         try (TypedArray ta = theme.obtainStyledAttributes(
+-                new int[]{com.android.internal.R.attr.materialColorPrimary})) {
++                new int[]{com.android.internal.R.attr.colorAccent})) {
+             color = ta.getColor(0, color);
+         }
+         mHybridGroupManager.setOverflowNumberColor(mOverflowNumber, color);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationSectionsManager.kt b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationSectionsManager.kt
+index d269eda6795a..5cd0c0d08d3b 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationSectionsManager.kt
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationSectionsManager.kt
+@@ -244,10 +244,10 @@ class NotificationSectionsManager @Inject internal constructor(
+         }
+     }
+ 
+-    fun setHeaderForegroundColors(@ColorInt onSurface: Int, @ColorInt onSurfaceVariant: Int) {
+-        peopleHeaderView?.setForegroundColors(onSurface, onSurfaceVariant)
+-        silentHeaderView?.setForegroundColors(onSurface, onSurfaceVariant)
+-        alertingHeaderView?.setForegroundColors(onSurface, onSurfaceVariant)
++    fun setHeaderForegroundColor(@ColorInt color: Int) {
++        peopleHeaderView?.setForegroundColor(color)
++        silentHeaderView?.setForegroundColor(color)
++        alertingHeaderView?.setForegroundColor(color)
+     }
+ 
+     companion object {
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout.java
+index fb8bc7a34a9c..d8363fa54427 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/NotificationStackScrollLayout.java
+@@ -351,7 +351,7 @@ public class NotificationStackScrollLayout extends ViewGroup implements Dumpable
+     private boolean mAnimateNextBackgroundTop;
+     private boolean mAnimateNextBackgroundBottom;
+     private boolean mAnimateNextSectionBoundsChange;
+-    private @ColorInt int mBgColor;
++    private int mBgColor;
+     private float mDimAmount;
+     private ValueAnimator mDimAnimator;
+     private final ArrayList<ExpandableView> mTmpSortedChildren = new ArrayList<>();
+@@ -665,8 +665,8 @@ public class NotificationStackScrollLayout extends ViewGroup implements Dumpable
+         mSections = mSectionsManager.createSectionsForBuckets();
+ 
+         mAmbientState = Dependency.get(AmbientState.class);
+-        mBgColor = Utils.getColorAttr(mContext,
+-                com.android.internal.R.attr.materialColorSurfaceContainerHigh).getDefaultColor();
++        mBgColor = Utils.getColorAttr(mContext, android.R.attr.colorBackgroundFloating)
++                .getDefaultColor();
+         int minHeight = res.getDimensionPixelSize(R.dimen.notification_min_height);
+         int maxHeight = res.getDimensionPixelSize(R.dimen.notification_max_height);
+         mSplitShadeMinContentHeight = res.getDimensionPixelSize(
+@@ -810,8 +810,8 @@ public class NotificationStackScrollLayout extends ViewGroup implements Dumpable
+     }
+ 
+     void updateBgColor() {
+-        mBgColor = Utils.getColorAttr(mContext,
+-                com.android.internal.R.attr.materialColorSurfaceContainerHigh).getDefaultColor();
++        mBgColor = Utils.getColorAttr(mContext, android.R.attr.colorBackgroundFloating)
++                .getDefaultColor();
+         updateBackgroundDimming();
+         for (int i = 0; i < getChildCount(); i++) {
+             View child = getChildAt(i);
+@@ -4622,22 +4622,19 @@ public class NotificationStackScrollLayout extends ViewGroup implements Dumpable
+     }
+ 
+     /**
+-     * Update colors of section headers, shade footer, and empty shade views.
++     * Update colors of "dismiss" and "empty shade" views.
+      */
+     void updateDecorViews() {
+-        final @ColorInt int onSurface = Utils.getColorAttrDefaultColor(
+-                mContext, com.android.internal.R.attr.materialColorOnSurface);
+-        final @ColorInt int onSurfaceVariant = Utils.getColorAttrDefaultColor(
+-                mContext, com.android.internal.R.attr.materialColorOnSurfaceVariant);
+-
+-        mSectionsManager.setHeaderForegroundColors(onSurface, onSurfaceVariant);
++        final @ColorInt int textColor =
++                Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
++        mSectionsManager.setHeaderForegroundColor(textColor);
+ 
+         if (mFooterView != null) {
+             mFooterView.updateColors();
+         }
+ 
+         if (mEmptyShadeView != null) {
+-            mEmptyShadeView.setTextColors(onSurface, onSurfaceVariant);
++            mEmptyShadeView.setTextColor(textColor);
+         }
+     }
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/SectionHeaderView.java b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/SectionHeaderView.java
+index 580431a13d1b..59e1af5eb6f1 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/SectionHeaderView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/notification/stack/SectionHeaderView.java
+@@ -132,8 +132,8 @@ public class SectionHeaderView extends StackScrollerDecorView {
+         mLabelView.setText(resId);
+     }
+ 
+-    void setForegroundColors(@ColorInt int onSurface, @ColorInt int onSurfaceVariant) {
+-        mLabelView.setTextColor(onSurface);
+-        mClearAllButton.setImageTintList(ColorStateList.valueOf(onSurfaceVariant));
++    void setForegroundColor(@ColorInt int color) {
++        mLabelView.setTextColor(color);
++        mClearAllButton.setImageTintList(ColorStateList.valueOf(color));
+     }
+ }
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+index d2e36b88fd9d..3404d5bbcc53 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/ScrimController.java
+@@ -1555,9 +1555,8 @@ public class ScrimController implements ViewTreeObserver.OnPreDrawListener, Dump
+     private void updateThemeColors() {
+         if (mScrimBehind == null) return;
+         int background = Utils.getColorAttr(mScrimBehind.getContext(),
+-                com.android.internal.R.attr.materialColorSurfaceDim).getDefaultColor();
+-        int accent = Utils.getColorAttr(mScrimBehind.getContext(),
+-                com.android.internal.R.attr.materialColorPrimary).getDefaultColor();
++                android.R.attr.colorBackgroundFloating).getDefaultColor();
++        int accent = Utils.getColorAccent(mScrimBehind.getContext()).getDefaultColor();
+         mColors.setMainColor(background);
+         mColors.setSecondaryColor(accent);
+         final boolean isBackgroundLight = !ContrastColorUtil.isColorDark(background);
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/TapAgainView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/TapAgainView.java
+index 66ac17eee545..a033e1d55333 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/TapAgainView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/TapAgainView.java
+@@ -20,7 +20,6 @@ import android.animation.Animator;
+ import android.animation.AnimatorListenerAdapter;
+ import android.animation.AnimatorSet;
+ import android.animation.ObjectAnimator;
+-import android.annotation.ColorInt;
+ import android.content.Context;
+ import android.util.AttributeSet;
+ import android.view.View;
+@@ -29,7 +28,6 @@ import android.widget.TextView;
+ import androidx.annotation.NonNull;
+ import androidx.annotation.Nullable;
+ 
+-import com.android.settingslib.Utils;
+ import com.android.systemui.res.R;
+ import com.android.wm.shell.animation.Interpolators;
+ 
+@@ -51,9 +49,8 @@ public class TapAgainView extends TextView {
+     }
+ 
+     void updateColor() {
+-        final @ColorInt int onSurface = Utils.getColorAttrDefaultColor(mContext,
+-                com.android.internal.R.attr.materialColorOnSurface);
+-        setTextColor(onSurface);
++        int textColor = getResources().getColor(R.color.notif_pill_text, mContext.getTheme());
++        setTextColor(textColor);
+         setBackground(getResources().getDrawable(R.drawable.rounded_bg_full, mContext.getTheme()));
+     }
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/policy/RemoteInputView.java b/packages/SystemUI/src/com/android/systemui/statusbar/policy/RemoteInputView.java
+index 2a48807ace2f..e02881951dd4 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/policy/RemoteInputView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/policy/RemoteInputView.java
+@@ -130,7 +130,7 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
+     private ImageView mDelete;
+     private ImageView mDeleteBg;
+     private boolean mColorized;
+-    private int mLastBackgroundColor;
++    private int mTint;
+     private boolean mResetting;
+     @Nullable
+     private RevealParams mRevealParams;
+@@ -181,9 +181,10 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
+         mEditorActionHandler = new EditorActionHandler();
+         mUiEventLogger = Dependency.get(UiEventLogger.class);
+         TypedArray ta = getContext().getTheme().obtainStyledAttributes(new int[]{
+-                com.android.internal.R.attr.materialColorSurfaceDim,
++                com.android.internal.R.attr.colorAccent,
++                com.android.internal.R.attr.colorSurface,
+         });
+-        mLastBackgroundColor = ta.getColor(0, 0);
++        mTint = ta.getColor(0, 0);
+         ta.recycle();
+     }
+ 
+@@ -209,9 +210,9 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
+      * @param backgroundColor colorized notification color
+      */
+     public void setBackgroundTintColor(final int backgroundColor, boolean colorized) {
+-        if (colorized == mColorized && backgroundColor == mLastBackgroundColor) return;
++        if (colorized == mColorized && backgroundColor == mTint) return;
+         mColorized = colorized;
+-        mLastBackgroundColor = backgroundColor;
++        mTint = backgroundColor;
+         final int editBgColor;
+         final int deleteBgColor;
+         final int deleteFgColor;
+@@ -236,8 +237,8 @@ public class RemoteInputView extends LinearLayout implements View.OnClickListene
+             hintColor = mContext.getColor(R.color.remote_input_hint);
+             deleteFgColor = textColor.getDefaultColor();
+             try (TypedArray ta = getContext().getTheme().obtainStyledAttributes(new int[]{
+-                    com.android.internal.R.attr.materialColorSurfaceDim,
+-                    com.android.internal.R.attr.materialColorSurfaceVariant
++                    com.android.internal.R.attr.colorSurfaceHighlight,
++                    com.android.internal.R.attr.colorSurfaceVariant
+             })) {
+                 editBgColor = ta.getColor(0, backgroundColor);
+                 deleteBgColor = ta.getColor(1, Color.GRAY);
+diff --git a/packages/SystemUI/tests/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationViewTest.kt b/packages/SystemUI/tests/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationViewTest.kt
+index 9b9cb8213c91..ccef1d56c6a0 100644
+--- a/packages/SystemUI/tests/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationViewTest.kt
++++ b/packages/SystemUI/tests/src/com/android/systemui/statusbar/notification/row/ActivatableNotificationViewTest.kt
+@@ -61,9 +61,8 @@ class ActivatableNotificationViewTest : SysuiTestCase() {
+                 else -> null
+             } as T?
+         }
+-
+-        mNormalColor = Utils.getColorAttrDefaultColor(mContext,
+-                com.android.internal.R.attr.materialColorSurfaceContainerHigh)
++        mNormalColor =
++            Utils.getColorAttrDefaultColor(mContext, com.android.internal.R.attr.colorSurface)
+     }
+ 
+     @Test
+-- 
+2.34.1
+

@@ -1,0 +1,82 @@
+From f49be883011f6787c6a48fc0fd4916817bd2d20e Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 6 Oct 2020 01:41:16 +0000
+Subject: [PATCH 11/45] UI: Revive navbar layout tuning via sysui_nav_bar
+ tunable
+
+Google keeps fixing what ain't broken.
+
+Change-Id: Ied7d7859e50fd0fcc346219964e747c5d5f4c352
+---
+ .../NavigationBarInflaterView.java            | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+index 73ca35557133..bbb312c4e56b 100644
+--- a/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
++++ b/packages/SystemUI/src/com/android/systemui/navigationbar/NavigationBarInflaterView.java
+@@ -135,6 +135,7 @@ public class NavigationBarInflaterView extends FrameLayout {
+ 
+     private boolean mInverseLayout;
+     private boolean mIsHintEnabled;
++    private boolean mUsingCustomLayout;
+ 
+     private final ContentObserver mContentObserver;
+ 
+@@ -159,6 +160,9 @@ public class NavigationBarInflaterView extends FrameLayout {
+                     mContext.getMainExecutor().execute(() -> {
+                         onLikelyDefaultLayoutChange();
+                     });
++                } else if (Settings.Secure.getUriFor(NAV_BAR_VIEWS).equals(uri)) {
++                    setNavigationBarLayout(Settings.Secure.getString(mContext.getContentResolver(),
++                            NAV_BAR_VIEWS));
+                 }
+             }
+         };
+@@ -215,12 +219,16 @@ public class NavigationBarInflaterView extends FrameLayout {
+         Uri navBarInverse = Settings.Secure.getUriFor(NAV_BAR_INVERSE);
+         Uri navigationBarHint = LineageSettings.System.getUriFor(
+                 LineageSettings.System.NAVIGATION_BAR_HINT);
++        Uri navBarViews = Settings.Secure.getUriFor(NAV_BAR_VIEWS);
+         mContext.getContentResolver().registerContentObserver(navBarInverse, false,
+                 mContentObserver);
+         mContext.getContentResolver().registerContentObserver(navigationBarHint, false,
+                 mContentObserver);
++        mContext.getContentResolver().registerContentObserver(navBarViews, false,
++                mContentObserver);
+         mContentObserver.onChange(true, navBarInverse);
+         mContentObserver.onChange(true, navigationBarHint);
++        mContentObserver.onChange(true, navBarViews);
+     }
+ 
+     @Override
+@@ -237,6 +245,9 @@ public class NavigationBarInflaterView extends FrameLayout {
+     }
+ 
+     public void onLikelyDefaultLayoutChange() {
++        // Don't override custom layouts
++        if (mUsingCustomLayout) return;
++
+         // Reevaluate new layout
+         final String newValue = getDefaultLayout();
+         if (!Objects.equals(mCurrentLayout, newValue)) {
+@@ -245,6 +256,16 @@ public class NavigationBarInflaterView extends FrameLayout {
+         }
+     }
+ 
++    public void setNavigationBarLayout(String layoutValue) {
++        mContext.getMainExecutor().execute(() -> {
++            if (!Objects.equals(mCurrentLayout, layoutValue)) {
++                mUsingCustomLayout = layoutValue != null;
++                clearViews();
++                inflateLayout(layoutValue);
++            }
++        });
++    }
++
+     public void setButtonDispatchers(SparseArray<ButtonDispatcher> buttonDispatchers) {
+         mButtonDispatchers = buttonDispatchers;
+         clearDispatcherViews();
+-- 
+2.34.1
+

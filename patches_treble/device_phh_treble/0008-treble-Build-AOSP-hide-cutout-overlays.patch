@@ -1,0 +1,29 @@
+From 6c41e0aa9735b66d4ff0f7c4e72f0319fef514d1 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Tue, 17 Sep 2024 22:36:24 +0800
+Subject: [PATCH 8/8] treble: Build AOSP hide-cutout overlays
+
+Change-Id: If412636f9c11fa27314c2f5371185794d2613d89
+---
+ base.mk | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/base.mk b/base.mk
+index dea8d2d..8f7b711 100644
+--- a/base.mk
++++ b/base.mk
+@@ -267,4 +267,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/window_extensions.mk)
+ PRODUCT_PRODUCT_PROPERTIES += \
+     persist.settings.large_screen_opt.enabled=true
+ 
++# Hide display cutout
++PRODUCT_PRODUCT_PROPERTIES += \
++    ro.support_hide_display_cutout=true
++PRODUCT_PACKAGES += \
++    AvoidAppsInCutoutOverlay \
++    NoCutoutOverlay
++
+ PRODUCT_EXTRA_VNDK_VERSIONS += 28 29
+-- 
+2.34.1
+

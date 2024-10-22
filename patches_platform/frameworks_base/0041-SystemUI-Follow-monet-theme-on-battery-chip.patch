@@ -1,0 +1,58 @@
+From 37f6236572232a1bfd0e2d9829ed706ae87cdb09 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 10 Jan 2024 23:36:41 +0800
+Subject: [PATCH 41/45] SystemUI: Follow monet theme on battery chip
+
+Why does this chip even exist...
+
+Change-Id: I178fdda5d8d310c4c7fa5f05f9911b3f94986cb9
+---
+ packages/SystemUI/res/drawable/statusbar_chip_bg.xml      | 8 +++-----
+ .../com/android/systemui/statusbar/BatteryStatusChip.kt   | 6 ++++++
+ 2 files changed, 9 insertions(+), 5 deletions(-)
+
+diff --git a/packages/SystemUI/res/drawable/statusbar_chip_bg.xml b/packages/SystemUI/res/drawable/statusbar_chip_bg.xml
+index d7de16d7c5bb..dd1db04e77d7 100644
+--- a/packages/SystemUI/res/drawable/statusbar_chip_bg.xml
++++ b/packages/SystemUI/res/drawable/statusbar_chip_bg.xml
+@@ -15,9 +15,7 @@
+      limitations under the License.
+ -->
+ 
+-<shape
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:androidprv="http://schemas.android.com/apk/prv/res/android">
+-    <solid android:color="?androidprv:attr/colorAccentPrimary" />
++<shape xmlns:android="http://schemas.android.com/apk/res/android">
++    <solid android:color="@color/privacy_chip_background" />
+     <corners android:radius="@dimen/ongoing_appops_chip_bg_corner_radius" />
+-</shape>
+\ No newline at end of file
++</shape>
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/BatteryStatusChip.kt b/packages/SystemUI/src/com/android/systemui/statusbar/BatteryStatusChip.kt
+index a58ce4162ddc..32c015f3230d 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/BatteryStatusChip.kt
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/BatteryStatusChip.kt
+@@ -23,6 +23,7 @@ import android.view.View
+ import android.widget.FrameLayout
+ import android.widget.LinearLayout
+ import com.android.settingslib.flags.Flags.newStatusBarIcons
++import com.android.settingslib.Utils
+ import com.android.systemui.battery.BatteryMeterView
+ import com.android.systemui.battery.unified.BatteryColors
+ import com.android.systemui.res.R
+@@ -71,6 +72,11 @@ class BatteryStatusChip @JvmOverloads constructor(context: Context, attrs: Attri
+ 
+     @SuppressLint("UseCompatLoadingForDrawables")
+     private fun updateResources() {
++        val primaryColor =
++            Utils.getColorAttrDefaultColor(context, android.R.attr.textColorPrimaryInverse)
++        val textColorSecondary =
++            Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorSecondaryInverse)
++        batteryMeterView.updateColors(primaryColor, textColorSecondary, primaryColor)
+         roundedContainer.background = mContext.getDrawable(R.drawable.statusbar_chip_bg)
+     }
+ }
+-- 
+2.34.1
+

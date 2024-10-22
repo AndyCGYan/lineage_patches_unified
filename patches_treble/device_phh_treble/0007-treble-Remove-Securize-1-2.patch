@@ -1,7 +1,7 @@
-From 6049d780bfdddc2d11a0b3f1bca6b6de6a761ed5 Mon Sep 17 00:00:00 2001
+From 0e6f61d7987a5c3295aabad96b28efe87a1a1a0a Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 15 Jul 2024 22:30:54 +0800
-Subject: [PATCH 7/7] treble: Remove Securize (1/2)
+Subject: [PATCH 7/8] treble: Remove Securize (1/2)
 
 Leave this Play Integrity mess to the professionals
 
@@ -85,7 +85,7 @@ index 80b46d7..0000000
 -touch /metadata/phh/secure
 -reboot
 diff --git a/rw-system.sh b/rw-system.sh
-index 3ddfdda..7546fae 100644
+index 9a1eea5..9446a7d 100644
 --- a/rw-system.sh
 +++ b/rw-system.sh
 @@ -779,65 +779,16 @@ copyprop() {

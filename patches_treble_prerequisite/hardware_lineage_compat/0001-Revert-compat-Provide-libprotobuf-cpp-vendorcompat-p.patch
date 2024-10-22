@@ -1,10 +1,12 @@
-From f9ca27932587c1c3f3ae9b26908eb35540e30f33 Mon Sep 17 00:00:00 2001
+From 0ce0aa333e3d81a330a3d8f6976c3bf27522561f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 20 Nov 2023 22:48:28 +0800
 Subject: [PATCH] Revert "compat: Provide libprotobuf-cpp vendorcompat
  prebuilts from v29 VNDK"
 
 This reverts commit 770258c025fcd689895cac9d172a18609bf96d09.
+
+Change-Id: I4838d437a8fe1b7f898a2a4ecdc32df807a25938
 ---
  Android.bp                             | 38 --------------------------
  vndk/v29/arm/libprotobuf-cpp-full.so   |  1 -
@@ -18,14 +20,13 @@ This reverts commit 770258c025fcd689895cac9d172a18609bf96d09.
  delete mode 120000 vndk/v29/arm64/libprotobuf-cpp-lite.so
 
 diff --git a/Android.bp b/Android.bp
-index f1fd0de..374fd33 100644
+index 564f0be..1bb7447 100644
 --- a/Android.bp
 +++ b/Android.bp
-@@ -429,41 +429,3 @@ cc_library_shared {
-     compile_multilib: "64",
+@@ -471,44 +471,6 @@ cc_library_shared {
      vendor: true,
  }
--
+ 
 -cc_prebuilt_library_shared {
 -    name: "libprotobuf-cpp-full-vendorcompat",
 -    stem: "libprotobuf-cpp-full",
@@ -63,6 +64,10 @@ index f1fd0de..374fd33 100644
 -    compile_multilib: "both",
 -    check_elf_files: false,
 -}
+-
+ cc_prebuilt_library_shared {
+     name: "libstagefright_foundation-v33",
+     vendor: true,
 diff --git a/vndk/v29/arm/libprotobuf-cpp-full.so b/vndk/v29/arm/libprotobuf-cpp-full.so
 deleted file mode 120000
 index 2c8c152..0000000
