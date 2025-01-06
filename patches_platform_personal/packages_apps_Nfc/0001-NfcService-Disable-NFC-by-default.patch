@@ -1,0 +1,26 @@
+From ce5d15abe3d9017161c8af8dac68b27170cac0aa Mon Sep 17 00:00:00 2001
+From: Daniel Micay <danielmicay@gmail.com>
+Date: Sat, 6 Jun 2015 10:40:51 -0400
+Subject: [PATCH] NfcService: Disable NFC by default
+
+Change-Id: Ibe6abec7fa84c6fde476b8a083f57a3f61b50909
+---
+ res/values/config.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/res/values/config.xml b/res/values/config.xml
+index 50d44f67..9c7dac05 100644
+--- a/res/values/config.xml
++++ b/res/values/config.xml
+@@ -46,7 +46,7 @@
+     <!-- Overlay to enable NFC developer option notification-->
+     <bool name="enable_developer_option_notification">true</bool>
+     <!-- Whether to enable NFC by default on boot or not. -->
+-    <bool name="enable_nfc_default">true</bool>
++    <bool name="enable_nfc_default">false</bool>
+     <!-- Reader mode should be ON or OFF if reader_option_capable is enabled -->
+     <bool name="reader_option_default">true</bool>
+     <!-- Secure NFC default value-->
+-- 
+2.34.1
+

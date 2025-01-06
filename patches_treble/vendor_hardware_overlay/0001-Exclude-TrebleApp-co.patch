@@ -1,0 +1,25 @@
+From f2a436e690f020d1bf730283283b25fb99882b01 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 21 Sep 2022 13:36:07 +0000
+Subject: [PATCH 1/2] Exclude TrebleApp & co.
+
+Change-Id: Ieb62801a79c6e015634fd58b654c63c1de5aef7e
+---
+ overlay.mk | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/overlay.mk b/overlay.mk
+index 37a9923..2d2021e 100644
+--- a/overlay.mk
++++ b/overlay.mk
+@@ -1,7 +1,4 @@
+ PRODUCT_PACKAGES += \
+-	HardwareOverlayPicker \
+-	QtiAudio \
+-	TrebleApp \
+ 	treble-overlay-Hisense-HLTE556N \
+ 	treble-overlay-NavBar \
+ 	treble-overlay-NightMode \
+-- 
+2.34.1
+

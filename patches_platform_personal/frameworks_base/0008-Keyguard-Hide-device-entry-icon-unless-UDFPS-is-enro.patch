@@ -1,0 +1,53 @@
+From ff68ff14edb51d92abdfebdaecd2129d36cf4adf Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 17 Nov 2024 20:27:44 +0800
+Subject: [PATCH 08/21] Keyguard: Hide device entry icon unless UDFPS is
+ enrolled
+
+Change-Id: I90c116ecf0100c4fce2e859a3f4c5ae55b5cf626
+---
+ .../ui/viewmodel/DeviceEntryIconViewModel.kt  | 27 ++++++++++++-------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/ui/viewmodel/DeviceEntryIconViewModel.kt b/packages/SystemUI/src/com/android/systemui/keyguard/ui/viewmodel/DeviceEntryIconViewModel.kt
+index d3bb4f5d7508..fe4e24a98e64 100644
+--- a/packages/SystemUI/src/com/android/systemui/keyguard/ui/viewmodel/DeviceEntryIconViewModel.kt
++++ b/packages/SystemUI/src/com/android/systemui/keyguard/ui/viewmodel/DeviceEntryIconViewModel.kt
+@@ -134,17 +134,24 @@ constructor(
+         }
+ 
+     val deviceEntryViewAlpha: Flow<Float> =
+-        combine(
+-                transitionAlpha,
+-                alphaMultiplierFromShadeExpansion,
+-            ) { alpha, alphaMultiplier ->
+-                alpha * alphaMultiplier
++        deviceEntryUdfpsInteractor.isUdfpsEnrolledAndEnabled
++        .flatMapLatest { udfpsEnrolled ->
++            if (udfpsEnrolled) {
++                combine(
++                    transitionAlpha,
++                    alphaMultiplierFromShadeExpansion,
++                ) { alpha, alphaMultiplier ->
++                    alpha * alphaMultiplier
++                }
++                .stateIn(
++                    scope = scope,
++                    started = SharingStarted.WhileSubscribed(),
++                    initialValue = 0f,
++                )
++            } else {
++                flowOf(0f)
+             }
+-            .stateIn(
+-                scope = scope,
+-                started = SharingStarted.WhileSubscribed(),
+-                initialValue = 0f,
+-            )
++        }
+ 
+     private fun initialAlphaFromKeyguardState(keyguardState: KeyguardState): Float {
+         return when (keyguardState) {
+-- 
+2.34.1
+

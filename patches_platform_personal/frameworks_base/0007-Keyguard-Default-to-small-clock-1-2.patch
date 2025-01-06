@@ -1,0 +1,43 @@
+From 1084b489b56d930b5c36a45a1f196f0d79734d3e Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Wed, 1 Sep 2021 14:41:53 +0000
+Subject: [PATCH 07/21] Keyguard: Default to small clock (1/2)
+
+It looks alright actually, but as always breaks under landscape
+
+Change-Id: I434d033ecae597ed2a7b2ed71e96ba1a963e9cc3
+---
+ core/res/res/values/config.xml                                 | 2 +-
+ .../keyguard/data/repository/KeyguardClockRepository.kt        | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 231cc9628872..269c71dc9341 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -1522,7 +1522,7 @@
+     <!-- Provides default value for double line clock in lock screen setting:
+          0 - Don't show double line clock
+          1 - Show double line clock in lock screen (default) -->
+-    <integer name="config_doublelineClockDefault">1</integer>
++    <integer name="config_doublelineClockDefault">0</integer>
+ 
+     <!-- If true, enables verification of the lockscreen credential in the factory reset protection
+         flow. This should be true if gatekeeper / weaver credentials can still be checked after a
+diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/data/repository/KeyguardClockRepository.kt b/packages/SystemUI/src/com/android/systemui/keyguard/data/repository/KeyguardClockRepository.kt
+index ec52055020f2..bad5f97e3208 100644
+--- a/packages/SystemUI/src/com/android/systemui/keyguard/data/repository/KeyguardClockRepository.kt
++++ b/packages/SystemUI/src/com/android/systemui/keyguard/data/repository/KeyguardClockRepository.kt
+@@ -159,7 +159,8 @@ constructor(
+         return ClockSizeSetting.fromSettingValue(
+             secureSettings.getIntForUser(
+                 Settings.Secure.LOCKSCREEN_USE_DOUBLE_LINE_CLOCK,
+-                /* defaultValue= */ 1,
++                applicationContext.resources.getInteger(
++                    com.android.internal.R.integer.config_doublelineClockDefault),
+                 UserHandle.USER_CURRENT
+             )
+         )
+-- 
+2.34.1
+

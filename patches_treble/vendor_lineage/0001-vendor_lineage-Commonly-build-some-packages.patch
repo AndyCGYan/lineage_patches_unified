@@ -1,0 +1,47 @@
+From 4303c838d31dfa041f5024b807582e539230e6ab Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 24 Sep 2022 11:40:52 +0000
+Subject: [PATCH] vendor_lineage: Commonly build some packages
+
+These were in handheld_product.mk and thus weren't included in GSI targets:
+Contacts, DeskClock, Gallery2, SettingsIntelligence, fwb overlays
+
+Change-Id: I00cc5918164ed70c612c5caa31eb8d2d0cd05b62
+---
+ config/common_mobile.mk      | 4 +++-
+ config/common_mobile_full.mk | 3 +++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/config/common_mobile.mk b/config/common_mobile.mk
+index a09a9ef7..51d36931 100644
+--- a/config/common_mobile.mk
++++ b/config/common_mobile.mk
+@@ -18,7 +18,9 @@ PRODUCT_PACKAGES += \
+     AvatarPicker \
+     Backgrounds \
+     Glimpse \
+-    LatinIME
++    LatinIME \
++    SettingsIntelligence \
++    frameworks-base-overlays
+ 
+ ifeq ($(PRODUCT_TYPE), go)
+ PRODUCT_PACKAGES += \
+diff --git a/config/common_mobile_full.mk b/config/common_mobile_full.mk
+index 22b1acf2..1cd52dca 100644
+--- a/config/common_mobile_full.mk
++++ b/config/common_mobile_full.mk
+@@ -10,7 +10,10 @@ $(call inherit-product-if-exists, external/google-fonts/rubik/fonts.mk)
+ # Apps
+ PRODUCT_PACKAGES += \
+     Camelot \
++    Contacts \
++    DeskClock \
+     Etar \
++    Gallery2 \
+     Profiles \
+     Recorder \
+     Seedvault \
+-- 
+2.34.1
+

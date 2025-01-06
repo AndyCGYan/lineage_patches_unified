@@ -1,0 +1,145 @@
+From f262894a91dc56eb81e0322904c285758711fbda Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 2 Nov 2019 08:31:36 +0000
+Subject: [PATCH 09/21] Keyguard: Refine indication text
+
+Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
+---
+ .../SystemUI/res-keyguard/values/styles.xml   |  2 -
+ .../res/layout/keyguard_bottom_area.xml       |  1 +
+ packages/SystemUI/res/values/dimens.xml       |  2 +-
+ .../ui/view/KeyguardIndicationArea.kt         |  2 +
+ .../KeyguardIndicationController.java         | 37 ++++---------------
+ .../phone/KeyguardIndicationTextView.java     |  2 +-
+ 6 files changed, 12 insertions(+), 34 deletions(-)
+
+diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
+index e7d9c1ad361f..8bc2af227824 100644
+--- a/packages/SystemUI/res-keyguard/values/styles.xml
++++ b/packages/SystemUI/res-keyguard/values/styles.xml
+@@ -153,8 +153,6 @@
+         <item name="android:maxLines">1</item>
+         <item name="android:gravity">center</item>
+         <item name="android:textColor">?attr/wallpaperTextColor</item>
+-        <item name="android:shadowColor">@color/keyguard_shadow_color</item>
+-        <item name="android:shadowRadius">?attr/shadowRadius</item>
+     </style>
+ 
+     <style name="TextAppearance.Keyguard.BottomArea.Button">
+diff --git a/packages/SystemUI/res/layout/keyguard_bottom_area.xml b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
+index e602d6c8848d..d9edcf1d4b11 100644
+--- a/packages/SystemUI/res/layout/keyguard_bottom_area.xml
++++ b/packages/SystemUI/res/layout/keyguard_bottom_area.xml
+@@ -35,6 +35,7 @@
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:gravity="center"
++            android:minHeight="@dimen/keyguard_indication_text_min_height"
+             android:paddingStart="@dimen/keyguard_indication_text_padding"
+             android:paddingEnd="@dimen/keyguard_indication_text_padding"
+             android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
+diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
+index 1908aa687998..aee54b5857fd 100644
+--- a/packages/SystemUI/res/values/dimens.xml
++++ b/packages/SystemUI/res/values/dimens.xml
+@@ -927,7 +927,7 @@
+ 
+     <dimen name="keyguard_translate_distance_on_swipe_up">-200dp</dimen>
+ 
+-    <dimen name="keyguard_indication_margin_bottom">32dp</dimen>
++    <dimen name="keyguard_indication_margin_bottom">16dp</dimen>
+     <dimen name="lock_icon_margin_bottom">74dp</dimen>
+     <dimen name="ambient_indication_margin_bottom">71dp</dimen>
+ 
+diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt b/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt
+index a53c6d77d328..e0ed5180aef7 100644
+--- a/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt
++++ b/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt
+@@ -64,7 +64,9 @@ class KeyguardIndicationArea(
+             id = R.id.keyguard_indication_text
+             gravity = Gravity.CENTER
+             accessibilityLiveRegion = View.ACCESSIBILITY_LIVE_REGION_POLITE
++
+             setTextAppearance(R.style.TextAppearance_Keyguard_BottomArea)
++            setMinHeight(R.dimen.keyguard_indication_text_min_height.dp())
+ 
+             val padding = R.dimen.keyguard_indication_text_padding.dp()
+             setPaddingRelative(padding, 0, padding, 0)
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
+index 47812adaea00..10dba98e7e33 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
+@@ -488,7 +488,6 @@ public class KeyguardIndicationController {
+         updateLockScreenDisclosureMsg();
+         updateLockScreenOwnerInfo();
+         updateLockScreenBatteryMsg(animate);
+-        updateLockScreenUserLockedMsg(userId);
+         updateLockScreenTrustMsg(userId, getTrustGrantedIndication(), getTrustManagedIndication());
+         updateLockScreenAlignmentMsg();
+         updateLockScreenLogoutView();
+@@ -633,24 +632,6 @@ public class KeyguardIndicationController {
+         }
+     }
+ 
+-    private void updateLockScreenUserLockedMsg(int userId) {
+-        boolean userUnlocked = mKeyguardUpdateMonitor.isUserUnlocked(userId);
+-        boolean encryptedOrLockdown = mKeyguardUpdateMonitor.isEncryptedOrLockdown(userId);
+-        mKeyguardLogger.logUpdateLockScreenUserLockedMsg(userId, userUnlocked, encryptedOrLockdown);
+-        if (!userUnlocked || encryptedOrLockdown) {
+-            mRotateTextViewController.updateIndication(
+-                    INDICATION_TYPE_USER_LOCKED,
+-                    new KeyguardIndication.Builder()
+-                            .setMessage(mContext.getResources().getText(
+-                                    com.android.internal.R.string.lockscreen_storage_locked))
+-                            .setTextColor(mInitialTextColorState)
+-                            .build(),
+-                    false);
+-        } else {
+-            mRotateTextViewController.hideIndication(INDICATION_TYPE_USER_LOCKED);
+-        }
+-    }
+-
+     private void updateBiometricMessage() {
+         if (mDozing) {
+             updateDeviceEntryIndication(false);
+@@ -744,17 +725,13 @@ public class KeyguardIndicationController {
+     }
+ 
+     private void updateLockScreenPersistentUnlockMsg() {
+-        if (!TextUtils.isEmpty(mPersistentUnlockMessage)) {
+-            mRotateTextViewController.updateIndication(
+-                    INDICATION_TYPE_PERSISTENT_UNLOCK_MESSAGE,
+-                    new KeyguardIndication.Builder()
+-                            .setMessage(mPersistentUnlockMessage)
+-                            .setTextColor(mInitialTextColorState)
+-                            .build(),
+-                    true);
+-        } else {
+-            mRotateTextViewController.hideIndication(INDICATION_TYPE_PERSISTENT_UNLOCK_MESSAGE);
+-        }
++        mRotateTextViewController.updateIndication(
++                INDICATION_TYPE_PERSISTENT_UNLOCK_MESSAGE,
++                new KeyguardIndication.Builder()
++                        .setMessage(mContext.getResources().getString(R.string.keyguard_unlock))
++                        .setTextColor(mInitialTextColorState)
++                        .build(),
++                false);
+     }
+ 
+     private void updateLockScreenLogoutView() {
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
+index 16e9c717935c..b97e2b30ea15 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardIndicationTextView.java
+@@ -46,7 +46,7 @@ public class KeyguardIndicationTextView extends TextView {
+     @StyleRes
+     private static int sButtonStyleId = R.style.TextAppearance_Keyguard_BottomArea_Button;
+ 
+-    private boolean mAnimationsEnabled = true;
++    private boolean mAnimationsEnabled = false;
+     private CharSequence mMessage;
+     private KeyguardIndication mKeyguardIndicationInfo;
+ 
+-- 
+2.34.1
+

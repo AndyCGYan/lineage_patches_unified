@@ -1,0 +1,86 @@
+From a05d3252c17dad2076a2f9f5ae6f7b4095c0214d Mon Sep 17 00:00:00 2001
+From: Victor Bo <bvoid@yandex.ru>
+Date: Wed, 3 Mar 2021 06:31:17 -0500
+Subject: [PATCH 1/3] Restore /sbin for Magisk compatibility
+
+Squash of:
+- Revert "Do not create /sbin"
+- Revert "Remove sbin from fs_config.cpp"
+- add /sbin to the PATH
+
+Change-Id: I1224c9b64ce8eb14f7d15c8441c0633a7e6a20de
+---
+ CleanSpec.mk                     | 2 --
+ libcutils/fs_config.cpp          | 3 +++
+ rootdir/create_root_structure.mk | 2 +-
+ rootdir/init.environ.rc.in       | 1 +
+ 4 files changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/CleanSpec.mk b/CleanSpec.mk
+index 0a534a2bd..81150a0fa 100644
+--- a/CleanSpec.mk
++++ b/CleanSpec.mk
+@@ -80,8 +80,6 @@ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/etc/vndksp.libraries.txt)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/sbin/charger)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/sbin/charger)
+-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/root/sbin)
+-$(call add-clean-step, rm -rf $(PRODUCT_OUT)/recovery/root/sbin)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product_services)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/product_services.img)
+ $(call add-clean-step, rm -rf $(PRODUCT_OUT)/system/product_services)
+diff --git a/libcutils/fs_config.cpp b/libcutils/fs_config.cpp
+index c23d98db6..1f90449cf 100644
+--- a/libcutils/fs_config.cpp
++++ b/libcutils/fs_config.cpp
+@@ -72,6 +72,7 @@ static const struct fs_path_config android_dirs[] = {
+     { 00771, AID_SYSTEM,       AID_SYSTEM,       0, "data" },
+     { 00755, AID_ROOT,         AID_SYSTEM,       0, "mnt" },
+     { 00751, AID_ROOT,         AID_SHELL,        0, "product/bin" },
++    { 00750, AID_ROOT,         AID_SHELL,        0, "sbin" },
+     { 00751, AID_ROOT,         AID_SHELL,        0, "product/apex/*/bin" },
+     { 00777, AID_ROOT,         AID_ROOT,         0, "sdcard" },
+     { 00751, AID_ROOT,         AID_SDCARD_R,     0, "storage" },
+@@ -154,6 +155,7 @@ static const struct fs_path_config android_files[] = {
+     { 00600, AID_ROOT,      AID_ROOT,      0, "system_ext/build.prop" },
+     { 00444, AID_ROOT,      AID_ROOT,      0, system_ext_conf_dir + 1 },
+     { 00444, AID_ROOT,      AID_ROOT,      0, system_ext_conf_file + 1 },
++    { 00750, AID_ROOT,      AID_SHELL,     0, "sbin/fs_mgr" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/crash_dump32" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/crash_dump64" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "system/bin/debuggerd" },
+@@ -213,6 +215,7 @@ static const struct fs_path_config android_files[] = {
+     { 00644, AID_ROOT,      AID_ROOT,      0, "odm/app/*" },
+     { 00644, AID_ROOT,      AID_ROOT,      0, "odm/priv-app/*" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "product/bin/*" },
++    { 00750, AID_ROOT,      AID_SHELL,     0, "sbin/*" },
+     { 00755, AID_ROOT,      AID_SHELL,     0, "product/apex/*bin/*" },
+     { 00644, AID_ROOT,      AID_ROOT,      0, "product/framework/*" },
+     { 00644, AID_ROOT,      AID_ROOT,      0, "product/app/*" },
+diff --git a/rootdir/create_root_structure.mk b/rootdir/create_root_structure.mk
+index 1daf239b4..239ea0d8d 100644
+--- a/rootdir/create_root_structure.mk
++++ b/rootdir/create_root_structure.mk
+@@ -27,7 +27,7 @@ endif
+ #
+ # create some directories (some are mount points) and symlinks
+ LOCAL_POST_INSTALL_CMD := mkdir -p $(addprefix $(TARGET_ROOT_OUT)/, \
+-    dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
++    sbin dev proc sys system data data_mirror odm oem acct config storage mnt apex bootstrap-apex debug_ramdisk \
+     linkerconfig second_stage_resources postinstall tmp $(BOARD_ROOT_EXTRA_FOLDERS)); \
+     ln -sf /system/bin $(TARGET_ROOT_OUT)/bin; \
+     ln -sf /system/etc $(TARGET_ROOT_OUT)/etc; \
+diff --git a/rootdir/init.environ.rc.in b/rootdir/init.environ.rc.in
+index 9249270b3..3e00841c3 100644
+--- a/rootdir/init.environ.rc.in
++++ b/rootdir/init.environ.rc.in
+@@ -10,5 +10,6 @@ on early-init
+     export ANDROID_TZDATA_ROOT /apex/com.android.tzdata
+     export EXTERNAL_STORAGE /sdcard
+     export ASEC_MOUNTPOINT /mnt/asec
++    export PATH /sbin:/product/bin:/apex/com.android.runtime/bin:/apex/com.android.art/bin:/system_ext/bin:/system/bin:/system/xbin:/odm/bin:/vendor/bin:/vendor/xbin
+     # Additional environment variables will be appended here during build (see Android.bp).
+     # DO NOT ADD additional sections like 'on <event>' here.
+-- 
+2.34.1
+

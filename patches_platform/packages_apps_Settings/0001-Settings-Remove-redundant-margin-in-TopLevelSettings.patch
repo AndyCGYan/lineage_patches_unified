@@ -1,0 +1,57 @@
+From 8e8adf80f419181719cd1e4259e272d866d30fa8 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 1 Dec 2024 19:16:04 +0800
+Subject: [PATCH 1/2] Settings: Remove redundant margin in TopLevelSettings
+
+Change-Id: I50294bd1c334dbe2c22460443abdccf5bc9eef41
+---
+ .../settingslib_preference_category_gone.xml  | 23 +++++++++++++++++++
+ res/xml/top_level_settings_v2.xml             |  2 +-
+ 2 files changed, 24 insertions(+), 1 deletion(-)
+ create mode 100644 res/layout-v35/settingslib_preference_category_gone.xml
+
+diff --git a/res/layout-v35/settingslib_preference_category_gone.xml b/res/layout-v35/settingslib_preference_category_gone.xml
+new file mode 100644
+index 00000000000..32eafaa1cc9
+--- /dev/null
++++ b/res/layout-v35/settingslib_preference_category_gone.xml
+@@ -0,0 +1,23 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!--
++     Copyright (C) 2024 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<LinearLayout
++    xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="match_parent"
++    android:layout_height="wrap_content"
++    android:baselineAligned="false"
++    android:visibility="gone">
++</LinearLayout>
+diff --git a/res/xml/top_level_settings_v2.xml b/res/xml/top_level_settings_v2.xml
+index a730ff75469..228af7e98cb 100644
+--- a/res/xml/top_level_settings_v2.xml
++++ b/res/xml/top_level_settings_v2.xml
+@@ -23,7 +23,7 @@
+     <PreferenceCategory
+         android:order="-130"
+         android:key="top_level_connectivity_category"
+-        android:layout="@layout/settingslib_preference_category_no_title">
++        android:layout="@layout/settingslib_preference_category_gone">
+         <com.android.settings.widget.HomepagePreference
+             android:fragment="com.android.settings.network.NetworkDashboardFragment"
+             android:icon="@drawable/ic_settings_wireless_filled"
+-- 
+2.34.1
+

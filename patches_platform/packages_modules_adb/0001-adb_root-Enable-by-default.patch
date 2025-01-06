@@ -1,0 +1,26 @@
+From 793938a2e3d8a0fe309cc2ba62dfcb5d3c3c2bb5 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 10 Nov 2024 20:44:30 +0800
+Subject: [PATCH] adb_root: Enable by default
+
+Change-Id: I1d5a93b6f8f2d3a13763ee7a742d8d7f7c8f6cc3
+---
+ root/adbroot_service.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/root/adbroot_service.cpp b/root/adbroot_service.cpp
+index ff30f4b9..0d63a9cc 100644
+--- a/root/adbroot_service.cpp
++++ b/root/adbroot_service.cpp
+@@ -82,7 +82,7 @@ static inline bool isAutomotive(uid_t uid) {
+     return appid == AID_SYSTEM && ::android::isAutomotive();
+ }
+ 
+-ADBRootService::ADBRootService() : enabled_(false) {
++ADBRootService::ADBRootService() : enabled_(true) {
+     std::string buf;
+     if (ReadFileToString(kStoragePath + kEnabled, &buf)) {
+         enabled_ = Trim(buf) == "1";
+-- 
+2.34.1
+

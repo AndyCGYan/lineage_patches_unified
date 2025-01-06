@@ -1,0 +1,33 @@
+From e7ef4afea95312440b1ba52fbfb85973ffaad063 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 21 Jan 2024 22:03:47 +0800
+Subject: [PATCH 04/20] Keyguard: Allow locking to any rotation mode
+
+Change-Id: I0f12c433f3547e9bfcdbc2cf50e2a4f3ec8ca311
+---
+ .../shade/NotificationShadeWindowControllerImpl.java     | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
+index d1cf8caaf91d..073d5a554a6b 100644
+--- a/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
++++ b/packages/SystemUI/src/com/android/systemui/shade/NotificationShadeWindowControllerImpl.java
+@@ -469,12 +469,9 @@ public class NotificationShadeWindowControllerImpl implements NotificationShadeW
+     }
+ 
+     private void adjustScreenOrientation(NotificationShadeWindowState state) {
+-        if (state.bouncerShowing || state.isKeyguardShowingAndNotOccluded() || state.dozing) {
+-            if (shouldEnableKeyguardScreenRotation()) {
+-                mLpChanged.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_USER;
+-            } else {
+-                mLpChanged.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_NOSENSOR;
+-            }
++        if ((state.bouncerShowing || state.isKeyguardShowingAndNotOccluded() || state.dozing)
++                && shouldEnableKeyguardScreenRotation()) {
++            mLpChanged.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_USER;
+         } else {
+             mLpChanged.screenOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
+         }
+-- 
+2.34.1
+

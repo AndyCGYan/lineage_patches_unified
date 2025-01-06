@@ -1,0 +1,34 @@
+From 3d37cd4beb1cb9d31ea90e685b36cab6d3293a7c Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 20 Nov 2023 14:09:32 +0800
+Subject: [PATCH 3/3] Trebuchet: Kill inverted rounded corners above the
+ taskbar
+
+Again, where rectangles collide should be perfectly straight
+
+Change-Id: Ibf03a84cb8f3866b5151b02fe8a0e74167cf90ce
+---
+ .../android/launcher3/taskbar/TaskbarBackgroundRenderer.kt | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt b/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
+index c0e921edcf..fc692b72aa 100644
+--- a/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
++++ b/quickstep/src/com/android/launcher3/taskbar/TaskbarBackgroundRenderer.kt
+@@ -172,13 +172,6 @@ class TaskbarBackgroundRenderer(private val context: TaskbarActivityContext) {
+             // Draw the background behind taskbar content.
+             canvas.drawRect(0f, 0f, canvas.width.toFloat(), persistentTaskbarHeight, paint)
+         }
+-
+-        // Draw the inverted rounded corners above the taskbar.
+-        canvas.translate(0f, -cornerRadius)
+-        canvas.drawPath(invertedLeftCornerPath, paint)
+-        canvas.translate(0f, cornerRadius)
+-        canvas.translate(canvas.width - cornerRadius, -cornerRadius)
+-        canvas.drawPath(invertedRightCornerPath, paint)
+     }
+ 
+     private fun drawTransientBackground(canvas: Canvas) {
+-- 
+2.34.1
+

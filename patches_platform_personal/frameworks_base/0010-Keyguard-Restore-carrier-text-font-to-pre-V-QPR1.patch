@@ -1,0 +1,56 @@
+From 2dcf98114aa22c1adf5c077ddae57c44dd80db60 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 28 Dec 2024 22:45:59 +0800
+Subject: [PATCH 10/21] Keyguard: Restore carrier text font to pre-V-QPR1
+
+Change-Id: I5a7a455f14eff4579494e3112d87c364563f3312
+---
+ packages/SystemUI/res/layout/keyguard_status_bar.xml          | 2 +-
+ packages/SystemUI/res/values/styles.xml                       | 4 ++++
+ .../systemui/statusbar/phone/KeyguardStatusBarView.java       | 2 +-
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/packages/SystemUI/res/layout/keyguard_status_bar.xml b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+index 4cb7591a3502..d5f9d4cc0954 100644
+--- a/packages/SystemUI/res/layout/keyguard_status_bar.xml
++++ b/packages/SystemUI/res/layout/keyguard_status_bar.xml
+@@ -76,7 +76,7 @@
+         android:gravity="center_vertical"
+         android:ellipsize="marquee"
+         android:textDirection="locale"
+-        android:textAppearance="@style/TextAppearance.StatusBar.Clock"
++        android:textAppearance="@style/TextAppearance.StatusBar.Carrier"
+         android:textColor="?attr/wallpaperTextColorSecondary"
+         android:singleLine="true"
+         systemui:showMissingSim="true"
+diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
+index e351d0e8ccf8..a698e766e9a5 100644
+--- a/packages/SystemUI/res/values/styles.xml
++++ b/packages/SystemUI/res/values/styles.xml
+@@ -23,6 +23,10 @@
+         <item name="android:textColor">@color/status_bar_clock_color</item>
+     </style>
+ 
++    <style name="TextAppearance.StatusBar.Carrier" parent="TextAppearance.StatusBar.Clock">
++        <item name="android:fontFamily">@*android:string/config_headlineFontFamily</item>
++    </style>
++
+     <style name="TextAppearance.StatusBar.UserChip" parent="@*android:style/TextAppearance.StatusBar.Icon">
+         <item name="android:textSize">@dimen/status_bar_user_chip_text_size</item>
+         <item name="android:fontFamily">@*android:string/config_headlineFontFamilyMedium</item>
+diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+index e9eac15ec4d5..4b1687a12f86 100644
+--- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
++++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
+@@ -432,7 +432,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
+ 
+     /** Should only be called from {@link KeyguardStatusBarViewController}. */
+     void onOverlayChanged() {
+-        final int carrierTheme = R.style.TextAppearance_StatusBar_Clock;
++        final int carrierTheme = R.style.TextAppearance_StatusBar_Carrier;
+         mCarrierLabel.setTextAppearance(carrierTheme);
+         mBatteryView.updatePercentView();
+ 
+-- 
+2.34.1
+

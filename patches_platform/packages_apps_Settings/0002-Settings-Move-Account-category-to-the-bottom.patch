@@ -1,0 +1,45 @@
+From 624f44e365c5548d2e0e0e01f91641ac25e7106d Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 1 Dec 2024 20:10:42 +0800
+Subject: [PATCH 2/2] Settings: Move Account category to the bottom
+
+On GAPPS-less devices, this category is empty, but occupies 16dp nonetheless,
+resulting in visually larger gap between categories above and below it,
+so either put it at the bottom, or implement dynamic show/hide
+
+Change-Id: Ie4010396e69eda34c0fd3cab2e58e0e00d4e888e
+---
+ res/xml/top_level_settings_v2.xml | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/res/xml/top_level_settings_v2.xml b/res/xml/top_level_settings_v2.xml
+index 228af7e98cb..f8bc4870ebe 100644
+--- a/res/xml/top_level_settings_v2.xml
++++ b/res/xml/top_level_settings_v2.xml
+@@ -214,12 +214,6 @@
+             settings:highlightableMenuKey="@string/menu_key_emergency"/>
+     </PreferenceCategory>
+ 
+-    <PreferenceCategory
+-        android:order="-90"
+-        android:key="top_level_account_category"
+-        android:layout="@layout/settingslib_preference_category_no_title">
+-    </PreferenceCategory>
+-
+     <PreferenceCategory
+         android:order="100"
+         android:key="top_level_support_category"
+@@ -245,4 +239,10 @@
+             settings:controller="com.android.settings.support.SupportPreferenceController"/>
+     </PreferenceCategory>
+ 
++    <PreferenceCategory
++        android:order="1000"
++        android:key="top_level_account_category"
++        android:layout="@layout/settingslib_preference_category_no_title">
++    </PreferenceCategory>
++
+ </PreferenceScreen>
+-- 
+2.34.1
+

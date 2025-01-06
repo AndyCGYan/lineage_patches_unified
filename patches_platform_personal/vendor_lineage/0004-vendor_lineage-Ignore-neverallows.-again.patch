@@ -1,0 +1,30 @@
+From 452560ffb8ea8643928fe622eac1bd810201776c Mon Sep 17 00:00:00 2001
+From: AndyCGYan <GeForce8800Ultra@gmail.com>
+Date: Mon, 1 Jul 2019 07:03:04 +0000
+Subject: [PATCH 4/5] vendor_lineage: Ignore neverallows... again
+
+Because unofficial builds are better than no builds!
+
+Change-Id: I4b19d09b28f79c6f5020bf03fdf8931145bca03a
+---
+ build/core/config.mk | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/build/core/config.mk b/build/core/config.mk
+index 2359371d..a5ceb21d 100644
+--- a/build/core/config.mk
++++ b/build/core/config.mk
+@@ -13,5 +13,10 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
++# We modify several neverallows, so let the build proceed
++ifneq ($(TARGET_BUILD_VARIANT),user)
++SELINUX_IGNORE_NEVERALLOWS := true
++endif
++
+ # Rules for QCOM targets
+ include $(TOPDIR)vendor/lineage/build/core/qcom_target.mk
+-- 
+2.34.1
+
