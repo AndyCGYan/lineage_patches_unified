@@ -1,4 +1,4 @@
-From 205123f01165152dac5d7b2176c4e92130551c91 Mon Sep 17 00:00:00 2001
+From 4d59ebb2a3481afc0be972f0d3406bef508d6e2f Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 09:08:43 +0000
 Subject: [PATCH] build: Integrate prop modifications (1/2)
@@ -9,7 +9,7 @@ Change-Id: Ibe8cb3bd8bb55b327199d80037ff8db893bca38f
  1 file changed, 5 insertions(+), 13 deletions(-)
 
 diff --git a/scripts/gen_build_prop.py b/scripts/gen_build_prop.py
-index 6dffa03a4..5e9352371 100644
+index ac2c6ff7c..d07a93c74 100644
 --- a/scripts/gen_build_prop.py
 +++ b/scripts/gen_build_prop.py
 @@ -103,7 +103,7 @@ def parse_args():
@@ -21,7 +21,7 @@ index 6dffa03a4..5e9352371 100644
    config["DateUtc"] = subprocess.check_output(["date", "-d", f"@{raw_date}", "+%s"], text=True).strip()
  
    # build_desc is human readable strings that describe this build. This has the same info as the
-@@ -207,18 +207,7 @@ def generate_build_info(args):
+@@ -210,18 +210,7 @@ def generate_build_info(args):
      print(f"ro.build.id?={config['BuildId']}")
  
    # ro.build.display.id is shown under Settings -> About Phone
@@ -41,13 +41,13 @@ index 6dffa03a4..5e9352371 100644
    print(f"ro.build.version.incremental={config['BuildNumber']}")
    print(f"ro.build.version.sdk={config['Platform_sdk_version']}")
    print(f"ro.build.version.preview_sdk={config['Platform_preview_sdk_version']}")
-@@ -246,6 +235,9 @@ def generate_build_info(args):
+@@ -249,6 +238,9 @@ def generate_build_info(args):
    print(f"ro.build.flavor={config['BuildFlavor']}")
  
    print(f"ro.lineage.device={config['LineageDevice']}")
-+  print(f"ro.lineage.version=LineageOS 22 Self-built CGMod")
-+  print(f"ro.lineage.display.version=LineageOS 22 Self-built CGMod")
-+  print(f"ro.modversion=LineageOS 22 Self-built CGMod")
++  print(f"ro.lineage.version=LineageOS 22.1 Self-built CGMod")
++  print(f"ro.lineage.display.version=LineageOS 22.1 Self-built CGMod")
++  print(f"ro.modversion=LineageOS 22.1 Self-built CGMod")
  
    # These values are deprecated, use "ro.product.cpu.abilist"
    # instead (see below).

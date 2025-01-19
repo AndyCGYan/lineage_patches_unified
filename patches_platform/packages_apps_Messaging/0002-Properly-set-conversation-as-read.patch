@@ -1,4 +1,4 @@
-From ab737dc7826f56414d2858c6e2b9b4b5b4f0bef1 Mon Sep 17 00:00:00 2001
+From 35302bf8caa490165c71e7fbca0147cffcbdbf50 Mon Sep 17 00:00:00 2001
 From: Luca Stefani <luca.stefani.ge1@gmail.com>
 Date: Sat, 28 Mar 2020 15:10:57 +0100
 Subject: [PATCH 2/2] Properly set conversation as read
@@ -119,7 +119,7 @@ index f8fe097b..95caf47e 100644
      /**
       * Get a PendingIntent for showing a new message to a secondary user.
 diff --git a/src/com/android/messaging/ui/UIIntentsImpl.java b/src/com/android/messaging/ui/UIIntentsImpl.java
-index 396db1f4..4f063426 100644
+index 55b0be6d..1dfac718 100644
 --- a/src/com/android/messaging/ui/UIIntentsImpl.java
 +++ b/src/com/android/messaging/ui/UIIntentsImpl.java
 @@ -382,12 +382,11 @@ public class UIIntentsImpl extends UIIntents {

@@ -1,4 +1,4 @@
-From 01c4db792444c93ed2036d52593d559ed700b2c0 Mon Sep 17 00:00:00 2001
+From 1b08cfa977e41647693dc22da998a9000711a38e Mon Sep 17 00:00:00 2001
 From: Paul Keith <javelinanddart@gmail.com>
 Date: Tue, 30 Oct 2018 15:46:18 +0100
 Subject: [PATCH 1/2] Messaging: Add "Mark as read" quick action for message
@@ -203,7 +203,7 @@ index b8a08fd7..f8fe097b 100644
       * Get a PendingIntent for showing a new message to a secondary user.
       */
 diff --git a/src/com/android/messaging/ui/UIIntentsImpl.java b/src/com/android/messaging/ui/UIIntentsImpl.java
-index f2683a26..396db1f4 100644
+index f2683a26..55b0be6d 100644
 --- a/src/com/android/messaging/ui/UIIntentsImpl.java
 +++ b/src/com/android/messaging/ui/UIIntentsImpl.java
 @@ -380,6 +380,20 @@ public class UIIntentsImpl extends UIIntents {
@@ -221,7 +221,7 @@ index f2683a26..396db1f4 100644
 +        }
 +        return PendingIntent.getBroadcast(context,
 +                requestCode, intent,
-+                PendingIntent.FLAG_UPDATE_CURRENT);
++                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_MUTABLE);
 +    }
 +
      /**
