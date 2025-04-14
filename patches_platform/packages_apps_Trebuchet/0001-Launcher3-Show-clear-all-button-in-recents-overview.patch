@@ -1,27 +1,28 @@
-From 457711a77617db26f231b54e4af713a5a8fc04df Mon Sep 17 00:00:00 2001
+From d9d0440c7bcf4722762739a3dc6e97a1010afa4f Mon Sep 17 00:00:00 2001
 From: jhonboy121 <alfredmathew05@gmail.com>
 Date: Tue, 15 Mar 2022 18:55:35 +0530
 Subject: [PATCH] Launcher3: Show clear all button in recents overview
 
 idoybh (YAAP): Keep rightmost
+neobuddy89: Updated for A15 QPR2
 
-Signed-off-by: jhonboy121 <alfredmathew05@gmail.com>
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
 ---
  quickstep/res/drawable/ic_clear_all.xml       | 19 +++++++++++++++++++
  .../res/layout/overview_actions_container.xml |  9 +++++++++
  .../states/BackgroundAppState.java            |  1 -
  .../states/OverviewModalTaskState.java        |  2 +-
  .../uioverrides/states/OverviewState.java     |  2 +-
- .../android/quickstep/TaskOverlayFactory.java | 16 ++++++++++++++++
+ .../android/quickstep/TaskOverlayFactory.java | 15 +++++++++++++++
  .../quickstep/fallback/RecentsState.java      |  2 +-
  .../quickstep/views/OverviewActionsView.java  |  5 ++++-
  .../android/quickstep/views/RecentsView.java  |  4 ++++
- 9 files changed, 55 insertions(+), 5 deletions(-)
+ 9 files changed, 54 insertions(+), 5 deletions(-)
  create mode 100644 quickstep/res/drawable/ic_clear_all.xml
 
 diff --git a/quickstep/res/drawable/ic_clear_all.xml b/quickstep/res/drawable/ic_clear_all.xml
 new file mode 100644
-index 0000000000..00e8fd42a3
+index 00000000000..00e8fd42a31
 --- /dev/null
 +++ b/quickstep/res/drawable/ic_clear_all.xml
 @@ -0,0 +1,19 @@
@@ -46,7 +47,7 @@ index 0000000000..00e8fd42a3
 +</vector>
 \ No newline at end of file
 diff --git a/quickstep/res/layout/overview_actions_container.xml b/quickstep/res/layout/overview_actions_container.xml
-index fcd2e5495a..8b53f92b43 100644
+index fcd2e5495ae..8b53f92b430 100644
 --- a/quickstep/res/layout/overview_actions_container.xml
 +++ b/quickstep/res/layout/overview_actions_container.xml
 @@ -45,6 +45,15 @@
@@ -66,10 +67,10 @@ index fcd2e5495a..8b53f92b43 100644
  
      <!-- Currently, the only "group action button" is this save app pair button. If more are added,
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/states/BackgroundAppState.java b/quickstep/src/com/android/launcher3/uioverrides/states/BackgroundAppState.java
-index 262564613a..01c98490ec 100644
+index ca388c66e5f..7a4b9ee589e 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/states/BackgroundAppState.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/states/BackgroundAppState.java
-@@ -74,7 +74,6 @@ public class BackgroundAppState extends OverviewState {
+@@ -76,7 +76,6 @@ public float getOverviewFullscreenProgress() {
      public int getVisibleElements(Launcher launcher) {
          return super.getVisibleElements(launcher)
                  & ~OVERVIEW_ACTIONS
@@ -78,10 +79,10 @@ index 262564613a..01c98490ec 100644
      }
  
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
-index 932d241307..eeb6223c07 100644
+index 932d2413071..eeb6223c07d 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
-@@ -45,7 +45,7 @@ public class OverviewModalTaskState extends OverviewState {
+@@ -45,7 +45,7 @@ public int getTransitionDuration(Context launcher, boolean isToState) {
  
      @Override
      public int getVisibleElements(Launcher launcher) {
@@ -91,10 +92,10 @@ index 932d241307..eeb6223c07 100644
  
      @Override
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
-index 6822f1b39c..9f95a3b523 100644
+index c48ba4f11bb..19c8399e6ae 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
-@@ -110,7 +110,7 @@ public class OverviewState extends LauncherState {
+@@ -110,7 +110,7 @@ public float getPageAlpha(int pageIndex) {
  
      @Override
      public int getVisibleElements(Launcher launcher) {
@@ -104,23 +105,22 @@ index 6822f1b39c..9f95a3b523 100644
          boolean showFloatingSearch;
          if (dp.isPhone) {
 diff --git a/quickstep/src/com/android/quickstep/TaskOverlayFactory.java b/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
-index b183ae392f..f31be017af 100644
+index ff9c9f65d04..91e6002e856 100644
 --- a/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
 +++ b/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
-@@ -209,6 +209,12 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+@@ -242,6 +242,11 @@ protected void saveAppPair() {
                      .saveAppPair(taskView);
          }
  
 +        private void clearAllTasks() {
-+            final RecentsView recentsView =
-+                    mTaskContainer.getThumbnailViewDeprecated().getTaskView().getRecentsView();
++            final RecentsView recentsView = mTaskContainer.getTaskView().getRecentsView();
 +            recentsView.dismissAllTasks();
 +        }
 +
          /**
           * Called when the overlay is no longer used.
           */
-@@ -320,17 +326,25 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+@@ -384,17 +389,25 @@ public OverlayUICallbacksImpl(boolean isAllowedByPolicy, Task task) {
              }
  
              @SuppressLint("NewApi")
@@ -146,7 +146,7 @@ index b183ae392f..f31be017af 100644
          }
      }
  
-@@ -347,5 +361,7 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+@@ -411,5 +424,7 @@ public interface OverlayUICallbacks {
  
          /** User wants to save an app pair with current group of apps. */
          void onSaveAppPair();
@@ -155,10 +155,10 @@ index b183ae392f..f31be017af 100644
      }
  }
 diff --git a/quickstep/src/com/android/quickstep/fallback/RecentsState.java b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
-index ca9753f4a4..07ab6ee3c7 100644
+index c2e7536c97f..b2cb7b120c2 100644
 --- a/quickstep/src/com/android/quickstep/fallback/RecentsState.java
 +++ b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
-@@ -107,7 +107,7 @@ public class RecentsState implements BaseState<RecentsState> {
+@@ -117,7 +117,7 @@ public boolean isFullScreen() {
       * For this state, whether clear all button should be shown.
       */
      public boolean hasClearAllButton() {
@@ -168,10 +168,10 @@ index ca9753f4a4..07ab6ee3c7 100644
  
      /**
 diff --git a/quickstep/src/com/android/quickstep/views/OverviewActionsView.java b/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
-index d1d1c6f670..bbed854a6d 100644
+index 764bf0b3d8b..ef4e074fe34 100644
 --- a/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
 +++ b/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
-@@ -182,6 +182,7 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
+@@ -182,6 +182,7 @@ protected void onFinishInflate() {
          mSplitButton = findViewById(R.id.action_split);
          mSplitButton.setOnClickListener(this);
          mSaveAppPairButton.setOnClickListener(this);
@@ -179,7 +179,7 @@ index d1d1c6f670..bbed854a6d 100644
      }
  
      /**
-@@ -198,13 +199,15 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
+@@ -198,13 +199,15 @@ public void onClick(View view) {
          if (mCallbacks == null) {
              return;
          }
@@ -197,10 +197,10 @@ index d1d1c6f670..bbed854a6d 100644
      }
  
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index e8bea1b015..e47c5ab9db 100644
+index 6752775be3b..ecc7ab65a17 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -4246,6 +4246,10 @@ public abstract class RecentsView<CONTAINER_TYPE extends Context & RecentsViewCo
+@@ -4532,6 +4532,10 @@ private void dismissAllTasks(View view) {
          mContainer.getStatsLogManager().logger().log(LAUNCHER_TASK_CLEAR_ALL);
      }
  
