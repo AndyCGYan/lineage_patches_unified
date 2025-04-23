@@ -1,4 +1,4 @@
-From 240c3bee94229f1426bf55d407a21e00f738dbc9 Mon Sep 17 00:00:00 2001
+From e90cbe1e9614e1642886a7ded9f643dfb6770186 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
 Subject: [PATCH 15/21] UI: Always render into cutouts
@@ -13,7 +13,7 @@ Change-Id: I4661c7979bfa7de453329fcddbaeefc2009e2da3
  3 files changed, 9 insertions(+), 22 deletions(-)
 
 diff --git a/core/java/android/view/InsetsState.java b/core/java/android/view/InsetsState.java
-index 5c415165137e..21c45156a3d6 100644
+index 213ece09da22..a9d99d566a29 100644
 --- a/core/java/android/view/InsetsState.java
 +++ b/core/java/android/view/InsetsState.java
 @@ -494,24 +494,7 @@ public class InsetsState implements Parcelable {
@@ -43,10 +43,10 @@ index 5c415165137e..21c45156a3d6 100644
  
      public void setRoundedCorners(RoundedCorners roundedCorners) {
 diff --git a/packages/SystemUI/src/com/android/systemui/shade/QuickSettingsControllerImpl.java b/packages/SystemUI/src/com/android/systemui/shade/QuickSettingsControllerImpl.java
-index 4cbf77b31e1f..69f723819b4c 100644
+index dd0f14ed5910..7b47399030fb 100644
 --- a/packages/SystemUI/src/com/android/systemui/shade/QuickSettingsControllerImpl.java
 +++ b/packages/SystemUI/src/com/android/systemui/shade/QuickSettingsControllerImpl.java
-@@ -289,6 +289,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
+@@ -290,6 +290,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
      private int mOneFingerQuickSettingsIntercept;
      private final ContentObserver mOneFingerQuickSettingsInterceptObserver;
  
@@ -55,7 +55,7 @@ index 4cbf77b31e1f..69f723819b4c 100644
      private final Region mInterceptRegion = new Region();
      /** The end bounds of a clipping animation. */
      private final Rect mClippingAnimationEndBounds = new Rect();
-@@ -405,6 +407,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
+@@ -408,6 +410,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
              }
          };
  
@@ -64,7 +64,7 @@ index 4cbf77b31e1f..69f723819b4c 100644
          dumpManager.registerDumpable(this);
      }
  
-@@ -562,8 +566,7 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
+@@ -558,8 +562,7 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
       *  on ACTION_DOWN, and safely queried repeatedly thereafter during ACTION_MOVE events.
       */
      void updateGestureInsetsCache() {
@@ -74,7 +74,7 @@ index 4cbf77b31e1f..69f723819b4c 100644
          mCachedGestureInsets = windowMetrics.getWindowInsets().getInsets(
                  WindowInsets.Type.systemGestures());
          mCachedWindowWidth = windowMetrics.getBounds().width();
-@@ -1598,8 +1601,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
+@@ -1594,8 +1597,8 @@ public class QuickSettingsControllerImpl implements QuickSettingsController, Dum
  
      private int calculateRightClippingBound() {
          if (mIsFullWidth) {
@@ -86,10 +86,10 @@ index 4cbf77b31e1f..69f723819b4c 100644
              return mNotificationStackScrollLayoutController.getRight()
                      + mDisplayLeftInset;
 diff --git a/services/core/java/com/android/server/wm/DisplayPolicy.java b/services/core/java/com/android/server/wm/DisplayPolicy.java
-index dce0d990fba5..f3524e03555b 100644
+index e8711bed182a..54102f90c6d9 100644
 --- a/services/core/java/com/android/server/wm/DisplayPolicy.java
 +++ b/services/core/java/com/android/server/wm/DisplayPolicy.java
-@@ -1445,6 +1445,7 @@ public class DisplayPolicy {
+@@ -1428,6 +1428,7 @@ public class DisplayPolicy {
          displayFrames = win.getDisplayFrames(displayFrames);
  
          final WindowManager.LayoutParams attrs = win.mAttrs.forRotation(displayFrames.mRotation);

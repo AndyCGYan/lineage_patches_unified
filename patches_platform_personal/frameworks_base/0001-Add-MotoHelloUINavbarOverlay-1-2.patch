@@ -1,4 +1,4 @@
-From 499cfbc8edcffa7ef4522b4a02b1c58e84f9829d Mon Sep 17 00:00:00 2001
+From 76c665bd44c8c19a21b5d7ec5111913b21720467 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 22 Apr 2024 23:34:04 +0800
 Subject: [PATCH 01/21] Add MotoHelloUINavbarOverlay (1/2)
@@ -21,10 +21,10 @@ Change-Id: Idd8deb529ab39444737676d7bdba1c52555d6661
  create mode 100644 packages/overlays/MotoHelloUINavbarOverlay/res/drawable/ic_sysbar_recent.xml
 
 diff --git a/packages/overlays/Android.bp b/packages/overlays/Android.bp
-index c975643c90cd..80476c293c76 100644
+index 44d8b200fda1..80b2ac1304e9 100644
 --- a/packages/overlays/Android.bp
 +++ b/packages/overlays/Android.bp
-@@ -29,6 +29,7 @@ phony {
+@@ -30,6 +30,7 @@ phony {
          "DisplayCutoutEmulationTallOverlay",
          "DisplayCutoutEmulationWaterfallOverlay",
          "FontNotoSerifSourceOverlay",

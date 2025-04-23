@@ -1,4 +1,4 @@
-From 4aca9a095f21d5cbf894e936cd7aec0cd0234f6f Mon Sep 17 00:00:00 2001
+From d1ded44e652358c1251a4226e5d0d901c5e0b580 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 5 Sep 2021 01:20:12 +0000
 Subject: [PATCH 13/21] Revert "Update RAT icons to match Silk design"

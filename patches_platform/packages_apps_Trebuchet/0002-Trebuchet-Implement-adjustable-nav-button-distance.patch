@@ -1,0 +1,170 @@
+From d4446515955b4298722170c9875ffbeb7f4ed9b1 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 31 Mar 2025 22:22:26 +0800
+Subject: [PATCH 2/2] Trebuchet: Implement adjustable nav button distance
+
+Google's unintuitive impl assumes BACK and RECENTS are always farthest out - ugly!
+Here we unify the nav button widths, and make the distance between them
+adjustable with a simple ratio x, so the layout becomes:
+[contextual][1-x][BACK][x][HOME][x][RECENTS][1-x][contextual]
+
+Change-Id: Icf63ebd66e3213eaed7607c42a2ddfb972174634
+---
+ .../navbutton/PhoneLandscapeNavLayoutter.kt   | 30 ++++++++-----------
+ .../navbutton/PhonePortraitNavLayoutter.kt    | 30 ++++++++-----------
+ res/values/dimens.xml                         |  1 +
+ 3 files changed, 25 insertions(+), 36 deletions(-)
+
+diff --git a/quickstep/src/com/android/launcher3/taskbar/navbutton/PhoneLandscapeNavLayoutter.kt b/quickstep/src/com/android/launcher3/taskbar/navbutton/PhoneLandscapeNavLayoutter.kt
+index fee5829aed..00cdbd3e1a 100644
+--- a/quickstep/src/com/android/launcher3/taskbar/navbutton/PhoneLandscapeNavLayoutter.kt
++++ b/quickstep/src/com/android/launcher3/taskbar/navbutton/PhoneLandscapeNavLayoutter.kt
+@@ -24,6 +24,7 @@ import android.widget.FrameLayout
+ import android.widget.ImageView
+ import android.widget.LinearLayout
+ import android.widget.Space
++import androidx.core.content.res.ResourcesCompat
+ import com.android.launcher3.R
+ import com.android.launcher3.taskbar.TaskbarActivityContext
+ import com.android.launcher3.taskbar.TaskbarManager.NAV_BAR_INVERSE
+@@ -50,16 +51,14 @@ open class PhoneLandscapeNavLayoutter(
+ 
+     override fun layoutButtons(context: TaskbarActivityContext, isA11yButtonPersistent: Boolean) {
+         val totalHeight = context.deviceProfile.heightPx
+-        val homeButtonHeight =
+-            resources.getDimensionPixelSize(R.dimen.taskbar_phone_home_button_size)
+         val roundedCornerContentMargin =
+             resources.getDimensionPixelSize(R.dimen.taskbar_phone_rounded_corner_content_margin)
+         val contentPadding = resources.getDimensionPixelSize(R.dimen.taskbar_phone_content_padding)
+         val contentWidth = totalHeight - roundedCornerContentMargin * 2 - contentPadding * 2
+ 
+-        // left:back:space(reserved for home):overview:right = 0.25:0.5:1:0.5:0.25
+-        val contextualButtonHeight = contentWidth / (0.25f + 0.5f + 1f + 0.5f + 0.25f) * 0.25f
+-        val sideButtonHeight = contextualButtonHeight * 2
++        val navButtonHeight =
++            resources.getDimensionPixelSize(R.dimen.taskbar_phone_home_button_size)
++        val contextualButtonHeight = navButtonHeight * 0.5f
+         val navButtonContainerHeight = contentWidth - contextualButtonHeight * 2
+ 
+         val navContainerParams =
+@@ -83,28 +82,23 @@ open class PhoneLandscapeNavLayoutter(
+         navButtonContainer.gravity = Gravity.CENTER
+ 
+         // Add the spaces in between the nav buttons
+-        val spaceInBetween =
+-            (navButtonContainerHeight - homeButtonHeight - sideButtonHeight * 2) / 2.0f
++        // Control the distance with navButtonDistanceRatio
++        // 0f for closest, 1f for farthest
++        val spaceRemaining = (navButtonContainerHeight - navButtonHeight * 3) / 2.0f
++        val navButtonDistanceRatio = ResourcesCompat.getFloat(resources, R.dimen.taskbar_phone_nav_button_distance_ratio)
++        val spaceInBetween = (spaceRemaining * navButtonDistanceRatio).toInt()
+         for (i in 0 until navButtonContainer.childCount) {
+             val navButton = navButtonContainer.getChildAt(i)
+             val buttonLayoutParams = navButton.layoutParams as LinearLayout.LayoutParams
+-            val margin = (spaceInBetween / 2).toInt()
++            buttonLayoutParams.height = navButtonHeight
+             when (i) {
+                 0 -> {
+                     // First button
+-                    buttonLayoutParams.bottomMargin = margin
+-                    buttonLayoutParams.height = sideButtonHeight.toInt()
++                    buttonLayoutParams.bottomMargin = spaceInBetween
+                 }
+                 navButtonContainer.childCount - 1 -> {
+                     // Last button
+-                    buttonLayoutParams.topMargin = margin
+-                    buttonLayoutParams.height = sideButtonHeight.toInt()
+-                }
+-                else -> {
+-                    // other buttons
+-                    buttonLayoutParams.topMargin = margin
+-                    buttonLayoutParams.bottomMargin = margin
+-                    buttonLayoutParams.height = homeButtonHeight
++                    buttonLayoutParams.topMargin = spaceInBetween
+                 }
+             }
+         }
+diff --git a/quickstep/src/com/android/launcher3/taskbar/navbutton/PhonePortraitNavLayoutter.kt b/quickstep/src/com/android/launcher3/taskbar/navbutton/PhonePortraitNavLayoutter.kt
+index afe47ecd50..1f2910b667 100644
+--- a/quickstep/src/com/android/launcher3/taskbar/navbutton/PhonePortraitNavLayoutter.kt
++++ b/quickstep/src/com/android/launcher3/taskbar/navbutton/PhonePortraitNavLayoutter.kt
+@@ -24,6 +24,7 @@ import android.widget.FrameLayout
+ import android.widget.ImageView
+ import android.widget.LinearLayout
+ import android.widget.Space
++import androidx.core.content.res.ResourcesCompat
+ import com.android.launcher3.R
+ import com.android.launcher3.taskbar.TaskbarActivityContext
+ import com.android.launcher3.taskbar.TaskbarManager.NAV_BAR_INVERSE
+@@ -50,16 +51,14 @@ class PhonePortraitNavLayoutter(
+ 
+     override fun layoutButtons(context: TaskbarActivityContext, isA11yButtonPersistent: Boolean) {
+         val totalWidth = context.deviceProfile.widthPx
+-        val homeButtonWidth =
+-            resources.getDimensionPixelSize(R.dimen.taskbar_phone_home_button_size)
+         val roundedCornerContentMargin =
+             resources.getDimensionPixelSize(R.dimen.taskbar_phone_rounded_corner_content_margin)
+         val contentPadding = resources.getDimensionPixelSize(R.dimen.taskbar_phone_content_padding)
+         val contentWidth = totalWidth - roundedCornerContentMargin * 2 - contentPadding * 2
+ 
+-        // left:back:space(reserved for home):overview:right = 0.25:0.5:1:0.5:0.25
+-        val contextualButtonWidth = contentWidth / (0.25f + 0.5f + 1f + 0.5f + 0.25f) * 0.25f
+-        val sideButtonWidth = contextualButtonWidth * 2
++        val navButtonWidth =
++            resources.getDimensionPixelSize(R.dimen.taskbar_phone_home_button_size)
++        val contextualButtonWidth = navButtonWidth * 0.5f
+         val navButtonContainerWidth = contentWidth - contextualButtonWidth * 2
+ 
+         val navContainerParams =
+@@ -94,28 +93,23 @@ class PhonePortraitNavLayoutter(
+         navButtonContainer.gravity = Gravity.CENTER
+ 
+         // Add the spaces in between the nav buttons
+-        val spaceInBetween =
+-            (navButtonContainerWidth - homeButtonWidth - sideButtonWidth * 2) / 2.0f
++        // Control the distance with navButtonDistanceRatio
++        // 0f for closest, 1f for farthest
++        val spaceRemaining = (navButtonContainerWidth - navButtonWidth * 3) / 2.0f
++        val navButtonDistanceRatio = ResourcesCompat.getFloat(resources, R.dimen.taskbar_phone_nav_button_distance_ratio)
++        val spaceInBetween = (spaceRemaining * navButtonDistanceRatio).toInt()
+         for (i in 0 until navButtonContainer.childCount) {
+             val navButton = navButtonContainer.getChildAt(i)
+             val buttonLayoutParams = navButton.layoutParams as LinearLayout.LayoutParams
+-            val margin = (spaceInBetween / 2).toInt()
++            buttonLayoutParams.width = navButtonWidth
+             when (i) {
+                 0 -> {
+                     // First button
+-                    buttonLayoutParams.marginEnd = margin
+-                    buttonLayoutParams.width = sideButtonWidth.toInt()
++                    buttonLayoutParams.marginEnd = spaceInBetween
+                 }
+                 navButtonContainer.childCount - 1 -> {
+                     // Last button
+-                    buttonLayoutParams.marginStart = margin
+-                    buttonLayoutParams.width = sideButtonWidth.toInt()
+-                }
+-                else -> {
+-                    // other buttons
+-                    buttonLayoutParams.marginStart = margin
+-                    buttonLayoutParams.marginEnd = margin
+-                    buttonLayoutParams.width = homeButtonWidth
++                    buttonLayoutParams.marginStart = spaceInBetween
+                 }
+             }
+         }
+diff --git a/res/values/dimens.xml b/res/values/dimens.xml
+index a61c1a40e3..80cbd90ac2 100644
+--- a/res/values/dimens.xml
++++ b/res/values/dimens.xml
+@@ -434,6 +434,7 @@
+     <dimen name="taskbar_size">0dp</dimen>
+     <dimen name="taskbar_phone_size">@*android:dimen/navigation_bar_frame_height</dimen>
+     <dimen name="taskbar_phone_home_button_size">80dp</dimen>
++    <item name="taskbar_phone_nav_button_distance_ratio" format="float" type="dimen">0.3</item>
+     <dimen name="taskbar_phone_content_padding">8dp</dimen>
+     <dimen name="taskbar_phone_rounded_corner_content_margin">
+         @*android:dimen/rounded_corner_content_padding
+-- 
+2.34.1
+

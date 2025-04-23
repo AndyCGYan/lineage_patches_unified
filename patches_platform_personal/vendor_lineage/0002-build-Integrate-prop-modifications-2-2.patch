@@ -1,18 +1,18 @@
-From 04c028bc6051d54bf640a5beb2de1811039ab9e0 Mon Sep 17 00:00:00 2001
+From 3b4c1a60e156795f29cb7cb76c542cca741ba2e2 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 20 Jun 2021 09:09:15 +0000
 Subject: [PATCH 2/5] build: Integrate prop modifications (2/2)
 
 Change-Id: I076973f902ab20011964e50955e4326c18d5b34e
 ---
- config/version.mk | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ config/version.mk | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/config/version.mk b/config/version.mk
-index 40703940..b054389c 100644
+index a142fdb2..bc90c9a7 100644
 --- a/config/version.mk
 +++ b/config/version.mk
-@@ -38,9 +38,7 @@ LINEAGE_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(LINEAGE_V
+@@ -38,8 +38,7 @@ LINEAGE_VERSION := $(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR)-$(LINEAGE_V
  LINEAGE_DISPLAY_VERSION := $(PRODUCT_VERSION_MAJOR)-$(LINEAGE_VERSION_SUFFIX)
  
  # LineageOS version properties
@@ -21,9 +21,7 @@ index 40703940..b054389c 100644
 -    ro.lineage.version=$(LINEAGE_VERSION) \
 -    ro.lineage.display.version=$(LINEAGE_DISPLAY_VERSION) \
      ro.lineage.build.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR) \
--    ro.lineage.releasetype=$(LINEAGE_BUILDTYPE) \
--    ro.modversion=$(LINEAGE_VERSION)
-+    ro.lineage.releasetype=$(LINEAGE_BUILDTYPE)
+     ro.lineage.releasetype=$(LINEAGE_BUILDTYPE)
 -- 
 2.34.1
 

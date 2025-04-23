@@ -1,4 +1,4 @@
-From 4b8bbfdd642f7bb50a65aaa058e37c45fb97c6a4 Mon Sep 17 00:00:00 2001
+From 5f086d1ac725489f8c132ef827f8d94cfb669c97 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 22 Mar 2023 00:29:13 +0000
 Subject: [PATCH 20/21] UI: Restore quick settings fonts to pre-T-QPR2
@@ -10,10 +10,10 @@ Change-Id: If2e57fee61b6bd4b6b7fedc7e3011164cd2cb56f
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index a698e766e9a5..549be1f89590 100644
+index 3cc2f748a19b..ca85a7f7361e 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
-@@ -147,7 +147,7 @@
+@@ -161,7 +161,7 @@
      <!-- This is hard coded to be sans-serif-condensed to match the icons -->
  
      <style name="TextAppearance.QS.Status">
@@ -22,7 +22,7 @@ index a698e766e9a5..549be1f89590 100644
          <item name="android:textColor">?attr/onSurface</item>
          <item name="android:textSize">14sp</item>
          <item name="android:letterSpacing">0.01</item>
-@@ -160,6 +160,7 @@
+@@ -174,6 +174,7 @@
      </style>
  
      <style name="TextAppearance.QS.Status.Build">

@@ -1,4 +1,4 @@
-From 2dcf98114aa22c1adf5c077ddae57c44dd80db60 Mon Sep 17 00:00:00 2001
+From 7b94a4d1966318b430cde03ed7450536dd125a0b Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 28 Dec 2024 22:45:59 +0800
 Subject: [PATCH 10/21] Keyguard: Restore carrier text font to pre-V-QPR1
@@ -24,7 +24,7 @@ index 4cb7591a3502..d5f9d4cc0954 100644
          android:singleLine="true"
          systemui:showMissingSim="true"
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index e351d0e8ccf8..a698e766e9a5 100644
+index 6376a9eccb77..3cc2f748a19b 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
 @@ -23,6 +23,10 @@
@@ -39,10 +39,10 @@ index e351d0e8ccf8..a698e766e9a5 100644
          <item name="android:textSize">@dimen/status_bar_user_chip_text_size</item>
          <item name="android:fontFamily">@*android:string/config_headlineFontFamilyMedium</item>
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-index e9eac15ec4d5..4b1687a12f86 100644
+index 1bfb3d288764..d87a0e07909c 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/phone/KeyguardStatusBarView.java
-@@ -432,7 +432,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
+@@ -437,7 +437,7 @@ public class KeyguardStatusBarView extends RelativeLayout {
  
      /** Should only be called from {@link KeyguardStatusBarViewController}. */
      void onOverlayChanged() {

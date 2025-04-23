@@ -1,7 +1,7 @@
-From 6841d3af9965ab356fac6ac292dff230a9edfa98 Mon Sep 17 00:00:00 2001
+From b3c3713bc8c1a0c058a5891bf2c6867442e8dd03 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 19 Mar 2022 09:22:24 +0000
-Subject: [PATCH 07/20] UI: Adjust split-screen divider
+Subject: [PATCH 07/19] UI: Adjust split-screen divider
 
 - Kill rounded corners - where two rectangles collide should be perfectly straight
 - Make it black (pre-Sv2) for phones
@@ -163,10 +163,10 @@ index b7aa1581a5c1..44e6d33d5723 100644
      <color name="minimize_dock_shadow_start">#60000000</color>
      <color name="minimize_dock_shadow_end">#00000000</color>
 diff --git a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-index 4b55fd0f5527..a13d621ab7ba 100644
+index e6b6ef737f6e..f558c039fd23 100644
 --- a/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
 +++ b/libs/WindowManager/Shell/src/com/android/wm/shell/common/split/SplitLayout.java
-@@ -202,23 +202,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
+@@ -243,23 +243,8 @@ public final class SplitLayout implements DisplayInsetsController.OnInsetsChange
      }
  
      private void updateDividerConfig(Context context) {
@@ -191,7 +191,7 @@ index 4b55fd0f5527..a13d621ab7ba 100644
 +                R.dimen.split_divider_bar_width);
      }
  
-     /** Gets bounds of the primary split with screen based coordinate. */
+     /** Gets the bounds of the top/left app in screen-based coordinates. */
 -- 
 2.34.1
 

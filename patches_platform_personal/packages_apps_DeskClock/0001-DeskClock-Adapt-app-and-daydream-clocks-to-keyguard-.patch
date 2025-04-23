@@ -1,4 +1,4 @@
-From bad09e23722dbcc31f521e5a1e64cfa567349e5e Mon Sep 17 00:00:00 2001
+From e8b3a0e8740f51e7e942cbe0734dfe3b09c0b7d6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 19 Jan 2022 18:04:36 +0000
 Subject: [PATCH] DeskClock: Adapt app and daydream clocks to keyguard style
@@ -13,12 +13,12 @@ Change-Id: Id9ab04d48b7cd67f7a2925db9b8d4e1f4cf6506c
  res/values/dimens.xml                         | 12 ++++-
  res/values/donottranslate.xml                 |  2 +-
  res/values/styles.xml                         | 18 +++++++
- res/xml/screensaver_settings.xml              | 18 -------
+ res/xml/screensaver_settings.xml              | 16 ------
  src/com/android/deskclock/AlarmUtils.java     |  2 +-
  src/com/android/deskclock/ClockFragment.java  |  3 --
  src/com/android/deskclock/Utils.java          | 35 ++----------
  .../android/deskclock/data/SettingsDAO.java   |  2 +-
- 11 files changed, 76 insertions(+), 115 deletions(-)
+ 11 files changed, 76 insertions(+), 113 deletions(-)
 
 diff --git a/res/layout/date_and_next_alarm_time.xml b/res/layout/date_and_next_alarm_time.xml
 index 9a0cb9103..b29ffedcf 100644
@@ -241,10 +241,10 @@ index 3cb625ba6..b46916317 100644
 +    </style>
  </resources>
 diff --git a/res/xml/screensaver_settings.xml b/res/xml/screensaver_settings.xml
-index 6a71a2d55..6ff998bfb 100644
+index 754c6980b..f57d3beb8 100644
 --- a/res/xml/screensaver_settings.xml
 +++ b/res/xml/screensaver_settings.xml
-@@ -34,24 +34,6 @@
+@@ -35,22 +35,6 @@
          android:title="@string/clock_color_title"
          app:iconSpaceReserved="false" />
  
@@ -253,7 +253,6 @@ index 6a71a2d55..6ff998bfb 100644
 -        android:layout_height="wrap_content"
 -        android:defaultValue="@bool/default_clock_bold_text"
 -        android:key="screensaver_bold_text"
--        android:summary="@string/bold_text_summary"
 -        android:title="@string/bold_text_title"
 -        app:iconSpaceReserved="false" />
 -
@@ -262,7 +261,6 @@ index 6a71a2d55..6ff998bfb 100644
 -        android:layout_height="wrap_content"
 -        android:defaultValue="@bool/default_clock_show_ampm"
 -        android:key="screensaver_show_ampm"
--        android:summary="@string/show_ampm_summary"
 -        android:title="@string/show_ampm_title"
 -        app:iconSpaceReserved="false" />
 -

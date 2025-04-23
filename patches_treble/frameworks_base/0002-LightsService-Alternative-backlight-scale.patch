@@ -1,4 +1,4 @@
-From f2b671435968f7693c6950d58ee06b42c1f38aef Mon Sep 17 00:00:00 2001
+From d5c22690f4764b2a011689939e4e9d71ab60f181 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
 Subject: [PATCH 2/6] LightsService: Alternative backlight scale

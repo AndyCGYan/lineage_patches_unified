@@ -1,7 +1,7 @@
-From f350a29f4c055e317086f9702f87e4801163409b Mon Sep 17 00:00:00 2001
+From bcaff04906394ebbfc0acc1f6303af33031ffe00 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 May 2024 21:34:17 +0800
-Subject: [PATCH 2/3] SurfaceFlinger: Disable SF HWC backpressure
+Subject: [PATCH 2/7] SurfaceFlinger: Disable SF HWC backpressure
 
 Change-Id: I5b99a2b860b1387ef5b589cb5b7b1d3ff0cfeee8
 ---
@@ -9,7 +9,7 @@ Change-Id: I5b99a2b860b1387ef5b589cb5b7b1d3ff0cfeee8
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp b/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
-index 3ee1e541c3..077065dd76 100644
+index 50199492cb..7e3b2dc399 100644
 --- a/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
 +++ b/services/surfaceflinger/Scheduler/src/FrameTargeter.cpp
 @@ -14,6 +14,7 @@
@@ -28,7 +28,7 @@ index 3ee1e541c3..077065dd76 100644
  
  FrameTarget::FrameTarget(const std::string& displayLabel)
        : mFramePending("PrevFramePending " + displayLabel, false),
-@@ -36,7 +38,7 @@ FrameTarget::expectedSignaledPresentFence(Period vsyncPeriod, Period minFramePer
+@@ -37,7 +39,7 @@ FrameTarget::expectedSignaledPresentFence(Period vsyncPeriod, Period minFramePer
          return {true, mPresentFencesLegacy[i]};
      }
  

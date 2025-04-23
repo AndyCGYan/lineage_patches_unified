@@ -1,7 +1,7 @@
-From 218752f163b7e239febd97cf52c500a24913b9a4 Mon Sep 17 00:00:00 2001
+From 5a2568331927f9da80350f2d052f9af0bf1253d9 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 25 Sep 2022 02:20:52 +0000
-Subject: [PATCH 09/20] UI: Follow Monet and light/dark theme in user 1 icon
+Subject: [PATCH 09/19] UI: Follow Monet and light/dark theme in user 1 icon
 
 Change-Id: I755077c6003c39ddc9428da1defe6a6ddd0e5ff8
 ---
@@ -22,7 +22,7 @@ index d3f998fb70cf..4f7b9e093bb7 100644
      <color name="user_icon_6">#ff4ecde6</color><!-- cyan -->
      <color name="user_icon_7">#fffbbc04</color><!-- yellow -->
 diff --git a/core/res/res/values/colors.xml b/core/res/res/values/colors.xml
-index f5bb554b0b32..bf50b1ad1bdb 100644
+index 13dd4a35564c..1669142e4a97 100644
 --- a/core/res/res/values/colors.xml
 +++ b/core/res/res/values/colors.xml
 @@ -177,7 +177,7 @@

@@ -1,4 +1,4 @@
-From 35302bf8caa490165c71e7fbca0147cffcbdbf50 Mon Sep 17 00:00:00 2001
+From 1639299ac4f9611583ea8b267d3bc13bcf9b12e1 Mon Sep 17 00:00:00 2001
 From: Luca Stefani <luca.stefani.ge1@gmail.com>
 Date: Sat, 28 Mar 2020 15:10:57 +0100
 Subject: [PATCH 2/2] Properly set conversation as read

@@ -1,4 +1,4 @@
-From f262894a91dc56eb81e0322904c285758711fbda Mon Sep 17 00:00:00 2001
+From 7f3e484e05dfa93c07d1e75ffdf0f143c720a3c5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 09/21] Keyguard: Refine indication text
@@ -9,9 +9,9 @@ Change-Id: Ib771c35610f712a1de34736e817bcfe616ac37d8
  .../res/layout/keyguard_bottom_area.xml       |  1 +
  packages/SystemUI/res/values/dimens.xml       |  2 +-
  .../ui/view/KeyguardIndicationArea.kt         |  2 +
- .../KeyguardIndicationController.java         | 37 ++++---------------
+ .../KeyguardIndicationController.java         | 38 ++++---------------
  .../phone/KeyguardIndicationTextView.java     |  2 +-
- 6 files changed, 12 insertions(+), 34 deletions(-)
+ 6 files changed, 12 insertions(+), 35 deletions(-)
 
 diff --git a/packages/SystemUI/res-keyguard/values/styles.xml b/packages/SystemUI/res-keyguard/values/styles.xml
 index e7d9c1ad361f..8bc2af227824 100644
@@ -39,17 +39,17 @@ index e602d6c8848d..d9edcf1d4b11 100644
              android:paddingEnd="@dimen/keyguard_indication_text_padding"
              android:textAppearance="@style/TextAppearance.Keyguard.BottomArea"
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 1908aa687998..aee54b5857fd 100644
+index e9ee1e809e1e..1b53deead5a3 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -927,7 +927,7 @@
+@@ -956,7 +956,7 @@
  
      <dimen name="keyguard_translate_distance_on_swipe_up">-200dp</dimen>
  
 -    <dimen name="keyguard_indication_margin_bottom">32dp</dimen>
 +    <dimen name="keyguard_indication_margin_bottom">16dp</dimen>
-     <dimen name="lock_icon_margin_bottom">74dp</dimen>
      <dimen name="ambient_indication_margin_bottom">71dp</dimen>
+ 
  
 diff --git a/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt b/packages/SystemUI/src/com/android/systemui/keyguard/ui/view/KeyguardIndicationArea.kt
 index a53c6d77d328..e0ed5180aef7 100644
@@ -66,10 +66,10 @@ index a53c6d77d328..e0ed5180aef7 100644
              val padding = R.dimen.keyguard_indication_text_padding.dp()
              setPaddingRelative(padding, 0, padding, 0)
 diff --git a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-index 47812adaea00..10dba98e7e33 100644
+index 4bac6d5c1b40..9bc593867bff 100644
 --- a/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
 +++ b/packages/SystemUI/src/com/android/systemui/statusbar/KeyguardIndicationController.java
-@@ -488,7 +488,6 @@ public class KeyguardIndicationController {
+@@ -489,7 +489,6 @@ public class KeyguardIndicationController {
          updateLockScreenDisclosureMsg();
          updateLockScreenOwnerInfo();
          updateLockScreenBatteryMsg(animate);
@@ -77,15 +77,16 @@ index 47812adaea00..10dba98e7e33 100644
          updateLockScreenTrustMsg(userId, getTrustGrantedIndication(), getTrustManagedIndication());
          updateLockScreenAlignmentMsg();
          updateLockScreenLogoutView();
-@@ -633,24 +632,6 @@ public class KeyguardIndicationController {
+@@ -634,25 +633,6 @@ public class KeyguardIndicationController {
          }
      }
  
 -    private void updateLockScreenUserLockedMsg(int userId) {
--        boolean userUnlocked = mKeyguardUpdateMonitor.isUserUnlocked(userId);
+-        boolean userStorageUnlocked = mKeyguardUpdateMonitor.isUserUnlocked(userId);
 -        boolean encryptedOrLockdown = mKeyguardUpdateMonitor.isEncryptedOrLockdown(userId);
--        mKeyguardLogger.logUpdateLockScreenUserLockedMsg(userId, userUnlocked, encryptedOrLockdown);
--        if (!userUnlocked || encryptedOrLockdown) {
+-        mKeyguardLogger.logUpdateLockScreenUserLockedMsg(userId, userStorageUnlocked,
+-                encryptedOrLockdown);
+-        if (!userStorageUnlocked || encryptedOrLockdown) {
 -            mRotateTextViewController.updateIndication(
 -                    INDICATION_TYPE_USER_LOCKED,
 -                    new KeyguardIndication.Builder()
@@ -102,7 +103,7 @@ index 47812adaea00..10dba98e7e33 100644
      private void updateBiometricMessage() {
          if (mDozing) {
              updateDeviceEntryIndication(false);
-@@ -744,17 +725,13 @@ public class KeyguardIndicationController {
+@@ -746,17 +726,13 @@ public class KeyguardIndicationController {
      }
  
      private void updateLockScreenPersistentUnlockMsg() {

@@ -1,4 +1,4 @@
-From 2226688de6838f38e632983557b7ed117cedc115 Mon Sep 17 00:00:00 2001
+From f0a00594e9b4798ce5177f70406d15ced9a6e458 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 18 Mar 2022 08:42:18 +0000
 Subject: [PATCH 2/3] Trebuchet: Kill haptics in recents
@@ -13,7 +13,7 @@ Change-Id: Ie3b0eabe8cc0421e696720740edc492cae2f5153
  3 files changed, 1 insertion(+), 32 deletions(-)
 
 diff --git a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
-index 9164405f1a..71195132a3 100644
+index 9dec33260c..11384e0398 100644
 --- a/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
 +++ b/quickstep/src/com/android/launcher3/uioverrides/touchcontrollers/NoButtonQuickSwitchTouchController.java
 @@ -441,14 +441,7 @@ public class NoButtonQuickSwitchTouchController implements TouchController,
@@ -49,10 +49,10 @@ index 202276e1e9..dfcd6005bb 100644
          mDraggingEnabled = true;
      }
 diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
-index 658d3c4ad0..291243cfbb 100644
+index 3e9888f9e4..c79fc30b1f 100644
 --- a/quickstep/src/com/android/quickstep/views/RecentsView.java
 +++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
-@@ -1723,25 +1723,6 @@ public abstract class RecentsView<
+@@ -1750,25 +1750,6 @@ public abstract class RecentsView<
          }
      }
  

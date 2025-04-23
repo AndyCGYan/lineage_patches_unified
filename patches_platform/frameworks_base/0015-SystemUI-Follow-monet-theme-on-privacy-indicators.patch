@@ -1,7 +1,7 @@
-From c39dcb9fd44df13ca9236df9a5e798b7f9ca64cd Mon Sep 17 00:00:00 2001
+From a0e9dd3d95fac6c3cc43cd29ba1051f314fdca31 Mon Sep 17 00:00:00 2001
 From: minaripenguin <minaripenguin@users.noreply.github.com>
 Date: Fri, 24 Mar 2023 13:04:06 +0800
-Subject: [PATCH 16/20] SystemUI: Follow monet theme on privacy indicators
+Subject: [PATCH 15/19] SystemUI: Follow monet theme on privacy indicators
 
 Change-Id: Ib713cb3283fcf3a49086c5da8360d2a1b6cd6704
 Signed-off-by: minaripenguin <minaripenguin@users.noreply.github.com>

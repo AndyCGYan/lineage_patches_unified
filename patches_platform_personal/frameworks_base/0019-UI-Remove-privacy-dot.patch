@@ -1,4 +1,4 @@
-From a0ee46f3bb14fad2aacb55c4cc70d0a6058751d6 Mon Sep 17 00:00:00 2001
+From 1b679003e4c16bb6c98cbc8c097db014c6bb1797 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Tue, 19 Oct 2021 12:09:34 +0000
 Subject: [PATCH 19/21] UI: Remove privacy dot
@@ -9,10 +9,10 @@ Change-Id: I5d2e2b3e36f027b4348a83030d4b4d3c4f0209d1
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/packages/SystemUI/res/values/dimens.xml b/packages/SystemUI/res/values/dimens.xml
-index 2c3405333f78..2c3dcb55b1a5 100644
+index 63bc80bba506..8d9e1cf4355e 100644
 --- a/packages/SystemUI/res/values/dimens.xml
 +++ b/packages/SystemUI/res/values/dimens.xml
-@@ -1213,12 +1213,12 @@
+@@ -1244,12 +1244,12 @@
      <dimen name="ongoing_appops_chip_min_width">56dp</dimen>
      <!--  Three privacy items. This value must not be exceeded  -->
      <dimen name="ongoing_appops_chip_max_width">76dp</dimen>

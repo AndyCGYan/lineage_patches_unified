@@ -1,7 +1,7 @@
-From 14e90add62712daaf5743210f13835146ddef322 Mon Sep 17 00:00:00 2001
+From 6defad7bb211cb6248e8d4dfe2ba91dce1bdd2d6 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Fri, 13 Sep 2024 08:10:14 +0800
-Subject: [PATCH 01/20] Add DisplayCutoutEmulationNoneOverlay
+Subject: [PATCH 01/19] Add DisplayCutoutEmulationNoneOverlay
 
 Unlike AvoidAppsInCutoutOverlay or NoCutoutOverlay, this overlay simply
 removes cutout definitions, making full display area usable
@@ -23,10 +23,10 @@ Change-Id: I5e95bbd2dabcecbfdf8e25dea68acc86acf8fe48
  create mode 100644 packages/overlays/DisplayCutoutEmulationNoneOverlay/res/values/strings.xml
 
 diff --git a/packages/overlays/Android.bp b/packages/overlays/Android.bp
-index 5075f6322d1b..c975643c90cd 100644
+index 44abb9ffb34f..44d8b200fda1 100644
 --- a/packages/overlays/Android.bp
 +++ b/packages/overlays/Android.bp
-@@ -25,6 +25,7 @@ phony {
+@@ -26,6 +26,7 @@ phony {
          "DisplayCutoutEmulationCornerOverlay",
          "DisplayCutoutEmulationDoubleOverlay",
          "DisplayCutoutEmulationHoleOverlay",

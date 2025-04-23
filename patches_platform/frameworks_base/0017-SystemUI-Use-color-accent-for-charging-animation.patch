@@ -1,7 +1,7 @@
-From 6e8a65cd2b49c088984c23d9119c2dae6cafbbb5 Mon Sep 17 00:00:00 2001
+From 4d82aaa847610c0a7ad96602e855619b6bf4c716 Mon Sep 17 00:00:00 2001
 From: Genkzsz11 <genkzsz11@gmail.com>
 Date: Sat, 16 Apr 2022 00:18:51 +0700
-Subject: [PATCH 18/20] SystemUI: Use color accent for charging animation
+Subject: [PATCH 17/19] SystemUI: Use color accent for charging animation
 
 Change-Id: Ideade5e9375510a31496ad75c5b74f12444350c9
 Signed-off-by: Omkar Chandorkar <gotenksIN@aosip.dev>
@@ -12,10 +12,10 @@ Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
  2 files changed, 5 insertions(+), 10 deletions(-)
 
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index a02c35461031..47c2d36ba0a3 100644
+index 46d89f4552c0..bf0c9cc198bc 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
-@@ -910,14 +910,9 @@
+@@ -945,14 +945,9 @@
      <!-- Used to style charging animation AVD animation -->
      <style name="ChargingAnim" />
  

@@ -1,0 +1,37 @@
+From ea23c2ebede8e069daa64adca05b03b976fe4e7e Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 30 Mar 2025 21:54:55 +0800
+Subject: [PATCH] Aperture: Override Camera2
+
+Also add a phony target for it
+
+Change-Id: I898374b48ecf3341732c1512969c51aaeea349ae
+---
+ app/Android.bp | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/app/Android.bp b/app/Android.bp
+index e833153..fb7218e 100644
+--- a/app/Android.bp
++++ b/app/Android.bp
+@@ -66,6 +66,17 @@ android_app {
+         proguard_flags_files: ["proguard-rules.pro"],
+         shrink_resources: true,
+     },
++
++    overrides: [
++        "Camera2",
++    ],
++}
++
++phony {
++    name: "Camera2",
++    required: [
++        "Aperture",
++    ],
+ }
+ 
+ prebuilt_etc {
+-- 
+2.34.1
+

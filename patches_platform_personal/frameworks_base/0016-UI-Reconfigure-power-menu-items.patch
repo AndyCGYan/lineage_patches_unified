@@ -1,4 +1,4 @@
-From bdf29521dea939dba5097e73b719d0bef9e8485d Mon Sep 17 00:00:00 2001
+From fcb966d575c855b72f56d97d0b3af91afabdaaf1 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 26 Oct 2020 14:06:56 +0000
 Subject: [PATCH 16/21] UI: Reconfigure power menu items
@@ -9,10 +9,10 @@ Change-Id: I32cca6e2c6bb64d891efee959127edf7c0802cbc
  1 file changed, 1 insertion(+), 4 deletions(-)
 
 diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
-index 269c71dc9341..f52fa22ebeca 100644
+index 6162bf02c4c5..c86e47ddb2d5 100644
 --- a/core/res/res/values/config.xml
 +++ b/core/res/res/values/config.xml
-@@ -3667,13 +3667,10 @@
+@@ -3707,13 +3707,10 @@
           "system_update" = Launch System Update screen
           -->
      <string-array translatable="false" name="config_globalActionsList">

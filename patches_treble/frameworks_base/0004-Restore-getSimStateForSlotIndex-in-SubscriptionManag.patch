@@ -1,4 +1,4 @@
-From b1f7c0a4d99d3b14d143980af414d2adca441a4f Mon Sep 17 00:00:00 2001
+From bf16e58331b3d5e4d9026630fc58013c16264408 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 2 Aug 2023 20:59:53 +0800
 Subject: [PATCH 4/6] Restore getSimStateForSlotIndex in SubscriptionManager
@@ -11,10 +11,10 @@ Change-Id: I41bac57c68055f369232359a464642daab94403b
  1 file changed, 14 insertions(+)
 
 diff --git a/telephony/java/android/telephony/SubscriptionManager.java b/telephony/java/android/telephony/SubscriptionManager.java
-index c5f2d42389e5..1324741145bd 100644
+index e0af22369182..2175b3d9667c 100644
 --- a/telephony/java/android/telephony/SubscriptionManager.java
 +++ b/telephony/java/android/telephony/SubscriptionManager.java
-@@ -2902,6 +2902,20 @@ public class SubscriptionManager {
+@@ -2913,6 +2913,20 @@ public class SubscriptionManager {
          return TelephonyManager.getDefault().isNetworkRoaming(subId);
      }
  
