@@ -1,4 +1,4 @@
-From 560702e79e667348a4487f4d34dd6ee2dba5d828 Mon Sep 17 00:00:00 2001
+From 908a15355082951698fd0a904ddcad8b217c2018 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 7 Oct 2020 14:00:35 +0000
 Subject: [PATCH 14/21] UI: Always render into cutouts

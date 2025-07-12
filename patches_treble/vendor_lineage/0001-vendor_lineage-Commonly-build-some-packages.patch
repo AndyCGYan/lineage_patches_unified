@@ -1,7 +1,7 @@
-From f3ffdeec910a9d36e92c88071c95016c3ecf2e1c Mon Sep 17 00:00:00 2001
+From b80f5e0f2dd33d08b7137a6d049308b4019bf8f0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Sep 2022 11:40:52 +0000
-Subject: [PATCH 1/2] vendor_lineage: Commonly build some packages
+Subject: [PATCH] vendor_lineage: Commonly build some packages
 
 These were in handheld_product.mk and thus weren't included in GSI targets:
 Contacts, DeskClock, Gallery2, SettingsIntelligence, fwb overlays
@@ -29,10 +29,10 @@ index f7eecd84..51e1e022 100644
      Recorder \
      Seedvault
 diff --git a/config/common_mobile.mk b/config/common_mobile.mk
-index 560074e4..9f3ae002 100644
+index 4e898b4b..8dc5bf5a 100644
 --- a/config/common_mobile.mk
 +++ b/config/common_mobile.mk
-@@ -15,7 +15,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
+@@ -16,7 +16,9 @@ PRODUCT_PRODUCT_PROPERTIES += \
  # Apps
  PRODUCT_PACKAGES += \
      Backgrounds \

@@ -1,0 +1,32 @@
+From 74f19a6800e3a565be1952d8e070f0deb05384b4 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 1 Jun 2024 17:56:42 +0800
+Subject: [PATCH 05/21] Disable wake on gamepad L/R keys
+
+Change-Id: I16cf69f07f205619a75111831de808748ee5795b
+---
+ .../com/android/server/policy/PhoneWindowManager.java     | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/services/core/java/com/android/server/policy/PhoneWindowManager.java b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+index 936d14d6ae12..3e911d373d7c 100644
+--- a/services/core/java/com/android/server/policy/PhoneWindowManager.java
++++ b/services/core/java/com/android/server/policy/PhoneWindowManager.java
+@@ -5465,6 +5465,14 @@ public class PhoneWindowManager implements WindowManagerPolicy {
+             case KeyEvent.KEYCODE_STYLUS_BUTTON_TERTIARY:
+             case KeyEvent.KEYCODE_STYLUS_BUTTON_TAIL:
+                 return mStylusButtonsEnabled;
++
++            case KeyEvent.KEYCODE_BUTTON_L1:
++            case KeyEvent.KEYCODE_BUTTON_R1:
++            case KeyEvent.KEYCODE_BUTTON_L2:
++            case KeyEvent.KEYCODE_BUTTON_R2:
++            case KeyEvent.KEYCODE_BUTTON_THUMBL:
++            case KeyEvent.KEYCODE_BUTTON_THUMBR:
++                return false;
+         }
+ 
+         return true;
+-- 
+2.34.1
+

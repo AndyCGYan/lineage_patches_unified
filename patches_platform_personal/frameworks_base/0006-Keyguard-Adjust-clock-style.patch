@@ -1,4 +1,4 @@
-From 47391e102c2ab15bdf913a9856e20dba82668472 Mon Sep 17 00:00:00 2001
+From d5233bc470b89e74a91759f57a00901948df524c Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 2 Sep 2021 16:15:19 +0000
 Subject: [PATCH 06/21] Keyguard: Adjust clock style
@@ -14,11 +14,11 @@ Change-Id: I21e5d5bf37d724e75ebce4cd89349e0cc4dfc910
  .../android/systemui/shared/clocks/DefaultClockController.kt | 4 ++--
  .../SystemUI/res-keyguard/layout/keyguard_clock_switch.xml   | 2 +-
  .../SystemUI/res-keyguard/layout/keyguard_slice_view.xml     | 2 +-
- packages/SystemUI/res-keyguard/values/dimens.xml             | 2 +-
+ packages/SystemUI/res-keyguard/values/dimens.xml             | 4 ++--
  packages/SystemUI/res-keyguard/values/styles.xml             | 2 --
  packages/SystemUI/res/layout/keyguard_status_bar.xml         | 2 +-
  packages/SystemUI/res/values/styles.xml                      | 4 ++--
- 11 files changed, 17 insertions(+), 13 deletions(-)
+ 11 files changed, 18 insertions(+), 14 deletions(-)
  create mode 100644 packages/SystemUI/customization/res/values/colors.xml
 
 diff --git a/packages/SystemUI/customization/res/layout/clock_default_large.xml b/packages/SystemUI/customization/res/layout/clock_default_large.xml
@@ -113,12 +113,15 @@ index 7c5dbc247428..64657547621f 100644
      />
  </com.android.keyguard.KeyguardSliceView>
 diff --git a/packages/SystemUI/res-keyguard/values/dimens.xml b/packages/SystemUI/res-keyguard/values/dimens.xml
-index 8c817330953c..cfbc3b96da7c 100644
+index 8c817330953c..635f06777d66 100644
 --- a/packages/SystemUI/res-keyguard/values/dimens.xml
 +++ b/packages/SystemUI/res-keyguard/values/dimens.xml
-@@ -97,7 +97,7 @@
+@@ -95,9 +95,9 @@
+     <dimen name="num_pad_key_margin_end">12dp</dimen>
+ 
      <!-- additional offset for clock switch area items -->
-     <dimen name="below_clock_padding_start">32dp</dimen>
+-    <dimen name="below_clock_padding_start">32dp</dimen>
++    <dimen name="below_clock_padding_start">28dp</dimen>
      <dimen name="below_clock_padding_end">16dp</dimen>
 -    <dimen name="below_clock_padding_start_icons">28dp</dimen>
 +    <dimen name="below_clock_padding_start_icons">22dp</dimen>
@@ -152,7 +155,7 @@ index fc0bf242dc1e..388ab51a6245 100644
          android:singleLine="true"
          systemui:showMissingSim="true"
 diff --git a/packages/SystemUI/res/values/styles.xml b/packages/SystemUI/res/values/styles.xml
-index af92c021ec62..847b8a961322 100644
+index 7314a6bfcf3a..ffbf4c705fb7 100644
 --- a/packages/SystemUI/res/values/styles.xml
 +++ b/packages/SystemUI/res/values/styles.xml
 @@ -311,7 +311,7 @@

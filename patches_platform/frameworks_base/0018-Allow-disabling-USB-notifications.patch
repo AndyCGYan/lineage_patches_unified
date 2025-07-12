@@ -1,0 +1,29 @@
+From 026d3baf04fdcaca8a18deea503d60b05dd134e2 Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Mon, 5 Oct 2020 21:40:02 -0700
+Subject: [PATCH 18/39] Allow disabling USB notifications
+
+The persistent "USB connected" notification isn't very useful most of
+the time, so let's allow users to disable it to reduce clutter in the
+notification shade.
+
+Change-Id: I3704b86fba566412481c8162edfa1e1a1f97347b
+---
+ .../internal/notification/SystemNotificationChannels.java        | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/core/java/com/android/internal/notification/SystemNotificationChannels.java b/core/java/com/android/internal/notification/SystemNotificationChannels.java
+index 5ecbae9d4e53..1e64f030761a 100644
+--- a/core/java/com/android/internal/notification/SystemNotificationChannels.java
++++ b/core/java/com/android/internal/notification/SystemNotificationChannels.java
+@@ -164,6 +164,7 @@ public class SystemNotificationChannels {
+                 USB,
+                 context.getString(R.string.notification_channel_usb),
+                 NotificationManager.IMPORTANCE_MIN);
++        usb.setBlockable(true);
+         channelsList.add(usb);
+ 
+         NotificationChannel foregroundChannel = new NotificationChannel(
+-- 
+2.34.1
+

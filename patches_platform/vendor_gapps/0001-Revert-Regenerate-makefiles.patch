@@ -1,0 +1,248 @@
+From 297161ef56a4a57b9b8edf118ceaa1ffa0fa4752 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 12 Jul 2025 17:12:46 +0800
+Subject: [PATCH] Revert "Regenerate makefiles"
+
+This reverts commit f69ce3c51a32754e490b6a100b6722ff3b2dd9e6.
+---
+ arm/Android.bp    | 6 ------
+ arm64/Android.bp  | 8 --------
+ common/Android.bp | 9 ---------
+ x86_64/Android.bp | 4 ----
+ 4 files changed, 27 deletions(-)
+
+diff --git a/arm/Android.bp b/arm/Android.bp
+index 1db0055..a90d98c 100644
+--- a/arm/Android.bp
++++ b/arm/Android.bp
+@@ -29,7 +29,6 @@ android_app_import {
+ 	name: "GmsCore",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/GmsCore/GmsCore.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -42,7 +41,6 @@ android_app_import {
+ 	name: "Phonesky",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Phonesky/Phonesky.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -55,7 +53,6 @@ android_app_import {
+ 	name: "SpeechServicesByGoogle",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/SpeechServicesByGoogle/SpeechServicesByGoogle.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -67,7 +64,6 @@ android_app_import {
+ 	name: "talkback",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/talkback/talkback.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -79,7 +75,6 @@ android_app_import {
+ 	name: "Velvet",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Velvet/Velvet.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -93,7 +88,6 @@ android_app_import {
+ 	owner: "gapps",
+ 	apk: "proprietary/system_ext/priv-app/SetupWizard/SetupWizard.apk",
+ 	overrides: ["Provision"],
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+diff --git a/arm64/Android.bp b/arm64/Android.bp
+index 861f7f4..b3bdc37 100644
+--- a/arm64/Android.bp
++++ b/arm64/Android.bp
+@@ -33,7 +33,6 @@ android_app_import {
+ 	name: "GmsCore",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/GmsCore/GmsCore.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -46,7 +45,6 @@ android_app_import {
+ 	name: "Phonesky",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Phonesky/Phonesky.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -59,7 +57,6 @@ android_app_import {
+ 	name: "MarkupGoogle",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/MarkupGoogle/MarkupGoogle.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -71,7 +68,6 @@ android_app_import {
+ 	name: "SpeechServicesByGoogle",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/SpeechServicesByGoogle/SpeechServicesByGoogle.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -83,7 +79,6 @@ android_app_import {
+ 	name: "talkback",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/talkback/talkback.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -95,7 +90,6 @@ android_app_import {
+ 	name: "Velvet",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Velvet/Velvet.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -109,7 +103,6 @@ android_app_import {
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/VelvetTitan/VelvetTitan.apk",
+ 	overrides: ["Velvet"],
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -123,7 +116,6 @@ android_app_import {
+ 	owner: "gapps",
+ 	apk: "proprietary/system_ext/priv-app/SetupWizard/SetupWizard.apk",
+ 	overrides: ["Provision"],
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+diff --git a/common/Android.bp b/common/Android.bp
+index 3e62741..8587292 100644
+--- a/common/Android.bp
++++ b/common/Android.bp
+@@ -11,7 +11,6 @@ android_app_import {
+ 	name: "GoogleCalendarSyncAdapter",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/GoogleCalendarSyncAdapter/GoogleCalendarSyncAdapter.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -23,7 +22,6 @@ android_app_import {
+ 	name: "GoogleContactsSyncAdapter",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/GoogleContactsSyncAdapter/GoogleContactsSyncAdapter.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -35,7 +33,6 @@ android_app_import {
+ 	name: "PrebuiltExchange3Google",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/app/PrebuiltExchange3Google/PrebuiltExchange3Google.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -47,7 +44,6 @@ android_app_import {
+ 	name: "AndroidAutoStub",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/AndroidAutoStub/AndroidAutoStub.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -60,7 +56,6 @@ android_app_import {
+ 	name: "GooglePartnerSetup",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/GooglePartnerSetup/GooglePartnerSetup.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -73,7 +68,6 @@ android_app_import {
+ 	name: "GoogleFeedback",
+ 	owner: "gapps",
+ 	apk: "proprietary/system_ext/priv-app/GoogleFeedback/GoogleFeedback.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -86,7 +80,6 @@ android_app_import {
+ 	name: "GoogleServicesFramework",
+ 	owner: "gapps",
+ 	apk: "proprietary/system_ext/priv-app/GoogleServicesFramework/GoogleServicesFramework.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -106,7 +99,6 @@ android_app_import {
+ 	name: "GoogleRestore",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/GoogleRestore/GoogleRestore.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -119,7 +111,6 @@ android_app_import {
+ 	name: "Wellbeing",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Wellbeing/Wellbeing.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+diff --git a/x86_64/Android.bp b/x86_64/Android.bp
+index 6dcdfcf..d076b88 100644
+--- a/x86_64/Android.bp
++++ b/x86_64/Android.bp
+@@ -33,7 +33,6 @@ android_app_import {
+ 	name: "GmsCore",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/GmsCore/GmsCore.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -46,7 +45,6 @@ android_app_import {
+ 	name: "Phonesky",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Phonesky/Phonesky.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -59,7 +57,6 @@ android_app_import {
+ 	name: "Velvet",
+ 	owner: "gapps",
+ 	apk: "proprietary/product/priv-app/Velvet/Velvet.apk",
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+@@ -73,7 +70,6 @@ android_app_import {
+ 	owner: "gapps",
+ 	apk: "proprietary/system_ext/priv-app/SetupWizard/SetupWizard.apk",
+ 	overrides: ["Provision"],
+-	preprocessed: true,
+ 	presigned: true,
+ 	dex_preopt: {
+ 		enabled: false,
+-- 
+2.34.1
+

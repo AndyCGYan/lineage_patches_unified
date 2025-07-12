@@ -1,0 +1,30 @@
+From 87880ee4b93c049512a73f67c6d8834d42f96efb Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 13 Jul 2025 12:10:00 +0800
+Subject: [PATCH 7/7] Add persist prop for "BrightnessUtils: Conditionally
+ disable gamma conversion for brightness slider"
+
+https://github.com/LineageOS/android_frameworks_base/commit/a9664e0fcc42bdcdd293c94df5587024a3edd907
+
+Change-Id: I93a7ddf8c8d91a9c0314c97a5f2f1272c7e6bbda
+---
+ .../src/com/android/settingslib/display/BrightnessUtils.java   | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/packages/SettingsLib/DisplayUtils/src/com/android/settingslib/display/BrightnessUtils.java b/packages/SettingsLib/DisplayUtils/src/com/android/settingslib/display/BrightnessUtils.java
+index 3c06f8ae9972..3ea5ac42bb4e 100644
+--- a/packages/SettingsLib/DisplayUtils/src/com/android/settingslib/display/BrightnessUtils.java
++++ b/packages/SettingsLib/DisplayUtils/src/com/android/settingslib/display/BrightnessUtils.java
+@@ -23,7 +23,8 @@ import android.util.MathUtils;
+ public class BrightnessUtils {
+ 
+     public static final boolean sDisableGammaConversion =
+-            SystemProperties.getBoolean("sys.brightness.disable_gamma_conversion", false);
++            SystemProperties.getBoolean("sys.brightness.disable_gamma_conversion", false)
++            || SystemProperties.getBoolean("persist.sys.brightness.disable_gamma_conversion", false);
+ 
+     public static final int GAMMA_SPACE_MIN = 0;
+     public static final int GAMMA_SPACE_MAX = 65535;
+-- 
+2.34.1
+
