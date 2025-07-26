@@ -1,7 +1,7 @@
-From a0f9fc2e8b386ee9e3c1064bfb076306e901f187 Mon Sep 17 00:00:00 2001
+From be9ed90121d3925224cdf828fa651320ec94ab3e Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Mon, 11 Oct 2021 16:10:42 -0400
-Subject: [PATCH 18/24] Revert "Remove support for audio HAL V2 from the
+Subject: [PATCH 18/25] Revert "Remove support for audio HAL V2 from the
  framework"
 
 This reverts commit cbf517f837f7bf8a59f3ff8aa1e0e3e19612e251.

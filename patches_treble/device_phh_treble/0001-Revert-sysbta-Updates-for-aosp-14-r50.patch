@@ -1,0 +1,538 @@
+From 1feb03b463e7ecf6c9ad69b8cb91ea1f84093c18 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 26 Jul 2025 18:23:55 +0800
+Subject: [PATCH 01/11] Revert "sysbta: Updates for aosp 14 r50"
+
+This reverts commit 040794c4f2d6af28452a5a84b6a94e003008891b.
+---
+ bluetooth/audio/hal/A2dpBits.h                |  3 +-
+ .../audio/hal/A2dpOffloadAudioProvider.cpp    | 61 ++++++-------------
+ .../audio/hal/A2dpOffloadAudioProvider.h      | 12 ++--
+ bluetooth/audio/hal/A2dpOffloadCodec.h        |  3 +-
+ bluetooth/audio/hal/A2dpOffloadCodecAac.cpp   |  5 ++
+ bluetooth/audio/hal/A2dpOffloadCodecAac.h     |  4 +-
+ .../audio/hal/A2dpOffloadCodecFactory.cpp     | 14 +++--
+ bluetooth/audio/hal/A2dpOffloadCodecFactory.h | 16 ++---
+ bluetooth/audio/hal/A2dpOffloadCodecSbc.cpp   |  5 ++
+ bluetooth/audio/hal/A2dpOffloadCodecSbc.h     |  4 +-
+ .../audio/hal/BluetoothAudioProvider.cpp      | 13 ++--
+ bluetooth/audio/hal/BluetoothAudioProvider.h  | 27 ++------
+ .../hal/BluetoothAudioProviderFactory.cpp     | 17 ++----
+ .../audio/hal/BluetoothAudioProviderFactory.h |  4 --
+ .../audio/hal/LeAudioOffloadAudioProvider.cpp | 11 ++--
+ 15 files changed, 72 insertions(+), 127 deletions(-)
+
+diff --git a/bluetooth/audio/hal/A2dpBits.h b/bluetooth/audio/hal/A2dpBits.h
+index fb7587c..f467c95 100644
+--- a/bluetooth/audio/hal/A2dpBits.h
++++ b/bluetooth/audio/hal/A2dpBits.h
+@@ -23,8 +23,7 @@ class A2dpBits {
+   uint8_t* data_;
+ 
+  public:
+-  A2dpBits(const std::vector<uint8_t>& vector)
+-      : cdata_(vector.data()), data_(nullptr) {}
++  A2dpBits(const std::vector<uint8_t>& vector) : cdata_(vector.data()) {}
+ 
+   A2dpBits(std::vector<uint8_t>& vector)
+       : cdata_(vector.data()), data_(vector.data()) {}
+diff --git a/bluetooth/audio/hal/A2dpOffloadAudioProvider.cpp b/bluetooth/audio/hal/A2dpOffloadAudioProvider.cpp
+index 1eb6a6d..ba7a89d 100644
+--- a/bluetooth/audio/hal/A2dpOffloadAudioProvider.cpp
++++ b/bluetooth/audio/hal/A2dpOffloadAudioProvider.cpp
+@@ -23,6 +23,7 @@
+ #include <android-base/logging.h>
+ 
+ #include "A2dpOffloadCodecAac.h"
++#include "A2dpOffloadCodecFactory.h"
+ #include "A2dpOffloadCodecSbc.h"
+ 
+ namespace aidl {
+@@ -31,21 +32,17 @@ namespace hardware {
+ namespace bluetooth {
+ namespace audio {
+ 
+-A2dpOffloadEncodingAudioProvider::A2dpOffloadEncodingAudioProvider(
+-    const A2dpOffloadCodecFactory& codec_factory)
+-    : A2dpOffloadAudioProvider(codec_factory) {
++A2dpOffloadEncodingAudioProvider::A2dpOffloadEncodingAudioProvider()
++    : A2dpOffloadAudioProvider() {
+   session_type_ = SessionType::A2DP_HARDWARE_OFFLOAD_ENCODING_DATAPATH;
+ }
+ 
+-A2dpOffloadDecodingAudioProvider::A2dpOffloadDecodingAudioProvider(
+-    const A2dpOffloadCodecFactory& codec_factory)
+-    : A2dpOffloadAudioProvider(codec_factory) {
++A2dpOffloadDecodingAudioProvider::A2dpOffloadDecodingAudioProvider()
++    : A2dpOffloadAudioProvider() {
+   session_type_ = SessionType::A2DP_HARDWARE_OFFLOAD_DECODING_DATAPATH;
+ }
+ 
+-A2dpOffloadAudioProvider::A2dpOffloadAudioProvider(
+-    const A2dpOffloadCodecFactory& codec_factory)
+-    : codec_factory_(codec_factory) {}
++A2dpOffloadAudioProvider::A2dpOffloadAudioProvider() {}
+ 
+ bool A2dpOffloadAudioProvider::isValid(const SessionType& session_type) {
+   return (session_type == session_type_);
+@@ -59,29 +56,17 @@ ndk::ScopedAStatus A2dpOffloadAudioProvider::startSession(
+     auto a2dp_config = audio_config.get<AudioConfiguration::Tag::a2dp>();
+     A2dpStatus a2dp_status = A2dpStatus::NOT_SUPPORTED_CODEC_TYPE;
+ 
+-    auto codec = codec_factory_.GetCodec(a2dp_config.codecId);
+-    if (!codec) {
+-      LOG(INFO) << __func__ << " - SessionType=" << toString(session_type_)
+-                << " - CodecId=" << a2dp_config.codecId.toString()
+-                << " is not found";
+-      return ndk::ScopedAStatus::fromExceptionCode(EX_ILLEGAL_ARGUMENT);
+-    }
+-
+-    if (codec->info.id == CodecId(CodecId::A2dp::SBC)) {
++    if (a2dp_config.codecId ==
++        A2dpOffloadCodecSbc::GetInstance()->GetCodecId()) {
+       SbcParameters sbc_parameters;
++      a2dp_status = A2dpOffloadCodecSbc::GetInstance()->ParseConfiguration(
++          a2dp_config.configuration, &sbc_parameters);
+ 
+-      auto codec_sbc =
+-          std::static_pointer_cast<const A2dpOffloadCodecSbc>(codec);
+-      a2dp_status = codec_sbc->ParseConfiguration(a2dp_config.configuration,
+-                                                  &sbc_parameters);
+-
+-    } else if (codec->info.id == CodecId(CodecId::A2dp::AAC)) {
++    } else if (a2dp_config.codecId ==
++               A2dpOffloadCodecAac::GetInstance()->GetCodecId()) {
+       AacParameters aac_parameters;
+-
+-      auto codec_aac =
+-          std::static_pointer_cast<const A2dpOffloadCodecAac>(codec);
+-      a2dp_status = codec_aac->ParseConfiguration(a2dp_config.configuration,
+-                                                  &aac_parameters);
++      a2dp_status = A2dpOffloadCodecAac::GetInstance()->ParseConfiguration(
++          a2dp_config.configuration, &aac_parameters);
+     }
+     if (a2dp_status != A2dpStatus::OK) {
+       LOG(WARNING) << __func__ << " - Invalid Audio Configuration="
+@@ -120,13 +105,7 @@ ndk::ScopedAStatus A2dpOffloadAudioProvider::onSessionReady(
+ ndk::ScopedAStatus A2dpOffloadAudioProvider::parseA2dpConfiguration(
+     const CodecId& codec_id, const std::vector<uint8_t>& configuration,
+     CodecParameters* codec_parameters, A2dpStatus* _aidl_return) {
+-  if (!kEnableA2dpCodecExtensibility) {
+-    // parseA2dpConfiguration must not be implemented if A2dp codec
+-    // extensibility is not supported.
+-    return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_TRANSACTION);
+-  }
+-
+-  auto codec = codec_factory_.GetCodec(codec_id);
++  auto codec = A2dpOffloadCodecFactory::GetInstance()->GetCodec(codec_id);
+   if (!codec) {
+     LOG(INFO) << __func__ << " - SessionType=" << toString(session_type_)
+               << " - CodecId=" << codec_id.toString() << " is not found";
+@@ -142,17 +121,11 @@ ndk::ScopedAStatus A2dpOffloadAudioProvider::getA2dpConfiguration(
+     const std::vector<A2dpRemoteCapabilities>& remote_a2dp_capabilities,
+     const A2dpConfigurationHint& hint,
+     std::optional<audio::A2dpConfiguration>* _aidl_return) {
+-  if (!kEnableA2dpCodecExtensibility) {
+-    // getA2dpConfiguration must not be implemented if A2dp codec
+-    // extensibility is not supported.
+-    return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_TRANSACTION);
+-  }
+-
+   *_aidl_return = std::nullopt;
+   A2dpConfiguration avdtp_configuration;
+ 
+-  if (codec_factory_.GetConfiguration(remote_a2dp_capabilities, hint,
+-                                      &avdtp_configuration))
++  if (A2dpOffloadCodecFactory::GetInstance()->GetConfiguration(
++          remote_a2dp_capabilities, hint, &avdtp_configuration))
+     *_aidl_return =
+         std::make_optional<A2dpConfiguration>(std::move(avdtp_configuration));
+ 
+diff --git a/bluetooth/audio/hal/A2dpOffloadAudioProvider.h b/bluetooth/audio/hal/A2dpOffloadAudioProvider.h
+index a2d03fe..7cc6dee 100644
+--- a/bluetooth/audio/hal/A2dpOffloadAudioProvider.h
++++ b/bluetooth/audio/hal/A2dpOffloadAudioProvider.h
+@@ -16,7 +16,6 @@
+ 
+ #pragma once
+ 
+-#include "A2dpOffloadCodecFactory.h"
+ #include "BluetoothAudioProvider.h"
+ 
+ namespace aidl {
+@@ -27,6 +26,8 @@ namespace audio {
+ 
+ class A2dpOffloadAudioProvider : public BluetoothAudioProvider {
+  public:
++  A2dpOffloadAudioProvider();
++
+   bool isValid(const SessionType& session_type) override;
+ 
+   ndk::ScopedAStatus startSession(
+@@ -44,23 +45,18 @@ class A2dpOffloadAudioProvider : public BluetoothAudioProvider {
+       const A2dpConfigurationHint& hint,
+       std::optional<audio::A2dpConfiguration>* _aidl_return) override;
+ 
+- protected:
+-  A2dpOffloadAudioProvider(const A2dpOffloadCodecFactory&);
+-
+  private:
+-  const A2dpOffloadCodecFactory& codec_factory_;
+-
+   ndk::ScopedAStatus onSessionReady(DataMQDesc* _aidl_return) override;
+ };
+ 
+ class A2dpOffloadEncodingAudioProvider : public A2dpOffloadAudioProvider {
+  public:
+-  A2dpOffloadEncodingAudioProvider(const A2dpOffloadCodecFactory&);
++  A2dpOffloadEncodingAudioProvider();
+ };
+ 
+ class A2dpOffloadDecodingAudioProvider : public A2dpOffloadAudioProvider {
+  public:
+-  A2dpOffloadDecodingAudioProvider(const A2dpOffloadCodecFactory&);
++  A2dpOffloadDecodingAudioProvider();
+ };
+ 
+ }  // namespace audio
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodec.h b/bluetooth/audio/hal/A2dpOffloadCodec.h
+index 2f51c73..7ed5872 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodec.h
++++ b/bluetooth/audio/hal/A2dpOffloadCodec.h
+@@ -18,9 +18,10 @@
+ 
+ #include <aidl/android/hardware/bluetooth/audio/A2dpStatus.h>
+ #include <aidl/android/hardware/bluetooth/audio/ChannelMode.h>
+-#include <aidl/android/hardware/bluetooth/audio/CodecInfo.h>
+ #include <aidl/android/hardware/bluetooth/audio/CodecParameters.h>
+ 
++#include "BluetoothAudioProviderFactory.h"
++
+ namespace aidl::android::hardware::bluetooth::audio {
+ 
+ class A2dpOffloadCodec {
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecAac.cpp b/bluetooth/audio/hal/A2dpOffloadCodecAac.cpp
+index 1570cd8..0f5533a 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecAac.cpp
++++ b/bluetooth/audio/hal/A2dpOffloadCodecAac.cpp
+@@ -194,6 +194,11 @@ static ChannelMode GetChannelModeEnum(int channel_mode) {
+  * AAC Class implementation
+  */
+ 
++const A2dpOffloadCodecAac* A2dpOffloadCodecAac::GetInstance() {
++  static A2dpOffloadCodecAac instance;
++  return &instance;
++}
++
+ A2dpOffloadCodecAac::A2dpOffloadCodecAac()
+     : A2dpOffloadCodec(info_),
+       info_({.id = CodecId(CodecId::A2dp::AAC), .name = "AAC"}) {
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecAac.h b/bluetooth/audio/hal/A2dpOffloadCodecAac.h
+index 65e927d..eefa89b 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecAac.h
++++ b/bluetooth/audio/hal/A2dpOffloadCodecAac.h
+@@ -29,12 +29,14 @@ struct AacParameters : public CodecParameters {
+ class A2dpOffloadCodecAac : public A2dpOffloadCodec {
+   CodecInfo info_;
+ 
++  A2dpOffloadCodecAac();
++
+   A2dpStatus ParseConfiguration(const std::vector<uint8_t>& configuration,
+                                 CodecParameters* codec_parameters,
+                                 AacParameters* aac_parameters) const;
+ 
+  public:
+-  A2dpOffloadCodecAac();
++  static const A2dpOffloadCodecAac* GetInstance();
+ 
+   A2dpStatus ParseConfiguration(
+       const std::vector<uint8_t>& configuration,
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecFactory.cpp b/bluetooth/audio/hal/A2dpOffloadCodecFactory.cpp
+index 658073c..73d8fb1 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecFactory.cpp
++++ b/bluetooth/audio/hal/A2dpOffloadCodecFactory.cpp
+@@ -37,18 +37,20 @@ enum : bool {
+  * Class implementation
+  */
+ 
++const A2dpOffloadCodecFactory* A2dpOffloadCodecFactory::GetInstance() {
++  static A2dpOffloadCodecFactory instance;
++  return &instance;
++}
++
+ A2dpOffloadCodecFactory::A2dpOffloadCodecFactory()
+     : name("Offload"), codecs(ranked_codecs_) {
+   ranked_codecs_.reserve(kEnableAac + kEnableSbc);
+ 
+-  if (kEnableAac)
+-    ranked_codecs_.push_back(std::make_shared<A2dpOffloadCodecAac>());
+-  if (kEnableSbc)
+-    ranked_codecs_.push_back(std::make_shared<A2dpOffloadCodecSbc>());
++  if (kEnableAac) ranked_codecs_.push_back(A2dpOffloadCodecAac::GetInstance());
++  if (kEnableSbc) ranked_codecs_.push_back(A2dpOffloadCodecSbc::GetInstance());
+ }
+ 
+-std::shared_ptr<const A2dpOffloadCodec> A2dpOffloadCodecFactory::GetCodec(
+-    CodecId id) const {
++const A2dpOffloadCodec* A2dpOffloadCodecFactory::GetCodec(CodecId id) const {
+   auto codec = std::find_if(begin(ranked_codecs_), end(ranked_codecs_),
+                             [&](auto c) { return id == c->info.id; });
+ 
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecFactory.h b/bluetooth/audio/hal/A2dpOffloadCodecFactory.h
+index 1546cc4..3fb5b1d 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecFactory.h
++++ b/bluetooth/audio/hal/A2dpOffloadCodecFactory.h
+@@ -16,26 +16,22 @@
+ 
+ #pragma once
+ 
+-#include <aidl/android/hardware/bluetooth/audio/A2dpConfiguration.h>
+-#include <aidl/android/hardware/bluetooth/audio/A2dpConfigurationHint.h>
+-#include <aidl/android/hardware/bluetooth/audio/A2dpRemoteCapabilities.h>
+-
+-#include <memory>
+-
+ #include "A2dpOffloadCodec.h"
+ 
+ namespace aidl::android::hardware::bluetooth::audio {
+ 
+ class A2dpOffloadCodecFactory {
+-  std::vector<std::shared_ptr<const A2dpOffloadCodec>> ranked_codecs_;
++  std::vector<const A2dpOffloadCodec*> ranked_codecs_;
++
++  A2dpOffloadCodecFactory();
+ 
+  public:
+   const std::string name;
+-  const std::vector<std::shared_ptr<const A2dpOffloadCodec>>& codecs;
++  const std::vector<const A2dpOffloadCodec*>& codecs;
+ 
+-  A2dpOffloadCodecFactory();
++  static const A2dpOffloadCodecFactory* GetInstance();
+ 
+-  std::shared_ptr<const A2dpOffloadCodec> GetCodec(CodecId id) const;
++  const A2dpOffloadCodec* GetCodec(CodecId id) const;
+ 
+   bool GetConfiguration(const std::vector<A2dpRemoteCapabilities>&,
+                         const A2dpConfigurationHint& hint,
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecSbc.cpp b/bluetooth/audio/hal/A2dpOffloadCodecSbc.cpp
+index 6b9046c..36d8f72 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecSbc.cpp
++++ b/bluetooth/audio/hal/A2dpOffloadCodecSbc.cpp
+@@ -257,6 +257,11 @@ static uint8_t GetBitpool(const A2dpBits& configuration, int bitrate) {
+  * SBC Class implementation
+  */
+ 
++const A2dpOffloadCodecSbc* A2dpOffloadCodecSbc::GetInstance() {
++  static A2dpOffloadCodecSbc instance;
++  return &instance;
++}
++
+ A2dpOffloadCodecSbc::A2dpOffloadCodecSbc()
+     : A2dpOffloadCodec(info_),
+       info_({.id = CodecId(CodecId::A2dp::SBC), .name = "SBC"}) {
+diff --git a/bluetooth/audio/hal/A2dpOffloadCodecSbc.h b/bluetooth/audio/hal/A2dpOffloadCodecSbc.h
+index a39d779..c380850 100644
+--- a/bluetooth/audio/hal/A2dpOffloadCodecSbc.h
++++ b/bluetooth/audio/hal/A2dpOffloadCodecSbc.h
+@@ -33,12 +33,14 @@ struct SbcParameters : public CodecParameters {
+ class A2dpOffloadCodecSbc : public A2dpOffloadCodec {
+   CodecInfo info_;
+ 
++  A2dpOffloadCodecSbc();
++
+   A2dpStatus ParseConfiguration(const std::vector<uint8_t>& configuration,
+                                 CodecParameters* codec_parameters,
+                                 SbcParameters* sbc_parameters) const;
+ 
+  public:
+-  A2dpOffloadCodecSbc();
++  static const A2dpOffloadCodecSbc* GetInstance();
+ 
+   A2dpStatus ParseConfiguration(
+       const std::vector<uint8_t>& configuration,
+diff --git a/bluetooth/audio/hal/BluetoothAudioProvider.cpp b/bluetooth/audio/hal/BluetoothAudioProvider.cpp
+index 8d03fae..bdba898 100644
+--- a/bluetooth/audio/hal/BluetoothAudioProvider.cpp
++++ b/bluetooth/audio/hal/BluetoothAudioProvider.cpp
+@@ -229,17 +229,14 @@ ndk::ScopedAStatus BluetoothAudioProvider::getLeAudioAseQosConfiguration(
+ };
+ 
+ ndk::ScopedAStatus BluetoothAudioProvider::getLeAudioAseDatapathConfiguration(
+-    const std::optional<::aidl::android::hardware::bluetooth::audio::
+-                            IBluetoothAudioProvider::StreamConfig>&
+-        in_sinkConfig,
+-    const std::optional<::aidl::android::hardware::bluetooth::audio::
+-                            IBluetoothAudioProvider::StreamConfig>&
+-        in_sourceConfig,
++    const ::aidl::android::hardware::bluetooth::audio::AudioContext& in_context,
++    const std::vector<::aidl::android::hardware::bluetooth::audio::
++                          LeAudioConfiguration::StreamMap>& in_streamMap,
+     ::aidl::android::hardware::bluetooth::audio::IBluetoothAudioProvider::
+         LeAudioDataPathConfigurationPair* _aidl_return) {
+   /* TODO: Implement */
+-  (void)in_sinkConfig;
+-  (void)in_sourceConfig;
++  (void)in_context;
++  (void)in_streamMap;
+   (void)_aidl_return;
+   return ndk::ScopedAStatus::fromExceptionCode(EX_UNSUPPORTED_OPERATION);
+ }
+diff --git a/bluetooth/audio/hal/BluetoothAudioProvider.h b/bluetooth/audio/hal/BluetoothAudioProvider.h
+index 866eaeb..5064869 100644
+--- a/bluetooth/audio/hal/BluetoothAudioProvider.h
++++ b/bluetooth/audio/hal/BluetoothAudioProvider.h
+@@ -35,23 +35,6 @@ namespace hardware {
+ namespace bluetooth {
+ namespace audio {
+ 
+-/// Enable flag for the reference implementation for A2dp Codec
+-/// Extensibility.
+-///
+-/// A2dp Codec extensibility cannot be enabled until the following
+-/// requirements are fulfilled.
+-///
+-///  1. The Bluetooth controller must support the HCI Requirements
+-///     v1.04 or later, and must support the vendor HCI command
+-///     A2DP Offload Start (v2), A2DP Offload Stop (v2) as indicated
+-///     by the field a2dp_offload_v2 of the vendor capabilities.
+-///
+-///  2. The implementation of the provider must be completed with
+-///     DSP configuration for streaming.
+-enum : bool {
+-  kEnableA2dpCodecExtensibility = false,
+-};
+-
+ class BluetoothAudioProvider : public BnBluetoothAudioProvider {
+  public:
+   BluetoothAudioProvider();
+@@ -88,12 +71,10 @@ class BluetoothAudioProvider : public BnBluetoothAudioProvider {
+       ::aidl::android::hardware::bluetooth::audio::IBluetoothAudioProvider::
+           LeAudioAseQosConfigurationPair* _aidl_return) override;
+   ndk::ScopedAStatus getLeAudioAseDatapathConfiguration(
+-      const std::optional<::aidl::android::hardware::bluetooth::audio::
+-                              IBluetoothAudioProvider::StreamConfig>&
+-          in_sinkConfig,
+-      const std::optional<::aidl::android::hardware::bluetooth::audio::
+-                              IBluetoothAudioProvider::StreamConfig>&
+-          in_sourceConfig,
++      const ::aidl::android::hardware::bluetooth::audio::AudioContext&
++          in_context,
++      const std::vector<::aidl::android::hardware::bluetooth::audio::
++                            LeAudioConfiguration::StreamMap>& in_streamMap,
+       ::aidl::android::hardware::bluetooth::audio::IBluetoothAudioProvider::
+           LeAudioDataPathConfigurationPair* _aidl_return) override;
+   ndk::ScopedAStatus onSinkAseMetadataChanged(
+diff --git a/bluetooth/audio/hal/BluetoothAudioProviderFactory.cpp b/bluetooth/audio/hal/BluetoothAudioProviderFactory.cpp
+index 584640b..e55a434 100644
+--- a/bluetooth/audio/hal/BluetoothAudioProviderFactory.cpp
++++ b/bluetooth/audio/hal/BluetoothAudioProviderFactory.cpp
+@@ -22,6 +22,7 @@
+ #include <android-base/logging.h>
+ 
+ #include "A2dpOffloadAudioProvider.h"
++#include "A2dpOffloadCodecFactory.h"
+ #include "A2dpSoftwareAudioProvider.h"
+ #include "BluetoothAudioProvider.h"
+ #include "HearingAidAudioProvider.h"
+@@ -52,8 +53,7 @@ ndk::ScopedAStatus BluetoothAudioProviderFactory::openProvider(
+       provider = ndk::SharedRefBase::make<A2dpSoftwareEncodingAudioProvider>();
+       break;
+     case SessionType::A2DP_HARDWARE_OFFLOAD_ENCODING_DATAPATH:
+-      provider = ndk::SharedRefBase::make<A2dpOffloadEncodingAudioProvider>(
+-          a2dp_offload_codec_factory_);
++      provider = ndk::SharedRefBase::make<A2dpOffloadEncodingAudioProvider>();
+       break;
+     case SessionType::HEARING_AID_SOFTWARE_ENCODING_DATAPATH:
+       provider = ndk::SharedRefBase::make<HearingAidAudioProvider>();
+@@ -82,8 +82,7 @@ ndk::ScopedAStatus BluetoothAudioProviderFactory::openProvider(
+       provider = ndk::SharedRefBase::make<A2dpSoftwareDecodingAudioProvider>();
+       break;
+     case SessionType::A2DP_HARDWARE_OFFLOAD_DECODING_DATAPATH:
+-      provider = ndk::SharedRefBase::make<A2dpOffloadDecodingAudioProvider>(
+-          a2dp_offload_codec_factory_);
++      provider = ndk::SharedRefBase::make<A2dpOffloadDecodingAudioProvider>();
+       break;
+     case SessionType::HFP_SOFTWARE_ENCODING_DATAPATH:
+       provider = ndk::SharedRefBase::make<HfpSoftwareOutputAudioProvider>();
+@@ -159,16 +158,10 @@ ndk::ScopedAStatus BluetoothAudioProviderFactory::getProviderInfo(
+ 
+   if (session_type == SessionType::A2DP_HARDWARE_OFFLOAD_ENCODING_DATAPATH ||
+       session_type == SessionType::A2DP_HARDWARE_OFFLOAD_DECODING_DATAPATH) {
+-    if (!kEnableA2dpCodecExtensibility) {
+-      // Implementing getProviderInfo equates supporting
+-      // A2dp codec extensibility.
+-      return ndk::ScopedAStatus::fromStatus(STATUS_UNKNOWN_TRANSACTION);
+-    }
+-
+     auto& provider_info = _aidl_return->emplace();
+ 
+-    provider_info.name = a2dp_offload_codec_factory_.name;
+-    for (auto codec : a2dp_offload_codec_factory_.codecs)
++    provider_info.name = A2dpOffloadCodecFactory::GetInstance()->name;
++    for (auto codec : A2dpOffloadCodecFactory::GetInstance()->codecs)
+       provider_info.codecInfos.push_back(codec->info);
+   }
+ 
+diff --git a/bluetooth/audio/hal/BluetoothAudioProviderFactory.h b/bluetooth/audio/hal/BluetoothAudioProviderFactory.h
+index 6931884..1afae64 100644
+--- a/bluetooth/audio/hal/BluetoothAudioProviderFactory.h
++++ b/bluetooth/audio/hal/BluetoothAudioProviderFactory.h
+@@ -18,8 +18,6 @@
+ 
+ #include <aidl/android/hardware/bluetooth/audio/BnBluetoothAudioProviderFactory.h>
+ 
+-#include "A2dpOffloadCodecFactory.h"
+-
+ namespace aidl {
+ namespace android {
+ namespace hardware {
+@@ -27,8 +25,6 @@ namespace bluetooth {
+ namespace audio {
+ 
+ class BluetoothAudioProviderFactory : public BnBluetoothAudioProviderFactory {
+-  const A2dpOffloadCodecFactory a2dp_offload_codec_factory_;
+-
+  public:
+   BluetoothAudioProviderFactory();
+ 
+diff --git a/bluetooth/audio/hal/LeAudioOffloadAudioProvider.cpp b/bluetooth/audio/hal/LeAudioOffloadAudioProvider.cpp
+index a692d84..cff3b25 100644
+--- a/bluetooth/audio/hal/LeAudioOffloadAudioProvider.cpp
++++ b/bluetooth/audio/hal/LeAudioOffloadAudioProvider.cpp
+@@ -157,11 +157,8 @@ ndk::ScopedAStatus LeAudioOffloadAudioProvider::setCodecPriority(
+ bool LeAudioOffloadAudioProvider::isMatchedValidCodec(CodecId cfg_codec,
+                                                       CodecId req_codec) {
+   auto priority = codec_priority_map_.find(cfg_codec);
+-  if (priority != codec_priority_map_.end() &&
+-      priority->second ==
+-          LeAudioOffloadAudioProvider::CODEC_PRIORITY_DISABLED) {
++  if (priority != codec_priority_map_.end() && priority->second == -1)
+     return false;
+-  }
+   return cfg_codec == req_codec;
+ }
+ 
+@@ -225,8 +222,8 @@ bool LeAudioOffloadAudioProvider::isMatchedOctetsPerCodecFrame(
+     CodecSpecificConfigurationLtv::OctetsPerCodecFrame& cfg_octets,
+     CodecSpecificCapabilitiesLtv::SupportedOctetsPerCodecFrame&
+         capability_octets) {
+-  return cfg_octets.value >= capability_octets.min &&
+-         cfg_octets.value <= capability_octets.max;
++  return cfg_octets.value >= capability_octets.minimum &&
++         cfg_octets.value <= capability_octets.maximum;
+ }
+ 
+ bool LeAudioOffloadAudioProvider::isCapabilitiesMatchedCodecConfiguration(
+@@ -571,7 +568,7 @@ ndk::ScopedAStatus LeAudioOffloadAudioProvider::getLeAudioAseQosConfiguration(
+ 
+   for (auto& setting : ase_configuration_settings) {
+     // Context matching
+-    if (setting.audioContext != in_qosRequirement.audioContext) continue;
++    if (setting.audioContext != in_qosRequirement.contextType) continue;
+ 
+     // Match configuration flags
+     // Currently configuration flags are not populated, ignore.
+-- 
+2.34.1
+

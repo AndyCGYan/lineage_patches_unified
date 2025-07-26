@@ -1,4 +1,4 @@
-From 654cfde395c0a1704fee02d3b9bbb27246e488ca Mon Sep 17 00:00:00 2001
+From 29c5704b9847752f659e2e65c1383c027f2d23f5 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 2 Nov 2019 08:31:36 +0000
 Subject: [PATCH 09/21] Keyguard: Refine indication text

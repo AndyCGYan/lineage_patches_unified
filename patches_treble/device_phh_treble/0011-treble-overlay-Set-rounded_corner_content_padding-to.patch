@@ -1,0 +1,29 @@
+From a879607b75ca0a793837aa1c0234575faee96520 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 24 Nov 2024 19:03:00 +0800
+Subject: [PATCH 11/11] treble: overlay: Set rounded_corner_content_padding to
+ 8dp
+
+In LOS, this was once globally set in https://github.com/LineageOS/android_vendor_lineage/commit/658abd5f3a80b94eda0bdc307a2d83b6d43a9b3d,
+but has been undone in https://github.com/LineageOS/android_vendor_lineage/commit/abe274518b45a80845b107482f1aff37eb696a2a
+Match it on our side, so that device overlays would look the same
+
+Change-Id: I38a620f2db064ac0ebb5ac71b9a01a9036fac351
+---
+ overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml b/overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
+index 765848e..9b81fa1 100644
+--- a/overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
++++ b/overlay/frameworks/base/packages/SystemUI/res/values/dimens.xml
+@@ -17,5 +17,5 @@
+ -->
+ <resources>
+     <!-- Fix for the qs glitch on displays under sw372dp -->
+-    <dimen name="rounded_corner_content_padding">4dp</dimen>
++    <dimen name="rounded_corner_content_padding">8dp</dimen>
+ </resources>
+-- 
+2.34.1
+

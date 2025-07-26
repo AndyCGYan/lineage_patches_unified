@@ -1,0 +1,26 @@
+From 651e333f93e30440043c3969b8b544b2e39b6501 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 21 Feb 2024 16:19:47 -0500
+Subject: [PATCH 52/55] Include vendor.samsung.hardware.radio-V2.2-java HIDL in
+ base libs, will be used by f/o/telephony
+
+Change-Id: I0573e917c32f9dbfa8294069809ea4e6bfe909f4
+---
+ Android.bp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Android.bp b/Android.bp
+index 266a4f425578..0fdbbfe29b76 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -248,6 +248,7 @@ java_library {
+         "android.se.omapi-V1-java",
+         "android.system.suspend.control.internal-java",
+         "devicepolicyprotosnano",
++        "vendor.samsung.hardware.radio-V2.2-java",
+         "vendor.samsung.hardware.radio.network-V1-java",
+ 
+         "com.android.sysprop.apex",
+-- 
+2.34.1
+

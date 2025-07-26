@@ -1,7 +1,7 @@
-From c99885957f2f301d69d6e4f142856f1ea44f2703 Mon Sep 17 00:00:00 2001
+From e2fc5e497728beb6fdabc187274a385826542347 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 21 Jan 2024 23:21:02 +0800
-Subject: [PATCH 2/2] Revert "Biometrics: Allow disabling of fingerprint
+Subject: [PATCH 2/3] Revert "Biometrics: Allow disabling of fingerprint
  cleanups"
 
 This reverts commit add9f4dc93bba9d414ad67a0770b82c06747d09f.

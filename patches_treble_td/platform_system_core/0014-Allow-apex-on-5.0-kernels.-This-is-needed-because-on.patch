@@ -1,7 +1,7 @@
-From 90c062deaf75ca5271ab4e53d9dd8a26e35452c6 Mon Sep 17 00:00:00 2001
+From 9ac8eff8343ab6809f64cada852e793143165985 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 28 Apr 2023 12:29:05 -0400
-Subject: [PATCH 14/26] Allow apex on > 5.0 kernels. This is needed because on
+Subject: [PATCH 14/27] Allow apex on > 5.0 kernels. This is needed because on
  Pixels, camera HAL are exclusively in vendor apex
 
 Change-Id: I334cde4c5557b0ff70d550205c5bb727d4b5dbf5

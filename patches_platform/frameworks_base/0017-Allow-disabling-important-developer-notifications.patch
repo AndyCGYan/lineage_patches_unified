@@ -1,0 +1,33 @@
+From d38075a9cb17fd58575a6459848545f8bd1a0de2 Mon Sep 17 00:00:00 2001
+From: Danny Lin <danny@kdrag0n.dev>
+Date: Mon, 5 Oct 2020 21:03:27 -0700
+Subject: [PATCH 17/39] Allow disabling important developer notifications
+
+It looks like this notification channel was *supposed* to be blockable,
+but the setBlockable call wasn't updated after copying the developer
+channel.
+
+Either way, let's allow the user to disable these notifications to reduce
+clutter in the notification shade.
+
+Change-Id: I4eef81537af74f451f7d2163223346876d68ecc4
+---
+ .../internal/notification/SystemNotificationChannels.java       | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/java/com/android/internal/notification/SystemNotificationChannels.java b/core/java/com/android/internal/notification/SystemNotificationChannels.java
+index 901ecd202d6f..5ecbae9d4e53 100644
+--- a/core/java/com/android/internal/notification/SystemNotificationChannels.java
++++ b/core/java/com/android/internal/notification/SystemNotificationChannels.java
+@@ -106,7 +106,7 @@ public class SystemNotificationChannels {
+                 DEVELOPER_IMPORTANT,
+                 context.getString(R.string.notification_channel_developer_important),
+                 NotificationManager.IMPORTANCE_MIN);
+-        developer.setBlockable(true);
++        developerImportant.setBlockable(true);
+         channelsList.add(developerImportant);
+ 
+         final NotificationChannel updates = new NotificationChannel(
+-- 
+2.34.1
+

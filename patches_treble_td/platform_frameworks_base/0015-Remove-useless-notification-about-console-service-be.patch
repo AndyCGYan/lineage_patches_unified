@@ -1,7 +1,7 @@
-From bc7ba9db9a4cb0f11a715f113b88897f4031890a Mon Sep 17 00:00:00 2001
+From 8a3c8ab4faae72cd05d0ee8eefac99d7179d41d6 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 11 Dec 2020 14:41:09 +0100
-Subject: [PATCH 15/50] Remove useless notification about "console" service
+Subject: [PATCH 15/55] Remove useless notification about "console" service
  being running
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH 15/50] Remove useless notification about "console" service
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/services/core/java/com/android/server/am/ActivityManagerService.java b/services/core/java/com/android/server/am/ActivityManagerService.java
-index 4dad2d560526..5d1f27ac923d 100644
+index cf67fe124044..291a8be316cf 100644
 --- a/services/core/java/com/android/server/am/ActivityManagerService.java
 +++ b/services/core/java/com/android/server/am/ActivityManagerService.java
 @@ -5156,7 +5156,7 @@ public class ActivityManagerService extends IActivityManager.Stub

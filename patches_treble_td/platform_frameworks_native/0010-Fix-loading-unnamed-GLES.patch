@@ -1,7 +1,7 @@
-From 87403b97ae1816f244ff840e2188a3895549d79d Mon Sep 17 00:00:00 2001
+From b094784a118fac8b08b5059958f3be858da72d81 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 20 Dec 2023 09:48:04 -0500
-Subject: [PATCH 10/11] Fix loading unnamed GLES
+Subject: [PATCH 10/14] Fix loading unnamed GLES
 
 Normally Android loads libGLES_${ro.hardware.egl}.so
 But up to Android 14, it was allowed not to set ro.hardware.egl

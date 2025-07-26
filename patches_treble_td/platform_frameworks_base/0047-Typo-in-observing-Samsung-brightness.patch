@@ -1,7 +1,7 @@
-From 1c4acee244781abae9e9655deff9c3c3e8010c46 Mon Sep 17 00:00:00 2001
+From b72aed0bb11908f72cdf185368e7da7128f63f7d Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 29 Jan 2024 17:06:45 -0500
-Subject: [PATCH 47/50] Typo in observing Samsung brightness
+Subject: [PATCH 47/55] Typo in observing Samsung brightness
 
 ---
  .../SystemUI/src/com/android/systemui/biometrics/UdfpsView.kt   | 2 +-

@@ -1,7 +1,7 @@
-From 6fcb492949bbf602572524213fb7eebd54b1be99 Mon Sep 17 00:00:00 2001
+From 7d21d6cdc0ed2bc40d47d79233a2bf8b0a39c92e Mon Sep 17 00:00:00 2001
 From: ChonDoit <thphantomblog@gmail.com>
 Date: Thu, 24 Aug 2023 15:58:15 -0300
-Subject: [PATCH 37/50] Fix brightness slider curve for some devices
+Subject: [PATCH 37/55] Fix brightness slider curve for some devices
 
 Some devices report max brightness as 2047 or 4095
 ---

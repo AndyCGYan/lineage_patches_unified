@@ -1,7 +1,7 @@
-From 4ee277ea428976a6b737a3846249902f8621388c Mon Sep 17 00:00:00 2001
+From 7de941e418e13b344b28dc13862e0f59c6ad5a08 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Mon, 27 Dec 2021 18:00:43 -0500
-Subject: [PATCH 07/11] powermanager: Add support Samsung miscpower HAL
+Subject: [PATCH 07/14] powermanager: Add support Samsung miscpower HAL
 
 Several various configurations need to be supported:
 - Android Pie vendors have a android.hardware.power HIDL default + "miscpower"

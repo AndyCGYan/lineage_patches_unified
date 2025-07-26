@@ -1,7 +1,7 @@
-From 08477babecfbec09c82923246636cf1a7dd72361 Mon Sep 17 00:00:00 2001
+From c005ccf4c323bb6b96ecce798bf406aa4e4cf114 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Wed, 31 Mar 2021 23:36:03 +0200
-Subject: [PATCH 04/11] Remove Samsung system permission on sensors
+Subject: [PATCH 04/14] Remove Samsung system permission on sensors
 
 ---
  libs/sensor/Sensor.cpp              | 1 +

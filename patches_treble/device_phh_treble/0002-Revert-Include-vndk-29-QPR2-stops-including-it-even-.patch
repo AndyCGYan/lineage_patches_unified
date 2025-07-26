@@ -1,0 +1,24 @@
+From 17c43ba8cf0ba3f007c8e4514255e4d76f184f3a Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sat, 26 Jul 2025 22:54:05 +0800
+Subject: [PATCH 02/11] Revert "Include vndk 29 -- QPR2 stops including it even
+ though its still there"
+
+This reverts commit 3996bb1d0efbcd324516ad7d0cfcf2df869edda6.
+---
+ base.mk | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/base.mk b/base.mk
+index 43e261b..7644eaa 100644
+--- a/base.mk
++++ b/base.mk
+@@ -266,4 +266,4 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/window_extensions.mk)
+ PRODUCT_PRODUCT_PROPERTIES += \
+     persist.settings.large_screen_opt.enabled=true
+ 
+-PRODUCT_EXTRA_VNDK_VERSIONS += 28 29
++PRODUCT_EXTRA_VNDK_VERSIONS += 28
+-- 
+2.34.1
+

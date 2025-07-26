@@ -1,0 +1,26 @@
+From df0014a8293712adce4d8dd4b78c6a41b05cd445 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Wed, 21 Feb 2024 12:41:46 -0500
+Subject: [PATCH 51/55] Include vendor.samsung.hardware.radio.network-V1-java
+ in base libs, will be used by f/o/telephony
+
+Change-Id: Iefab786852d281ecada49766286fa13322e127b5
+---
+ Android.bp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Android.bp b/Android.bp
+index 4cc50f2e06b6..266a4f425578 100644
+--- a/Android.bp
++++ b/Android.bp
+@@ -248,6 +248,7 @@ java_library {
+         "android.se.omapi-V1-java",
+         "android.system.suspend.control.internal-java",
+         "devicepolicyprotosnano",
++        "vendor.samsung.hardware.radio.network-V1-java",
+ 
+         "com.android.sysprop.apex",
+         "com.android.sysprop.init",
+-- 
+2.34.1
+

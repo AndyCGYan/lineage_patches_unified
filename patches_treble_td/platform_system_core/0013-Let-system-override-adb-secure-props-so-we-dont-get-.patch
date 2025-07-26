@@ -1,7 +1,7 @@
-From d19399bcbab5046bac28113b49c63542eece92ea Mon Sep 17 00:00:00 2001
+From 59ab870a6047874b8e2b36a7746b1cc5ed65f396 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 9 Dec 2022 13:57:10 -0500
-Subject: [PATCH 13/26] Let system override adb/secure props, so we dont get
+Subject: [PATCH 13/27] Let system override adb/secure props, so we dont get
  stuck in ro.adb.secure=1 vendors
 
 ---

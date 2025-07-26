@@ -1,7 +1,7 @@
-From 66fd4ce2bfcf9baeda64836d58c48cc43623a49a Mon Sep 17 00:00:00 2001
+From 8ac35ee4ff0282c7d077dc6c4590ffb70b72e7d0 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Tue, 11 Jul 2023 14:52:40 -0400
-Subject: [PATCH 18/26] Add /vendor/firmware_mnt. Moto Razr 2019 look for
+Subject: [PATCH 18/27] Add /vendor/firmware_mnt. Moto Razr 2019 look for
  firmwares (modem, sensors, ...) there
 
 ---
