@@ -1,7 +1,7 @@
-From 9ff49cb42bff6cbccf2ca762c710e31bb5f0026a Mon Sep 17 00:00:00 2001
+From 8c802e0a41a2a54d6ed53f3b7e60de307469f628 Mon Sep 17 00:00:00 2001
 From: Adithya R <gh0strider.2k18.reborn@gmail.com>
 Date: Thu, 18 Aug 2022 21:29:34 +0530
-Subject: [PATCH 2/2] core: sysprop: Write build display id to product prop
+Subject: [PATCH 4/4] core: sysprop: Write build display id to product prop
 
 Some vendors override build id in odm or vendor, such as oplus.
 

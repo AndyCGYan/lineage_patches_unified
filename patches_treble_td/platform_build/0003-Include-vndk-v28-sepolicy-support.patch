@@ -1,7 +1,7 @@
-From 9c9e76cacb754f41f36ea0badfc16a1eeed857aa Mon Sep 17 00:00:00 2001
+From 7a3067d35183c2b6ceac06dcaecd81c55bd58494 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Fri, 6 Oct 2023 19:11:22 -0400
-Subject: [PATCH 1/2] Include vndk v28 sepolicy support
+Subject: [PATCH 3/4] Include vndk v28 sepolicy support
 
 ---
  core/config.mk | 1 +
