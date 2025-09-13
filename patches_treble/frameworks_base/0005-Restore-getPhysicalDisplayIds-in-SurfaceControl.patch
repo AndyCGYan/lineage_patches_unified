@@ -1,7 +1,7 @@
-From dd677871182755bff4fac750a804616c09db48a2 Mon Sep 17 00:00:00 2001
+From 7f1f7883380321198b5f4e29e5194dece6d037b3 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 19 Nov 2023 23:07:03 +0800
-Subject: [PATCH 5/7] Restore getPhysicalDisplayIds in SurfaceControl
+Subject: [PATCH 5/8] Restore getPhysicalDisplayIds in SurfaceControl
 
 For convenience of accessing DynamicDisplayInfo from Settings
 Copy over the updated implementation from DisplayControl while we're at it

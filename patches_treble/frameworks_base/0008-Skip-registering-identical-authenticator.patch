@@ -1,0 +1,31 @@
+From 6978f3ccf027fceec696a1f77a08bdd392e4f81f Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Fri, 12 Sep 2025 00:24:31 +0800
+Subject: [PATCH 8/8] Skip registering identical authenticator
+
+Change-Id: I1dc49d84ea471689d542b640b8e195c9f7032bdb
+---
+ .../com/android/server/biometrics/BiometricService.java    | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/services/core/java/com/android/server/biometrics/BiometricService.java b/services/core/java/com/android/server/biometrics/BiometricService.java
+index 1898b8015462..3845ff85440e 100644
+--- a/services/core/java/com/android/server/biometrics/BiometricService.java
++++ b/services/core/java/com/android/server/biometrics/BiometricService.java
+@@ -664,7 +664,12 @@ public class BiometricService extends SystemService {
+ 
+             for (BiometricSensor sensor : mSensors) {
+                 if (sensor.id == id) {
+-                    throw new IllegalStateException("Cannot register duplicate authenticator");
++                    if (sensor.modality == modality && sensor.oemStrength == strength) {
++                        Slog.w(TAG, "Skipped registering identical authenticator");
++                        return;
++                    } else {
++                        throw new IllegalStateException("Cannot register duplicate authenticator");
++                    }
+                 }
+             }
+ 
+-- 
+2.34.1
+

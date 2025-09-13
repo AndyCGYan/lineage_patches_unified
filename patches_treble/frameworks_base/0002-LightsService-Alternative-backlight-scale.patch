@@ -1,7 +1,7 @@
-From f3d458c428fb77ab0e20251cc754e82032b8a908 Mon Sep 17 00:00:00 2001
+From 0cbd7726d5c525dc832d22bfacdd35e2679d3610 Mon Sep 17 00:00:00 2001
 From: Pierre-Hugues Husson <phh@phh.me>
 Date: Sat, 24 Mar 2018 08:01:48 +0100
-Subject: [PATCH 2/7] LightsService: Alternative backlight scale
+Subject: [PATCH 2/8] LightsService: Alternative backlight scale
 
 Reserved a manual override just in case
 
