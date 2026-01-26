@@ -1,0 +1,189 @@
+From a52998c151e490986dd12bfeabf2a518cbbbd96b Mon Sep 17 00:00:00 2001
+From: jhonboy121 <alfredmathew05@gmail.com>
+Date: Tue, 15 Mar 2022 18:55:35 +0530
+Subject: [PATCH] Launcher3: Show clear all button in recents overview
+
+Signed-off-by: jhonboy121 <alfredmathew05@gmail.com>
+Signed-off-by: Pranav Vashi <neobuddy89@gmail.com>
+Change-Id: I0ca84035a1ddbecee70f2b4c788cbf3c2d25badd
+---
+ quickstep/res/drawable/ic_clear_all.xml       | 24 +++++++++++++++++++
+ .../res/layout/overview_actions_container.xml | 14 +++++++++++
+ .../states/OverviewModalTaskState.java        |  2 +-
+ .../uioverrides/states/OverviewState.java     |  2 +-
+ .../android/quickstep/TaskOverlayFactory.java | 12 ++++++++++
+ .../quickstep/fallback/RecentsState.java      |  2 +-
+ .../quickstep/views/OverviewActionsView.java  |  3 +++
+ .../android/quickstep/views/RecentsView.java  |  4 ++++
+ 8 files changed, 60 insertions(+), 3 deletions(-)
+ create mode 100644 quickstep/res/drawable/ic_clear_all.xml
+
+diff --git a/quickstep/res/drawable/ic_clear_all.xml b/quickstep/res/drawable/ic_clear_all.xml
+new file mode 100644
+index 0000000000..cbb120cad0
+--- /dev/null
++++ b/quickstep/res/drawable/ic_clear_all.xml
+@@ -0,0 +1,24 @@
++<?xml version="1.0" encoding="utf-8"?>
++<!-- Copyright (C) 2020 The Android Open Source Project
++
++     Licensed under the Apache License, Version 2.0 (the "License");
++     you may not use this file except in compliance with the License.
++     You may obtain a copy of the License at
++
++          http://www.apache.org/licenses/LICENSE-2.0
++
++     Unless required by applicable law or agreed to in writing, software
++     distributed under the License is distributed on an "AS IS" BASIS,
++     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
++     See the License for the specific language governing permissions and
++     limitations under the License.
++-->
++<vector xmlns:android="http://schemas.android.com/apk/res/android"
++    android:width="24dp"
++    android:height="24dp"
++    android:viewportWidth="24"
++    android:viewportHeight="24">
++    <path
++        android:fillColor="#FF000000"
++        android:pathData="M5,13H19V11H5M3,17H17V15H3M7,7V9H21V7" />
++</vector>
+diff --git a/quickstep/res/layout/overview_actions_container.xml b/quickstep/res/layout/overview_actions_container.xml
+index 0fda0bf8d4..fa50f0644d 100644
+--- a/quickstep/res/layout/overview_actions_container.xml
++++ b/quickstep/res/layout/overview_actions_container.xml
+@@ -60,6 +60,20 @@
+             android:layout_height="1dp"
+             android:layout_weight="1" />
+ 
++        <Button
++            android:id="@+id/action_clear_all"
++            style="@style/OverviewActionButton"
++            android:layout_width="wrap_content"
++            android:layout_height="wrap_content"
++            android:drawableStart="@drawable/ic_clear_all"
++            android:text="@string/recents_clear_all"
++            android:theme="@style/ThemeControlHighlightWorkspaceColor" />
++
++        <Space
++            android:layout_width="0dp"
++            android:layout_height="1dp"
++            android:layout_weight="1" />
++
+         <Space
+             android:id="@+id/oav_three_button_space"
+             android:layout_width="0dp"
+diff --git a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
+index b9221eef9d..92a26d8685 100644
+--- a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
++++ b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewModalTaskState.java
+@@ -46,7 +46,7 @@ public class OverviewModalTaskState extends OverviewState {
+ 
+     @Override
+     public int getVisibleElements(Launcher launcher) {
+-        return OVERVIEW_ACTIONS | CLEAR_ALL_BUTTON;
++        return OVERVIEW_ACTIONS;
+     }
+ 
+     @Override
+diff --git a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
+index 396d0abeb0..c79e075d77 100644
+--- a/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
++++ b/quickstep/src/com/android/launcher3/uioverrides/states/OverviewState.java
+@@ -107,7 +107,7 @@ public class OverviewState extends LauncherState {
+ 
+     @Override
+     public int getVisibleElements(Launcher launcher) {
+-        int elements = CLEAR_ALL_BUTTON | OVERVIEW_ACTIONS;
++        int elements = OVERVIEW_ACTIONS;
+         DeviceProfile dp = launcher.getDeviceProfile();
+         boolean showFloatingSearch;
+         if (dp.isPhone) {
+diff --git a/quickstep/src/com/android/quickstep/TaskOverlayFactory.java b/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
+index 076f4b1f01..b541d3ef52 100644
+--- a/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
++++ b/quickstep/src/com/android/quickstep/TaskOverlayFactory.java
+@@ -213,6 +213,11 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+             overviewPanel.initiateSplitSelect(mThumbnailView.getTaskView());
+         }
+ 
++        private void clearAllTasks() {
++            final RecentsView recentsView = mThumbnailView.getTaskView().getRecentsView();
++            recentsView.dismissAllTasks();
++        }
++
+         /**
+          * Called when the overlay is no longer used.
+          */
+@@ -325,6 +330,11 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+             public void onSplit() {
+                 endLiveTileMode(TaskOverlay.this::enterSplitSelect);
+             }
++
++            @Override
++            public void onClearAllTasksRequested() {
++                endLiveTileMode(TaskOverlay.this::clearAllTasks);
++            }
+         }
+     }
+ 
+@@ -338,5 +348,7 @@ public class TaskOverlayFactory implements ResourceBasedOverride {
+ 
+         /** User wants to start split screen with current app. */
+         void onSplit();
++
++        void onClearAllTasksRequested();
+     }
+ }
+diff --git a/quickstep/src/com/android/quickstep/fallback/RecentsState.java b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
+index 8b5f091e11..601021b5bf 100644
+--- a/quickstep/src/com/android/quickstep/fallback/RecentsState.java
++++ b/quickstep/src/com/android/quickstep/fallback/RecentsState.java
+@@ -106,7 +106,7 @@ public class RecentsState implements BaseState<RecentsState> {
+      * For this state, whether clear all button should be shown.
+      */
+     public boolean hasClearAllButton() {
+-        return hasFlag(FLAG_CLEAR_ALL_BUTTON);
++        return false;
+     }
+ 
+     /**
+diff --git a/quickstep/src/com/android/quickstep/views/OverviewActionsView.java b/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
+index b31791a9a0..a7978f083e 100644
+--- a/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
++++ b/quickstep/src/com/android/quickstep/views/OverviewActionsView.java
+@@ -136,6 +136,7 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
+         mMultiValueAlpha.setUpdateVisibility(true);
+ 
+         findViewById(R.id.action_screenshot).setOnClickListener(this);
++        findViewById(R.id.action_clear_all).setOnClickListener(this);
+         mSplitButton = findViewById(R.id.action_split);
+         mSplitButton.setOnClickListener(this);
+     }
+@@ -159,6 +160,8 @@ public class OverviewActionsView<T extends OverlayUICallbacks> extends FrameLayo
+             mCallbacks.onScreenshot();
+         } else if (id == R.id.action_split) {
+             mCallbacks.onSplit();
++        } else if (id == R.id.action_clear_all) {
++            mCallbacks.onClearAllTasksRequested();
+         }
+     }
+ 
+diff --git a/quickstep/src/com/android/quickstep/views/RecentsView.java b/quickstep/src/com/android/quickstep/views/RecentsView.java
+index 87e8804c04..23fcbea42f 100644
+--- a/quickstep/src/com/android/quickstep/views/RecentsView.java
++++ b/quickstep/src/com/android/quickstep/views/RecentsView.java
+@@ -4124,6 +4124,10 @@ public abstract class RecentsView<ACTIVITY_TYPE extends StatefulActivity<STATE_T
+         mActivity.getStatsLogManager().logger().log(LAUNCHER_TASK_CLEAR_ALL);
+     }
+ 
++    public void dismissAllTasks() {
++        dismissAllTasks(null);
++    }
++
+     private void dismissCurrentTask() {
+         TaskView taskView = getNextPageTaskView();
+         if (taskView != null) {
+-- 
+2.34.1
+
