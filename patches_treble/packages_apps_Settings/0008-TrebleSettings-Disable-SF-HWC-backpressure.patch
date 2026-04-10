@@ -1,4 +1,4 @@
-From eb142cb60715791de70e8303a1224a937d317044 Mon Sep 17 00:00:00 2001
+From 760885f5ba8e47bed0294bd9b6453f6a216aa2a3 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 26 May 2024 21:32:44 +0800
 Subject: [PATCH 08/11] TrebleSettings: Disable SF HWC backpressure
@@ -13,10 +13,10 @@ Change-Id: I4d6a1d43222a8e4dec202056a14b1b1ce41e33d3
  create mode 100644 src/com/android/settings/treble/DisableSfHwcBackpressurePreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index f0da82bc690..fab5143950b 100644
+index e9351431e3d..5c0b8f35b86 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6967,6 +6967,10 @@
+@@ -6973,6 +6973,10 @@
      <string name="use_alternative_backlight_scale_title">Use alternative backlight scale</string>
      <!-- Treble settings screen, override minimum brightness title -->
      <string name="override_minimum_brightness_title">Override minimum brightness</string>
@@ -115,5 +115,5 @@ index 634b7ce3ce1..f72a3cb9ed7 100644
          controllers.add(new OverrideVolteAvailabilityPreferenceController(context));
          controllers.add(new OverrideNavbarAvailabilityPreferenceController(context));
 -- 
-2.34.1
+2.43.0
 

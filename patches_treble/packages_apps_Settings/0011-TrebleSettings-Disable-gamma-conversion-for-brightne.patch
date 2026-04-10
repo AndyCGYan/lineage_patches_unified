@@ -1,4 +1,4 @@
-From 5a74be1127742cc10c873d8d2564041818bb56a0 Mon Sep 17 00:00:00 2001
+From 12545270de900566b2ed992f68f67f67017eef17 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sun, 13 Jul 2025 12:06:17 +0800
 Subject: [PATCH 11/11] TrebleSettings: Disable gamma conversion for brightness
@@ -18,10 +18,10 @@ Change-Id: Iffe314909db067b256aa034100f67a832599431e
  create mode 100644 src/com/android/settings/treble/DisableBrightnessGammaConversionPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 2b9b33a5963..bd21977e41f 100644
+index 393a530135c..47b3010fe0f 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6969,6 +6969,10 @@
+@@ -6975,6 +6975,10 @@
      <string name="disable_voice_call_in_summary">Reboot required</string>
      <!-- Treble settings screen, screen resolution and refresh rate settings title -->
      <string name="screen_resolution_refresh_rate_title">Screen resolution &amp; refresh rate</string>
@@ -120,5 +120,5 @@ index b4c170773df..100dc7f8286 100644
          controllers.add(new OverrideMinimumBrightnessPreferenceController(context));
          controllers.add(new DisableSfHwcBackpressurePreferenceController(context));
 -- 
-2.34.1
+2.43.0
 

@@ -1,4 +1,4 @@
-From dfeca32e23c98fb08b180c37ac153eb2e3da122f Mon Sep 17 00:00:00 2001
+From 1c7b383c3ef5136694744a031bfc43b9f7880592 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Wed, 17 Jul 2024 22:35:50 +0800
 Subject: [PATCH 09/11] TrebleSettings: Securize placeholder
@@ -12,10 +12,10 @@ Change-Id: Ic30a78f5417925e1c8899ce91c37fa41b2ff15c2
  2 files changed, 16 insertions(+)
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index fab5143950b..1128ca27994 100644
+index 5c0b8f35b86..3fb934e0a22 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6950,6 +6950,8 @@
+@@ -6956,6 +6956,8 @@
      <string name="treble_settings_category_name_display">Display</string>
      <!-- IMS category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ims">IMS</string>
@@ -24,7 +24,7 @@ index fab5143950b..1128ca27994 100644
      <!-- UI category name [CHAR LIMIT=none] -->
      <string name="treble_settings_category_name_ui">UI</string>
  
-@@ -6978,6 +6980,10 @@
+@@ -6984,6 +6986,10 @@
      <string name="install_ims_apk_toast_completed">IMS APK installed. Reboot required.</string>
      <!-- Treble settings screen, override VoLTE availability title -->
      <string name="override_volte_availability_title">Override VoLTE availability</string>
@@ -57,5 +57,5 @@ index 4e3bef9b644..13e74ee4f6c 100644
          android:title="@string/treble_settings_category_name_ui">
  
 -- 
-2.34.1
+2.43.0
 

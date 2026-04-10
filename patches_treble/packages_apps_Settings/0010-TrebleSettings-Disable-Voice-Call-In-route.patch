@@ -1,4 +1,4 @@
-From 4a8df658d2c31837b20055879af07c2dc804a27a Mon Sep 17 00:00:00 2001
+From ed4fcb996e17be7c38f24289f3f9faea9288a9f0 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 24 Aug 2024 23:07:53 +0800
 Subject: [PATCH 10/11] TrebleSettings: Disable "Voice Call In" route
@@ -13,10 +13,10 @@ Change-Id: I51ff783fa1bd93e6d2bce24eac8eeb792274e37b
  create mode 100644 src/com/android/settings/treble/DisableVoiceCallInPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index 1128ca27994..2b9b33a5963 100644
+index 3fb934e0a22..393a530135c 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6963,6 +6963,10 @@
+@@ -6969,6 +6969,10 @@
      <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
      <!-- Treble settings screen, use alternative audio jack detection title -->
      <string name="use_alternative_audio_jack_detection_title">Use alternative audio jack detection</string>
@@ -115,5 +115,5 @@ index f72a3cb9ed7..b4c170773df 100644
          controllers.add(new UseAlternativeBacklightScalePreferenceController(context));
          controllers.add(new OverrideMinimumBrightnessPreferenceController(context));
 -- 
-2.34.1
+2.43.0
 

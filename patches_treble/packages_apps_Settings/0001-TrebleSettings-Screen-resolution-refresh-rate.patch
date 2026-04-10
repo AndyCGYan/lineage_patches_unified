@@ -1,4 +1,4 @@
-From 58953340c881a200ebe5f93af6ca67791f30ca78 Mon Sep 17 00:00:00 2001
+From 6d85f50b8441c4a05468f54bd74e4459f019b698 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Thu, 22 Sep 2022 12:37:50 +0000
 Subject: [PATCH 01/11] TrebleSettings: Screen resolution & refresh rate
@@ -20,7 +20,7 @@ Change-Id: I4a4679cdb6d4ede55479e9ab2f014342025b0fec
  create mode 100644 src/com/android/settings/treble/TrebleSettings.java
 
 diff --git a/AndroidManifest.xml b/AndroidManifest.xml
-index b756b534912..6248f88736b 100644
+index d1b0b0115ae..5254b2491cb 100644
 --- a/AndroidManifest.xml
 +++ b/AndroidManifest.xml
 @@ -242,6 +242,14 @@
@@ -67,10 +67,10 @@ index 27e9639122a..ef25f9971c4 100755
      <string name="menu_key_communal" translatable="false">top_level_communal</string>
      <string name="menu_key_connected_devices" translatable="false">top_level_connected_devices</string>
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index d44721cf4f2..9a9a7bc52a1 100644
+index a4b71c3054c..f7a2784b4d5 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6940,6 +6940,16 @@
+@@ -6946,6 +6946,16 @@
      <!-- Text to describe the dashboard fragment title [CHAR LIMIT=16] -->
      <string name="dashboard_title">Settings</string>
  
@@ -359,5 +359,5 @@ index 00000000000..e581539229b
 +
 +}
 -- 
-2.34.1
+2.43.0
 

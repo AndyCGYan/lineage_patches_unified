@@ -1,4 +1,4 @@
-From 3b0e609f117c3db56dce0d7ab7e2655208000f57 Mon Sep 17 00:00:00 2001
+From edc95edbace80646458e70ff75bec04b3b3ee431 Mon Sep 17 00:00:00 2001
 From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
 Date: Sat, 10 Dec 2022 14:16:50 +0000
 Subject: [PATCH 05/11] TrebleSettings: Alternative audio jack detection
@@ -13,10 +13,10 @@ Change-Id: I5d6d48f26a4a2134fd6edf996eca89a1fc42e6de
  create mode 100644 src/com/android/settings/treble/UseAlternativeAudioJackDetectionPreferenceController.java
 
 diff --git a/res/values/strings.xml b/res/values/strings.xml
-index c8879ed720f..99494990907 100644
+index eaebbde14dd..cd7a9cdba74 100644
 --- a/res/values/strings.xml
 +++ b/res/values/strings.xml
-@@ -6957,6 +6957,8 @@
+@@ -6963,6 +6963,8 @@
      <string name="disable_soundvolume_effect_title">Disable soundvolume effect</string>
      <!-- Treble settings screen, disable A2DP offload title -->
      <string name="disable_a2dp_offload_title">Disable A2DP offload</string>
@@ -112,5 +112,5 @@ index 00000000000..0d60b72db1b
 +
 +}
 -- 
-2.34.1
+2.43.0
 
